@@ -28,16 +28,16 @@ Kategori Listele
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>İşlemler</th>
                                     <th>Kategori</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($category->sortByDesc('id') as $category2)
-                                    <tr>
-                                        <td><a href="{{ route('category.edit', ['id' => $category2->id]) }}"><i class="fa fa-edit"></i></a> {{$category2->id }}</td>
-                                        <td>{{ $category2->name }}</td>
-                                    </tr>
+                                @foreach($category->sortByDesc('id') as $categories)
+                                    @if($categories->status==true) <tr>
+                                        <td><a href="{{ route('category.edit', ['id' => $categories->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
+                                        <td>{{ $categories->name }}</td>
+                                    </tr>@endif
                                 @endforeach
                                 </tbody>
                             </table>

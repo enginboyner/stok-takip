@@ -41,7 +41,8 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:25|unique:categories,name',
-        ], [], ["name" => "İsim"]);
+            'status' => 'required|bool',
+        ], [], ["name" => "İsim","status"=>"Durum"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

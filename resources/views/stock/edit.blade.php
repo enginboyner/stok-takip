@@ -25,10 +25,7 @@ Stok Düzenle
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="card-body">
-                <div class="form-group">
-                    <label for="id">ID:</label>
-                    <input type="text" class="form-control" id="id" name="id" value="{{$stockEdit->id}}" readonly style="background-color: #e9e9e9;">
-                </div>
+
                 <div class="form-group">
                     <label for="product">Ürün:</label>
                     <select class="form-control" id="product_id" name="product_id">

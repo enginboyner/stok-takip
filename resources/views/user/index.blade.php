@@ -28,7 +28,7 @@ Kullanıcı Listele
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>İşlemler</th>
                                     <th>İsim</th>
                                     <th>Rol</th>
                                     <th>Mail</th>
@@ -38,7 +38,7 @@ Kullanıcı Listele
                                 <tbody>
                                 @foreach($users->sortByDesc('id') as $user)
                                     <tr>
-                                        <td><a href="{{ route('user.edit', ['id' => $user->id]) }}"><i class="fa fa-edit"></i></a> {{ $user->id }}</td>
+                                        <td><a href="{{ route('user.edit', ['id' => $user->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $role[$user->role_id] }}</td>
                                         <td>{{ $user->mail}}</td>

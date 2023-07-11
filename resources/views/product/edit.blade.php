@@ -14,10 +14,7 @@
                 @csrf
                 @method('PUT')
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="id">ID:</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{$productEdit->id}}" readonly style="background-color: #e9e9e9;">
-                    </div>
+
                     <div class="form-group">
                         <label for="name">İsim:</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{$productEdit->name}}">
@@ -53,6 +50,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div class="col-5 text-center mx-auto">
+                                <img src="{{url('storage/'.$productEdit->image)}}" alt="" title="" width="250" />
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>

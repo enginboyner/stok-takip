@@ -57,7 +57,8 @@ class SalesController extends Controller
             'customer_id' => 'required|gt:0|int',
             'date' => 'required|date',
             'price' => 'required|gt:0|numeric|gt:0',
-            'quantity' => 'required|int|gt:0'
+            'quantity' => 'required|int|gt:0',
+            'status' => 'required|bool',
         ], [
         ], ["product_id" => "Ürün", "user_id" => "Satıcı", "customer_id" => "Müşteri", "date" => "Tarih", "quantity" => "Miktar","price"=>"Fiyat"]);
 

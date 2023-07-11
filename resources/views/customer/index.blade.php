@@ -28,7 +28,7 @@ Müşteri Listele
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>İşlemler</th>
                                     <th>İsim</th>
                                     <th>Telefon</th>
                                     <th>Adres</th>
@@ -38,8 +38,8 @@ Müşteri Listele
                                 </thead>
                                 <tbody>
                                 @foreach($customers->sortByDesc('id') as $customer)
-                                    <tr>
-                                        <td><a href="{{ route('customer.edit', ['id' => $customer->id]) }}"><i class="fa fa-edit"></i></a> {{ $customer->id }}</td>
+                                    @if($customer->status==true) <tr>
+                                        <td><a href="{{ route('customer.edit', ['id' => $customer->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>{{ $customer->address }}</td>
@@ -50,7 +50,7 @@ Müşteri Listele
                                                 Aktif
                                             @endif
                                         </td>
-                                    </tr>
+                                    </tr>@endif
                                 @endforeach
                                 </tbody>
                             </table>

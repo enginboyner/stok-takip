@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield("pageName")</title>
@@ -14,6 +15,7 @@
     <!-- Theme style -->
     <link rel="stylesheet"
           href="{{ asset('assets/css/adminlte.min.css') }}">
+
 
     @yield('extraCss')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -272,6 +274,7 @@
         }
     });
 </script>
+<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
     $('#form').on('submit', function (e) {
         e.preventDefault();
@@ -289,7 +292,7 @@
                 $("#response").html(data.message);
                 setTimeout(function () {
                     window.location.replace(data.redirect);
-                }, 100);
+                }, 150);
             },
             error: function (data) {
                 console.log(data);

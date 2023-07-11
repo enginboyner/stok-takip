@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->date('date');
             $table->decimal('price');
             $table->integer('quantity');
+            $table->boolean('status');
+
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');

@@ -39,10 +39,11 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->name = $request->input('name');
         $product->save();
-        return redirect()->route('product.index')->with('success', 'Ürün güncellendi');
     }
-
-
+    public function delete($id)
+    {
+        Product::find($id)->delete();
+    }
 
 
 
@@ -54,6 +55,7 @@ class ProductController extends Controller
             'description' => 'required|max:255|string',
             'status' => 'required|bool',
             'image' => 'required|image|max:10000|mimes:jpg,png,jpeg',
+
         ], [
         ], ["name" => "İsim", "category_id" => "Kategori", "description" => "Açıklama", "status" => "Durum", "image" => "Görsel"]);
 
@@ -72,11 +74,11 @@ class ProductController extends Controller
         $product->fill($data)->save();
 
 
-        return $this->responseMessage("Başarılı.", "success", 200);
+        return $this->responseMessage("Başarılı.", "success", 200, route('product.add'));
+
 
 
     }
-
 }
 
 

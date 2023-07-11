@@ -15,10 +15,7 @@ Müşteri Düzenle
             <form id="form" action="{{ url('customers/add') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">ID:</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{$customerEdit->id}}" readonly style="background-color: #e9e9e9;">
-                    </div>
+
                     <div class="form-group">
                         <label for="urunAdi">İsim:</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{$customerEdit->name}}">

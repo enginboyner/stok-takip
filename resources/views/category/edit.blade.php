@@ -12,10 +12,6 @@ Kategori Düzenle
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">ID:</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{$categoryEdit->id}}" readonly style="background-color: #e9e9e9;">
-                    </div>
-                    <div class="form-group">
                         <label for="name">İsim:</label>
                         <input type="text" class="form-control" id="name" name="name"value="{{$categoryEdit->name}}">
                     </div>

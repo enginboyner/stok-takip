@@ -28,7 +28,7 @@ Stok Listele
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>İşlemler</th>
                                     <th>Ürün</th>
                                     <th>Miktar</th>
                                     <th>Fiyat</th>
@@ -36,12 +36,12 @@ Stok Listele
                                 </thead>
                                 <tbody>
                                 @foreach($stocks->sortByDesc('id') as $stock)
+                                    
                                     <tr>
-                                        <td><a href="{{ route('stock.edit', ['id' => $stock->id]) }}"><i class="fa fa-edit"></i></a> {{ $stock->id }}</td>
+                                        <td><a href="{{ route('stock.edit', ['id' => $stock->id]) }}"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
                                         <td>{{ $product[$stock->product_id] }}</td>
                                         <td>{{ $stock->quantity }}</td>
                                         <td>{{ $stock->price }} ₺</td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>

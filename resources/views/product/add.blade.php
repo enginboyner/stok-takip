@@ -12,6 +12,7 @@
             </div>
             <form id="form" action="{{ url('product/add') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">İsim:</label>

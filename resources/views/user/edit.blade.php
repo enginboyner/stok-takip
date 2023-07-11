@@ -17,10 +17,6 @@ Kullanıcı Düzenle
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="id">ID:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{$userEdit->id}}">
-                    </div>
-                    <div class="form-group">
                         <label for="kullaniciAdi">İsim:</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{$userEdit->name}}">
                     </div>

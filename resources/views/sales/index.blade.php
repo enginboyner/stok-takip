@@ -28,7 +28,7 @@ Satış Listele
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>İşlemler</th>
                                     <th>Ürün</th>
                                     <th>Satıcı</th>
                                     <th>Müşteri</th>
@@ -39,15 +39,16 @@ Satış Listele
                                 </thead>
                                 <tbody>
                                 @foreach($sales->sortByDesc('id') as $sale)
+                                    @if($product->status==true)
                                     <tr>
-                                        <td><a href="{{ route('sales.edit', ['id' => $sale->id]) }}"><i class="fa fa-edit"></i></a> {{ $sale->id }}</td>
+                                        <td><a href="{{ route('sales.edit', ['id' => $sale->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
                                         <td>{{ $product[$sale->product_id] }}</td>
                                         <td>{{ $userID[$sale->user_id] }}</td>
                                         <td>{{ $customer[$sale->customer_id] }}</td>
                                         <td>{{ $sale->quantity }}</td>
                                         <td>{{ $sale->price }} ₺</td>
                                         <td>{{ $sale->date }}</td>
-                                    </tr>
+                                    </tr>@endif
                                 @endforeach
                                 </tbody>
                             </table>

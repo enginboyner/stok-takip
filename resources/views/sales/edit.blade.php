@@ -15,10 +15,7 @@ Satış Düzenle
             <form id="form" action="{{ url('sales/add') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="id">ID:</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{$salesEdit->id}}" readonly style="background-color: #e9e9e9;">
-                    </div>
+
                     <div class="form-group">
                         <label for="product">Ürün:</label>
                         <select class="form-control" id="product_id" name="product_id">
