@@ -60,10 +60,9 @@ class CustomerController extends Controller
 
     }
 
-    public function show($customer)
+    public function show($CustomerID)
     {
-        $customer=Customer::find($customer);
-
+        $customer=Customer::with("sales.items.product")->find($CustomerID);
         return view('customer.show', ["customer" => $customer]);
     }
 

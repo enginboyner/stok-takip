@@ -58,8 +58,10 @@ class CategoryController extends Controller
     public function show($CategoryID)
     {
         $category=Category::find($CategoryID);
+        $product=Product::with("category")->where('category_id',$CategoryID)->get();
 
-        return view('category.show', ["category" => $category]);
+
+        return view('category.show', ["category" => $category,"product"=>$product]);
     }
 
     public function store(Request $request)
@@ -82,6 +84,7 @@ class CategoryController extends Controller
 
 
         return $this->responseMessage("Başarılı.", "success", 200, route('category.add'));
-;
+
     }
+
 }

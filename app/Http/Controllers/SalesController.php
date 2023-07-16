@@ -8,6 +8,7 @@ use App\Models\SaleItem;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\Sale;
+use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +19,9 @@ class SalesController extends Controller
     public function index()
     {
 
-        $sales = Sale::with("customer")
-            ->with(['items' => function ($query) {
-                $query->select("sale_id", DB::raw("sum(quantity*price) as total"))
-                    ->groupBy("sale_id");
-            }])
+        $sales = Sale::with("customer", "total")
             ->get();
+
 
         return view('sales.index', ["sales" => $sales]);
 
@@ -31,9 +29,11 @@ class SalesController extends Controller
 
     public function add()
     {
+
         $customers=Customer::all();
         $products = Product::all();
         return view("sales.add", ["products" => $products,"customers"=>$customers]);
+
 
     }
     public function edit($SalesID)
@@ -62,6 +62,7 @@ class SalesController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $validator = Validator::make($request->all(), [
             'product_id' => 'required|array',
             'price' => 'required|array',
@@ -81,6 +82,7 @@ class SalesController extends Controller
         $sale->product_id = $request->input('product_id');
         $sale->quantity = $request->input('quantity');
         $sale->price = $request->input('price');
+
         $sale->update();
 
         return $this->responseMessage("İşlem Başarılı","success",200,'/sales');
@@ -103,15 +105,47 @@ class SalesController extends Controller
 
 
         if ($validator->fails()) {
-            $errorMessages = [];
-            foreach ($validator->errors()->keys() as $key) {
-                $errorMessages[] = $validator->errors()->first($key);
-            }
-
-            return $this->responseMessage(implode(' ', $errorMessages[]), "error", 400);
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
         }
 
         $data = $request->all();
+
+        //her ürün için istenilen adet var mı diye kontrol et
+        foreach ($data["product_id"] as $key => $product){
+
+            /*
+        foreach ($data["product_id"] as $key => $product){
+        $stock=Stock::select(DB::raw("sum(quantity) as stock"))->where("product_id",$product)->first();
+        $sale=SaleItem::select(DB::raw("sum(quantity) as sale"))->where("product_id",$product)->first();
+        $productData=Product::find($product);
+
+        if(($stock->stock - $sale->sale - $data["quantity"][$key]) <=0)
+        {
+        return $this->responseMessage($productData->name ." yeterli sayıda bulunmuyor.","error",200);
+        }
+
+
+            */
+
+            $productWithTotalSalesCount=Product::withCount(["sales"=>function ($salesCount){
+                $salesCount->select( DB::raw('SUM(quantity)'))
+                ;
+            }])->find($product);
+            $productWithTotalStockCount=Product::withCount(["stock"=>function ($stockCount){
+                $stockCount->select( DB::raw('SUM(quantity)'))
+                ;
+            }])->find($product);
+
+//            $amountProductsStock = Product::withCount(["productStock", "productSale"])->find($product)->productStock;
+//            $amountProductsSale = Product::withCount(["productStock", "productSale"])->find($product)->productSale;
+
+            if (($productWithTotalStockCount->stock_count - $productWithTotalSalesCount->sales_count - $data["quantity"][$key]) <= 0) {
+                return $this->responseMessage($product ." Yeterli stok bulunmuyor.","error",200);
+            }
+
+        }
+
+
 
         //satışı kaydet
         $sales = new Sale();
@@ -128,7 +162,6 @@ class SalesController extends Controller
         //$salesId=$sales->id;
 
 
-
         //her bir satış kalemi için item kaydet tabloya
         // foreach($data["product_id"] as $product)
         //her bir ürün için item tablosuna kayıt at
@@ -142,12 +175,14 @@ class SalesController extends Controller
             $item->save();
         }
 
-
-
-
-
-
         return $this->responseMessage("Başarılı.", "success", 200, route('sales.add'));
 
+    }
+    public function getSaleItems($saleID)
+    {
+
+        $saleItems = SaleItem::with("product")->where('sale_id', $saleID)->get();
+
+        return response()->json($saleItems);
     }
 }

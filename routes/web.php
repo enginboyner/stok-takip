@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckRole;
@@ -31,6 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/forget', [AuthController::class, 'forget']);
 
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -64,8 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{id}', [ProductController::class, 'update'])->name('product.update');
         Route::delete('/{id}', [ProductController::class,'delete'])->name('product.delete');
-        Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
-    });
+        Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');});
 
 
     Route::group(['prefix' => 'sales', 'middleware' => ['roles:sales']], function () {
@@ -76,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('{id}', [SalesController::class, 'update'])->name('sales.update');
         Route::delete('/{id}', [SalesController::class,'delete'])->name('sales.delete');
         Route::get('/show/{id}', [SalesController::class, 'show'])->name('sales.show');
+        Route::get('/get-sale-items/{id}', [SalesController::class, 'getSaleItems'])->name('sales.getSaleItems');
 
 
     });

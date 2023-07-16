@@ -32,36 +32,83 @@
                                 <h4 class="widget-user-desc">Adres:<b>{{$customer->address}}</b></h4>
                                 <h4 class="widget-user-desc">Mail:<b>{{$customer->mail}}</b></h4>
                             </div>
-                            <div class="card-body">
 
-                                <table id="example1" class="table table-bordered table-hover">
-                                    <thead>
+                        </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Satış Tarihi</th>
+                                    <th>Satış Tutarı</th>
+                                    <th>Detay</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($customer->sales as $sale)
                                     <tr>
-                                        <th>Alışlar</th>
+                                        <td>
+                                            {{$sale->date}}
+                                        </td>
+                                        <td>
+                                            {{$sale->total->total}}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info"  onclick="items({{$sale->id}})">
+                                                Göster
+                                            </button>
+                                        </td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Satışlar</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1"
+             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Satış
+                                                Bilgisi:</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+
+
+                                        <div class="card-body">
+                                            <table id="example1"
+                                                   class="table table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Ürün</th>
+                                                    <th>Adet</th>
+                                                    <th>Fiyat</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="modalBody">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
         @endsection
         @section("script")
 
@@ -82,6 +129,39 @@
                     src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
             <script>
+
+                function items(saleId){
+                    $.ajax({
+                        url: '/sales/get-sale-items/'+saleId,
+                        type: 'GET',
+                        data: {
+                            sale_id: saleId
+                        },
+                        success: function(response) {
+
+                            var html="";
+                            for (let i = 0; i < response.length; i++) {
+                                html +="<tr>"
+                                html +="<td>"
+                                html +=response[i].product.name
+                                html +="</td>"
+                                html +="<td>"
+                                html +=response[i].quantity
+                                html +="</td>"
+                                html +="<td>"
+                                html +=response[i].price
+                                html +="</td>"
+                                html +="</tr>"
+                            }
+                            $("#modalBody").html(html)
+                            $("#exampleModal").modal("show")
+
+                        },
+                        error: function(xhr) {
+                            console.log('Hata kodu: ' + xhr.status);
+                        }
+                    });
+                }
 
                 $(function () {
                     fetch('assets/dataTablesCeviri.txt')

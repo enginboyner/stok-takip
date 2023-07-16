@@ -13,8 +13,18 @@ class Customer extends Model
     protected $fillable = ['name', 'phone', 'address', 'mail', 'status'];
 
 
-    public function item()
+
+    public function sales()
     {
-        return $this->belongsTo(Item::class);
+        return $this->hasMany(Sale::class);
     }
+    public function product()
+    {
+        return$this->hasMany(Product::class);
+    }
+    public function items()
+    {
+        return $this->hasMany(SaleItem::class);
+    }
+
 }

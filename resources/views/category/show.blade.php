@@ -28,15 +28,25 @@
                                 <h4 class="widget-user-username">Kategori:<b>{{$category->name}}</b></h4>
                             </div>
                             <div class="row">
+
                                 <table id="example1" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Ürünler</th>
-
+                                        <th>Ürün</th>
+                                        <th>Açıklama</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($product as $productName)
+                                        <tr>
+                                            <td>
+                                                {{$productName->name}}
+                                            </td>
+                                            <td>
+                                                {{$productName->description}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -14,6 +14,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $category = Category::pluck('name', 'id')->toArray();
+
         return view('product.index', ["products" => $products,"category"=>$category]);
     }
 
@@ -81,9 +82,8 @@ class ProductController extends Controller
 
     public function show($ProductID)
     {
-        $products=Product::find($ProductID);
-
-        return view('product.show', ["products" => $products]);
+        $product=Product::with("sales","stock")->find($ProductID);
+        return view('product.show', ["product" => $product]);
     }
 
     public function store(Request $request)
