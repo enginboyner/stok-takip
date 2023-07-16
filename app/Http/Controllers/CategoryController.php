@@ -14,26 +14,53 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('category.index', ["category" => $categories, "userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('category.index', ["category" => $categories]);
+
     }
 
     public function add()
     {
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('category.add', ["userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+
+        return view('category.add');
 
     }
     public function edit($CategoryID)
     {
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
         $categoryEdit = Category::find($CategoryID);
-        return view('category.edit',["categoryEdit"=>$categoryEdit,"userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('category.edit',["categoryEdit"=>$categoryEdit]);
+    }
+    public function delete($id)
+    {
+        $categoryDelete= Category::find($id);
+        $categoryDelete->status=false;
+        $categoryDelete->update();
+
+    }
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:25|unique:categories,name',
+        ], [], ["name" => "İsim"]);
+
+        if ($validator->fails()) {
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
+        }
+
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->update();
+
+        return $this->responseMessage("İşlem Başarılı","success",200,"/category");
+
+
     }
 
+    public function show($CategoryID)
+    {
+        $category=Category::find($CategoryID);
+
+        return view('category.show', ["category" => $category]);
+    }
 
     public function store(Request $request)
     {
@@ -41,8 +68,7 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:25|unique:categories,name',
-            'status' => 'required|bool',
-        ], [], ["name" => "İsim","status"=>"Durum"]);
+        ], [], ["name" => "İsim"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

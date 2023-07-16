@@ -15,10 +15,16 @@
     <!-- Theme style -->
     <link rel="stylesheet"
           href="{{ asset('assets/css/adminlte.min.css') }}">
-
-
     @yield('extraCss')
+<style> .table th {
+        background-color: #3579f6;
+        color: #fff;
+        font-weight: normal;
+    }</style>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -48,9 +54,12 @@
                     <img src="{{ asset('assets/img/login.png') }}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
+                    @php
+                        $userAuth = auth()->user();
+                    @endphp
                     <a href="" class="d-block">{{ $userAuth->name }}</a>
                     <br>
-                    <a>{{$roleAuth}}</a>
+                    <a>{{$userAuth->role->name}}</a>
                 </div>
             </div>
 
@@ -267,6 +276,9 @@
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -290,9 +302,12 @@
             success: function (data) {
                 console.log(data);
                 $("#response").html(data.message);
-                setTimeout(function () {
-                    window.location.replace(data.redirect);
-                }, 150);
+                if(data.redirect){
+                    setTimeout(function () {
+                        window.location.replace(data.redirect);
+                    }, 150);
+                }
+
             },
             error: function (data) {
                 console.log(data);
@@ -301,6 +316,56 @@
         });
     });
 
+</script>
+<script>
+
+    function showConfirmation(DeleteID, link) {
+
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sil',
+            cancelButtonText: 'İptal Et',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: link + DeleteID,
+                    type: 'DELETE',
+                    data: {
+                        _method: 'PUT',
+                        _token: '{{ csrf_token() }}'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(result) {
+                        Swal.fire(
+                            'Silindi!',
+                            '',
+                            'success'
+                        );
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire(
+                            'Hata',
+                            '',
+                            'error'
+                        );
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'İptal Edildi',
+                    '',
+                    'error'
+                );
+            }
+        });
+    }
 </script>
 @yield("script")
 </body>

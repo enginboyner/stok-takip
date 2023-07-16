@@ -7,13 +7,6 @@ Stok Ekle
 
 
 @section("content")
-    <!DOCTYPE html>
-<html>
-<head>
-    <title>Stok Ekleme Formu</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
-<body>
 <div class="container">
     <div class="card card-primary">
         <div class="card-header">
@@ -27,7 +20,9 @@ Stok Ekle
                     <label for="product">Ürün:</label>
                     <select class="form-control" id="product_id" name="product_id">
                         @foreach($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            @if($product->status==true)
+                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -39,13 +34,6 @@ Stok Ekle
                     <label for="fiyat">Fiyat:</label>
                     <input type="decimal" class="form-control" id="price" name="price" placeholder="">
                 </div>
-                <div class="form-group">
-                    <label for="status">Durum:</label>
-                    <select class="form-control" id="status" name="status">
-                        <option value="0">Pasif</option>
-                        <option value="1">Aktif</option>
-                    </select>
-                </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
@@ -54,7 +42,5 @@ Stok Ekle
         <div id="response"></div>
     </div>
 </div>
-</body>
-</html>
 
 @endsection

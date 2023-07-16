@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Role;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,40 +13,78 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
         $category = Category::pluck('name', 'id')->toArray();
-        return view('product.index', ["products" => $products, "userAuth" => $userAuth,"roleAuth"=>$roleAuth,"category"=>$category]);
+        return view('product.index', ["products" => $products,"category"=>$category]);
     }
 
     public function add()
     {
         $categories = Category::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view("product.add", ["categories" => $categories, "userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+
+        return view("product.add", ["categories" => $categories]);
     }
     public function edit($ProductID)
     {
         $categories = Category::all();
-        $userAuth = auth()->user();
         $productEdit = Product::find($ProductID);
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('product.edit',["categories" => $categories,"productEdit"=>$productEdit,"userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('product.edit',["categories" => $categories,"productEdit"=>$productEdit]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg',
+
+        ], [
+        ], ["name" => "İsim", "category_id" => "Kategori", "description" => "Açıklama", "image" => "Görsel"]);
+
+
+        if ($validator->fails()) {
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
+        }
+
+        $product = Product::find($id);
+
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $data['image'] = $imagePath;
+            }
+
+
+
         $product->name = $request->input('name');
-        $product->save();
+        $product->category_id = $request->input('category_id');
+        $product->description = $request->input('description');
+        $product->image = $data['image'] ?? $product->image;
+        $product->update();
+
+        return $this->responseMessage("İşlem Başarılı","success",200, '/product');
+
+
     }
+
     public function delete($id)
     {
-        Product::find($id)->delete();
+        $productDelete= Product::find($id);
+        $productDelete->status=false;
+        $productDelete->update();
+
     }
 
+    public function show($ProductID)
+    {
+        $products=Product::find($ProductID);
 
+        return view('product.show', ["products" => $products]);
+    }
 
     public function store(Request $request)
     {
@@ -53,11 +92,10 @@ class ProductController extends Controller
             'name' => 'required|unique:products,name',
             'category_id' => 'required|gt:0|int',
             'description' => 'required|max:255|string',
-            'status' => 'required|bool',
-            'image' => 'required|image|max:10000|mimes:jpg,png,jpeg',
+            'image' => 'required|image|mimes:jpg,png,jpeg',
 
         ], [
-        ], ["name" => "İsim", "category_id" => "Kategori", "description" => "Açıklama", "status" => "Durum", "image" => "Görsel"]);
+        ], ["name" => "İsim", "category_id" => "Kategori", "description" => "Açıklama", "image" => "Görsel"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

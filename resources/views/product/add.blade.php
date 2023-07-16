@@ -23,20 +23,15 @@
                         <label for="category_id">Kategori:</label>
                         <select class="form-control" id="category_id" name="category_id">
                             @foreach($categories as $category)
+                                @if($category->status==true)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="description">Açıklama:</label>
                         <input type="text" class="form-control" id="description" name="description" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Durum:</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="0">Pasif</option>
-                            <option value="1">Aktif</option>
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputFile">Görsel:</label>

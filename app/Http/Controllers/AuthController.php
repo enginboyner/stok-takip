@@ -20,7 +20,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('login');
     }
 
     public function forget()
@@ -46,11 +46,7 @@ class AuthController extends Controller
                 $user = Auth::user();
                 $role_id = $user->role_id;
 
-                if ($role_id == 1) {
-                    return $this->responseMessage("Giriş başarılı.", "success", 200, route('home'));
-                } elseif ($role_id == 2) {
-                    return $this->responseMessage("Giriş başarılı.", "success", 200, route('home'));
-                } elseif ($role_id == 3) {
+                if ($role_id != null) {
                     return $this->responseMessage("Giriş başarılı.", "success", 200, route('home'));
                 }
             }

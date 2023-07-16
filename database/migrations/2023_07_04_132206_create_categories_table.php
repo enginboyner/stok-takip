@@ -16,8 +16,7 @@ return new class extends Migration {
 
             $table->id();
             $table->string('name');
-            $table->boolean('status');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
 
         });

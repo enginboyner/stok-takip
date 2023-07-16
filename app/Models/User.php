@@ -26,9 +26,5 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, "id", "role_id");
     }
 
-    public function sale()
-    {
-        return $this->belongsTo(Sale::class);
-    }
 
 }

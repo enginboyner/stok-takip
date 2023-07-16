@@ -35,7 +35,22 @@ Kategori Listele
                                 <tbody>
                                 @foreach($category->sortByDesc('id') as $categories)
                                     @if($categories->status==true) <tr>
-                                        <td><a href="{{ route('category.edit', ['id' => $categories->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('category.edit', $categories->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Düzenle
+                                                </a>
+                                                <a href=" {{route('category.show', $categories->id)}} " class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                    Göster
+                                                </a>
+                                                <a href="#" onclick="showConfirmation({{ $categories->id }}, '/category/')" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                    Sil
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td>{{ $categories->name }}</td>
                                     </tr>@endif
                                 @endforeach

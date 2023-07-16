@@ -13,29 +13,60 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
         $product = Product::pluck('name', 'id')->toArray();
-        return view('stock.index', ["stocks" => $stocks, "userAuth" => $userAuth,"roleAuth"=>$roleAuth,"product"=>$product]);
+        return view('stock.index', ["stocks" => $stocks,"product"=>$product]);
     }
 
     public function add()
     {
         $products = Product::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view("stock.add", ["products" => $products, "userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view("stock.add", ["products" => $products]);
     }
     public function edit($StockID)
     {
         $products = Product::all();
-        $userAuth = auth()->user();
         $stockEdit = Stock::find($StockID);
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('stock.edit',["products" => $products,"stockEdit"=>$stockEdit,"userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('stock.edit',["products" => $products,"stockEdit"=>$stockEdit]);
     }
 
+    public function delete($id)
+    {
+        $stockDelete= Stock::find($id);
+        $stockDelete->status=false;
+        $stockDelete->update();
 
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required|gt:0|int',
+            'quantity' => 'required|int|gt:0',
+            'price' => 'required|gt:0|numeric',
+        ], [
+        ], ["product_id" => "Ürün", "quantity" => "Miktar", "price" => "Fiyat"]);
+
+        if ($validator->fails()) {
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
+        }
+
+        $stock = Stock::find($id);
+        $stock->product_id = $request->input('product_id');
+        $stock->quantity = $request->input('quantity');
+        $stock->price = $request->input('price');
+        $stock ->update();
+
+        return $this->responseMessage("İşlem Başarılı","success",200, '/stock');
+
+
+    }
+    public function show($StockID)
+    {
+        $stock=Stock::with("product")->find($StockID);
+
+        return view('stock.show', ["stock" => $stock]);
+    }
     public function store(Request $request)
     {
 
@@ -43,9 +74,8 @@ class StockController extends Controller
             'product_id' => 'required|gt:0|int',
             'quantity' => 'required|int|gt:0',
             'price' => 'required|gt:0|numeric',
-            'status' => 'required|bool',
         ], [
-        ], ["product_id" => "Ürün", "quantity" => "Miktar", "price" => "Fiyat", "status" => "Durum"]);
+        ], ["product_id" => "Ürün", "quantity" => "Miktar", "price" => "Fiyat"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

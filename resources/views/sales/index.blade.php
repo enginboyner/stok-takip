@@ -29,34 +29,47 @@ Satış Listele
                                 <thead>
                                 <tr>
                                     <th>İşlemler</th>
-                                    <th>Ürün</th>
-                                    <th>Satıcı</th>
                                     <th>Müşteri</th>
-                                    <th>Miktar</th>
-                                    <th>Fiyat</th>
                                     <th>Tarih</th>
+                                    <th>Tutar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($sales->sortByDesc('id') as $sale)
-                                    @if($product->status==true)
-                                    <tr>
-                                        <td><a href="{{ route('sales.edit', ['id' => $sale->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
-                                        <td>{{ $product[$sale->product_id] }}</td>
-                                        <td>{{ $userID[$sale->user_id] }}</td>
-                                        <td>{{ $customer[$sale->customer_id] }}</td>
-                                        <td>{{ $sale->quantity }}</td>
-                                        <td>{{ $sale->price }} ₺</td>
-                                        <td>{{ $sale->date }}</td>
-                                    </tr>@endif
+                                @foreach($sales as $sale)
+                                    @if($sale->status == true)
+                                        <tr>
+                                            <td>
+                                                <div style="display: flex;">
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('sales.edit', $sale->id) }}">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                        Düzenle
+                                                    </a>
+                                                    <a href="{{ route('sales.show', $sale->id) }}" class="btn btn-info btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                        Göster
+                                                    </a>
+                                                    <a href="#" onclick="showConfirmation({{ $sale->id }}, '/sales/')" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                        Sil
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{ $sale->customer->name }}</td>
+                                            <td>{{ $sale->date }}</td>
+                                            <td>{{ $sale->items->sum('total') }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                    @endsection
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endsection
                     @section("script")
 
                         <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>

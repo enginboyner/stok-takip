@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('mail');
             $table->string('password');
-            $table->boolean('status');
+            $table->integer('status')->default(1);
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles');

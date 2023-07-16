@@ -1,14 +1,12 @@
 @extends('layout.cms')
 
-Kategori Düzenle
-
 @section("content")
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Kategori Ekleme Formu</h3>
+                <h3 class="card-title">Kategori Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ url('category/add') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('category.update', $categoryEdit->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -17,7 +15,7 @@ Kategori Düzenle
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-sync sm"></i> DÜZENLE</button>
                 </div>
             </form>
             <div id="response"></div>

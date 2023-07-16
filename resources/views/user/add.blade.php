@@ -37,13 +37,6 @@ Kullanıcı Ekle
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="status">Durum:</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="0">Pasif</option>
-                            <option value="1">Aktif</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
