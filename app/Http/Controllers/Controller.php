@@ -14,7 +14,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
-    public function responseMessage($message, $status, $statusCode, $redirect = null)
+    public function responseMessage($message = null, $status = null, $statusCode = null, $redirect = null)
     {
         if ($status == 'error') {
             $html = "<div class='alert alert-danger alert-dismissible text-center'>

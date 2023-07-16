@@ -12,23 +12,59 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('customer.index', ["customers" => $customers, "userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+
+        return view('customer.index', ["customers" => $customers]);
     }
 
     public function add()
     {
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('customer.add', ["userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('customer.add');
     }
     public function edit($customerID)
     {
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
+
         $customerEdit = Customer::find($customerID);
-        return view('customer.edit',["customerEdit"=>$customerEdit,"userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('customer.edit',["customerEdit"=>$customerEdit]);
+    }
+
+    public function delete($id)
+    {
+        $customerDelete= Customer::find($id);
+        $customerDelete->status=false;
+        $customerDelete->update();
+
+    }
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:40',
+            'phone' => 'required|string|min:10|max:18|unique:customers,phone',
+            'address' => 'required|string|max:255',
+            'mail' => 'required|email|max:50|unique:customers,mail',
+        ], [
+        ], ["name" => "İsim", "phone" => "Telefon", "address" => "Adres", "mail" => "Mail"]);
+
+        if ($validator->fails()) {
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
+        }
+
+        $customer = Customer::find($id);
+        $customer->name = $request->input('name');
+        $customer->phone = $request->input('phone');
+        $customer->address = $request->input('address');
+        $customer->mail = $request->input('mail');
+        $customer ->update();
+
+        return $this->responseMessage("İşlem Başarılı","success",200,'/customers');
+
+
+    }
+
+    public function show($customer)
+    {
+        $customer=Customer::find($customer);
+
+        return view('customer.show', ["customer" => $customer]);
     }
 
     public function store(Request $request)
@@ -40,9 +76,8 @@ class CustomerController extends Controller
             'phone' => 'required|string|min:10|max:18|unique:customers,phone',
             'address' => 'required|string|max:255',
             'mail' => 'required|email|max:50|unique:customers,mail',
-            'status' => 'required|bool',
         ], [
-        ], ["name" => "İsim", "phone" => "Telefon", "address" => "Adres", "mail" => "Mail", "status" => "Durum"]);
+        ], ["name" => "İsim", "phone" => "Telefon", "address" => "Adres", "mail" => "Mail"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

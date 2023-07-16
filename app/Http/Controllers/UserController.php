@@ -13,26 +13,59 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        $role = Role::pluck('name', 'id')->toArray();
-        return view('user.index', ["users" => $users, "userAuth" => $userAuth,"roleAuth"=>$roleAuth,"role"=>$role]);
+        $roles = Role::pluck('name', 'id')->toArray();
+        return view('user.index', ["users" => $users, "roles"=>$roles]);
     }
 
     public function add()
     {
         $roles = Role::all();
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view("user.add", ["roles" => $roles, "userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view("user.add", ["roles" => $roles]);
     }
     public function edit($userID)
     {
         $roles = Role::all();
         $userEdit = User::find($userID);
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('user.edit',["roles" => $roles,"userEdit"=>$userEdit,"userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
+        return view('user.edit',["roles" => $roles,"userEdit"=>$userEdit]);
+    }
+
+    public function delete($id)
+    {
+        $userDelete= User::find($id);
+        $userDelete->status=false;
+        $userDelete->update();
+
+    }
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:40',
+            'mail' => 'required|email|unique:users,mail',
+            'password' => 'required|string|min:6|max:30',
+            'role_id' => 'required|gt:0|int',
+        ], [
+        ], ["name" => "İsim", "mail" => "Mail", "password" => "Şifre", "role_id" => "Rol"]);
+
+        if ($validator->fails()) {
+            return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
+        }
+
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->mail = $request->input('mail');
+        $user->role_id = $request->input('role_id');
+        $user->update();
+
+
+        return $this->responseMessage("İşlem Başarılı","success",200,'/user');
+
+
+    }
+    public function show($UserID)
+    {
+        $user=User::with("role")->find($UserID);
+
+        return view('user.show', ["user" => $user]);
     }
 
     public function store(Request $request)
@@ -44,10 +77,8 @@ class UserController extends Controller
             'mail' => 'required|email|unique:users,mail',
             'password' => 'required|string|min:6|max:30',
             'role_id' => 'required|gt:0|int',
-            'status' => 'required|bool',
-
         ], [
-        ], ["name" => "İsim", "mail" => "Mail", "password" => "Şifre", "role_id" => "Rol", "status" => "Durum"]);
+        ], ["name" => "İsim", "mail" => "Mail", "password" => "Şifre", "role_id" => "Rol"]);
 
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);

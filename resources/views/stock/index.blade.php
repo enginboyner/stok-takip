@@ -36,13 +36,28 @@ Stok Listele
                                 </thead>
                                 <tbody>
                                 @foreach($stocks->sortByDesc('id') as $stock)
-                                    
+                                    @if($stock->status==true)
                                     <tr>
-                                        <td><a href="{{ route('stock.edit', ['id' => $stock->id]) }}"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('stock.edit', $stock->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Düzenle
+                                                </a>
+                                                <a href=" {{route('stock.show', $stock->id)}} " class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                    Göster
+                                                </a>
+                                                <a href="#" onclick="showConfirmation({{ $stock->id }}, '/stock/')" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                    Sil
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td>{{ $product[$stock->product_id] }}</td>
                                         <td>{{ $stock->quantity }}</td>
                                         <td>{{ $stock->price }} ₺</td>
-                                    </tr>
+                                    </tr>@endif
                                 @endforeach
                                 </tbody>
                             </table>

@@ -10,7 +10,7 @@ Kullanıcı Düzenle
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Kullanıcı Ekleme Formu</h3>
+                <h3 class="card-title">Kullanıcı Düzenleme Formu</h3>
             </div>
             <form id="form" action="{{ route('user.update', $userEdit->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -32,16 +32,9 @@ Kullanıcı Düzenle
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="status">Durum:</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="0" @if($userEdit->status == 0) selected @endif>Pasif</option>
-                            <option value="1" @if($userEdit->status == 1) selected @endif>Aktif</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-sync fa-sm"></i> GÜNCELLE</button>
                 </div>
             </form>
             <div id="response"></div>

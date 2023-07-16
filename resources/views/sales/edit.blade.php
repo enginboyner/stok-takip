@@ -10,15 +10,15 @@ Satış Düzenle
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Satış Ekleme Formu</h3>
+                <h3 class="card-title">Satış Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ url('sales/add') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('sales.update', $salesEdit->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
                     <div class="form-group">
                         <label for="product">Ürün:</label>
-                        <select class="form-control" id="product_id" name="product_id">
+                        <select class="form-control" id="product_id[]" name="product_id[]">
                             @foreach($products as $productEdit2)
                                 <option value="{{ $productEdit2->id }}" @if($productEdit2->id == $salesEdit->product_id) selected @endif>{{ $productEdit2->name }}</option>
                             @endforeach
@@ -26,19 +26,11 @@ Satış Düzenle
                     </div>
                     <div class="form-group">
                         <label for="miktar">Miktar:</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" value="{{$salesEdit->quantity}}">
+                        <input type="number" class="form-control" id="quantity" name="quantity[]" value="{{$salesItem->quantity}}">
                     </div>
                     <div class="form-group">
                         <label for="fiyat">Fiyat:</label>
-                        <input type="decimal" class="form-control" id="price" name="price" value="{{$salesEdit->price}}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="seller">Satıcı:</label>
-                        <select class="form-control" id="user_id" name="user_id">
-                                @foreach($users as $userEdit)
-                                <option value="{{ $userEdit->id }}" @if($userEdit->id == $salesEdit->user_id) selected @endif>{{ $userEdit->name }}</option>
-                                @endforeach
-                        </select>
+                        <input type="decimal" class="form-control" id="price" name="price[]" value="{{$salesItem->price}}" >
                     </div>
                     <div class="form-group">
                         <label for="customer">Müşteri:</label>
@@ -53,7 +45,7 @@ Satış Düzenle
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-sync fa-sm"></i> GÜNCELLE</button>
                 </div>
             </form>
             <div id="response"></div>

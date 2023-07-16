@@ -8,11 +8,10 @@
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Ürün Ekleme Formu</h3>
+                <h3 class="card-title">Ürün Düzenleme Formu</h3>
             </div>
             <form id="form" action="{{ route('product.update', $productEdit->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
                 <div class="card-body">
 
                     <div class="form-group">
@@ -31,13 +30,7 @@
                         <label for="description">Açıklama:</label>
                         <input type="text" class="form-control" id="description" name="description" placeholder="" value="{{$productEdit->description}}">
                     </div>
-                    <div class="form-group">
-                        <label for="status">Durum:</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="0" @if($productEdit->status == 0) selected @endif>Pasif</option>
-                            <option value="1" @if($productEdit->status == 1) selected @endif>Aktif</option>
-                        </select>
-                    </div>
+
                     <div class="form-group">
                         <label for="exampleInputFile">Görsel:</label>
                         <div class="input-group">
@@ -61,7 +54,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-sync fa-sm"></i> GÜNCELLE</button>
                 </div>
             </form>
             <div id="response"></div>

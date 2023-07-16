@@ -33,23 +33,31 @@ Müşteri Listele
                                     <th>Telefon</th>
                                     <th>Adres</th>
                                     <th>Mail</th>
-                                    <th>Durum</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($customers->sortByDesc('id') as $customer)
                                     @if($customer->status==true) <tr>
-                                        <td><a href="{{ route('customer.edit', ['id' => $customer->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('customer.edit', $customer->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Düzenle
+                                                </a>
+                                                <a href=" {{route('customer.show', $customer->id)}} " class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                    Göster
+                                                </a>
+                                                <a href="#" onclick="showConfirmation({{ $customer->id }}, '/customers/')" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                    Sil
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>{{ $customer->address }}</td>
                                         <td>{{ $customer->mail }}</td>
-                                        <td> @if($customer->status == 0)
-                                                Pasif
-                                            @elseif($customer->status == 1)
-                                                Aktif
-                                            @endif
-                                        </td>
                                     </tr>@endif
                                 @endforeach
                                 </tbody>

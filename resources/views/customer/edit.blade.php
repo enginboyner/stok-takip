@@ -10,9 +10,9 @@ Müşteri Düzenle
     <div class="container">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Müşteri Ekleme Formu</h3>
+                <h3 class="card-title">Müşteri Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ url('customers/add') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('customer.update', $customerEdit->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -32,18 +32,9 @@ Müşteri Düzenle
                         <label for="satici">Mail:</label>
                         <input type="email" class="form-control" id="mail" name="mail" value="{{$customerEdit->mail}}">
                     </div>
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="status">Durum:</label>
-                            <select class="form-control" id="status" name="status">
-                                <option value="0" @if($customerEdit->status == 0) selected @endif>Pasif</option>
-                                <option value="1" @if($customerEdit->status == 1) selected @endif>Aktif</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus fa-sm"></i> KAYDET</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-sync fa-sm"></i> GÜNCELLE</button>
                 </div>
             </form>
             <div id="response"></div>

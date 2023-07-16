@@ -32,24 +32,33 @@ Kullanıcı Listele
                                     <th>İsim</th>
                                     <th>Rol</th>
                                     <th>Mail</th>
-                                    <th>Durum</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($users->sortByDesc('id') as $user)
+                                    @if($user->status==true)
                                     <tr>
-                                        <td><a href="{{ route('user.edit', ['id' => $user->id]) }}"><i class="fa fa-edit"></i></a><a href=""><i class="fas fa-trash" style="color: #ff2600;"></i></a></td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $role[$user->role_id] }}</td>
-                                        <td>{{ $user->mail}}</td>
                                         <td>
-                                            @if($user->status == 0)
-                                                Pasif
-                                            @elseif($user->status == 1)
-                                                Aktif
-                                            @endif
+                                            <div style="display: flex;">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('user.edit', $user->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Düzenle
+                                                </a>
+                                                <a href=" {{route('user.show', $user->id)}} " class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                    Göster
+                                                </a>
+                                                <a href="#" onclick="showConfirmation({{ $user->id }}, '/user/')" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                    Sil
+                                                </a>
+                                            </div>
                                         </td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $roles[$user->role_id] }}</td>
+                                        <td>{{ $user->mail}}</td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

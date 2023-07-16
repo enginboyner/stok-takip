@@ -10,11 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-
-        $userAuth = auth()->user();
-        $roleAuth = Role::find($userAuth->role_id)->name;
-        return view('home.index', ["userAuth" => $userAuth,"roleAuth"=>$roleAuth]);
-
+        return view('home.index');
     }
 }
 //{{ $role->id }}">{{ $role->name }}
