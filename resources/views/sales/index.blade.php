@@ -2,7 +2,7 @@
 
 
 @section('pageName')
-Satış Listele
+    Satış Listele
 @endsection
 
 
@@ -56,7 +56,7 @@ Satış Listele
                                             </td>
                                             <td>{{ $sale->customer->name }}</td>
                                             <td>{{ $sale->date }}</td>
-                                            <td>{{ $sale->items->sum('total') }} ₺</td>
+                                            <td>{{ $sale->total->total }} ₺</td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -70,53 +70,53 @@ Satış Listele
     </section>
 
 @endsection
-                    @section("script")
+@section("script")
 
-                        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-                        <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-                        <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-                        <script
-                            src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script
+            src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-                        <script>
+    <script>
 
-    $(function () {
-        fetch('assets/dataTablesCeviri.txt')
-            .then(response => response.json())
-            .then(ceviri => {
-                $("#example1").DataTable({
-                    language: ceviri,
-                    responsive: true,
-                    lengthChange: false,
-                    autoWidth: false,
-                    ordering: false,
-                    buttons: ["csv", "excel", "pdf", "colvis"],
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $(function () {
+            fetch('assets/dataTablesCeviri.txt')
+                .then(response => response.json())
+                .then(ceviri => {
+                    $("#example1").DataTable({
+                        language: ceviri,
+                        responsive: true,
+                        lengthChange: false,
+                        autoWidth: false,
+                        ordering: false,
+                        buttons: ["csv", "excel", "pdf", "colvis"],
+                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                });
+
+            $('#example2').DataTable({
+                paging: true,
+                lengthChange: false,
+                searching: true,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                responsive: true,
             });
-
-        $('#example2').DataTable({
-            paging: true,
-            lengthChange: false,
-            searching: true,
-            ordering: false,
-            info: true,
-            autoWidth: false,
-            responsive: true,
         });
-    });
 
 
-</script>
+    </script>
 
 
 @endsection
