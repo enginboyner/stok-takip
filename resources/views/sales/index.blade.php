@@ -56,7 +56,7 @@ Satış Listele
                                             </td>
                                             <td>{{ $sale->customer->name }}</td>
                                             <td>{{ $sale->date }}</td>
-                                            <td>{{ $sale->total->total }} ₺</td>
+                                            <td>{{ $sale->items->sum('total') }} ₺</td>
                                         </tr>
                                     @endif
                                 @endforeach
