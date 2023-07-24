@@ -52,7 +52,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header">
-                                Alış
+                                Alışlar
                             </div>
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,11 @@ class TestController extends Controller
 
 
 
+        $stockDatas = Stock::whereBetween('created_at', [2021-07-07, 2024-07-07])->get();
+        dd($stockDatas);
 
-            $product=Product::with('category')->where('category_id',88)->get();
-dd($product[1]->name);
+           /* $product=Product::with('category')->where('category_id',88)->get();
+dd($product[1]->name);*/
 
         /* $product=Product::find(57);
 

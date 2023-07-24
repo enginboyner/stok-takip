@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TestController;
@@ -103,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/show/{id}', [UserController::class, 'show'])->name('user.show');
     });
 
+    Route::get('/report',[ReportController::class,'index'])->name('report');
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
