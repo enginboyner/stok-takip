@@ -66,7 +66,7 @@ class AutocompleterAggregate implements Autocompleter
     {
         foreach ($this->getAutocompleters() as $autocompleter) {
             $preg = \preg_match(
-                '#('.$autocompleter->getWordDefinition().')$#u',
+                '#(' . $autocompleter->getWordDefinition() . ')$#u',
                 $prefix,
                 $match
             );

@@ -32,7 +32,7 @@ class SerializerErrorRenderer implements ErrorRendererInterface
     /**
      * @param string|callable(FlattenException) $format The format as a string or a callable that should return it
      *                                                  formats not supported by Request::getMimeTypes() should be given as mime types
-     * @param bool|callable                     $debug  The debugging mode as a boolean or a callable that should return it
+     * @param bool|callable $debug The debugging mode as a boolean or a callable that should return it
      */
     public function __construct(SerializerInterface $serializer, string|callable $format, ErrorRendererInterface $fallbackErrorRenderer = null, bool|callable $debug = false)
     {
@@ -51,7 +51,7 @@ class SerializerErrorRenderer implements ErrorRendererInterface
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
         if ($debug) {
             $headers['X-Debug-Exception'] = rawurlencode($exception->getMessage());
-            $headers['X-Debug-Exception-File'] = rawurlencode($exception->getFile()).':'.$exception->getLine();
+            $headers['X-Debug-Exception-File'] = rawurlencode($exception->getFile()) . ':' . $exception->getLine();
         }
 
         $flattenException = FlattenException::createFromThrowable($exception, null, $headers);
@@ -67,7 +67,7 @@ class SerializerErrorRenderer implements ErrorRendererInterface
                 'exception' => $exception,
                 'debug' => $debug,
             ]))
-            ->setHeaders($flattenException->getHeaders() + $headers);
+                ->setHeaders($flattenException->getHeaders() + $headers);
         } catch (NotEncodableValueException $e) {
             return $this->fallbackErrorRenderer->render($exception);
         }

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\GlobalState;
 
 use function array_diff;
@@ -76,7 +77,7 @@ class Restorer
      */
     public function restoreStaticAttributes(Snapshot $snapshot): void
     {
-        $current    = new Snapshot($snapshot->excludeList(), false, false, false, false, true, false, false, false, false);
+        $current = new Snapshot($snapshot->excludeList(), false, false, false, false, true, false, false, false, false);
         $newClasses = array_diff($current->classes(), $snapshot->classes());
 
         unset($current);
@@ -90,7 +91,7 @@ class Restorer
         }
 
         foreach ($newClasses as $className) {
-            $class    = new ReflectionClass($className);
+            $class = new ReflectionClass($className);
             $defaults = $class->getDefaultProperties();
 
             foreach ($class->getProperties() as $attribute) {

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
 use const PATH_SEPARATOR;
@@ -98,7 +99,7 @@ class Command
         } catch (Throwable $t) {
             throw new RuntimeException(
                 $t->getMessage(),
-                (int) $t->getCode(),
+                (int)$t->getCode(),
                 $t,
             );
         }
@@ -352,7 +353,7 @@ class Command
             if (!isset($this->arguments['noExtensions']) && $phpunitConfiguration->hasExtensionsDirectory() && extension_loaded('phar')) {
                 $result = (new PharLoader)->loadPharExtensionsInDirectory($phpunitConfiguration->extensionsDirectory());
 
-                $this->arguments['loadedExtensions']    = $result['loadedExtensions'];
+                $this->arguments['loadedExtensions'] = $result['loadedExtensions'];
                 $this->arguments['notLoadedExtensions'] = $result['notLoadedExtensions'];
 
                 unset($result);
@@ -599,7 +600,7 @@ class Command
         $this->printVersionString();
 
         $latestVersion = file_get_contents('https://phar.phpunit.de/latest-version-of/phpunit');
-        $isOutdated    = version_compare($latestVersion, Version::id(), '>');
+        $isOutdated = version_compare($latestVersion, Version::id(), '>');
 
         if ($isOutdated) {
             printf(

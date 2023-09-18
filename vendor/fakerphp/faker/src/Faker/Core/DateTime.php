@@ -36,7 +36,7 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
     protected function getTimestamp($until = 'now')
     {
         if (is_numeric($until)) {
-            return (int) $until;
+            return (int)$until;
         }
 
         if ($until instanceof \DateTime) {

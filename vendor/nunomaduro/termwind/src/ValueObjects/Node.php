@@ -114,7 +114,7 @@ final class Node
                 continue;
             }
 
-            if (! $node->isComment()) {
+            if (!$node->isComment()) {
                 return $node;
             }
 
@@ -140,7 +140,7 @@ final class Node
                 continue;
             }
 
-            if (! $node->isComment()) {
+            if (!$node->isComment()) {
                 return $node;
             }
 

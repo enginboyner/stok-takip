@@ -12,12 +12,12 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
 {
     public function canSolve(Throwable $throwable): bool
     {
-        return ! is_null($this->getSolutionTexts($throwable));
+        return !is_null($this->getSolutionTexts($throwable));
     }
 
     public function getSolutions(Throwable $throwable): array
     {
-        if (! $texts = $this->getSolutionTexts($throwable)) {
+        if (!$texts = $this->getSolutionTexts($throwable)) {
             return [];
         }
 
@@ -33,7 +33,7 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
      *
      * @return array<string, mixed>|null
      */
-    protected function getSolutionTexts(Throwable $throwable) : ?array
+    protected function getSolutionTexts(Throwable $throwable): ?array
     {
         foreach ($this->getSupportedExceptions() as $supportedClass => $texts) {
             if ($throwable instanceof $supportedClass) {
@@ -50,14 +50,14 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
         $majorVersion = LaravelVersion::major();
 
         return
-        [
-            BroadcastException::class => [
-                'title' => 'Here are some links that might help solve this problem',
-                'description' => '',
-                'links' => [
-                    'Laravel docs on authentication' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
+            [
+                BroadcastException::class => [
+                    'title' => 'Here are some links that might help solve this problem',
+                    'description' => '',
+                    'links' => [
+                        'Laravel docs on authentication' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
+                    ],
                 ],
-            ],
-        ];
+            ];
     }
 }

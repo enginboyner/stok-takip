@@ -177,7 +177,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         $this->dataCount = \count($this->data);
         foreach ($this->data as $dump) {
             if (!\is_string($dump['name']) || !\is_string($dump['file']) || !\is_int($dump['line'])) {
-                throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
+                throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
             }
         }
 
@@ -229,7 +229,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
 
             $h = headers_list();
             $i = \count($h);
-            array_unshift($h, 'Content-Type: '.\ini_get('default_mimetype'));
+            array_unshift($h, 'Content-Type: ' . \ini_get('default_mimetype'));
             while (0 !== stripos($h[$i], 'Content-Type:')) {
                 --$i;
             }
@@ -264,16 +264,16 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
                         $f = strip_tags($this->style('', $file));
                         $name = strip_tags($this->style('', $name));
                         if ($fmt && $link = \is_string($fmt) ? strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line)) {
-                            $name = sprintf('<a href="%s" title="%s">'.$s.'</a>', strip_tags($this->style('', $link)), $f, $name);
+                            $name = sprintf('<a href="%s" title="%s">' . $s . '</a>', strip_tags($this->style('', $link)), $f, $name);
                         } else {
-                            $name = sprintf('<abbr title="%s">'.$s.'</abbr>', $f, $name);
+                            $name = sprintf('<abbr title="%s">' . $s . '</abbr>', $f, $name);
                         }
                     } else {
                         $name = $this->style('meta', $name);
                     }
-                    $this->line = $name.' on line '.$this->style('meta', $line).':';
+                    $this->line = $name . ' on line ' . $this->style('meta', $line) . ':';
                 } else {
-                    $this->line = $this->style('meta', $name).' on line '.$this->style('meta', $line).':';
+                    $this->line = $this->style('meta', $name) . ' on line ' . $this->style('meta', $line) . ':';
                 }
                 $this->dumpLine(0);
             };
@@ -281,7 +281,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
             $contextDumper($name, $file, $line, $this->fileLinkFormat);
         } else {
             $cloner = new VarCloner();
-            $dumper->dump($cloner->cloneVar($name.' on line '.$line.':'));
+            $dumper->dump($cloner->cloneVar($name . ' on line ' . $line . ':'));
         }
         $dumper->dump($data);
     }

@@ -59,7 +59,7 @@ abstract class AbstractTransport implements TransportInterface
         $envelope = null !== $envelope ? clone $envelope : Envelope::create($message);
 
         if (null !== $this->dispatcher) {
-            $event = new MessageEvent($message, $envelope, (string) $this);
+            $event = new MessageEvent($message, $envelope, (string)$this);
             $this->dispatcher->dispatch($event);
             $envelope = $event->getEnvelope();
             $message = $event->getMessage();

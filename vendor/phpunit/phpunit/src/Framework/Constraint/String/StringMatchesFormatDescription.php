@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use const DIRECTORY_SEPARATOR;
@@ -61,7 +62,7 @@ final class StringMatchesFormatDescription extends RegularExpression
     protected function additionalFailureDescription($other): string
     {
         $from = explode("\n", $this->string);
-        $to   = explode("\n", $this->convertNewlines($other));
+        $to = explode("\n", $this->convertNewlines($other));
 
         foreach ($from as $index => $line) {
             if (isset($to[$index]) && $line !== $to[$index]) {
@@ -74,7 +75,7 @@ final class StringMatchesFormatDescription extends RegularExpression
         }
 
         $this->string = implode("\n", $from);
-        $other        = implode("\n", $to);
+        $other = implode("\n", $to);
 
         return (new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n")))->diff($this->string, $other);
     }

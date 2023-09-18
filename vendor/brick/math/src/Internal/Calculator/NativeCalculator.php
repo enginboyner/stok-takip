@@ -44,7 +44,7 @@ class NativeCalculator extends Calculator
         }
     }
 
-    public function add(string $a, string $b) : string
+    public function add(string $a, string $b): string
     {
         /**
          * @psalm-var numeric-string $a
@@ -53,7 +53,7 @@ class NativeCalculator extends Calculator
         $result = $a + $b;
 
         if (is_int($result)) {
-            return (string) $result;
+            return (string)$result;
         }
 
         if ($a === '0') {
@@ -75,12 +75,12 @@ class NativeCalculator extends Calculator
         return $result;
     }
 
-    public function sub(string $a, string $b) : string
+    public function sub(string $a, string $b): string
     {
         return $this->add($a, $this->neg($b));
     }
 
-    public function mul(string $a, string $b) : string
+    public function mul(string $a, string $b): string
     {
         /**
          * @psalm-var numeric-string $a
@@ -89,7 +89,7 @@ class NativeCalculator extends Calculator
         $result = $a * $b;
 
         if (is_int($result)) {
-            return (string) $result;
+            return (string)$result;
         }
 
         if ($a === '0' || $b === '0') {
@@ -123,7 +123,7 @@ class NativeCalculator extends Calculator
         return $result;
     }
 
-    public function divQ(string $a, string $b) : string
+    public function divQ(string $a, string $b): string
     {
         return $this->divQR($a, $b)[0];
     }
@@ -133,7 +133,7 @@ class NativeCalculator extends Calculator
         return $this->divQR($a, $b)[1];
     }
 
-    public function divQR(string $a, string $b) : array
+    public function divQR(string $a, string $b): array
     {
         if ($a === '0') {
             return ['0', '0'];
@@ -167,8 +167,8 @@ class NativeCalculator extends Calculator
                 assert(is_int($q));
 
                 return [
-                    (string) $q,
-                    (string) $r
+                    (string)$q,
+                    (string)$r
                 ];
             }
         }
@@ -188,7 +188,7 @@ class NativeCalculator extends Calculator
         return [$q, $r];
     }
 
-    public function pow(string $a, int $e) : string
+    public function pow(string $a, int $e): string
     {
         if ($e === 0) {
             return '1';
@@ -216,7 +216,7 @@ class NativeCalculator extends Calculator
     /**
      * Algorithm from: https://www.geeksforgeeks.org/modular-exponentiation-power-in-modular-arithmetic/
      */
-    public function modPow(string $base, string $exp, string $mod) : string
+    public function modPow(string $base, string $exp, string $mod): string
     {
         // special case: the algorithm below fails with 0 power 0 mod 1 (returns 1 instead of 0)
         if ($base === '0' && $exp === '0' && $mod === '1') {
@@ -250,7 +250,7 @@ class NativeCalculator extends Calculator
     /**
      * Adapted from https://cp-algorithms.com/num_methods/roots_newton.html
      */
-    public function sqrt(string $n) : string
+    public function sqrt(string $n): string
     {
         if ($n === '0') {
             return '0';
@@ -261,7 +261,7 @@ class NativeCalculator extends Calculator
 
         $decreased = false;
 
-        for (;;) {
+        for (; ;) {
             $nx = $this->divQ($this->add($x, $this->divQ($n, $x)), '2');
 
             if ($x === $nx || $this->cmp($nx, $x) > 0 && $decreased) {
@@ -278,14 +278,14 @@ class NativeCalculator extends Calculator
     /**
      * Performs the addition of two non-signed large integers.
      */
-    private function doAdd(string $a, string $b) : string
+    private function doAdd(string $a, string $b): string
     {
         [$a, $b, $length] = $this->pad($a, $b);
 
         $carry = 0;
         $result = '';
 
-        for ($i = $length - $this->maxDigits;; $i -= $this->maxDigits) {
+        for ($i = $length - $this->maxDigits; ; $i -= $this->maxDigits) {
             $blockLength = $this->maxDigits;
 
             if ($i < 0) {
@@ -300,7 +300,7 @@ class NativeCalculator extends Calculator
             /** @psalm-var numeric-string $blockB */
             $blockB = \substr($b, $i, $blockLength);
 
-            $sum = (string) ($blockA + $blockB + $carry);
+            $sum = (string)($blockA + $blockB + $carry);
             $sumLength = \strlen($sum);
 
             if ($sumLength > $blockLength) {
@@ -330,7 +330,7 @@ class NativeCalculator extends Calculator
     /**
      * Performs the subtraction of two non-signed large integers.
      */
-    private function doSub(string $a, string $b) : string
+    private function doSub(string $a, string $b): string
     {
         if ($a === $b) {
             return '0';
@@ -354,7 +354,7 @@ class NativeCalculator extends Calculator
 
         $complement = 10 ** $this->maxDigits;
 
-        for ($i = $length - $this->maxDigits;; $i -= $this->maxDigits) {
+        for ($i = $length - $this->maxDigits; ; $i -= $this->maxDigits) {
             $blockLength = $this->maxDigits;
 
             if ($i < 0) {
@@ -378,7 +378,7 @@ class NativeCalculator extends Calculator
                 $carry = 0;
             }
 
-            $sum = (string) $sum;
+            $sum = (string)$sum;
             $sumLength = \strlen($sum);
 
             if ($sumLength < $blockLength) {
@@ -407,7 +407,7 @@ class NativeCalculator extends Calculator
     /**
      * Performs the multiplication of two non-signed large integers.
      */
-    private function doMul(string $a, string $b) : string
+    private function doMul(string $a, string $b): string
     {
         $x = \strlen($a);
         $y = \strlen($b);
@@ -417,7 +417,7 @@ class NativeCalculator extends Calculator
 
         $result = '0';
 
-        for ($i = $x - $maxDigits;; $i -= $maxDigits) {
+        for ($i = $x - $maxDigits; ; $i -= $maxDigits) {
             $blockALength = $maxDigits;
 
             if ($i < 0) {
@@ -426,12 +426,12 @@ class NativeCalculator extends Calculator
                 $i = 0;
             }
 
-            $blockA = (int) \substr($a, $i, $blockALength);
+            $blockA = (int)\substr($a, $i, $blockALength);
 
             $line = '';
             $carry = 0;
 
-            for ($j = $y - $maxDigits;; $j -= $maxDigits) {
+            for ($j = $y - $maxDigits; ; $j -= $maxDigits) {
                 $blockBLength = $maxDigits;
 
                 if ($j < 0) {
@@ -440,13 +440,13 @@ class NativeCalculator extends Calculator
                     $j = 0;
                 }
 
-                $blockB = (int) \substr($b, $j, $blockBLength);
+                $blockB = (int)\substr($b, $j, $blockBLength);
 
                 $mul = $blockA * $blockB + $carry;
                 $value = $mul % $complement;
                 $carry = ($mul - $value) / $complement;
 
-                $value = (string) $value;
+                $value = (string)$value;
                 $value = \str_pad($value, $maxDigits, '0', STR_PAD_LEFT);
 
                 $line = $value . $line;
@@ -480,7 +480,7 @@ class NativeCalculator extends Calculator
      *
      * @return string[] The quotient and remainder.
      */
-    private function doDiv(string $a, string $b) : array
+    private function doDiv(string $a, string $b): array
     {
         $cmp = $this->doCmp($a, $b);
 
@@ -497,7 +497,7 @@ class NativeCalculator extends Calculator
         $r = $a; // remainder
         $z = $y; // focus length, always $y or $y+1
 
-        for (;;) {
+        for (; ;) {
             $focus = \substr($a, 0, $z);
 
             $cmp = $this->doCmp($focus, $b);
@@ -538,7 +538,7 @@ class NativeCalculator extends Calculator
      *
      * @return int [-1, 0, 1]
      */
-    private function doCmp(string $a, string $b) : int
+    private function doCmp(string $a, string $b): int
     {
         $x = \strlen($a);
         $y = \strlen($b);
@@ -559,7 +559,7 @@ class NativeCalculator extends Calculator
      *
      * @return array{string, string, int}
      */
-    private function pad(string $a, string $b) : array
+    private function pad(string $a, string $b): array
     {
         $x = \strlen($a);
         $y = \strlen($b);

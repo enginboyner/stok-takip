@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function get_class;
@@ -38,7 +39,7 @@ final class ObjectEquals extends Constraint
     public function __construct(object $object, string $method = 'equals')
     {
         $this->expected = $object;
-        $this->method   = $method;
+        $this->method = $method;
     }
 
     public function toString(): string

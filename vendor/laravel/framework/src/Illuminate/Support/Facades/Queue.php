@@ -57,8 +57,8 @@ class Queue extends Facade
     /**
      * Register a callback to be executed to pick jobs.
      *
-     * @param  string  $workerName
-     * @param  callable  $callback
+     * @param string $workerName
+     * @param callable $callback
      * @return void
      */
     public static function popUsing($workerName, $callback)
@@ -69,7 +69,7 @@ class Queue extends Facade
     /**
      * Replace the bound instance with a fake.
      *
-     * @param  array|string  $jobsToFake
+     * @param array|string $jobsToFake
      * @return \Illuminate\Support\Testing\Fakes\QueueFake
      */
     public static function fake($jobsToFake = [])

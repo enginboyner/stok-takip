@@ -28,7 +28,7 @@ final class XmlRenderer implements DocumentRendererInterface
 
     public function __construct(EnvironmentInterface $environment)
     {
-        $this->environment      = $environment;
+        $this->environment = $environment;
         $this->fallbackRenderer = new FallbackNodeXmlRenderer();
     }
 
@@ -43,11 +43,11 @@ final class XmlRenderer implements DocumentRendererInterface
         while ($event = $walker->next()) {
             $node = $event->getNode();
 
-            $closeImmediately = ! $node->hasChildren();
-            $selfClosing      = $closeImmediately && ! $node instanceof StringContainerInterface;
+            $closeImmediately = !$node->hasChildren();
+            $selfClosing = $closeImmediately && !$node instanceof StringContainerInterface;
 
             $renderer = $this->findXmlRenderer($node);
-            $tagName  = $renderer->getXmlTagName($node);
+            $tagName = $renderer->getXmlTagName($node);
 
             if ($event->isEntering()) {
                 $attrs = $renderer->getXmlAttributes($node);
@@ -59,14 +59,14 @@ final class XmlRenderer implements DocumentRendererInterface
                     $xml .= Xml::escape($node->getLiteral());
                 }
 
-                if ($closeImmediately && ! $selfClosing) {
+                if ($closeImmediately && !$selfClosing) {
                     $xml .= self::tag('/' . $tagName);
                 }
 
-                if (! $closeImmediately) {
+                if (!$closeImmediately) {
                     $indent++;
                 }
-            } elseif (! $closeImmediately) {
+            } elseif (!$closeImmediately) {
                 $indent--;
                 $xml .= "\n" . \str_repeat(self::INDENTATION, $indent);
                 $xml .= self::tag('/' . $tagName);
@@ -105,7 +105,7 @@ final class XmlRenderer implements DocumentRendererInterface
         }
 
         if (\is_int($value) || \is_float($value)) {
-            return (string) $value;
+            return (string)$value;
         }
 
         if (\is_bool($value)) {

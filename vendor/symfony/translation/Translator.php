@@ -101,8 +101,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     /**
      * Adds a Resource.
      *
-     * @param string $format   The name of the loader (@see addLoader())
-     * @param mixed  $resource The resource name
+     * @param string $format The name of the loader (@see addLoader())
+     * @param mixed $resource The resource name
      *
      * @throws InvalidArgumentException If the locale contains invalid characters
      */
@@ -196,8 +196,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
         $len = \strlen(MessageCatalogue::INTL_DOMAIN_SUFFIX);
         if ($this->hasIntlFormatter
-            && ($catalogue->defines($id, $domain.MessageCatalogue::INTL_DOMAIN_SUFFIX)
-            || (\strlen($domain) > $len && 0 === substr_compare($domain, MessageCatalogue::INTL_DOMAIN_SUFFIX, -$len, $len)))
+            && ($catalogue->defines($id, $domain . MessageCatalogue::INTL_DOMAIN_SUFFIX)
+                || (\strlen($domain) > $len && 0 === substr_compare($domain, MessageCatalogue::INTL_DOMAIN_SUFFIX, -$len, $len)))
         ) {
             return $this->formatter->formatIntl($catalogue->get($id, $domain), $locale, $parameters);
         }
@@ -344,7 +344,7 @@ EOF
 
     private function getCatalogueCachePath(string $locale): string
     {
-        return $this->cacheDir.'/catalogue.'.$locale.'.'.strtr(substr(base64_encode(hash('sha256', serialize($this->cacheVary), true)), 0, 7), '/', '_').'.php';
+        return $this->cacheDir . '/catalogue.' . $locale . '.' . strtr(substr(base64_encode(hash('sha256', serialize($this->cacheVary), true)), 0, 7), '/', '_') . '.php';
     }
 
     /**
@@ -388,7 +388,7 @@ EOF
 
     protected function computeFallbackLocales(string $locale)
     {
-        $this->parentLocales ??= json_decode(file_get_contents(__DIR__.'/Resources/data/parents.json'), true);
+        $this->parentLocales ??= json_decode(file_get_contents(__DIR__ . '/Resources/data/parents.json'), true);
 
         $originLocale = $locale;
         $locales = [];
@@ -455,8 +455,8 @@ EOF
         $allMessages = [];
 
         foreach ($catalogue->all() as $domain => $messages) {
-            if ($intlMessages = $catalogue->all($domain.MessageCatalogue::INTL_DOMAIN_SUFFIX)) {
-                $allMessages[$domain.MessageCatalogue::INTL_DOMAIN_SUFFIX] = $intlMessages;
+            if ($intlMessages = $catalogue->all($domain . MessageCatalogue::INTL_DOMAIN_SUFFIX)) {
+                $allMessages[$domain . MessageCatalogue::INTL_DOMAIN_SUFFIX] = $intlMessages;
                 $messages = array_diff_key($messages, $intlMessages);
             }
             if ($messages) {

@@ -107,7 +107,7 @@ class FlashBag implements FlashBagInterface
      */
     public function set(string $type, string|array $messages)
     {
-        $this->flashes[$type] = (array) $messages;
+        $this->flashes[$type] = (array)$messages;
     }
 
     /**

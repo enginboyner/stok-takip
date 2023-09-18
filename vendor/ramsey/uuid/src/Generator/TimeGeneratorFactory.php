@@ -25,10 +25,11 @@ use Ramsey\Uuid\Provider\TimeProviderInterface;
 class TimeGeneratorFactory
 {
     public function __construct(
-        private NodeProviderInterface $nodeProvider,
+        private NodeProviderInterface  $nodeProvider,
         private TimeConverterInterface $timeConverter,
-        private TimeProviderInterface $timeProvider
-    ) {
+        private TimeProviderInterface  $timeProvider
+    )
+    {
     }
 
     /**

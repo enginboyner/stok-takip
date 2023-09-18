@@ -10,12 +10,13 @@ use League\Flysystem\Visibility;
 class PortableVisibilityConverter implements VisibilityConverter
 {
     public function __construct(
-        private int $filePublic = 0644,
-        private int $filePrivate = 0600,
-        private int $directoryPublic = 0755,
-        private int $directoryPrivate = 0700,
+        private int    $filePublic = 0644,
+        private int    $filePrivate = 0600,
+        private int    $directoryPublic = 0755,
+        private int    $directoryPrivate = 0700,
         private string $defaultForDirectories = Visibility::PRIVATE
-    ) {
+    )
+    {
     }
 
     public function forFile(string $visibility): int
@@ -64,7 +65,7 @@ class PortableVisibilityConverter implements VisibilityConverter
     }
 
     /**
-     * @param array<mixed>  $permissionMap
+     * @param array<mixed> $permissionMap
      */
     public static function fromArray(array $permissionMap, string $defaultForDirectories = Visibility::PRIVATE): PortableVisibilityConverter
     {

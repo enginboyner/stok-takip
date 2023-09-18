@@ -94,14 +94,15 @@ class CommandsMatcher extends AbstractMatcher
      */
     public function hasMatched(array $tokens): bool
     {
-        /* $openTag */ \array_shift($tokens);
+        /* $openTag */
+        \array_shift($tokens);
         $command = \array_shift($tokens);
 
         switch (true) {
             case self::tokenIs($command, self::T_STRING) &&
-            !$this->isCommand($command[1]) &&
-            $this->matchCommand($command[1]) &&
-            empty($tokens):
+                !$this->isCommand($command[1]) &&
+                $this->matchCommand($command[1]) &&
+                empty($tokens):
                 return true;
         }
 

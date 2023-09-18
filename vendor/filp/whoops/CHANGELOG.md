@@ -2,11 +2,13 @@
 
 ## v2.15.2
 
-* Fixed missing code highlight, which additionally led to issue with switching tabs, between application and all frames ([#747](https://github.com/filp/whoops/issues/747)).
+* Fixed missing code highlight, which additionally led to issue with switching tabs, between application and all
+  frames ([#747](https://github.com/filp/whoops/issues/747)).
 
 ## v2.15.1
 
-* Fixed bug with PrettyPageHandler "*Calling `getFrameFilters` method on null*" ([#751](https://github.com/filp/whoops/pull/751)).
+* Fixed bug with PrettyPageHandler "*Calling `getFrameFilters` method on
+  null*" ([#751](https://github.com/filp/whoops/pull/751)).
 
 ## v2.15.0
 
@@ -80,8 +82,8 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.7.3
 
-* `PrettyPageHandler` functionality to hide superglobal keys has a clearer name 
-(`hideSuperglobalKey`).
+* `PrettyPageHandler` functionality to hide superglobal keys has a clearer name
+  (`hideSuperglobalKey`).
 
 ## v2.7.2
 
@@ -143,5 +145,6 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 Backwards compatibility breaking changes:
 
-* `Run` class is now `final`. If you inherited from `Run`, please now instead use a custom `SystemFacade` injected into the `Run` constructor, or contribute your changes to our core.
+* `Run` class is now `final`. If you inherited from `Run`, please now instead use a custom `SystemFacade` injected into
+  the `Run` constructor, or contribute your changes to our core.
 * PHP < 5.5 support dropped.

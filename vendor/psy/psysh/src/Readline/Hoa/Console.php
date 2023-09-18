@@ -147,7 +147,7 @@ class Console
             return;
         }
 
-        ConsoleProcessus::execute('stty '.self::$_old.' < /dev/tty', false);
+        ConsoleProcessus::execute('stty ' . self::$_old . ' < /dev/tty', false);
 
         return;
     }
@@ -158,7 +158,7 @@ class Console
      */
     public static function getMode($pipe = \STDIN): int
     {
-        $_pipe = (int) $pipe;
+        $_pipe = (int)$pipe;
 
         if (isset(self::$_mode[$_pipe])) {
             return self::$_mode[$_pipe];
@@ -201,7 +201,7 @@ class Console
             case 0120000:
                 $mode = self::IS_LINK;
 
-                 break;
+                break;
 
             // socket.
             case 0140000:

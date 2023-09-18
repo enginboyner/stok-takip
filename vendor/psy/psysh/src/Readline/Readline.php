@@ -18,8 +18,8 @@ interface Readline
 {
     /**
      * @param string|false $historyFile
-     * @param int|null     $historySize
-     * @param bool|null    $eraseDups
+     * @param int|null $historySize
+     * @param bool|null $eraseDups
      */
     public function __construct($historyFile = null, $historySize = 0, $eraseDups = false);
 

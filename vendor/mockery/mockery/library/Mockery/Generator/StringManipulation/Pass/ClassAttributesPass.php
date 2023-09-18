@@ -8,7 +8,7 @@ class ClassAttributesPass implements Pass
 {
     public function apply($code, MockConfiguration $config)
     {
-        $class =  $config->getTargetClass();
+        $class = $config->getTargetClass();
 
         if (!$class) {
             return $code;

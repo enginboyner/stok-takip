@@ -40,11 +40,12 @@ class FinfoMimeTypeDetector implements MimeTypeDetector
     private $inconclusiveMimetypes;
 
     public function __construct(
-        string $magicFile = '',
+        string                 $magicFile = '',
         ExtensionToMimeTypeMap $extensionMap = null,
-        ?int $bufferSampleSize = null,
-        array $inconclusiveMimetypes = self::INCONCLUSIVE_MIME_TYPES
-    ) {
+        ?int                   $bufferSampleSize = null,
+        array                  $inconclusiveMimetypes = self::INCONCLUSIVE_MIME_TYPES
+    )
+    {
         $this->finfo = new finfo(FILEINFO_MIME_TYPE, $magicFile);
         $this->extensionMap = $extensionMap ?: new GeneratedExtensionToMimeTypeMap();
         $this->bufferSampleSize = $bufferSampleSize;
@@ -57,7 +58,7 @@ class FinfoMimeTypeDetector implements MimeTypeDetector
             ? (@$this->finfo->buffer($this->takeSample($contents)) ?: null)
             : null;
 
-        if ($mimeType !== null && ! in_array($mimeType, $this->inconclusiveMimetypes)) {
+        if ($mimeType !== null && !in_array($mimeType, $this->inconclusiveMimetypes)) {
             return $mimeType;
         }
 
@@ -87,6 +88,6 @@ class FinfoMimeTypeDetector implements MimeTypeDetector
             return $contents;
         }
 
-        return (string) substr($contents, 0, $this->bufferSampleSize);
+        return (string)substr($contents, 0, $this->bufferSampleSize);
     }
 }

@@ -126,7 +126,7 @@ class Ulid extends AbstractUid
         $time = strtr(substr($this->uid, 0, 10), 'ABCDEFGHJKMNPQRSTVWXYZ', 'abcdefghijklmnopqrstuv');
 
         if (\PHP_INT_SIZE >= 8) {
-            $time = (string) hexdec(base_convert($time, 32, 16));
+            $time = (string)hexdec(base_convert($time, 32, 16));
         } else {
             $time = sprintf('%02s%05s%05s',
                 base_convert(substr($time, 0, 2), 32, 16),
@@ -137,7 +137,7 @@ class Ulid extends AbstractUid
         }
 
         if (4 > \strlen($time)) {
-            $time = '000'.$time;
+            $time = '000' . $time;
         }
 
         return \DateTimeImmutable::createFromFormat('U.u', substr_replace($time, '.', -3, 0));
@@ -147,7 +147,7 @@ class Ulid extends AbstractUid
     {
         if (null === $mtime = $time) {
             $time = microtime(false);
-            $time = substr($time, 11).substr($time, 2, 3);
+            $time = substr($time, 11) . substr($time, 2, 3);
         } elseif (0 > $time = $time->format('Uv')) {
             throw new \InvalidArgumentException('The timestamp must be positive.');
         }
@@ -164,9 +164,9 @@ class Ulid extends AbstractUid
             self::$time = $time;
         } elseif ([0xFFFFF, 0xFFFFF, 0xFFFFF, 0xFFFFF] === self::$rand) {
             if (\PHP_INT_SIZE >= 8 || 10 > \strlen($time = self::$time)) {
-                $time = (string) (1 + $time);
+                $time = (string)(1 + $time);
             } elseif ('999999999' === $mtime = substr($time, -9)) {
-                $time = (1 + substr($time, 0, -9)).'000000000';
+                $time = (1 + substr($time, 0, -9)) . '000000000';
             } else {
                 $time = substr_replace($time, str_pad(++$mtime, 9, '0', \STR_PAD_LEFT), -9);
             }

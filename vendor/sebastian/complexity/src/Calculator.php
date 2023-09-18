@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Complexity;
 
 use PhpParser\Error;
@@ -44,7 +45,7 @@ final class Calculator
         } catch (Error $error) {
             throw new RuntimeException(
                 $error->getMessage(),
-                (int) $error->getCode(),
+                (int)$error->getCode(),
                 $error
             );
         }
@@ -58,7 +59,7 @@ final class Calculator
      */
     public function calculateForAbstractSyntaxTree(array $nodes): ComplexityCollection
     {
-        $traverser                    = new NodeTraverser;
+        $traverser = new NodeTraverser;
         $complexityCalculatingVisitor = new ComplexityCalculatingVisitor(true);
 
         $traverser->addVisitor(new NameResolver);
@@ -72,7 +73,7 @@ final class Calculator
         } catch (Error $error) {
             throw new RuntimeException(
                 $error->getMessage(),
-                (int) $error->getCode(),
+                (int)$error->getCode(),
                 $error
             );
         }

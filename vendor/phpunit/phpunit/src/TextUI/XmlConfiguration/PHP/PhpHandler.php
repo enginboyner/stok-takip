@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use const PATH_SEPARATOR;
@@ -63,7 +64,7 @@ final class PhpHandler
             $value = $iniSetting->value();
 
             if (defined($value)) {
-                $value = (string) constant($value);
+                $value = (string)constant($value);
             }
 
             ini_set($iniSetting->name(), $value);
@@ -103,7 +104,7 @@ final class PhpHandler
     private function handleEnvVariables(VariableCollection $variables): void
     {
         foreach ($variables as $variable) {
-            $name  = $variable->name();
+            $name = $variable->name();
             $value = $variable->value();
             $force = $variable->force();
 

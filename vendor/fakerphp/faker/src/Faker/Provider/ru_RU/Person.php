@@ -110,9 +110,9 @@ class Person extends \Faker\Provider\Person
     /**
      * Return male middle name
      *
+     * @return string Middle name
      * @example 'Иванович'
      *
-     * @return string Middle name
      */
     public function middleNameMale()
     {
@@ -122,9 +122,9 @@ class Person extends \Faker\Provider\Person
     /**
      * Return female middle name
      *
+     * @return string Middle name
      * @example 'Ивановна'
      *
-     * @return string Middle name
      */
     public function middleNameFemale()
     {

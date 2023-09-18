@@ -65,9 +65,9 @@ class RouteCollection implements \IteratorAggregate, \Countable
      *
      * It implements \IteratorAggregate.
      *
+     * @return \ArrayIterator<string, Route>
      * @see all()
      *
-     * @return \ArrayIterator<string, Route>
      */
     public function getIterator(): \ArrayIterator
     {
@@ -144,7 +144,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function remove(string|array $name)
     {
-        foreach ((array) $name as $n) {
+        foreach ((array)$name as $n) {
             unset($this->routes[$n], $this->priorities[$n], $this->aliases[$n]);
         }
     }
@@ -189,7 +189,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
         }
 
         foreach ($this->routes as $route) {
-            $route->setPath('/'.$prefix.$route->getPath());
+            $route->setPath('/' . $prefix . $route->getPath());
             $route->addDefaults($defaults);
             $route->addRequirements($requirements);
         }
@@ -205,17 +205,17 @@ class RouteCollection implements \IteratorAggregate, \Countable
         $prefixedAliases = [];
 
         foreach ($this->routes as $name => $route) {
-            $prefixedRoutes[$prefix.$name] = $route;
+            $prefixedRoutes[$prefix . $name] = $route;
             if (null !== $canonicalName = $route->getDefault('_canonical_route')) {
-                $route->setDefault('_canonical_route', $prefix.$canonicalName);
+                $route->setDefault('_canonical_route', $prefix . $canonicalName);
             }
             if (isset($this->priorities[$name])) {
-                $prefixedPriorities[$prefix.$name] = $this->priorities[$name];
+                $prefixedPriorities[$prefix . $name] = $this->priorities[$name];
             }
         }
 
         foreach ($this->aliases as $name => $alias) {
-            $prefixedAliases[$prefix.$name] = $alias->withId($prefix.$alias->getId());
+            $prefixedAliases[$prefix . $name] = $alias->withId($prefix . $alias->getId());
         }
 
         $this->routes = $prefixedRoutes;
@@ -329,7 +329,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      */
     public function addResource(ResourceInterface $resource)
     {
-        $key = (string) $resource;
+        $key = (string)$resource;
 
         if (!isset($this->resources[$key])) {
             $this->resources[$key] = $resource;
@@ -339,7 +339,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets an alias for an existing route.
      *
-     * @param string $name  The alias to create
+     * @param string $name The alias to create
      * @param string $alias The route to alias
      *
      * @throws InvalidArgumentException if the alias is for itself

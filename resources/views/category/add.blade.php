@@ -2,7 +2,7 @@
 
 
 @section('pageName')
-Kategori Ekle
+    Kategori Ekle
 @endsection
 
 
@@ -29,11 +29,4 @@ Kategori Ekle
     </div>
 @endsection
 
-@section("script")
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-    <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
-@endsection
+

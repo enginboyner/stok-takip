@@ -11,7 +11,8 @@ class ReduceArgumentPayloadAction
 
     public function __construct(
         ArgumentReducers $argumentReducers
-    ) {
+    )
+    {
         $this->argumentReducers = $argumentReducers;
     }
 
@@ -27,13 +28,13 @@ class ReduceArgumentPayloadAction
 
         if (gettype($argument) === 'object' && $includeObjectType) {
             return new ReducedArgument(
-                'object ('.get_class($argument).')',
+                'object (' . get_class($argument) . ')',
                 get_debug_type($argument),
             );
         }
 
         if (gettype($argument) === 'object') {
-            return new ReducedArgument('object', get_debug_type($argument), );
+            return new ReducedArgument('object', get_debug_type($argument),);
         }
 
         return new ReducedArgument(

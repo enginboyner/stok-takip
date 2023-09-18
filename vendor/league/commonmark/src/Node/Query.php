@@ -80,7 +80,7 @@ final class Query
                 break;
             }
 
-            if (! \call_user_func($this->condition, $n)) {
+            if (!\call_user_func($this->condition, $n)) {
                 continue;
             }
 
@@ -95,7 +95,7 @@ final class Query
      */
     public static function type(string $class): callable
     {
-        return static fn (Node $node): bool => $node instanceof $class;
+        return static fn(Node $node): bool => $node instanceof $class;
     }
 
     /**

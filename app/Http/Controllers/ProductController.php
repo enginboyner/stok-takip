@@ -15,7 +15,7 @@ class ProductController extends Controller
         $products = Product::all();
         $category = Category::pluck('name', 'id')->toArray();
 
-        return view('product.index', ["products" => $products,"category"=>$category]);
+        return view('product.index', ["products" => $products, "category" => $category]);
     }
 
     public function add()
@@ -24,11 +24,12 @@ class ProductController extends Controller
 
         return view("product.add", ["categories" => $categories]);
     }
+
     public function edit($ProductID)
     {
         $categories = Category::all();
         $productEdit = Product::find($ProductID);
-        return view('product.edit',["categories" => $categories,"productEdit"=>$productEdit]);
+        return view('product.edit', ["categories" => $categories, "productEdit" => $productEdit]);
     }
 
     /**
@@ -54,11 +55,10 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
-                $data['image'] = $imagePath;
-            }
-
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $imagePath;
+        }
 
 
         $product->name = $request->input('name');
@@ -67,22 +67,22 @@ class ProductController extends Controller
         $product->image = $data['image'] ?? $product->image;
         $product->update();
 
-        return $this->responseMessage("İşlem Başarılı","success",200, '/product');
+        return $this->responseMessage("İşlem Başarılı", "success", 200, '/product');
 
 
     }
 
     public function delete($id)
     {
-        $productDelete= Product::find($id);
-        $productDelete->status=false;
+        $productDelete = Product::find($id);
+        $productDelete->status = false;
         $productDelete->update();
 
     }
 
     public function show($ProductID)
     {
-        $product=Product::with("sales","stock")->find($ProductID);
+        $product = Product::with("sales", "stock")->find($ProductID);
         return view('product.show', ["product" => $product]);
     }
 
@@ -113,7 +113,6 @@ class ProductController extends Controller
 
 
         return $this->responseMessage("Başarılı.", "success", 200, route('product.add'));
-
 
 
     }

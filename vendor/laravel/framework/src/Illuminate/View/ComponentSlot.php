@@ -23,8 +23,8 @@ class ComponentSlot implements Htmlable
     /**
      * Create a new slot instance.
      *
-     * @param  string  $contents
-     * @param  array  $attributes
+     * @param string $contents
+     * @param array $attributes
      * @return void
      */
     public function __construct($contents = '', $attributes = [])
@@ -37,7 +37,7 @@ class ComponentSlot implements Htmlable
     /**
      * Set the extra attributes that the slot should make available.
      *
-     * @param  array  $attributes
+     * @param array $attributes
      * @return $this
      */
     public function withAttributes(array $attributes)
@@ -74,7 +74,7 @@ class ComponentSlot implements Htmlable
      */
     public function isNotEmpty()
     {
-        return ! $this->isEmpty();
+        return !$this->isEmpty();
     }
 
     /**

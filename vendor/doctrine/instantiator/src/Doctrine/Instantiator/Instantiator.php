@@ -91,7 +91,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function buildAndCacheFromFactory(string $className)
     {
-        $factory  = self::$cachedInstantiators[$className] = $this->buildFactory($className);
+        $factory = self::$cachedInstantiators[$className] = $this->buildFactory($className);
         $instance = $factory();
 
         if ($this->isSafeToClone(new ReflectionClass($instance))) {
@@ -149,7 +149,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function getReflectionClass(string $className): ReflectionClass
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             throw InvalidArgumentException::fromNonExistingClass($className);
         }
 
@@ -221,7 +221,7 @@ final class Instantiator implements InstantiatorInterface
      */
     private function isInstantiableViaReflection(ReflectionClass $reflectionClass): bool
     {
-        return ! ($this->hasInternalAncestors($reflectionClass) && $reflectionClass->isFinal());
+        return !($this->hasInternalAncestors($reflectionClass) && $reflectionClass->isFinal());
     }
 
     /**
@@ -256,7 +256,7 @@ final class Instantiator implements InstantiatorInterface
     private function isSafeToClone(ReflectionClass $reflectionClass): bool
     {
         return $reflectionClass->isCloneable()
-            && ! $reflectionClass->hasMethod('__clone')
-            && ! $reflectionClass->isSubclassOf(ArrayIterator::class);
+            && !$reflectionClass->hasMethod('__clone')
+            && !$reflectionClass->isSubclassOf(ArrayIterator::class);
     }
 }

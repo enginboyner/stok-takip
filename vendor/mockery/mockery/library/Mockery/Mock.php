@@ -248,8 +248,9 @@ class Mock implements MockInterface
     }
 
     // start method allows
+
     /**
-     * @param mixed $something  String method name or map of method => return
+     * @param mixed $something String method name or map of method => return
      * @return self|\Mockery\ExpectationInterface|\Mockery\Expectation|\Mockery\HigherOrderMessage
      */
     public function allows($something = [])
@@ -272,8 +273,8 @@ class Mock implements MockInterface
 
     // start method expects
     /**
-    /**
-     * @param mixed $something  String method name (optional)
+     * /**
+     * @param mixed $something String method name (optional)
      * @return \Mockery\ExpectationInterface|\Mockery\Expectation|ExpectsHigherOrderMessage
      */
     public function expects($something = null)
@@ -359,9 +360,9 @@ class Mock implements MockInterface
      * This is particularly useless for this class, as it doesn't have a parent,
      * but included for completeness
      *
+     * @return Mock
      * @deprecated 2.0.0 Please use makePartial() instead
      *
-     * @return Mock
      */
     public function shouldDeferMissing()
     {
@@ -424,8 +425,8 @@ class Mock implements MockInterface
     /**
      * Iterate across all expectation directors and validate each
      *
-     * @throws \Mockery\CountValidator\Exception
      * @return void
+     * @throws \Mockery\CountValidator\Exception
      */
     public function mockery_verify()
     {
@@ -519,8 +520,8 @@ class Mock implements MockInterface
      *
      * @param string $method
      * @param int $order
-     * @throws \Mockery\Exception
      * @return void
+     * @throws \Mockery\Exception
      */
     public function mockery_validateOrder($method, $order)
     {
@@ -556,8 +557,8 @@ class Mock implements MockInterface
     /**
      * Return the expectations director for the given method
      *
-     * @var string $method
      * @return \Mockery\ExpectationDirector|null
+     * @var string $method
      */
     public function mockery_setExpectationsFor($method, \Mockery\ExpectationDirector $director)
     {
@@ -567,8 +568,8 @@ class Mock implements MockInterface
     /**
      * Return the expectations director for the given method
      *
-     * @var string $method
      * @return \Mockery\ExpectationDirector|null
+     * @var string $method
      */
     public function mockery_getExpectationsFor($method)
     {
@@ -580,9 +581,9 @@ class Mock implements MockInterface
     /**
      * Find an expectation matching the given method and arguments
      *
-     * @var string $method
-     * @var array $args
      * @return \Mockery\Expectation|null
+     * @var array $args
+     * @var string $method
      */
     public function mockery_findExpectation($method, array $args)
     {
@@ -725,13 +726,20 @@ class Mock implements MockInterface
         $returnType = Reflector::getSimplestReturnType($rm);
 
         switch ($returnType) {
-            case null:     return null;
-            case 'string': return '';
-            case 'int':    return 0;
-            case 'float':  return 0.0;
-            case 'bool':   return false;
-            case 'true':   return true;
-            case 'false':   return false;
+            case null:
+                return null;
+            case 'string':
+                return '';
+            case 'int':
+                return 0;
+            case 'float':
+                return 0.0;
+            case 'bool':
+                return false;
+            case 'true':
+                return true;
+            case 'false':
+                return false;
 
             case 'array':
             case 'iterable':
@@ -744,7 +752,9 @@ class Mock implements MockInterface
 
             case '\Traversable':
             case '\Generator':
-                $generator = function () { yield; };
+                $generator = function () {
+                    yield;
+                };
                 return $generator();
 
             case 'void':
@@ -836,8 +846,8 @@ class Mock implements MockInterface
     /**
      * Called when an instance Mock was created and its constructor is getting called
      *
-     * @see \Mockery\Generator\StringManipulation\Pass\InstanceMockPass
      * @param array $args
+     * @see \Mockery\Generator\StringManipulation\Pass\InstanceMockPass
      */
     protected function _mockery_constructorCalled(array $args)
     {

@@ -111,7 +111,7 @@ class ErrorHandler
     {
         if (null === self::$reservedMemory) {
             self::$reservedMemory = str_repeat('x', 32768);
-            register_shutdown_function(__CLASS__.'::handleFatalError');
+            register_shutdown_function(__CLASS__ . '::handleFatalError');
         }
 
         if ($handlerIsNew = null === $handler) {
@@ -198,9 +198,9 @@ class ErrorHandler
     /**
      * Sets a logger to non assigned errors levels.
      *
-     * @param LoggerInterface $logger  A PSR-3 logger to put as default for the given levels
-     * @param array|int|null  $levels  An array map of E_* to LogLevel::* or an integer bit field of E_* constants
-     * @param bool            $replace Whether to replace or not any existing logger
+     * @param LoggerInterface $logger A PSR-3 logger to put as default for the given levels
+     * @param array|int|null $levels An array map of E_* to LogLevel::* or an integer bit field of E_* constants
+     * @param bool $replace Whether to replace or not any existing logger
      */
     public function setDefaultLogger(LoggerInterface $logger, array|int|null $levels = \E_ALL, bool $replace = false): void
     {
@@ -242,7 +242,7 @@ class ErrorHandler
 
         foreach ($loggers as $type => $log) {
             if (!isset($prev[$type])) {
-                throw new \InvalidArgumentException('Unknown error type: '.$type);
+                throw new \InvalidArgumentException('Unknown error type: ' . $type);
             }
             if (!\is_array($log)) {
                 $log = [$log];
@@ -289,7 +289,7 @@ class ErrorHandler
     /**
      * Sets the PHP error levels that throw an exception when a PHP error occurs.
      *
-     * @param int  $levels  A bit field of E_* constants for thrown errors
+     * @param int $levels A bit field of E_* constants for thrown errors
      * @param bool $replace Replace or amend the previous value
      */
     public function throwAt(int $levels, bool $replace = false): int
@@ -307,7 +307,7 @@ class ErrorHandler
     /**
      * Sets the PHP error levels for which local variables are preserved.
      *
-     * @param int  $levels  A bit field of E_* constants for scoped errors
+     * @param int $levels A bit field of E_* constants for scoped errors
      * @param bool $replace Replace or amend the previous value
      */
     public function scopeAt(int $levels, bool $replace = false): int
@@ -324,7 +324,7 @@ class ErrorHandler
     /**
      * Sets the PHP error levels for which the stack trace is preserved.
      *
-     * @param int  $levels  A bit field of E_* constants for traced errors
+     * @param int $levels A bit field of E_* constants for traced errors
      * @param bool $replace Replace or amend the previous value
      */
     public function traceAt(int $levels, bool $replace = false): int
@@ -341,7 +341,7 @@ class ErrorHandler
     /**
      * Sets the error levels where the @-operator is ignored.
      *
-     * @param int  $levels  A bit field of E_* constants for screamed errors
+     * @param int $levels A bit field of E_* constants for screamed errors
      * @param bool $replace Replace or amend the previous value
      */
     public function screamAt(int $levels, bool $replace = false): int
@@ -408,10 +408,10 @@ class ErrorHandler
             return false;
         }
 
-        $logMessage = $this->levels[$type].': '.$message;
+        $logMessage = $this->levels[$type] . ': ' . $message;
 
         if (!$throw && !($type & $level)) {
-            if (!isset(self::$silencedErrorCache[$id = $file.':'.$line])) {
+            if (!isset(self::$silencedErrorCache[$id = $file . ':' . $line])) {
                 $lightTrace = $this->tracedErrors & $type ? $this->cleanTrace(debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 5), $type, $file, $line, false) : [];
                 $errorAsException = new SilencedErrorContext($type, $file, $line, isset($lightTrace[1]) ? [$lightTrace[0]] : $lightTrace);
             } elseif (isset(self::$silencedErrorCache[$id][$message])) {
@@ -443,7 +443,7 @@ class ErrorHandler
                     ) {
                         if ($backtrace[$i]['args'][0] !== $message) {
                             $message = $this->parseAnonymousClass($backtrace[$i]['args'][0]);
-                            $logMessage = $this->levels[$type].': '.$message;
+                            $logMessage = $this->levels[$type] . ': ' . $message;
                         }
 
                         break;
@@ -505,13 +505,13 @@ class ErrorHandler
             }
 
             if ($exception instanceof FatalError) {
-                $message = 'Fatal '.$message;
+                $message = 'Fatal ' . $message;
             } elseif ($exception instanceof \Error) {
-                $message = 'Uncaught Error: '.$message;
+                $message = 'Uncaught Error: ' . $message;
             } elseif ($exception instanceof \ErrorException) {
-                $message = 'Uncaught '.$message;
+                $message = 'Uncaught ' . $message;
             } else {
-                $message = 'Uncaught Exception: '.$message;
+                $message = 'Uncaught Exception: ' . $message;
             }
 
             try {
@@ -617,9 +617,9 @@ class ErrorHandler
             $trace = $error['backtrace'] ?? null;
 
             if (str_starts_with($error['message'], 'Allowed memory') || str_starts_with($error['message'], 'Out of memory')) {
-                $fatalError = new OutOfMemoryError($handler->levels[$error['type']].': '.$error['message'], 0, $error, 2, false, $trace);
+                $fatalError = new OutOfMemoryError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, false, $trace);
             } else {
-                $fatalError = new FatalError($handler->levels[$error['type']].': '.$error['message'], 0, $error, 2, true, $trace);
+                $fatalError = new FatalError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, true, $trace);
             }
         } else {
             $fatalError = null;
@@ -636,7 +636,9 @@ class ErrorHandler
 
         if ($exit && self::$exitCode) {
             $exitCode = self::$exitCode;
-            register_shutdown_function('register_shutdown_function', function () use ($exitCode) { exit($exitCode); });
+            register_shutdown_function('register_shutdown_function', function () use ($exitCode) {
+                exit($exitCode);
+            });
         }
     }
 
@@ -656,7 +658,7 @@ class ErrorHandler
             http_response_code($exception->getStatusCode());
 
             foreach ($exception->getHeaders() as $name => $value) {
-                header($name.': '.$value, false);
+                header($name . ': ' . $value, false);
             }
         }
 
@@ -726,7 +728,7 @@ class ErrorHandler
     private function parseAnonymousClass(string $message): string
     {
         return preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', static function ($m) {
-            return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0];
+            return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class') . '@anonymous' : $m[0];
         }, $message);
     }
 }

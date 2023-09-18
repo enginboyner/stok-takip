@@ -50,8 +50,9 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
         string $streamName,
         string $mode = parent::MODE_APPEND_READ_WRITE,
         string $context = null,
-        bool $wait = false
-    ) {
+        bool   $wait = false
+    )
+    {
         parent::__construct($streamName, $mode, $context, $wait);
 
         return;
@@ -127,7 +128,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function readBoolean()
     {
-        return (bool) $this->read(1);
+        return (bool)$this->read(1);
     }
 
     /**
@@ -135,7 +136,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function readInteger(int $length = 1)
     {
-        return (int) $this->read($length);
+        return (int)$this->read($length);
     }
 
     /**
@@ -143,7 +144,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function readFloat(int $length = 1)
     {
-        return (float) $this->read($length);
+        return (float)$this->read($length);
     }
 
     /**
@@ -196,7 +197,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function writeString(string $string)
     {
-        $string = (string) $string;
+        $string = (string)$string;
 
         return $this->write($string, \strlen($string));
     }
@@ -206,7 +207,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function writeCharacter(string $char)
     {
-        return $this->write((string) $char[0], 1);
+        return $this->write((string)$char[0], 1);
     }
 
     /**
@@ -214,7 +215,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function writeBoolean(bool $boolean)
     {
-        return $this->write((string) (bool) $boolean, 1);
+        return $this->write((string)(bool)$boolean, 1);
     }
 
     /**
@@ -222,7 +223,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function writeInteger(int $integer)
     {
-        $integer = (string) (int) $integer;
+        $integer = (string)(int)$integer;
 
         return $this->write($integer, \strlen($integer));
     }
@@ -232,7 +233,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
      */
     public function writeFloat(float $float)
     {
-        $float = (string) (float) $float;
+        $float = (string)(float)$float;
 
         return $this->write($float, \strlen($float));
     }
@@ -253,7 +254,7 @@ class FileLinkReadWrite extends FileLink implements StreamIn, StreamOut
     public function writeLine(string $line)
     {
         if (false === $n = \strpos($line, "\n")) {
-            return $this->write($line."\n", \strlen($line) + 1);
+            return $this->write($line . "\n", \strlen($line) + 1);
         }
 
         ++$n;

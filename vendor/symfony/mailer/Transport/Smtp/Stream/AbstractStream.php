@@ -110,7 +110,7 @@ abstract class AbstractStream
         $fromLen = \strlen($from);
 
         foreach ($chunks as $chunk) {
-            if ('' === $chunk = $carry.$chunk) {
+            if ('' === $chunk = $carry . $chunk) {
                 continue;
             }
 
@@ -118,7 +118,7 @@ abstract class AbstractStream
                 $chunk = explode($from, $chunk);
                 $carry = array_pop($chunk);
 
-                yield implode($to, $chunk).$to;
+                yield implode($to, $chunk) . $to;
             } else {
                 $carry = $chunk;
             }

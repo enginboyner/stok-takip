@@ -68,7 +68,7 @@ class HttpKernel implements HttpKernelInterface, TerminableInterface
      */
     public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): Response
     {
-        $request->headers->set('X-Php-Ob-Level', (string) ob_get_level());
+        $request->headers->set('X-Php-Ob-Level', (string)ob_get_level());
 
         $this->requestStack->push($request);
         try {
@@ -291,9 +291,9 @@ class HttpKernel implements HttpKernelInterface, TerminableInterface
         }
 
         if (is_numeric($var)) {
-            return sprintf('a number (%s)', (string) $var);
+            return sprintf('a number (%s)', (string)$var);
         }
 
-        return (string) $var;
+        return (string)$var;
     }
 }

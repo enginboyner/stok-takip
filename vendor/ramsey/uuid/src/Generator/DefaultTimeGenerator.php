@@ -41,10 +41,11 @@ use const STR_PAD_LEFT;
 class DefaultTimeGenerator implements TimeGeneratorInterface
 {
     public function __construct(
-        private NodeProviderInterface $nodeProvider,
+        private NodeProviderInterface  $nodeProvider,
         private TimeConverterInterface $timeConverter,
-        private TimeProviderInterface $timeProvider
-    ) {
+        private TimeProviderInterface  $timeProvider
+    )
+    {
     }
 
     /**
@@ -68,7 +69,7 @@ class DefaultTimeGenerator implements TimeGeneratorInterface
             } catch (Throwable $exception) {
                 throw new RandomSourceException(
                     $exception->getMessage(),
-                    (int) $exception->getCode(),
+                    (int)$exception->getCode(),
                     $exception
                 );
             }
@@ -90,7 +91,7 @@ class DefaultTimeGenerator implements TimeGeneratorInterface
             ));
         }
 
-        $timeBytes = (string) hex2bin($timeHex);
+        $timeBytes = (string)hex2bin($timeHex);
 
         return $timeBytes[4] . $timeBytes[5] . $timeBytes[6] . $timeBytes[7]
             . $timeBytes[2] . $timeBytes[3]
@@ -109,7 +110,7 @@ class DefaultTimeGenerator implements TimeGeneratorInterface
      *
      * @throws InvalidArgumentException
      */
-    private function getValidNode(int | string | null $node): string
+    private function getValidNode(int|string|null $node): string
     {
         if ($node === null) {
             $node = $this->nodeProvider->getNode();
@@ -120,10 +121,10 @@ class DefaultTimeGenerator implements TimeGeneratorInterface
             $node = dechex($node);
         }
 
-        if (!preg_match('/^[A-Fa-f0-9]+$/', (string) $node) || strlen((string) $node) > 12) {
+        if (!preg_match('/^[A-Fa-f0-9]+$/', (string)$node) || strlen((string)$node) > 12) {
             throw new InvalidArgumentException('Invalid node value');
         }
 
-        return (string) hex2bin(str_pad((string) $node, 12, '0', STR_PAD_LEFT));
+        return (string)hex2bin(str_pad((string)$node, 12, '0', STR_PAD_LEFT));
     }
 }

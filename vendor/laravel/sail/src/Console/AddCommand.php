@@ -41,7 +41,7 @@ class AddCommand extends Command
         }
 
         if ($invalidServices = array_diff($services, $this->services)) {
-            $this->error('Invalid services ['.implode(',', $invalidServices).'].');
+            $this->error('Invalid services [' . implode(',', $invalidServices) . '].');
 
             return 1;
         }

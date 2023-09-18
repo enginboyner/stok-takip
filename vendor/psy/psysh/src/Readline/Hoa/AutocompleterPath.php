@@ -62,9 +62,10 @@ class AutocompleterPath implements Autocompleter
      * Constructor.
      */
     public function __construct(
-        string $root = null,
+        string   $root = null,
         \Closure $iteratorFactory = null
-    ) {
+    )
+    {
         if (null === $root) {
             $root = static::PWD;
         }
@@ -90,17 +91,17 @@ class AutocompleterPath implements Autocompleter
             $root = \getcwd();
         }
 
-        $path = $root.\DIRECTORY_SEPARATOR.$prefix;
+        $path = $root . \DIRECTORY_SEPARATOR . $prefix;
 
         if (!\is_dir($path)) {
-            $path = \dirname($path).\DIRECTORY_SEPARATOR;
+            $path = \dirname($path) . \DIRECTORY_SEPARATOR;
             $prefix = \basename($prefix);
         } else {
             $prefix = null;
         }
 
         $iteratorFactory = $this->getIteratorFactory() ?:
-                               static::getDefaultIteratorFactory();
+            static::getDefaultIteratorFactory();
 
         try {
             $iterator = $iteratorFactory($path);
@@ -113,7 +114,7 @@ class AutocompleterPath implements Autocompleter
                 if (null === $prefix ||
                     (\mb_substr($filename, 0, $length) === $prefix)) {
                     if ($fileinfo->isDir()) {
-                        $out[] = $filename.'/';
+                        $out[] = $filename . '/';
                     } else {
                         $out[] = $filename;
                     }

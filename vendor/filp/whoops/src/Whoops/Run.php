@@ -29,22 +29,22 @@ final class Run implements RunInterface
     /**
      * @var bool
      */
-    private $allowQuit       = true;
+    private $allowQuit = true;
 
     /**
      * @var bool
      */
-    private $sendOutput      = true;
+    private $sendOutput = true;
 
     /**
      * @var integer|false
      */
-    private $sendHttpCode    = 500;
+    private $sendHttpCode = 500;
 
     /**
      * @var integer|false
      */
-    private $sendExitCode    = 1;
+    private $sendExitCode = 1;
 
     /**
      * @var HandlerInterface[]
@@ -131,9 +131,9 @@ final class Run implements RunInterface
     /**
      * Removes and returns the last handler pushed to the handler stack.
      *
+     * @return HandlerInterface|null
      * @see Run::removeFirstHandler(), Run::removeLastHandler()
      *
-     * @return HandlerInterface|null
      */
     public function popHandler()
     {
@@ -248,14 +248,14 @@ final class Run implements RunInterface
             return $this->allowQuit;
         }
 
-        return $this->allowQuit = (bool) $exit;
+        return $this->allowQuit = (bool)$exit;
     }
 
     /**
      * Silence particular errors in particular files.
      *
      * @param array|string $patterns List or a single regex pattern to match.
-     * @param int          $levels   Defaults to E_STRICT | E_DEPRECATED.
+     * @param int $levels Defaults to E_STRICT | E_DEPRECATED.
      *
      * @return Run
      */
@@ -270,7 +270,7 @@ final class Run implements RunInterface
                         "levels" => $levels,
                     ];
                 },
-                (array) $patterns
+                (array)$patterns
             )
         );
 
@@ -343,7 +343,7 @@ final class Run implements RunInterface
             );
         }
 
-        return $this->sendExitCode = (int) $code;
+        return $this->sendExitCode = (int)$code;
     }
 
     /**
@@ -360,7 +360,7 @@ final class Run implements RunInterface
             return $this->sendOutput;
         }
 
-        return $this->sendOutput = (bool) $send;
+        return $this->sendOutput = (bool)$send;
     }
 
     /**
@@ -451,10 +451,10 @@ final class Run implements RunInterface
      *
      * This method MUST be compatible with set_error_handler.
      *
-     * @param int         $level
-     * @param string      $message
+     * @param int $level
+     * @param string $message
      * @param string|null $file
-     * @param int|null    $line
+     * @param int|null $line
      *
      * @return bool
      *
@@ -464,7 +464,7 @@ final class Run implements RunInterface
     {
         if ($level & $this->system->getErrorReportingLevel()) {
             foreach ($this->silencedPatterns as $entry) {
-                $pathMatches = (bool) preg_match($entry["pattern"], $file);
+                $pathMatches = (bool)preg_match($entry["pattern"], $file);
                 $levelMatches = $level & $entry["levels"];
                 if ($pathMatches && $levelMatches) {
                     // Ignore the error, abort handling
@@ -531,7 +531,7 @@ final class Run implements RunInterface
     {
         if (!is_callable($filterCallback)) {
             throw new \InvalidArgumentException(sprintf(
-                "A frame filter must be of type callable, %s type given.", 
+                "A frame filter must be of type callable, %s type given.",
                 gettype($filterCallback)
             ));
         }

@@ -83,9 +83,9 @@ final class Color implements Extension\ColorExtension
     }
 
     /**
+     * @return int[]
      * @example 'array(0,255,122)'
      *
-     * @return int[]
      */
     public function rgbColorAsArray(): array
     {
@@ -163,9 +163,9 @@ final class Color implements Extension\ColorExtension
     }
 
     /**
+     * @return int[]
      * @example array(340, 50, 20)
      *
-     * @return int[]
      */
     public function hslColorAsArray(): array
     {

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use const DIRECTORY_SEPARATOR;
@@ -49,17 +50,17 @@ final class Facade
             );
         }
 
-        $this->generator      = $generator;
+        $this->generator = $generator;
         $this->highLowerBound = $highLowerBound;
-        $this->lowUpperBound  = $lowUpperBound;
-        $this->templatePath   = __DIR__ . '/Renderer/Template/';
+        $this->lowUpperBound = $lowUpperBound;
+        $this->templatePath = __DIR__ . '/Renderer/Template/';
     }
 
     public function process(CodeCoverage $coverage, string $target): void
     {
         $target = $this->directory($target);
         $report = $coverage->getReport();
-        $date   = date('D M j G:i:s T Y');
+        $date = date('D M j G:i:s T Y');
 
         $dashboard = new Dashboard(
             $this->templatePath,

@@ -20,7 +20,7 @@ final class LibYamlFrontMatterParser implements FrontMatterDataParserInterface
 {
     public static function capable(): ?LibYamlFrontMatterParser
     {
-        if (! \extension_loaded('yaml')) {
+        if (!\extension_loaded('yaml')) {
             return null;
         }
 
@@ -32,7 +32,7 @@ final class LibYamlFrontMatterParser implements FrontMatterDataParserInterface
      */
     public function parse(string $frontMatter)
     {
-        if (! \extension_loaded('yaml')) {
+        if (!\extension_loaded('yaml')) {
             throw new MissingDependencyException('Failed to parse yaml: "ext-yaml" extension is missing');
         }
 

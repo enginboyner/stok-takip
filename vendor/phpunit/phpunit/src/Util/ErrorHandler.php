@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const E_DEPRECATED;
@@ -57,8 +58,7 @@ final class ErrorHandler
     public static function invokeIgnoringWarnings(callable $callable)
     {
         set_error_handler(
-            static function ($errorNumber, $errorString)
-            {
+            static function ($errorNumber, $errorString) {
                 if ($errorNumber === E_WARNING) {
                     return;
                 }
@@ -77,9 +77,9 @@ final class ErrorHandler
     public function __construct(bool $convertDeprecationsToExceptions, bool $convertErrorsToExceptions, bool $convertNoticesToExceptions, bool $convertWarningsToExceptions)
     {
         $this->convertDeprecationsToExceptions = $convertDeprecationsToExceptions;
-        $this->convertErrorsToExceptions       = $convertErrorsToExceptions;
-        $this->convertNoticesToExceptions      = $convertNoticesToExceptions;
-        $this->convertWarningsToExceptions     = $convertWarningsToExceptions;
+        $this->convertErrorsToExceptions = $convertErrorsToExceptions;
+        $this->convertNoticesToExceptions = $convertNoticesToExceptions;
+        $this->convertWarningsToExceptions = $convertWarningsToExceptions;
     }
 
     public function __invoke(int $errorNumber, string $errorString, string $errorFile, int $errorLine): bool

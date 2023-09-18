@@ -48,8 +48,8 @@ interface InspectorInterface
 
     /**
      * Returns an Inspector for a previous Exception, if any.
-     * @todo   Clean this up a bit, cache stuff a bit better.
      * @return InspectorInterface
+     * @todo   Clean this up a bit, cache stuff a bit better.
      */
     public function getPreviousExceptionInspector();
 
@@ -62,9 +62,9 @@ interface InspectorInterface
     /**
      * Returns an iterator for the inspected exception's
      * frames.
-     * 
+     *
      * @param array<callable> $frameFilters
-     * 
+     *
      * @return \Whoops\Exception\FrameCollection
      */
     public function getFrames(array $frameFilters = []);

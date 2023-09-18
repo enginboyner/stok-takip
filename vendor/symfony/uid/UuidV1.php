@@ -33,7 +33,7 @@ class UuidV1 extends Uuid
 
     public function getDateTime(): \DateTimeImmutable
     {
-        return BinaryUtil::hexToDateTime('0'.substr($this->uid, 15, 3).substr($this->uid, 9, 4).substr($this->uid, 0, 8));
+        return BinaryUtil::hexToDateTime('0' . substr($this->uid, 15, 3) . substr($this->uid, 9, 4) . substr($this->uid, 0, 8));
     }
 
     public function getNode(): string
@@ -61,11 +61,11 @@ class UuidV1 extends Uuid
             }
 
             $time = BinaryUtil::dateTimeToHex($time);
-            $uuid = substr($time, 8).'-'.substr($time, 4, 4).'-1'.substr($time, 1, 3).'-'.$seq.substr($uuid, 23);
+            $uuid = substr($time, 8) . '-' . substr($time, 4, 4) . '-1' . substr($time, 1, 3) . '-' . $seq . substr($uuid, 23);
         }
 
         if ($node) {
-            $uuid = substr($uuid, 0, 24).substr($node->uid, 24);
+            $uuid = substr($uuid, 0, 24) . substr($node->uid, 24);
         }
 
         return $uuid;

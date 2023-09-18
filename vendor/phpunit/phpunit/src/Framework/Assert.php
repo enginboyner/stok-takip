@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use const DEBUG_BACKTRACE_IGNORE_ARGS;
@@ -99,7 +100,7 @@ abstract class Assert
     /**
      * Asserts that an array has a specified key.
      *
-     * @param int|string        $key
+     * @param int|string $key
      * @param array|ArrayAccess $array
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -130,7 +131,7 @@ abstract class Assert
     /**
      * Asserts that an array does not have a specified key.
      *
-     * @param int|string        $key
+     * @param int|string $key
      * @param array|ArrayAccess $array
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -2184,7 +2185,7 @@ abstract class Assert
     public static function assertXmlFileEqualsXmlFile(string $expectedFile, string $actualFile, string $message = ''): void
     {
         $expected = (new XmlLoader)->loadFile($expectedFile);
-        $actual   = (new XmlLoader)->loadFile($actualFile);
+        $actual = (new XmlLoader)->loadFile($actualFile);
 
         static::assertEquals($expected, $actual, $message);
     }
@@ -2199,7 +2200,7 @@ abstract class Assert
     public static function assertXmlFileNotEqualsXmlFile(string $expectedFile, string $actualFile, string $message = ''): void
     {
         $expected = (new XmlLoader)->loadFile($expectedFile);
-        $actual   = (new XmlLoader)->loadFile($actualFile);
+        $actual = (new XmlLoader)->loadFile($actualFile);
 
         static::assertNotEquals($expected, $actual, $message);
     }
@@ -2330,7 +2331,7 @@ abstract class Assert
         self::createWarning('assertEqualXMLStructure() is deprecated and will be removed in PHPUnit 10.');
 
         $expectedElement = Xml::import($expectedElement);
-        $actualElement   = Xml::import($actualElement);
+        $actualElement = Xml::import($actualElement);
 
         static::assertSame(
             $expectedElement->tagName,
@@ -2352,7 +2353,7 @@ abstract class Assert
 
             for ($i = 0; $i < $expectedElement->attributes->length; $i++) {
                 $expectedAttribute = $expectedElement->attributes->item($i);
-                $actualAttribute   = $actualElement->attributes->getNamedItem($expectedAttribute->name);
+                $actualAttribute = $actualElement->attributes->getNamedItem($expectedAttribute->name);
 
                 assert($expectedAttribute instanceof DOMAttr);
 
@@ -2506,7 +2507,7 @@ abstract class Assert
         static::assertFileExists($expectedFile, $message);
         static::assertFileExists($actualFile, $message);
 
-        $actualJson   = file_get_contents($actualFile);
+        $actualJson = file_get_contents($actualFile);
         $expectedJson = file_get_contents($expectedFile);
 
         static::assertJson($expectedJson, $message);
@@ -2533,7 +2534,7 @@ abstract class Assert
         static::assertFileExists($expectedFile, $message);
         static::assertFileExists($actualFile, $message);
 
-        $actualJson   = file_get_contents($actualFile);
+        $actualJson = file_get_contents($actualFile);
         $expectedJson = file_get_contents($expectedFile);
 
         static::assertJson($expectedJson, $message);
@@ -2858,7 +2859,7 @@ abstract class Assert
             $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             array_unshift($trace, $hint);
 
-            throw new SyntheticSkippedError($hint['message'], 0, $hint['file'], (int) $hint['line'], $trace);
+            throw new SyntheticSkippedError($hint['message'], 0, $hint['file'], (int)$hint['line'], $trace);
         }
 
         throw new SkippedTestError($message);
@@ -2882,7 +2883,7 @@ abstract class Assert
 
     private static function detectLocationHint(string $message): ?array
     {
-        $hint  = null;
+        $hint = null;
         $lines = preg_split('/\r\n|\r|\n/', $message);
 
         while (strpos($lines[0], '__OFFSET') !== false) {
@@ -2906,12 +2907,12 @@ abstract class Assert
 
     private static function isValidObjectAttributeName(string $attributeName): bool
     {
-        return (bool) preg_match('/[^\x00-\x1f\x7f-\x9f]+/', $attributeName);
+        return (bool)preg_match('/[^\x00-\x1f\x7f-\x9f]+/', $attributeName);
     }
 
     private static function isValidClassAttributeName(string $attributeName): bool
     {
-        return (bool) preg_match('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/', $attributeName);
+        return (bool)preg_match('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/', $attributeName);
     }
 
     /**

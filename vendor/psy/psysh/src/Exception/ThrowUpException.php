@@ -36,9 +36,9 @@ class ThrowUpException extends \Exception implements Exception
     /**
      * Create a ThrowUpException from a Throwable.
      *
+     * @param \Throwable $throwable
      * @deprecated PsySH no longer wraps Throwables
      *
-     * @param \Throwable $throwable
      */
     public static function fromThrowable($throwable): self
     {

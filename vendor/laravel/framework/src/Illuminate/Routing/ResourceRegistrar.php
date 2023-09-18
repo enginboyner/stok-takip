@@ -62,7 +62,7 @@ class ResourceRegistrar
     /**
      * Create a new resource registrar instance.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
      * @return void
      */
     public function __construct(Router $router)
@@ -73,14 +73,14 @@ class ResourceRegistrar
     /**
      * Route a resource to a controller.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\RouteCollection
      */
     public function register($name, $controller, array $options = [])
     {
-        if (isset($options['parameters']) && ! isset($this->parameters)) {
+        if (isset($options['parameters']) && !isset($this->parameters)) {
             $this->parameters = $options['parameters'];
         }
 
@@ -105,7 +105,7 @@ class ResourceRegistrar
         $resourceMethods = $this->getResourceMethods($defaults, $options);
 
         foreach ($resourceMethods as $m) {
-            $route = $this->{'addResource'.ucfirst($m)}(
+            $route = $this->{'addResource' . ucfirst($m)}(
                 $name, $base, $controller, $options
             );
 
@@ -114,7 +114,7 @@ class ResourceRegistrar
             }
 
             if (isset($options['trashed']) &&
-                in_array($m, ! empty($options['trashed']) ? $options['trashed'] : array_intersect($resourceMethods, ['show', 'edit', 'update']))) {
+                in_array($m, !empty($options['trashed']) ? $options['trashed'] : array_intersect($resourceMethods, ['show', 'edit', 'update']))) {
                 $route->withTrashed();
             }
 
@@ -127,14 +127,14 @@ class ResourceRegistrar
     /**
      * Route a singleton resource to a controller.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\RouteCollection
      */
     public function singleton($name, $controller, array $options = [])
     {
-        if (isset($options['parameters']) && ! isset($this->parameters)) {
+        if (isset($options['parameters']) && !isset($this->parameters)) {
             $this->parameters = $options['parameters'];
         }
 
@@ -154,7 +154,7 @@ class ResourceRegistrar
         $resourceMethods = $this->getResourceMethods($defaults, $options);
 
         foreach ($resourceMethods as $m) {
-            $route = $this->{'addSingleton'.ucfirst($m)}(
+            $route = $this->{'addSingleton' . ucfirst($m)}(
                 $name, $controller, $options
             );
 
@@ -171,9 +171,9 @@ class ResourceRegistrar
     /**
      * Build a set of prefixed resource routes.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return void
      */
     protected function prefixedResource($name, $controller, array $options)
@@ -193,9 +193,9 @@ class ResourceRegistrar
     /**
      * Build a set of prefixed singleton routes.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return void
      */
     protected function prefixedSingleton($name, $controller, array $options)
@@ -215,7 +215,7 @@ class ResourceRegistrar
     /**
      * Extract the resource and prefix from a resource name.
      *
-     * @param  string  $name
+     * @param string $name
      * @return array
      */
     protected function getResourcePrefix($name)
@@ -233,8 +233,8 @@ class ResourceRegistrar
     /**
      * Get the applicable resource methods.
      *
-     * @param  array  $defaults
-     * @param  array  $options
+     * @param array $defaults
+     * @param array $options
      * @return array
      */
     protected function getResourceMethods($defaults, $options)
@@ -242,17 +242,17 @@ class ResourceRegistrar
         $methods = $defaults;
 
         if (isset($options['only'])) {
-            $methods = array_intersect($methods, (array) $options['only']);
+            $methods = array_intersect($methods, (array)$options['only']);
         }
 
         if (isset($options['except'])) {
-            $methods = array_diff($methods, (array) $options['except']);
+            $methods = array_diff($methods, (array)$options['except']);
         }
 
         if (isset($options['creatable'])) {
             $methods = isset($options['apiSingleton'])
-                            ? array_merge(['store', 'destroy'], $methods)
-                            : array_merge(['create', 'store', 'destroy'], $methods);
+                ? array_merge(['store', 'destroy'], $methods)
+                : array_merge(['create', 'store', 'destroy'], $methods);
 
             return $this->getResourceMethods(
                 $methods, array_values(Arr::except($options, ['creatable']))
@@ -273,10 +273,10 @@ class ResourceRegistrar
     /**
      * Add the index method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceIndex($name, $base, $controller, $options)
@@ -293,15 +293,15 @@ class ResourceRegistrar
     /**
      * Add the create method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceCreate($name, $base, $controller, $options)
     {
-        $uri = $this->getResourceUri($name).'/'.static::$verbs['create'];
+        $uri = $this->getResourceUri($name) . '/' . static::$verbs['create'];
 
         unset($options['missing']);
 
@@ -313,10 +313,10 @@ class ResourceRegistrar
     /**
      * Add the store method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceStore($name, $base, $controller, $options)
@@ -333,17 +333,17 @@ class ResourceRegistrar
     /**
      * Add the show method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceShow($name, $base, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name).'/{'.$base.'}';
+        $uri = $this->getResourceUri($name) . '/{' . $base . '}';
 
         $action = $this->getResourceAction($name, $controller, 'show', $options);
 
@@ -353,17 +353,17 @@ class ResourceRegistrar
     /**
      * Add the edit method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceEdit($name, $base, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name).'/{'.$base.'}/'.static::$verbs['edit'];
+        $uri = $this->getResourceUri($name) . '/{' . $base . '}/' . static::$verbs['edit'];
 
         $action = $this->getResourceAction($name, $controller, 'edit', $options);
 
@@ -373,17 +373,17 @@ class ResourceRegistrar
     /**
      * Add the update method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceUpdate($name, $base, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name).'/{'.$base.'}';
+        $uri = $this->getResourceUri($name) . '/{' . $base . '}';
 
         $action = $this->getResourceAction($name, $controller, 'update', $options);
 
@@ -393,17 +393,17 @@ class ResourceRegistrar
     /**
      * Add the destroy method for a resourceful route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addResourceDestroy($name, $base, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name).'/{'.$base.'}';
+        $uri = $this->getResourceUri($name) . '/{' . $base . '}';
 
         $action = $this->getResourceAction($name, $controller, 'destroy', $options);
 
@@ -413,14 +413,14 @@ class ResourceRegistrar
     /**
      * Add the create method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonCreate($name, $controller, $options)
     {
-        $uri = $this->getResourceUri($name).'/'.static::$verbs['create'];
+        $uri = $this->getResourceUri($name) . '/' . static::$verbs['create'];
 
         unset($options['missing']);
 
@@ -432,9 +432,9 @@ class ResourceRegistrar
     /**
      * Add the store method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonStore($name, $controller, $options)
@@ -451,9 +451,9 @@ class ResourceRegistrar
     /**
      * Add the show method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonShow($name, $controller, $options)
@@ -470,16 +470,16 @@ class ResourceRegistrar
     /**
      * Add the edit method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonEdit($name, $controller, $options)
     {
         $name = $this->getShallowName($name, $options);
 
-        $uri = $this->getResourceUri($name).'/'.static::$verbs['edit'];
+        $uri = $this->getResourceUri($name) . '/' . static::$verbs['edit'];
 
         $action = $this->getResourceAction($name, $controller, 'edit', $options);
 
@@ -489,10 +489,10 @@ class ResourceRegistrar
     /**
      * Add the update method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $base
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $base
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonUpdate($name, $controller, $options)
@@ -509,9 +509,9 @@ class ResourceRegistrar
     /**
      * Add the destroy method for a singleton route.
      *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array  $options
+     * @param string $name
+     * @param string $controller
+     * @param array $options
      * @return \Illuminate\Routing\Route
      */
     protected function addSingletonDestroy($name, $controller, $options)
@@ -528,22 +528,22 @@ class ResourceRegistrar
     /**
      * Get the name for a given resource with shallowness applied when applicable.
      *
-     * @param  string  $name
-     * @param  array  $options
+     * @param string $name
+     * @param array $options
      * @return string
      */
     protected function getShallowName($name, $options)
     {
         return isset($options['shallow']) && $options['shallow']
-                    ? last(explode('.', $name))
-                    : $name;
+            ? last(explode('.', $name))
+            : $name;
     }
 
     /**
      * Set the route's binding fields if the resource is scoped.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @param  array  $bindingFields
+     * @param \Illuminate\Routing\Route $route
+     * @param array $bindingFields
      * @return void
      */
     protected function setResourceBindingFields($route, $bindingFields)
@@ -560,12 +560,12 @@ class ResourceRegistrar
     /**
      * Get the base resource URI for a given resource.
      *
-     * @param  string  $resource
+     * @param string $resource
      * @return string
      */
     public function getResourceUri($resource)
     {
-        if (! str_contains($resource, '.')) {
+        if (!str_contains($resource, '.')) {
             return $resource;
         }
 
@@ -576,13 +576,13 @@ class ResourceRegistrar
 
         $uri = $this->getNestedResourceUri($segments);
 
-        return str_replace('/{'.$this->getResourceWildcard(end($segments)).'}', '', $uri);
+        return str_replace('/{' . $this->getResourceWildcard(end($segments)) . '}', '', $uri);
     }
 
     /**
      * Get the URI for a nested resource segment array.
      *
-     * @param  array  $segments
+     * @param array $segments
      * @return string
      */
     protected function getNestedResourceUri(array $segments)
@@ -591,14 +591,14 @@ class ResourceRegistrar
         // resource segments, as well as the resource itself. Then we should get an
         // entire string for the resource URI that contains all nested resources.
         return implode('/', array_map(function ($s) {
-            return $s.'/{'.$this->getResourceWildcard($s).'}';
+            return $s . '/{' . $this->getResourceWildcard($s) . '}';
         }, $segments));
     }
 
     /**
      * Format a resource parameter for usage.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
     public function getResourceWildcard($value)
@@ -617,17 +617,17 @@ class ResourceRegistrar
     /**
      * Get the action array for a resource route.
      *
-     * @param  string  $resource
-     * @param  string  $controller
-     * @param  string  $method
-     * @param  array  $options
+     * @param string $resource
+     * @param string $controller
+     * @param string $method
+     * @param array $options
      * @return array
      */
     protected function getResourceAction($resource, $controller, $method, $options)
     {
         $name = $this->getResourceRouteName($resource, $method, $options);
 
-        $action = ['as' => $name, 'uses' => $controller.'@'.$method];
+        $action = ['as' => $name, 'uses' => $controller . '@' . $method];
 
         if (isset($options['middleware'])) {
             $action['middleware'] = $options['middleware'];
@@ -651,9 +651,9 @@ class ResourceRegistrar
     /**
      * Get the name for a given resource.
      *
-     * @param  string  $resource
-     * @param  string  $method
-     * @param  array  $options
+     * @param string $resource
+     * @param string $method
+     * @param array $options
      * @return string
      */
     protected function getResourceRouteName($resource, $method, $options)
@@ -674,7 +674,7 @@ class ResourceRegistrar
         // If a global prefix has been assigned to all names for this resource, we will
         // grab that so we can prepend it onto the name when we create this name for
         // the resource action. Otherwise we'll just use an empty string for here.
-        $prefix = isset($options['as']) ? $options['as'].'.' : '';
+        $prefix = isset($options['as']) ? $options['as'] . '.' : '';
 
         return trim(sprintf('%s%s.%s', $prefix, $name, $method), '.');
     }
@@ -682,12 +682,12 @@ class ResourceRegistrar
     /**
      * Set or unset the unmapped global parameters to singular.
      *
-     * @param  bool  $singular
+     * @param bool $singular
      * @return void
      */
     public static function singularParameters($singular = true)
     {
-        static::$singularParameters = (bool) $singular;
+        static::$singularParameters = (bool)$singular;
     }
 
     /**
@@ -703,7 +703,7 @@ class ResourceRegistrar
     /**
      * Set the global parameter mapping.
      *
-     * @param  array  $parameters
+     * @param array $parameters
      * @return void
      */
     public static function setParameters(array $parameters = [])
@@ -714,7 +714,7 @@ class ResourceRegistrar
     /**
      * Get or set the action verbs used in the resource URIs.
      *
-     * @param  array  $verbs
+     * @param array $verbs
      * @return array
      */
     public static function verbs(array $verbs = [])

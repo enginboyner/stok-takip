@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [CustomerController::class, 'store'])->name('customer.add2');
         Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
         Route::post('/{id}', [CustomerController::class, 'update'])->name('customer.update');
-        Route::delete('/{id}', [CustomerController::class,'delete'])->name('customer.delete');
+        Route::delete('/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
         Route::get('/show/{id}', [CustomerController::class, 'show'])->name('customer.show');
     });
 
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [CategoryController::class, 'store'])->name('category.add2');
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::post('/{id}', [CategoryController::class, 'update'])->name('category.update');
-        Route::delete('/{id}', [CategoryController::class,'delete'])->name('category.delete');
+        Route::delete('/{id}', [CategoryController::class, 'delete'])->name('category.delete');
         Route::get('/show/{id}', [CategoryController::class, 'show'])->name('category.show');
     });
 
@@ -66,8 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [ProductController::class, 'store'])->name('product.add2');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{id}', [ProductController::class, 'update'])->name('product.update');
-        Route::delete('/{id}', [ProductController::class,'delete'])->name('product.delete');
-        Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');});
+        Route::delete('/{id}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
+    });
 
 
     Route::group(['prefix' => 'sales', 'middleware' => ['roles:sales']], function () {
@@ -76,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [SalesController::class, 'store'])->name('sales.add2');
         Route::get('/edit/{id}', [SalesController::class, 'edit'])->name('sales.edit');
         Route::post('{id}', [SalesController::class, 'update'])->name('sales.update');
-        Route::delete('/{id}', [SalesController::class,'delete'])->name('sales.delete');
+        Route::delete('/{id}', [SalesController::class, 'delete'])->name('sales.delete');
         Route::get('/show/{id}', [SalesController::class, 'show'])->name('sales.show');
         Route::get('/get-sale-items/{id}', [SalesController::class, 'getSaleItems'])->name('sales.getSaleItems');
 
@@ -89,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [StockController::class, 'store'])->name('stock.add2');
         Route::get('/edit/{id}', [StockController::class, 'edit'])->name('stock.edit');
         Route::post('/{id}', [StockController::class, 'update'])->name('stock.update');
-        Route::delete('/{id}', [StockController::class,'delete'])->name('stock.delete');
+        Route::delete('/{id}', [StockController::class, 'delete'])->name('stock.delete');
         Route::get('/show/{id}', [StockController::class, 'show'])->name('stock.show');
     });
 
@@ -100,11 +101,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/add', [UserController::class, 'store'])->name('user.add2');
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}', [UserController::class, 'update'])->name('user.update');
-        Route::delete('/{id}', [UserController::class,'delete'])->name('user.delete');
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('user.delete');
         Route::get('/show/{id}', [UserController::class, 'show'])->name('user.show');
     });
 
-    Route::get('/report',[ReportController::class,'index'])->name('report');
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 

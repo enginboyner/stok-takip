@@ -27,9 +27,9 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
     protected $noMatchRegexps = [];
 
     /**
-     * @param \Iterator $iterator        The Iterator to filter
-     * @param string[]  $matchPatterns   An array of patterns that need to match
-     * @param string[]  $noMatchPatterns An array of patterns that need to not match
+     * @param \Iterator $iterator The Iterator to filter
+     * @param string[] $matchPatterns An array of patterns that need to match
+     * @param string[] $noMatchPatterns An array of patterns that need to not match
      */
     public function __construct(\Iterator $iterator, array $matchPatterns, array $noMatchPatterns)
     {
@@ -86,7 +86,7 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
             $availableModifiers .= 'n';
         }
 
-        if (preg_match('/^(.{3,}?)['.$availableModifiers.']*$/', $str, $m)) {
+        if (preg_match('/^(.{3,}?)[' . $availableModifiers . ']*$/', $str, $m)) {
             $start = substr($m[1], 0, 1);
             $end = substr($m[1], -1);
 

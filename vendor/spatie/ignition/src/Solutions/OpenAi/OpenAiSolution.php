@@ -26,7 +26,8 @@ class OpenAiSolution implements Solution
         protected int|null            $cacheTtlInSeconds = 60,
         protected string|null         $applicationType = null,
         protected string|null         $applicationPath = null,
-    ) {
+    )
+    {
         $this->prompt = $this->generatePrompt();
 
         $this->openAiSolutionResponse = $this->getAiSolution();

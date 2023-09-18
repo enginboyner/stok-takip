@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\Log;
 
 use function class_exists;
@@ -73,9 +74,9 @@ final class TeamCity extends DefaultResultPrinter
         $this->printEvent(
             'testFailed',
             [
-                'name'     => $test->getName(),
-                'message'  => self::getMessage($t),
-                'details'  => self::getDetails($t),
+                'name' => $test->getName(),
+                'message' => self::getMessage($t),
+                'details' => self::getDetails($t),
                 'duration' => self::toMilliseconds($time),
             ],
         );
@@ -95,9 +96,9 @@ final class TeamCity extends DefaultResultPrinter
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
         $parameters = [
-            'name'     => $test->getName(),
-            'message'  => self::getMessage($e),
-            'details'  => self::getDetails($e),
+            'name' => $test->getName(),
+            'message' => self::getMessage($e),
+            'details' => self::getDetails($e),
             'duration' => self::toMilliseconds($time),
         ];
 
@@ -118,8 +119,8 @@ final class TeamCity extends DefaultResultPrinter
                 }
 
                 if ($actualString !== null && $expectedString !== null) {
-                    $parameters['type']     = 'comparisonFailure';
-                    $parameters['actual']   = $actualString;
+                    $parameters['type'] = 'comparisonFailure';
+                    $parameters['actual'] = $actualString;
                     $parameters['expected'] = $expectedString;
                 }
             }
@@ -165,9 +166,9 @@ final class TeamCity extends DefaultResultPrinter
         $this->printEvent(
             'testIgnored',
             [
-                'name'     => $testName,
-                'message'  => self::getMessage($t),
-                'details'  => self::getDetails($t),
+                'name' => $testName,
+                'message' => self::getMessage($t),
+                'details' => self::getDetails($t),
                 'duration' => self::toMilliseconds($time),
             ],
         );
@@ -202,15 +203,15 @@ final class TeamCity extends DefaultResultPrinter
         $parameters = ['name' => $suiteName];
 
         if (class_exists($suiteName, false)) {
-            $fileName                   = self::getFileName($suiteName);
+            $fileName = self::getFileName($suiteName);
             $parameters['locationHint'] = "php_qn://{$fileName}::\\{$suiteName}";
         } else {
             $split = explode('::', $suiteName);
 
             if (count($split) === 2 && class_exists($split[0]) && method_exists($split[0], $split[1])) {
-                $fileName                   = self::getFileName($split[0]);
+                $fileName = self::getFileName($split[0]);
                 $parameters['locationHint'] = "php_qn://{$fileName}::\\{$suiteName}";
-                $parameters['name']         = $split[1];
+                $parameters['name'] = $split[1];
             }
         }
 
@@ -246,13 +247,13 @@ final class TeamCity extends DefaultResultPrinter
      */
     public function startTest(Test $test): void
     {
-        $testName              = $test->getName();
+        $testName = $test->getName();
         $this->startedTestName = $testName;
-        $params                = ['name' => $testName];
+        $params = ['name' => $testName];
 
         if ($test instanceof TestCase) {
-            $className              = get_class($test);
-            $fileName               = self::getFileName($className);
+            $className = get_class($test);
+            $fileName = self::getFileName($className);
             $params['locationHint'] = "php_qn://{$fileName}::\\{$className}::{$testName}";
         }
 
@@ -269,7 +270,7 @@ final class TeamCity extends DefaultResultPrinter
         $this->printEvent(
             'testFinished',
             [
-                'name'     => $test->getName(),
+                'name' => $test->getName(),
                 'duration' => self::toMilliseconds($time),
             ],
         );
@@ -288,7 +289,7 @@ final class TeamCity extends DefaultResultPrinter
         }
 
         foreach ($params as $key => $value) {
-            $escapedValue = self::escapeValue((string) $value);
+            $escapedValue = self::escapeValue((string)$value);
             $this->write(" {$key}='{$escapedValue}'");
         }
 
@@ -315,7 +316,7 @@ final class TeamCity extends DefaultResultPrinter
     private static function getDetails(Throwable $t): string
     {
         $stackTrace = Filter::getFilteredStacktrace($t);
-        $previous   = $t instanceof ExceptionWrapper ? $t->getPreviousWrapped() : $t->getPrevious();
+        $previous = $t instanceof ExceptionWrapper ? $t->getPreviousWrapped() : $t->getPrevious();
 
         while ($previous) {
             $stackTrace .= "\nCaused by\n" .
@@ -378,6 +379,6 @@ final class TeamCity extends DefaultResultPrinter
      */
     private static function toMilliseconds(float $time): int
     {
-        return (int) round($time * 1000);
+        return (int)round($time * 1000);
     }
 }

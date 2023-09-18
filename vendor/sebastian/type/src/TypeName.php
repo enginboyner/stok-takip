@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Type;
 
 use function array_pop;
@@ -35,7 +36,7 @@ final class TypeName
 
         $classNameParts = explode('\\', $fullClassName);
 
-        $simpleName    = array_pop($classNameParts);
+        $simpleName = array_pop($classNameParts);
         $namespaceName = implode('\\', $classNameParts);
 
         return new self($namespaceName, $simpleName);
@@ -56,7 +57,7 @@ final class TypeName
         }
 
         $this->namespaceName = $namespaceName;
-        $this->simpleName    = $simpleName;
+        $this->simpleName = $simpleName;
     }
 
     public function namespaceName(): ?string
@@ -72,8 +73,8 @@ final class TypeName
     public function qualifiedName(): string
     {
         return $this->namespaceName === null
-             ? $this->simpleName
-             : $this->namespaceName . '\\' . $this->simpleName;
+            ? $this->simpleName
+            : $this->namespaceName . '\\' . $this->simpleName;
     }
 
     public function isNamespaced(): bool

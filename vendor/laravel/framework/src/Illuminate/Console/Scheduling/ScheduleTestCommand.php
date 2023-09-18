@@ -37,7 +37,7 @@ class ScheduleTestCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     public function handle(Schedule $schedule)
@@ -56,8 +56,8 @@ class ScheduleTestCommand extends Command
             return $this->components->info('No scheduled commands have been defined.');
         }
 
-        if (! empty($name = $this->option('name'))) {
-            $commandBinary = $phpBinary.' '.Application::artisanBinary();
+        if (!empty($name = $this->option('name'))) {
+            $commandBinary = $phpBinary . ' ' . Application::artisanBinary();
 
             $matches = array_filter($commandNames, function ($commandName) use ($commandBinary, $name) {
                 return trim(str_replace($commandBinary, '', $commandName)) === $name;
@@ -88,9 +88,9 @@ class ScheduleTestCommand extends Command
             $event->runInBackground ? ' in background' : '',
         );
 
-        $this->components->task($description, fn () => $event->run($this->laravel));
+        $this->components->task($description, fn() => $event->run($this->laravel));
 
-        if (! $event instanceof CallbackEvent) {
+        if (!$event instanceof CallbackEvent) {
             $this->components->bulletList([$event->getSummaryForDisplay()]);
         }
 

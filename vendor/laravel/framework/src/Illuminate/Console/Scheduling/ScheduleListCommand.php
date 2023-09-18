@@ -54,7 +54,7 @@ class ScheduleListCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      *
      * @throws \Exception
@@ -84,7 +84,7 @@ class ScheduleListCommand extends Command
 
             $description = $event->description ?? '';
 
-            if (! $this->output->isVerbose()) {
+            if (!$this->output->isVerbose()) {
                 $command = str_replace([Application::phpBinary(), Application::artisanBinary()], [
                     'php',
                     preg_replace("#['\"]#", '', Application::artisanBinary()),
@@ -96,7 +96,7 @@ class ScheduleListCommand extends Command
                     $command = $description;
                     $description = '';
                 } else {
-                    $command = 'Closure at: '.$this->getClosureLocation($event);
+                    $command = 'Closure at: ' . $this->getClosureLocation($event);
                 }
             }
 
@@ -113,7 +113,7 @@ class ScheduleListCommand extends Command
             $hasMutex = $event->mutex->exists($event) ? 'Has Mutex › ' : '';
 
             $dots = str_repeat('.', max(
-                $terminalWidth - mb_strlen($expression.$command.$nextDueDateLabel.$nextDueDate.$hasMutex) - 8, 0
+                $terminalWidth - mb_strlen($expression . $command . $nextDueDateLabel . $nextDueDate . $hasMutex) - 8, 0
             ));
 
             // Highlight the parameters...
@@ -143,35 +143,35 @@ class ScheduleListCommand extends Command
     /**
      * Gets the spacing to be used on each event row.
      *
-     * @param  \Illuminate\Support\Collection  $events
+     * @param \Illuminate\Support\Collection $events
      * @return array<int, int>
      */
     private function getCronExpressionSpacing($events)
     {
-        $rows = $events->map(fn ($event) => array_map('mb_strlen', preg_split("/\s+/", $event->expression)));
+        $rows = $events->map(fn($event) => array_map('mb_strlen', preg_split("/\s+/", $event->expression)));
 
-        return collect($rows[0] ?? [])->keys()->map(fn ($key) => $rows->max($key))->all();
+        return collect($rows[0] ?? [])->keys()->map(fn($key) => $rows->max($key))->all();
     }
 
     /**
      * Sorts the events by due date if option set.
      *
-     * @param  \Illuminate\Support\Collection  $events
-     * @param  \DateTimeZone  $timezone
+     * @param \Illuminate\Support\Collection $events
+     * @param \DateTimeZone $timezone
      * @return \Illuminate\Support\Collection
      */
     private function sortEvents(\Illuminate\Support\Collection $events, DateTimeZone $timezone)
     {
         return $this->option('next')
-                    ? $events->sortBy(fn ($event) => $this->getNextDueDateForEvent($event, $timezone))
-                    : $events;
+            ? $events->sortBy(fn($event) => $this->getNextDueDateForEvent($event, $timezone))
+            : $events;
     }
 
     /**
      * Get the next due date for an event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
-     * @param  \DateTimeZone  $timezone
+     * @param \Illuminate\Console\Scheduling\Event $event
+     * @param \DateTimeZone $timezone
      * @return \Illuminate\Support\Carbon
      */
     private function getNextDueDateForEvent($event, DateTimeZone $timezone)
@@ -186,8 +186,8 @@ class ScheduleListCommand extends Command
     /**
      * Formats the cron expression based on the spacing provided.
      *
-     * @param  string  $expression
-     * @param  array<int, int>  $spacing
+     * @param string $expression
+     * @param array<int, int> $spacing
      * @return string
      */
     private function formatCronExpression($expression, $spacing)
@@ -195,28 +195,28 @@ class ScheduleListCommand extends Command
         $expressions = preg_split("/\s+/", $expression);
 
         return collect($spacing)
-            ->map(fn ($length, $index) => str_pad($expressions[$index], $length))
+            ->map(fn($length, $index) => str_pad($expressions[$index], $length))
             ->implode(' ');
     }
 
     /**
      * Get the file and line number for the event closure.
      *
-     * @param  \Illuminate\Console\Scheduling\CallbackEvent  $event
+     * @param \Illuminate\Console\Scheduling\CallbackEvent $event
      * @return string
      */
     private function getClosureLocation(CallbackEvent $event)
     {
         $callback = tap((new ReflectionClass($event))->getProperty('callback'))
-                        ->setAccessible(true)
-                        ->getValue($event);
+            ->setAccessible(true)
+            ->getValue($event);
 
         if ($callback instanceof Closure) {
             $function = new ReflectionFunction($callback);
 
             return sprintf(
                 '%s:%s',
-                str_replace($this->laravel->basePath().DIRECTORY_SEPARATOR, '', $function->getFileName() ?: ''),
+                str_replace($this->laravel->basePath() . DIRECTORY_SEPARATOR, '', $function->getFileName() ?: ''),
                 $function->getStartLine()
             );
         }
@@ -249,7 +249,7 @@ class ScheduleListCommand extends Command
     /**
      * Set a callback that should be used when resolving the terminal width.
      *
-     * @param  \Closure|null  $resolver
+     * @param \Closure|null $resolver
      * @return void
      */
     public static function resolveTerminalWidthUsing($resolver)

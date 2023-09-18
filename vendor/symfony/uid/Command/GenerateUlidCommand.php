@@ -68,8 +68,7 @@ To output a specific format:
 
     <info>php %command.full_name% --format=rfc4122</info>
 EOF
-            )
-        ;
+            );
     }
 
     /**
@@ -92,14 +91,14 @@ EOF
         $formatOption = $input->getOption('format');
 
         if (\in_array($formatOption, self::FORMAT_OPTIONS)) {
-            $format = 'to'.ucfirst($formatOption);
+            $format = 'to' . ucfirst($formatOption);
         } else {
             $io->error(sprintf('Invalid format "%s", did you mean "base32", "base58" or "rfc4122"?', $input->getOption('format')));
 
             return 1;
         }
 
-        $count = (int) $input->getOption('count');
+        $count = (int)$input->getOption('count');
         try {
             for ($i = 0; $i < $count; ++$i) {
                 $output->writeln($this->factory->create($time)->$format());

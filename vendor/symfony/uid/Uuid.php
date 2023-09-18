@@ -28,16 +28,16 @@ class Uuid extends AbstractUid
 
     public function __construct(string $uuid, bool $checkVariant = false)
     {
-        $type = preg_match('{^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$}Di', $uuid) ? (int) $uuid[14] : false;
+        $type = preg_match('{^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$}Di', $uuid) ? (int)$uuid[14] : false;
 
         if (false === $type || (static::TYPE ?: $type) !== $type) {
-            throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v'.static::TYPE : '', $uuid));
+            throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v' . static::TYPE : '', $uuid));
         }
 
         $this->uid = strtolower($uuid);
 
         if ($checkVariant && !\in_array($this->uid[19], ['8', '9', 'a', 'b'], true)) {
-            throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v'.static::TYPE : '', $uuid));
+            throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v' . static::TYPE : '', $uuid));
         }
     }
 
@@ -70,11 +70,16 @@ class Uuid extends AbstractUid
 
         if (\in_array($uuid[19], ['8', '9', 'a', 'b', 'A', 'B'], true)) {
             switch ($uuid[14]) {
-                case UuidV1::TYPE: return new UuidV1($uuid);
-                case UuidV3::TYPE: return new UuidV3($uuid);
-                case UuidV4::TYPE: return new UuidV4($uuid);
-                case UuidV5::TYPE: return new UuidV5($uuid);
-                case UuidV6::TYPE: return new UuidV6($uuid);
+                case UuidV1::TYPE:
+                    return new UuidV1($uuid);
+                case UuidV3::TYPE:
+                    return new UuidV3($uuid);
+                case UuidV4::TYPE:
+                    return new UuidV4($uuid);
+                case UuidV5::TYPE:
+                    return new UuidV5($uuid);
+                case UuidV6::TYPE:
+                    return new UuidV6($uuid);
             }
         }
 
@@ -89,7 +94,7 @@ class Uuid extends AbstractUid
     final public static function v3(self $namespace, string $name): UuidV3
     {
         // don't use uuid_generate_md5(), some versions are buggy
-        $uuid = md5(hex2bin(str_replace('-', '', $namespace->uid)).$name, true);
+        $uuid = md5(hex2bin(str_replace('-', '', $namespace->uid)) . $name, true);
 
         return new UuidV3(self::format($uuid, '-3'));
     }
@@ -102,7 +107,7 @@ class Uuid extends AbstractUid
     final public static function v5(self $namespace, string $name): UuidV5
     {
         // don't use uuid_generate_sha1(), some versions are buggy
-        $uuid = substr(sha1(hex2bin(str_replace('-', '', $namespace->uid)).$name, true), 0, 16);
+        $uuid = substr(sha1(hex2bin(str_replace('-', '', $namespace->uid)) . $name, true), 0, 16);
 
         return new UuidV5(self::format($uuid, '-5'));
     }
@@ -126,7 +131,7 @@ class Uuid extends AbstractUid
             return false;
         }
 
-        return __CLASS__ === static::class || static::TYPE === (int) $uuid[14];
+        return __CLASS__ === static::class || static::TYPE === (int)$uuid[14];
     }
 
     public function toBinary(): string

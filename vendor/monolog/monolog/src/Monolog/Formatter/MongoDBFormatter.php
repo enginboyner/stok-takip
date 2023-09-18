@@ -30,7 +30,7 @@ class MongoDBFormatter implements FormatterInterface
     private $isLegacyMongoExt;
 
     /**
-     * @param int  $maxNestingLevel        0 means infinite nesting, the $record itself is level 1, $record['context'] is 2
+     * @param int $maxNestingLevel 0 means infinite nesting, the $record itself is level 1, $record['context'] is 2
      * @param bool $exceptionTraceAsString set to false to log exception traces as a sub documents instead of strings
      */
     public function __construct(int $maxNestingLevel = 3, bool $exceptionTraceAsString = true)
@@ -38,7 +38,7 @@ class MongoDBFormatter implements FormatterInterface
         $this->maxNestingLevel = max($maxNestingLevel, 0);
         $this->exceptionTraceAsString = $exceptionTraceAsString;
 
-        $this->isLegacyMongoExt = extension_loaded('mongodb') && version_compare((string) phpversion('mongodb'), '1.1.9', '<=');
+        $this->isLegacyMongoExt = extension_loaded('mongodb') && version_compare((string)phpversion('mongodb'), '1.1.9', '<=');
     }
 
     /**
@@ -70,7 +70,7 @@ class MongoDBFormatter implements FormatterInterface
     }
 
     /**
-     * @param  mixed[]        $array
+     * @param mixed[] $array
      * @return mixed[]|string Array except when max nesting level is reached then a string "[...]"
      */
     protected function formatArray(array $array, int $nestingLevel = 0)
@@ -95,7 +95,7 @@ class MongoDBFormatter implements FormatterInterface
     }
 
     /**
-     * @param  mixed          $value
+     * @param mixed $value
      * @return mixed[]|string
      */
     protected function formatObject($value, int $nestingLevel)
@@ -114,7 +114,7 @@ class MongoDBFormatter implements FormatterInterface
         $formattedException = [
             'class' => Utils::getClass($exception),
             'message' => $exception->getMessage(),
-            'code' => (int) $exception->getCode(),
+            'code' => (int)$exception->getCode(),
             'file' => $exception->getFile() . ':' . $exception->getLine(),
         ];
 
@@ -138,7 +138,7 @@ class MongoDBFormatter implements FormatterInterface
 
     private function getMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
     {
-        return new UTCDateTime((int) floor(((float) $value->format('U.u')) * 1000));
+        return new UTCDateTime((int)floor(((float)$value->format('U.u')) * 1000));
     }
 
     /**
@@ -150,11 +150,11 @@ class MongoDBFormatter implements FormatterInterface
      */
     private function legacyGetMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
     {
-        $milliseconds = floor(((float) $value->format('U.u')) * 1000);
+        $milliseconds = floor(((float)$value->format('U.u')) * 1000);
 
         $milliseconds = (PHP_INT_SIZE == 8) //64-bit OS?
-            ? (int) $milliseconds
-            : (string) $milliseconds;
+            ? (int)$milliseconds
+            : (string)$milliseconds;
 
         // @phpstan-ignore-next-line
         return new UTCDateTime($milliseconds);

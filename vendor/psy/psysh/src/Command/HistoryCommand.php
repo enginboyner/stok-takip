@@ -126,7 +126,7 @@ HELP
 
         if ($save = $input->getOption('save')) {
             $output->writeln(\sprintf('Saving history in %s...', $save));
-            \file_put_contents($save, \implode(\PHP_EOL, $history).\PHP_EOL);
+            \file_put_contents($save, \implode(\PHP_EOL, $history) . \PHP_EOL);
             $output->writeln('<info>History saved.</info>');
         } elseif ($input->getOption('replay')) {
             if (!($input->getOption('show') || $input->getOption('head') || $input->getOption('tail'))) {
@@ -166,13 +166,13 @@ HELP
 
         $matches = [];
         if ($range !== '..' && \preg_match('/^(\d*)\.\.(\d*)$/', $range, $matches)) {
-            $start = $matches[1] ? (int) $matches[1] : 0;
-            $end = $matches[2] ? (int) $matches[2] + 1 : \PHP_INT_MAX;
+            $start = $matches[1] ? (int)$matches[1] : 0;
+            $end = $matches[2] ? (int)$matches[2] + 1 : \PHP_INT_MAX;
 
             return [$start, $end];
         }
 
-        throw new \InvalidArgumentException('Unexpected range: '.$range);
+        throw new \InvalidArgumentException('Unexpected range: ' . $range);
     }
 
     /**
@@ -200,14 +200,14 @@ HELP
             }
 
             $start = 0;
-            $length = (int) $head;
+            $length = (int)$head;
         } elseif ($tail) {
             if (!\preg_match('/^\d+$/', $tail)) {
                 throw new \InvalidArgumentException('Please specify an integer argument for --tail');
             }
 
             $start = \count($history) - $tail;
-            $length = (int) $tail + 1;
+            $length = (int)$tail + 1;
         } else {
             return $history;
         }
@@ -219,7 +219,7 @@ HELP
      * Validate that only one of the given $options is set.
      *
      * @param InputInterface $input
-     * @param array          $options
+     * @param array $options
      */
     private function validateOnlyOne(InputInterface $input, array $options)
     {
@@ -231,7 +231,7 @@ HELP
         }
 
         if ($count > 1) {
-            throw new \InvalidArgumentException('Please specify only one of --'.\implode(', --', $options));
+            throw new \InvalidArgumentException('Please specify only one of --' . \implode(', --', $options));
         }
     }
 

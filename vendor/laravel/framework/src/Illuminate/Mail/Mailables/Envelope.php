@@ -76,15 +76,15 @@ class Envelope
     /**
      * Create a new message envelope instance.
      *
-     * @param  \Illuminate\Mail\Mailables\Address|string|null  $from
-     * @param  array  $to
-     * @param  array  $cc
-     * @param  array  $bcc
-     * @param  array  $replyTo
-     * @param  string|null  $subject
-     * @param  array  $tags
-     * @param  array  $metadata
-     * @param  \Closure|array  $using
+     * @param \Illuminate\Mail\Mailables\Address|string|null $from
+     * @param array $to
+     * @param array $cc
+     * @param array $bcc
+     * @param array $replyTo
+     * @param string|null $subject
+     * @param array $tags
+     * @param array $metadata
+     * @param \Closure|array $using
      * @return void
      *
      * @named-arguments-supported
@@ -105,7 +105,7 @@ class Envelope
     /**
      * Normalize the given array of addresses.
      *
-     * @param  array  $addresses
+     * @param array $addresses
      * @return array
      */
     protected function normalizeAddresses($addresses)
@@ -118,8 +118,8 @@ class Envelope
     /**
      * Specify who the message will be "from".
      *
-     * @param  \Illuminate\Mail\Mailables\Address|string  $address
-     * @param  string|null  $name
+     * @param \Illuminate\Mail\Mailables\Address|string $address
+     * @param string|null $name
      * @return $this
      */
     public function from(Address|string $address, $name = null)
@@ -132,8 +132,8 @@ class Envelope
     /**
      * Add a "to" recipient to the message envelope.
      *
-     * @param  \Illuminate\Mail\Mailables\Address|array|string  $address
-     * @param  string|null  $name
+     * @param \Illuminate\Mail\Mailables\Address|array|string $address
+     * @param string|null $name
      * @return $this
      */
     public function to(Address|array|string $address, $name = null)
@@ -148,8 +148,8 @@ class Envelope
     /**
      * Add a "cc" recipient to the message envelope.
      *
-     * @param  \Illuminate\Mail\Mailables\Address|array|string  $address
-     * @param  string|null  $name
+     * @param \Illuminate\Mail\Mailables\Address|array|string $address
+     * @param string|null $name
      * @return $this
      */
     public function cc(Address|array|string $address, $name = null)
@@ -164,8 +164,8 @@ class Envelope
     /**
      * Add a "bcc" recipient to the message envelope.
      *
-     * @param  \Illuminate\Mail\Mailables\Address|array|string  $address
-     * @param  string|null  $name
+     * @param \Illuminate\Mail\Mailables\Address|array|string $address
+     * @param string|null $name
      * @return $this
      */
     public function bcc(Address|array|string $address, $name = null)
@@ -180,8 +180,8 @@ class Envelope
     /**
      * Add a "reply to" recipient to the message envelope.
      *
-     * @param  \Illuminate\Mail\Mailables\Address|array|string  $address
-     * @param  string|null  $name
+     * @param \Illuminate\Mail\Mailables\Address|array|string $address
+     * @param string|null $name
      * @return $this
      */
     public function replyTo(Address|array|string $address, $name = null)
@@ -196,7 +196,7 @@ class Envelope
     /**
      * Set the subject of the message.
      *
-     * @param  string  $subject
+     * @param string $subject
      * @return $this
      */
     public function subject(string $subject)
@@ -209,7 +209,7 @@ class Envelope
     /**
      * Add "tags" to the message.
      *
-     * @param  array  $tags
+     * @param array $tags
      * @return $this
      */
     public function tags(array $tags)
@@ -222,7 +222,7 @@ class Envelope
     /**
      * Add a "tag" to the message.
      *
-     * @param  string  $tag
+     * @param string $tag
      * @return $this
      */
     public function tag(string $tag)
@@ -235,8 +235,8 @@ class Envelope
     /**
      * Add metadata to the message.
      *
-     * @param  string  $key
-     * @param  string|int  $value
+     * @param string $key
+     * @param string|int $value
      * @return $this
      */
     public function metadata(string $key, string|int $value)
@@ -249,7 +249,7 @@ class Envelope
     /**
      * Add a Symfony Message customization callback to the message.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
      * @return $this
      */
     public function using(Closure $callback)
@@ -262,8 +262,8 @@ class Envelope
     /**
      * Determine if the message is from the given address.
      *
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     public function isFrom(string $address, string $name = null)
@@ -273,14 +273,14 @@ class Envelope
         }
 
         return $this->from->address === $address &&
-               $this->from->name === $name;
+            $this->from->name === $name;
     }
 
     /**
      * Determine if the message has the given address as a recipient.
      *
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     public function hasTo(string $address, string $name = null)
@@ -291,8 +291,8 @@ class Envelope
     /**
      * Determine if the message has the given address as a "cc" recipient.
      *
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     public function hasCc(string $address, string $name = null)
@@ -303,8 +303,8 @@ class Envelope
     /**
      * Determine if the message has the given address as a "bcc" recipient.
      *
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     public function hasBcc(string $address, string $name = null)
@@ -315,8 +315,8 @@ class Envelope
     /**
      * Determine if the message has the given address as a "reply to" recipient.
      *
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     public function hasReplyTo(string $address, string $name = null)
@@ -327,9 +327,9 @@ class Envelope
     /**
      * Determine if the message has the given recipient.
      *
-     * @param  array  $recipients
-     * @param  string  $address
-     * @param  string|null  $name
+     * @param array $recipients
+     * @param string $address
+     * @param string|null $name
      * @return bool
      */
     protected function hasRecipient(array $recipients, string $address, ?string $name = null)
@@ -340,14 +340,14 @@ class Envelope
             }
 
             return $recipient->address === $address &&
-                   $recipient->name === $name;
+                $recipient->name === $name;
         });
     }
 
     /**
      * Determine if the message has the given subject.
      *
-     * @param  string  $subject
+     * @param string $subject
      * @return bool
      */
     public function hasSubject(string $subject)
@@ -358,12 +358,12 @@ class Envelope
     /**
      * Determine if the message has the given metadata.
      *
-     * @param  string  $key
-     * @param  string  $value
+     * @param string $key
+     * @param string $value
      * @return bool
      */
     public function hasMetadata(string $key, string $value)
     {
-        return isset($this->metadata[$key]) && (string) $this->metadata[$key] === $value;
+        return isset($this->metadata[$key]) && (string)$this->metadata[$key] === $value;
     }
 }

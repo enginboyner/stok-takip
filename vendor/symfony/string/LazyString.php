@@ -26,7 +26,7 @@ class LazyString implements \Stringable, \JsonSerializable
     public static function fromCallable(callable|array $callback, mixed ...$arguments): static
     {
         if (\is_array($callback) && !\is_callable($callback) && !(($callback[0] ?? null) instanceof \Closure || 2 < \count($callback))) {
-            throw new \TypeError(sprintf('Argument 1 passed to "%s()" must be a callable or a [Closure, method] lazy-callable, "%s" given.', __METHOD__, '['.implode(', ', array_map('get_debug_type', $callback)).']'));
+            throw new \TypeError(sprintf('Argument 1 passed to "%s()" must be a callable or a [Closure, method] lazy-callable, "%s" given.', __METHOD__, '[' . implode(', ', array_map('get_debug_type', $callback)) . ']'));
         }
 
         $lazyString = new static();
@@ -54,7 +54,7 @@ class LazyString implements \Stringable, \JsonSerializable
         }
 
         $lazyString = new static();
-        $lazyString->value = (string) $value;
+        $lazyString->value = (string)$value;
 
         return $lazyString;
     }
@@ -138,6 +138,6 @@ class LazyString implements \Stringable, \JsonSerializable
             $method = '__invoke';
         }
 
-        return $class.'::'.$method;
+        return $class . '::' . $method;
     }
 }

@@ -56,7 +56,7 @@ class Person extends \Faker\Provider\Person
     ];
 
     protected static $firstNameFemale = [
-        'Abril', 'Adriana', 'África', 'Aina', 'Ainara', 'Ainhoa', 'Aitana', 'Alba', 'Alejandra', 'Alexandra', 'Alexia', 'Alicia', 'Alma', 'Amparo', 'Ana', 'Ana Isabel', 'Ana María', 'Andrea',  'Ángela', 'Ángeles', 'Antonia', 'Ariadna', 'Aurora',
+        'Abril', 'Adriana', 'África', 'Aina', 'Ainara', 'Ainhoa', 'Aitana', 'Alba', 'Alejandra', 'Alexandra', 'Alexia', 'Alicia', 'Alma', 'Amparo', 'Ana', 'Ana Isabel', 'Ana María', 'Andrea', 'Ángela', 'Ángeles', 'Antonia', 'Ariadna', 'Aurora',
         'Beatriz', 'Berta', 'Blanca',
         'Candela', 'Carla', 'Carlota', 'Carmen', 'Carolina', 'Celia', 'Clara', 'Claudia', 'Cristina',
         'Daniela', 'Diana',
@@ -64,10 +64,10 @@ class Person extends \Faker\Provider\Person
         'Fátima', 'Francisca',
         'Gabriela', 'Gloria',
         'Helena',
-        'Inés', 'Inmaculada', 'Irene',  'Isabel',
+        'Inés', 'Inmaculada', 'Irene', 'Isabel',
         'Josefa', 'Jimena', 'Juana', 'Julia',
         'Laia', 'Lara', 'Laura', 'Leire', 'Lorena', 'Lidia', 'Lola', 'Lucía', 'Luisa', 'Luna',
-        'Malak', 'Manuela', 'Mar', 'Mara', 'Margarita', 'María', 'María Ángeles', 'María Carmen', 'María Dolores', 'María Pilar', 'Marina', 'Marta',  'Martina', 'Mireia', 'Miriam',
+        'Malak', 'Manuela', 'Mar', 'Mara', 'Margarita', 'María', 'María Ángeles', 'María Carmen', 'María Dolores', 'María Pilar', 'Marina', 'Marta', 'Martina', 'Mireia', 'Miriam',
         'Nadia', 'Nahia', 'Naia', 'Naiara', 'Natalia', 'Nayara', 'Nerea', 'Nil', 'Noa', 'Noelia', 'Nora', 'Nuria',
         'Olivia', 'Olga', 'Ona',
         'Paola', 'Patricia', 'Pau', 'Paula', 'Pilar',

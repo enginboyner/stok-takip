@@ -96,12 +96,13 @@ class MockConfiguration
         array $targets = array(),
         array $blackListedMethods = array(),
         array $whiteListedMethods = array(),
-        $name = null,
-        $instanceMock = false,
+              $name = null,
+              $instanceMock = false,
         array $parameterOverrides = array(),
-        $mockOriginalDestructor = false,
+              $mockOriginalDestructor = false,
         array $constantsMap = array()
-    ) {
+    )
+    {
         $this->addTargets($targets);
         $this->blackListedMethods = $blackListedMethods;
         $this->whiteListedMethods = $whiteListedMethods;
@@ -122,14 +123,14 @@ class MockConfiguration
     public function getHash()
     {
         $vars = array(
-            'targetClassName'        => $this->targetClassName,
-            'targetInterfaceNames'   => $this->targetInterfaceNames,
-            'targetTraitNames'       => $this->targetTraitNames,
-            'name'                   => $this->name,
-            'blackListedMethods'     => $this->blackListedMethods,
-            'whiteListedMethod'      => $this->whiteListedMethods,
-            'instanceMock'           => $this->instanceMock,
-            'parameterOverrides'     => $this->parameterOverrides,
+            'targetClassName' => $this->targetClassName,
+            'targetInterfaceNames' => $this->targetInterfaceNames,
+            'targetTraitNames' => $this->targetTraitNames,
+            'name' => $this->name,
+            'blackListedMethods' => $this->blackListedMethods,
+            'whiteListedMethod' => $this->whiteListedMethods,
+            'instanceMock' => $this->instanceMock,
+            'parameterOverrides' => $this->parameterOverrides,
             'mockOriginalDestructor' => $this->mockOriginalDestructor
         );
 

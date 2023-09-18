@@ -14,7 +14,7 @@ class StockController extends Controller
     {
         $stocks = Stock::all();
         $product = Product::pluck('name', 'id')->toArray();
-        return view('stock.index', ["stocks" => $stocks,"product"=>$product]);
+        return view('stock.index', ["stocks" => $stocks, "product" => $product]);
     }
 
     public function add()
@@ -22,17 +22,18 @@ class StockController extends Controller
         $products = Product::all();
         return view("stock.add", ["products" => $products]);
     }
+
     public function edit($StockID)
     {
         $products = Product::all();
         $stockEdit = Stock::find($StockID);
-        return view('stock.edit',["products" => $products,"stockEdit"=>$stockEdit]);
+        return view('stock.edit', ["products" => $products, "stockEdit" => $stockEdit]);
     }
 
     public function delete($id)
     {
-        $stockDelete= Stock::find($id);
-        $stockDelete->status=false;
+        $stockDelete = Stock::find($id);
+        $stockDelete->status = false;
         $stockDelete->update();
 
     }
@@ -55,18 +56,20 @@ class StockController extends Controller
         $stock->product_id = $request->input('product_id');
         $stock->quantity = $request->input('quantity');
         $stock->price = $request->input('price');
-        $stock ->update();
+        $stock->update();
 
-        return $this->responseMessage("İşlem Başarılı","success",200, '/stock');
+        return $this->responseMessage("İşlem Başarılı", "success", 200, '/stock');
 
 
     }
+
     public function show($StockID)
     {
-        $stock=Stock::with("product")->find($StockID);
+        $stock = Stock::with("product")->find($StockID);
 
         return view('stock.show', ["stock" => $stock]);
     }
+
     public function store(Request $request)
     {
 

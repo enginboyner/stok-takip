@@ -64,12 +64,12 @@ class MemcachedSessionHandler extends AbstractSessionHandler
      */
     protected function doRead(string $sessionId): string
     {
-        return $this->memcached->get($this->prefix.$sessionId) ?: '';
+        return $this->memcached->get($this->prefix . $sessionId) ?: '';
     }
 
     public function updateTimestamp(string $sessionId, string $data): bool
     {
-        $this->memcached->touch($this->prefix.$sessionId, $this->getCompatibleTtl());
+        $this->memcached->touch($this->prefix . $sessionId, $this->getCompatibleTtl());
 
         return true;
     }
@@ -79,12 +79,12 @@ class MemcachedSessionHandler extends AbstractSessionHandler
      */
     protected function doWrite(string $sessionId, string $data): bool
     {
-        return $this->memcached->set($this->prefix.$sessionId, $data, $this->getCompatibleTtl());
+        return $this->memcached->set($this->prefix . $sessionId, $data, $this->getCompatibleTtl());
     }
 
     private function getCompatibleTtl(): int
     {
-        $ttl = (int) ($this->ttl ?? \ini_get('session.gc_maxlifetime'));
+        $ttl = (int)($this->ttl ?? \ini_get('session.gc_maxlifetime'));
 
         // If the relative TTL that is used exceeds 30 days, memcached will treat the value as Unix time.
         // We have to convert it to an absolute Unix time at this point, to make sure the TTL is correct.
@@ -100,7 +100,7 @@ class MemcachedSessionHandler extends AbstractSessionHandler
      */
     protected function doDestroy(string $sessionId): bool
     {
-        $result = $this->memcached->delete($this->prefix.$sessionId);
+        $result = $this->memcached->delete($this->prefix . $sessionId);
 
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }

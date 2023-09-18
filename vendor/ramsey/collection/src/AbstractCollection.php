@@ -304,9 +304,9 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
     private function getComparator(): Closure
     {
         return /**
-             * @param T $a
-             * @param T $b
-             */
+         * @param T $a
+         * @param T $b
+         */
             function ($a, $b): int {
                 // If the two values are object, we convert them to unique scalars.
                 // If the collection contains mixed values (unlikely) where some are objects

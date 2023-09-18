@@ -50,8 +50,8 @@ class CacheTableCommand extends Command
     /**
      * Create a new cache table command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
-     * @param  \Illuminate\Support\Composer  $composer
+     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\Support\Composer $composer
      * @return void
      */
     public function __construct(Filesystem $files, Composer $composer)
@@ -71,7 +71,7 @@ class CacheTableCommand extends Command
     {
         $fullPath = $this->createBaseMigration();
 
-        $this->files->put($fullPath, $this->files->get(__DIR__.'/stubs/cache.stub'));
+        $this->files->put($fullPath, $this->files->get(__DIR__ . '/stubs/cache.stub'));
 
         $this->components->info('Migration created successfully.');
 
@@ -87,7 +87,7 @@ class CacheTableCommand extends Command
     {
         $name = 'create_cache_table';
 
-        $path = $this->laravel->databasePath().'/migrations';
+        $path = $this->laravel->databasePath() . '/migrations';
 
         return $this->laravel['migration.creator']->create($name, $path);
     }

@@ -99,7 +99,7 @@ final class IdentificationHeader extends AbstractHeader
     {
         $addrs = [];
         foreach ($this->idsAsAddresses as $address) {
-            $addrs[] = '<'.$address->toString().'>';
+            $addrs[] = '<' . $address->toString() . '>';
         }
 
         return implode(' ', $addrs);

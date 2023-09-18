@@ -60,8 +60,8 @@ final class RepositoryBuilder
      *
      * @param \Dotenv\Repository\Adapter\ReaderInterface[] $readers
      * @param \Dotenv\Repository\Adapter\WriterInterface[] $writers
-     * @param bool                                         $immutable
-     * @param string[]|null                                $allowList
+     * @param bool $immutable
+     * @param string[]|null $allowList
      *
      * @return void
      */
@@ -134,9 +134,9 @@ final class RepositoryBuilder
      *
      * @param \Dotenv\Repository\Adapter\ReaderInterface|string $reader
      *
+     * @return \Dotenv\Repository\RepositoryBuilder
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
      */
     public function addReader($reader)
     {
@@ -167,9 +167,9 @@ final class RepositoryBuilder
      *
      * @param \Dotenv\Repository\Adapter\WriterInterface|string $writer
      *
+     * @return \Dotenv\Repository\RepositoryBuilder
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
      */
     public function addWriter($writer)
     {
@@ -201,9 +201,9 @@ final class RepositoryBuilder
      *
      * @param \Dotenv\Repository\Adapter\WriterInterface|string $adapter
      *
+     * @return \Dotenv\Repository\RepositoryBuilder
      * @throws \InvalidArgumentException
      *
-     * @return \Dotenv\Repository\RepositoryBuilder
      */
     public function addAdapter($adapter)
     {

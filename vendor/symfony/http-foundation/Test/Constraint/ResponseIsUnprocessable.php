@@ -41,7 +41,7 @@ final class ResponseIsUnprocessable extends Constraint
      */
     protected function failureDescription($other): string
     {
-        return 'the Response '.$this->toString();
+        return 'the Response ' . $this->toString();
     }
 
     /**
@@ -51,6 +51,6 @@ final class ResponseIsUnprocessable extends Constraint
      */
     protected function additionalFailureDescription($other): string
     {
-        return (string) $other;
+        return (string)$other;
     }
 }

@@ -39,8 +39,8 @@ trait DatabaseRule
     /**
      * Create a new rule instance.
      *
-     * @param  string  $table
-     * @param  string  $column
+     * @param string $table
+     * @param string $column
      * @return void
      */
     public function __construct($table, $column = 'NULL')
@@ -53,12 +53,12 @@ trait DatabaseRule
     /**
      * Resolves the name of the table from the given string.
      *
-     * @param  string  $table
+     * @param string $table
      * @return string
      */
     public function resolveTableName($table)
     {
-        if (! str_contains($table, '\\') || ! class_exists($table)) {
+        if (!str_contains($table, '\\') || !class_exists($table)) {
             return $table;
         }
 
@@ -80,8 +80,8 @@ trait DatabaseRule
     /**
      * Set a "where" constraint on the query.
      *
-     * @param  \Closure|string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array|string|int|null  $value
+     * @param \Closure|string $column
+     * @param \Illuminate\Contracts\Support\Arrayable|array|string|int|null $value
      * @return $this
      */
     public function where($column, $value = null)
@@ -106,8 +106,8 @@ trait DatabaseRule
     /**
      * Set a "where not" constraint on the query.
      *
-     * @param  string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array|string  $value
+     * @param string $column
+     * @param \Illuminate\Contracts\Support\Arrayable|array|string $value
      * @return $this
      */
     public function whereNot($column, $value)
@@ -116,13 +116,13 @@ trait DatabaseRule
             return $this->whereNotIn($column, $value);
         }
 
-        return $this->where($column, '!'.$value);
+        return $this->where($column, '!' . $value);
     }
 
     /**
      * Set a "where null" constraint on the query.
      *
-     * @param  string  $column
+     * @param string $column
      * @return $this
      */
     public function whereNull($column)
@@ -133,7 +133,7 @@ trait DatabaseRule
     /**
      * Set a "where not null" constraint on the query.
      *
-     * @param  string  $column
+     * @param string $column
      * @return $this
      */
     public function whereNotNull($column)
@@ -144,8 +144,8 @@ trait DatabaseRule
     /**
      * Set a "where in" constraint on the query.
      *
-     * @param  string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $values
+     * @param string $column
+     * @param \Illuminate\Contracts\Support\Arrayable|array $values
      * @return $this
      */
     public function whereIn($column, $values)
@@ -158,8 +158,8 @@ trait DatabaseRule
     /**
      * Set a "where not in" constraint on the query.
      *
-     * @param  string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $values
+     * @param string $column
+     * @param \Illuminate\Contracts\Support\Arrayable|array $values
      * @return $this
      */
     public function whereNotIn($column, $values)
@@ -172,7 +172,7 @@ trait DatabaseRule
     /**
      * Ignore soft deleted models during the existence check.
      *
-     * @param  string  $deletedAtColumn
+     * @param string $deletedAtColumn
      * @return $this
      */
     public function withoutTrashed($deletedAtColumn = 'deleted_at')
@@ -185,7 +185,7 @@ trait DatabaseRule
     /**
      * Only include soft deleted models during the existence check.
      *
-     * @param  string  $deletedAtColumn
+     * @param string $deletedAtColumn
      * @return $this
      */
     public function onlyTrashed($deletedAtColumn = 'deleted_at')
@@ -198,7 +198,7 @@ trait DatabaseRule
     /**
      * Register a custom query callback.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
      * @return $this
      */
     public function using(Closure $callback)
@@ -226,7 +226,7 @@ trait DatabaseRule
     protected function formatWheres()
     {
         return collect($this->wheres)->map(function ($where) {
-            return $where['column'].','.'"'.str_replace('"', '""', $where['value']).'"';
+            return $where['column'] . ',' . '"' . str_replace('"', '""', $where['value']) . '"';
         })->implode(',');
     }
 }

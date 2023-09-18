@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
@@ -42,7 +43,7 @@ final class Context
      */
     public function __construct()
     {
-        $this->arrays  = [];
+        $this->arrays = [];
         $this->objects = new SplObjectStorage;
     }
 
@@ -64,13 +65,13 @@ final class Context
      *
      * @param array|object $value the value to add
      *
-     * @throws InvalidArgumentException Thrown if $value is not an array or object
-     *
      * @return bool|int|string the ID of the stored value, either as a string or integer
      *
      * @psalm-template T
      * @psalm-param T $value
      * @param-out T $value
+     * @throws InvalidArgumentException Thrown if $value is not an array or object
+     *
      */
     public function add(&$value)
     {
@@ -92,13 +93,13 @@ final class Context
      *
      * @param array|object $value the value to check
      *
-     * @throws InvalidArgumentException Thrown if $value is not an array or object
-     *
      * @return false|int|string the string or integer ID of the stored value if it has already been seen, or false if the value is not stored
      *
      * @psalm-template T
      * @psalm-param T $value
      * @param-out T $value
+     * @throws InvalidArgumentException Thrown if $value is not an array or object
+     *
      */
     public function contains(&$value)
     {
@@ -126,7 +127,7 @@ final class Context
             return $key;
         }
 
-        $key            = count($this->arrays);
+        $key = count($this->arrays);
         $this->arrays[] = &$array;
 
         if (!array_key_exists(PHP_INT_MAX, $array) && !array_key_exists(PHP_INT_MAX - 1, $array)) {

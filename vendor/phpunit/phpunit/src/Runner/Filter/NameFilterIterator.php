@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Filter;
 
 use function end;
@@ -76,11 +77,11 @@ final class NameFilterIterator extends RecursiveFilterIterator
         $accepted = @preg_match($this->filter, $name, $matches);
 
         if ($accepted && isset($this->filterMax)) {
-            $set      = end($matches);
+            $set = end($matches);
             $accepted = $set >= $this->filterMin && $set <= $this->filterMax;
         }
 
-        return (bool) $accepted;
+        return (bool)$accepted;
     }
 
     /**
@@ -99,8 +100,8 @@ final class NameFilterIterator extends RecursiveFilterIterator
                         $matches[1],
                     );
 
-                    $this->filterMin = (int) $matches[2];
-                    $this->filterMax = (int) $matches[3];
+                    $this->filterMin = (int)$matches[2];
+                    $this->filterMax = (int)$matches[3];
                 } else {
                     $filter = sprintf(
                         '%s.*with data set #%s$',

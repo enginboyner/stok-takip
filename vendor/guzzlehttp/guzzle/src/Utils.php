@@ -23,9 +23,9 @@ final class Utils
     {
         switch (\gettype($input)) {
             case 'object':
-                return 'object('.\get_class($input).')';
+                return 'object(' . \get_class($input) . ')';
             case 'array':
-                return 'array('.\count($input).')';
+                return 'array(' . \count($input) . ')';
             default:
                 \ob_start();
                 \var_dump($input);
@@ -216,7 +216,7 @@ EOT
      * 3. The area starts with "." and the area is the last part of the host. e.g.
      *    '.mit.edu' will match any host that ends with '.mit.edu'.
      *
-     * @param string   $host         Host to check against the patterns.
+     * @param string $host Host to check against the patterns.
      * @param string[] $noProxyArray An array of host patterns.
      *
      * @throws InvalidArgumentException
@@ -247,7 +247,7 @@ EOT
             }
             // Special match if the area when prefixed with ".". Remove any
             // existing leading "." and add a new leading ".".
-            $area = '.'.\ltrim($area, '.');
+            $area = '.' . \ltrim($area, '.');
             if (\substr($host, -\strlen($area)) === $area) {
                 return true;
             }
@@ -259,11 +259,11 @@ EOT
     /**
      * Wrapper for json_decode that throws when an error occurs.
      *
-     * @param string $json    JSON data to parse
-     * @param bool   $assoc   When true, returned objects will be converted
+     * @param string $json JSON data to parse
+     * @param bool $assoc When true, returned objects will be converted
      *                        into associative arrays.
-     * @param int    $depth   User specified recursion depth.
-     * @param int    $options Bitmask of JSON decode options.
+     * @param int $depth User specified recursion depth.
+     * @param int $options Bitmask of JSON decode options.
      *
      * @return object|array|string|int|float|bool|null
      *
@@ -275,7 +275,7 @@ EOT
     {
         $data = \json_decode($json, $assoc, $depth, $options);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
-            throw new InvalidArgumentException('json_decode error: '.\json_last_error_msg());
+            throw new InvalidArgumentException('json_decode error: ' . \json_last_error_msg());
         }
 
         return $data;
@@ -284,9 +284,9 @@ EOT
     /**
      * Wrapper for JSON encoding that throws when an error occurs.
      *
-     * @param mixed $value   The value being encoded
-     * @param int   $options JSON encode option bitmask
-     * @param int   $depth   Set the maximum depth. Must be greater than zero.
+     * @param mixed $value The value being encoded
+     * @param int $options JSON encode option bitmask
+     * @param int $depth Set the maximum depth. Must be greater than zero.
      *
      * @throws InvalidArgumentException if the JSON cannot be encoded.
      *
@@ -296,7 +296,7 @@ EOT
     {
         $json = \json_encode($value, $options, $depth);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
-            throw new InvalidArgumentException('json_encode error: '.\json_last_error_msg());
+            throw new InvalidArgumentException('json_encode error: ' . \json_last_error_msg());
         }
 
         /** @var string */
@@ -313,7 +313,7 @@ EOT
      */
     public static function currentTime(): float
     {
-        return (float) \function_exists('hrtime') ? \hrtime(true) / 1e9 : \microtime(true);
+        return (float)\function_exists('hrtime') ? \hrtime(true) / 1e9 : \microtime(true);
     }
 
     /**
@@ -341,7 +341,7 @@ EOT
 
                 $errorMessage = 'IDN conversion failed';
                 if ($errors) {
-                    $errorMessage .= ' (errors: '.implode(', ', $errors).')';
+                    $errorMessage .= ' (errors: ' . implode(', ', $errors) . ')';
                 }
 
                 throw new InvalidArgumentException($errorMessage);
@@ -361,11 +361,11 @@ EOT
     public static function getenv(string $name): ?string
     {
         if (isset($_SERVER[$name])) {
-            return (string) $_SERVER[$name];
+            return (string)$_SERVER[$name];
         }
 
         if (\PHP_SAPI === 'cli' && ($value = \getenv($name)) !== false && $value !== null) {
-            return (string) $value;
+            return (string)$value;
         }
 
         return null;

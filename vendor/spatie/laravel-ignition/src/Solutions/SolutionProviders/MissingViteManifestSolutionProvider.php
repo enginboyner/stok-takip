@@ -32,7 +32,7 @@ class MissingViteManifestSolutionProvider implements HasSolutionsForThrowable
         $baseCommand = collect([
             'pnpm-lock.yaml' => 'pnpm',
             'yarn.lock' => 'yarn',
-        ])->first(fn ($_, $lockfile) => file_exists(base_path($lockfile)), 'npm run');
+        ])->first(fn($_, $lockfile) => file_exists(base_path($lockfile)), 'npm run');
 
         return app()->environment('local')
             ? $this->getLocalSolution($baseCommand)

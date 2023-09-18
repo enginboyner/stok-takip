@@ -56,8 +56,8 @@ class BroadcastableModelEventOccurred implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $event
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string $event
      * @return void
      */
     public function __construct($model, $event)
@@ -74,8 +74,8 @@ class BroadcastableModelEventOccurred implements ShouldBroadcast
     public function broadcastOn()
     {
         $channels = empty($this->channels)
-                ? ($this->model->broadcastOn($this->event) ?: [])
-                : $this->channels;
+            ? ($this->model->broadcastOn($this->event) ?: [])
+            : $this->channels;
 
         return collect($channels)->map(function ($channel) {
             return $channel instanceof Model ? new PrivateChannel($channel) : $channel;
@@ -89,11 +89,11 @@ class BroadcastableModelEventOccurred implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        $default = class_basename($this->model).ucfirst($this->event);
+        $default = class_basename($this->model) . ucfirst($this->event);
 
         return method_exists($this->model, 'broadcastAs')
-                ? ($this->model->broadcastAs($this->event) ?: $default)
-                : $default;
+            ? ($this->model->broadcastAs($this->event) ?: $default)
+            : $default;
     }
 
     /**
@@ -111,7 +111,7 @@ class BroadcastableModelEventOccurred implements ShouldBroadcast
     /**
      * Manually specify the channels the event should broadcast on.
      *
-     * @param  array  $channels
+     * @param array $channels
      * @return $this
      */
     public function onChannels(array $channels)
@@ -129,7 +129,7 @@ class BroadcastableModelEventOccurred implements ShouldBroadcast
     public function shouldBroadcastNow()
     {
         return $this->event === 'deleted' &&
-               ! method_exists($this->model, 'bootSoftDeletes');
+            !method_exists($this->model, 'bootSoftDeletes');
     }
 
     /**

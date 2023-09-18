@@ -257,9 +257,9 @@ class Company extends \Faker\Provider\Company
     /**
      * return standard VAT / Tax ID / Uniform Serial Number
      *
+     * @return int
      * @example 28263822
      *
-     * @return int
      */
     public function VAT()
     {

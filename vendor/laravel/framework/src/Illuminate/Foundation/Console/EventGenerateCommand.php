@@ -55,13 +55,13 @@ class EventGenerateCommand extends Command
     /**
      * Make the event and listeners for the given event.
      *
-     * @param  string  $event
-     * @param  array  $listeners
+     * @param string $event
+     * @param array $listeners
      * @return void
      */
     protected function makeEventAndListeners($event, $listeners)
     {
-        if (! str_contains($event, '\\')) {
+        if (!str_contains($event, '\\')) {
             return;
         }
 
@@ -73,8 +73,8 @@ class EventGenerateCommand extends Command
     /**
      * Make the listeners for the given event.
      *
-     * @param  string  $event
-     * @param  array  $listeners
+     * @param string $event
+     * @param array $listeners
      * @return void
      */
     protected function makeListeners($event, $listeners)

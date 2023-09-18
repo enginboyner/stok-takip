@@ -70,12 +70,12 @@ class QuestionHelper extends SymfonyQuestionHelper
     /**
      * Ensures the given string ends with punctuation.
      *
-     * @param  string  $string
+     * @param string $string
      * @return string
      */
     protected function ensureEndsWithPunctuation($string)
     {
-        if (! str($string)->endsWith(['?', ':', '!', '.'])) {
+        if (!str($string)->endsWith(['?', ':', '!', '.'])) {
             return "$string:";
         }
 

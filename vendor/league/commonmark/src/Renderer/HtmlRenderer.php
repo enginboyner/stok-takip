@@ -39,7 +39,7 @@ final class HtmlRenderer implements DocumentRendererInterface, ChildNodeRenderer
     {
         $this->environment->dispatch(new DocumentPreRenderEvent($document, 'html'));
 
-        $output = new RenderedContent($document, (string) $this->renderNode($document));
+        $output = new RenderedContent($document, (string)$this->renderNode($document));
 
         $event = new DocumentRenderedEvent($output);
         $this->environment->dispatch($event);
@@ -57,7 +57,7 @@ final class HtmlRenderer implements DocumentRendererInterface, ChildNodeRenderer
         $isFirstItem = true;
 
         foreach ($nodes as $node) {
-            if (! $isFirstItem && $node instanceof AbstractBlock) {
+            if (!$isFirstItem && $node instanceof AbstractBlock) {
                 $output .= $this->getBlockSeparator();
             }
 

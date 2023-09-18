@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function count;
@@ -91,7 +92,7 @@ class Count extends Constraint
                 return iterator_count($iterator);
             }
 
-            $key   = $iterator->key();
+            $key = $iterator->key();
             $count = iterator_count($iterator);
 
             // Manually rewind $iterator to previous key, since iterator_count
@@ -135,7 +136,7 @@ class Count extends Constraint
     {
         return sprintf(
             'actual size %d matches expected size %d',
-            (int) $this->getCountOf($other),
+            (int)$this->getCountOf($other),
             $this->expectedCount,
         );
     }

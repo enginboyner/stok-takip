@@ -168,9 +168,9 @@ class Mockery
     /**
      * Static shortcut to \Mockery\Container::self().
      *
+     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
      * @throws LogicException
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
      */
     public static function self()
     {
@@ -569,7 +569,7 @@ class Mockery
     private static function formatArgument($argument, $depth = 0)
     {
         if ($argument instanceof MatcherAbstract) {
-            return (string) $argument;
+            return (string)$argument;
         }
 
         if (is_object($argument)) {
@@ -609,7 +609,7 @@ class Mockery
             return 'NULL';
         }
 
-        return "'" . (string) $argument . "'";
+        return "'" . (string)$argument . "'";
     }
 
     /**
@@ -671,8 +671,8 @@ class Mockery
         $formatter = self::getConfiguration()->getObjectFormatter($class, $defaultFormatter);
 
         $array = array(
-          'class' => $class,
-          'identity' => '#' . md5(spl_object_hash($object))
+            'class' => $class,
+            'identity' => '#' . md5(spl_object_hash($object))
         );
 
         $array = array_merge($array, $formatter($object, $nesting));
@@ -795,8 +795,8 @@ class Mockery
      * @param \Mockery\LegacyMockInterface $mock
      * @param string $arg
      * @param callable $add
-     * @throws Mockery\Exception
      * @return \Mockery\ExpectationInterface
+     * @throws Mockery\Exception
      */
     protected static function buildDemeterChain(\Mockery\LegacyMockInterface $mock, $arg, $add)
     {
@@ -866,11 +866,12 @@ class Mockery
      * @return \Mockery\Mock
      */
     private static function getNewDemeterMock(
-        Mockery\Container $container,
-        $parent,
-        $method,
+        Mockery\Container            $container,
+                                     $parent,
+                                     $method,
         Mockery\ExpectationInterface $exp
-    ) {
+    )
+    {
         $newMockName = 'demeter_' . md5($parent) . '_' . $method;
 
         $parRef = null;
@@ -913,8 +914,9 @@ class Mockery
      */
     private static function getExistingDemeterMock(
         Mockery\Container $container,
-        $demeterMockKey
-    ) {
+                          $demeterMockKey
+    )
+    {
         $mocks = $container->getMocks();
         $mock = $mocks[$demeterMockKey];
 
@@ -955,10 +957,10 @@ class Mockery
             $shortName = trim(array_pop($parts));
             $namespace = implode("\\", $parts);
 
-            $targetCode.= "namespace $namespace;\n";
+            $targetCode .= "namespace $namespace;\n";
         }
 
-        $targetCode.= "$type $shortName {} ";
+        $targetCode .= "$type $shortName {} ";
 
         /*
          * We could eval here, but it doesn't play well with the way

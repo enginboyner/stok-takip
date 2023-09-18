@@ -2,7 +2,7 @@
 
 
 @section('pageName')
-Müşteri Düzenle
+    Müşteri Düzenle
 @endsection
 
 
@@ -12,7 +12,8 @@ Müşteri Düzenle
             <div class="card-header">
                 <h3 class="card-title">Müşteri Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ route('customer.update', $customerEdit->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('customer.update', $customerEdit->id) }}" method="POST"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -22,11 +23,13 @@ Müşteri Düzenle
                     </div>
                     <div class="form-group">
                         <label for="miktar">Telefon:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{$customerEdit->phone}}">
+                        <input type="text" class="form-control" id="phone" name="phone"
+                               value="{{$customerEdit->phone}}">
                     </div>
                     <div class="form-group">
                         <label for="fiyat">Adres:</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{$customerEdit->address}}">
+                        <input type="text" class="form-control" id="address" name="address"
+                               value="{{$customerEdit->address}}">
                     </div>
                     <div class="form-group">
                         <label for="satici">Mail:</label>
@@ -42,11 +45,3 @@ Müşteri Düzenle
     </div>
 @endsection
 
-@section("script")
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-    <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
-@endsection

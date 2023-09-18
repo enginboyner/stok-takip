@@ -84,10 +84,10 @@ class ErrorListener implements EventSubscriberInterface
 
         if ($input instanceof \Stringable) {
             if ($commandName) {
-                return str_replace(["'$commandName'", "\"$commandName\""], $commandName, (string) $input);
+                return str_replace(["'$commandName'", "\"$commandName\""], $commandName, (string)$input);
             }
 
-            return (string) $input;
+            return (string)$input;
         }
 
         return $commandName;

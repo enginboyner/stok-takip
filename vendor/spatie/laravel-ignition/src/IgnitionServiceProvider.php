@@ -103,14 +103,14 @@ class IgnitionServiceProvider extends ServiceProvider
         if (interface_exists('Whoops\Handler\HandlerInterface')) {
             $this->app->bind(
                 'Whoops\Handler\HandlerInterface',
-                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists('Illuminate\Contracts\Foundation\ExceptionRenderer')) {
             $this->app->bind(
                 'Illuminate\Contracts\Foundation\ExceptionRenderer',
-                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
     }
@@ -135,7 +135,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             ConfigManager::class,
-            fn () => new FileConfigManager(config('ignition.settings_file_path', ''))
+            fn() => new FileConfigManager(config('ignition.settings_file_path', ''))
         );
 
         $ignitionConfig = (new IgnitionConfig())
@@ -145,13 +145,13 @@ class IgnitionServiceProvider extends ServiceProvider
         $solutionProviders = $this->getSolutionProviders();
         $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
 
-        $this->app->singleton(IgnitionConfig::class, fn () => $ignitionConfig);
+        $this->app->singleton(IgnitionConfig::class, fn() => $ignitionConfig);
 
-        $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
+        $this->app->singleton(SolutionProviderRepositoryContract::class, fn() => $solutionProviderRepository);
 
         $this->app->singleton(
             Ignition::class,
-            fn () => (new Ignition())
+            fn() => (new Ignition())
                 ->applicationPath(base_path())
         );
     }
@@ -188,7 +188,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function configureTinker(): void
     {
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
                 app(Flare::class)->sendReportsImmediately();
             }
@@ -206,7 +206,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $handler = $this->app->make(ExceptionHandler::class);
 
-        if (! method_exists($handler, 'map')) {
+        if (!method_exists($handler, 'map')) {
             return;
         }
 
@@ -236,11 +236,11 @@ class IgnitionServiceProvider extends ServiceProvider
 
             return tap(
                 new Logger('Flare'),
-                fn (Logger $logger) => $logger->pushHandler($handler)
+                fn(Logger $logger) => $logger->pushHandler($handler)
             );
         });
 
-        Log::extend('flare', fn ($app) => $app['flare.logger']);
+        Log::extend('flare', fn($app) => $app['flare.logger']);
     }
 
     protected function startRecorders(): void
@@ -252,7 +252,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function configureQueue(): void
     {
-        if (! $this->app->bound('queue')) {
+        if (!$this->app->bound('queue')) {
             return;
         }
 
@@ -277,7 +277,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (! $logLevel) {
+        if (!$logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -306,7 +306,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         return collect(config('ignition.solution_providers'))
             ->reject(
-                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+                fn(string $class) => in_array($class, config('ignition.ignored_solution_providers'))
             )
             ->toArray();
     }

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function strtolower;
@@ -47,7 +48,7 @@ final class InvocationHandler
 
     public function __construct(array $configurableMethods, bool $returnValueGeneration)
     {
-        $this->configurableMethods   = $configurableMethods;
+        $this->configurableMethods = $configurableMethods;
         $this->returnValueGeneration = $returnValueGeneration;
     }
 
@@ -80,7 +81,7 @@ final class InvocationHandler
      * Registers a matcher with the identification $id. The matcher can later be
      * looked up using lookupMatcher() to figure out if it has been invoked.
      *
-     * @param string  $id      The identification of the matcher
+     * @param string $id The identification of the matcher
      * @param Matcher $matcher The builder which is being registered
      *
      * @throws MatcherAlreadyRegisteredException
@@ -112,9 +113,9 @@ final class InvocationHandler
      */
     public function invoke(Invocation $invocation)
     {
-        $exception      = null;
+        $exception = null;
         $hasReturnValue = false;
-        $returnValue    = null;
+        $returnValue = null;
 
         foreach ($this->matchers as $match) {
             try {
@@ -122,7 +123,7 @@ final class InvocationHandler
                     $value = $match->invoked($invocation);
 
                     if (!$hasReturnValue) {
-                        $returnValue    = $value;
+                        $returnValue = $value;
                         $hasReturnValue = true;
                     }
                 }

@@ -29,13 +29,13 @@ final class PreRenderer
 
         $maxStrLen = array_reduce(
             $lines,
-            static fn (int $max, string $line) => ($max < strlen($line)) ? strlen($line) : $max,
+            static fn(int $max, string $line) => ($max < strlen($line)) ? strlen($line) : $max,
             0
         );
 
         $styles = $node->getClassAttribute();
         $html = array_map(
-            static fn (string $line) => (string) Termwind::div(str_pad($line, $maxStrLen + 3), $styles),
+            static fn(string $line) => (string)Termwind::div(str_pad($line, $maxStrLen + 3), $styles),
             $lines
         );
 

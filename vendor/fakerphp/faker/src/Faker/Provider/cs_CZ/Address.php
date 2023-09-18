@@ -113,9 +113,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a czech city.
      *
+     * @return string
      * @example 'Krnov'
      *
-     * @return string
      */
     public function city()
     {
@@ -125,9 +125,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a czech region.
      *
+     * @return string
      * @example 'Liberecký kraj'
      *
-     * @return string
      */
     public static function region()
     {
@@ -138,9 +138,9 @@ class Address extends \Faker\Provider\Address
      * Real street names as random data can hardly be
      * generated due to inflection.
      *
+     * @return string
      * @example 'U Vodárny'
      *
-     * @return string
      */
     public function streetName()
     {

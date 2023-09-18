@@ -12,19 +12,22 @@ class List_ extends Expr
     /**
      * Constructs a list() destructuring node.
      *
-     * @param (ArrayItem|null)[] $items      List of items to assign to
-     * @param array              $attributes Additional attributes
+     * @param (ArrayItem|null)[] $items List of items to assign to
+     * @param array $attributes Additional attributes
      */
-    public function __construct(array $items, array $attributes = []) {
+    public function __construct(array $items, array $attributes = [])
+    {
         $this->attributes = $attributes;
         $this->items = $items;
     }
 
-    public function getSubNodeNames() : array {
+    public function getSubNodeNames(): array
+    {
         return ['items'];
     }
-    
-    public function getType() : string {
+
+    public function getType(): string
+    {
         return 'Expr_List';
     }
 }

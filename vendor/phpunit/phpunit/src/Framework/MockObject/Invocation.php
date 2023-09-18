@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_map;
@@ -69,10 +70,10 @@ final class Invocation implements SelfDescribing
 
     public function __construct(string $className, string $methodName, array $parameters, string $returnType, object $object, bool $cloneObjects = false, bool $proxiedCall = false)
     {
-        $this->className   = $className;
-        $this->methodName  = $methodName;
-        $this->parameters  = $parameters;
-        $this->object      = $object;
+        $this->className = $className;
+        $this->methodName = $methodName;
+        $this->parameters = $parameters;
+        $this->object = $object;
         $this->proxiedCall = $proxiedCall;
 
         if (strtolower($methodName) === '__tostring') {
@@ -80,7 +81,7 @@ final class Invocation implements SelfDescribing
         }
 
         if (strpos($returnType, '?') === 0) {
-            $returnType                 = substr($returnType, 1);
+            $returnType = substr($returnType, 1);
             $this->isReturnTypeNullable = true;
         }
 
@@ -113,9 +114,9 @@ final class Invocation implements SelfDescribing
     }
 
     /**
+     * @return mixed Mocked return value
      * @throws RuntimeException
      *
-     * @return mixed Mocked return value
      */
     public function generateReturnValue()
     {
@@ -123,8 +124,8 @@ final class Invocation implements SelfDescribing
             return null;
         }
 
-        $intersection               = false;
-        $union                      = false;
+        $intersection = false;
+        $union = false;
         $unionContainsIntersections = false;
 
         if (strpos($this->returnType, '|') !== false) {
@@ -135,7 +136,7 @@ final class Invocation implements SelfDescribing
                 $unionContainsIntersections = true;
             }
         } elseif (strpos($this->returnType, '&') !== false) {
-            $types        = explode('&', $this->returnType);
+            $types = explode('&', $this->returnType);
             $intersection = true;
         } else {
             $types = [$this->returnType];
@@ -182,7 +183,7 @@ final class Invocation implements SelfDescribing
                 } catch (Throwable $t) {
                     throw new RuntimeException(
                         $t->getMessage(),
-                        (int) $t->getCode(),
+                        (int)$t->getCode(),
                         $t,
                     );
                 }
@@ -194,16 +195,14 @@ final class Invocation implements SelfDescribing
 
             if (in_array('callable', $types, true) ||
                 in_array('closure', $types, true)) {
-                return static function (): void
-                {
+                return static function (): void {
                 };
             }
 
             if (in_array('traversable', $types, true) ||
                 in_array('generator', $types, true) ||
                 in_array('iterable', $types, true)) {
-                $generator = static function (): \Generator
-                {
+                $generator = static function (): \Generator {
                     yield from [];
                 };
 
@@ -220,7 +219,7 @@ final class Invocation implements SelfDescribing
 
                     throw new RuntimeException(
                         $t->getMessage(),
-                        (int) $t->getCode(),
+                        (int)$t->getCode(),
                         $t,
                     );
                 }
@@ -238,7 +237,7 @@ final class Invocation implements SelfDescribing
                         $this->methodName,
                         $t->getMessage(),
                     ),
-                    (int) $t->getCode(),
+                    (int)$t->getCode(),
                 );
             }
         }

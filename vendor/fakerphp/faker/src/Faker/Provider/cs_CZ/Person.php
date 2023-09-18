@@ -427,8 +427,8 @@ class Person extends \Faker\Provider\Person
 
     /**
      * @param string|null $gender 'male', 'female' or null for any
-     * @param int         $minAge minimal age of "generated person" in years
-     * @param int         $maxAge maximal age of "generated person" in years
+     * @param int $minAge minimal age of "generated person" in years
+     * @param int $maxAge maximal age of "generated person" in years
      *
      * @return string czech birth number
      */
@@ -442,9 +442,9 @@ class Person extends \Faker\Provider\Person
         $endTimestamp = strtotime(sprintf('-%d year', $minAge));
         $randTimestamp = self::numberBetween($startTimestamp, $endTimestamp);
 
-        $year = (int) (date('Y', $randTimestamp));
-        $month = (int) (date('n', $randTimestamp));
-        $day = (int) (date('j', $randTimestamp));
+        $year = (int)(date('Y', $randTimestamp));
+        $month = (int)(date('n', $randTimestamp));
+        $day = (int)(date('j', $randTimestamp));
         $suffix = self::numberBetween(0, 999);
 
         // women has +50 to month

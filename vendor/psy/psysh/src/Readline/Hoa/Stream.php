@@ -149,14 +149,15 @@ abstract class Stream implements IStream, EventListenable
      */
     private static function &_getStream(
         string $streamName,
-        self $handler,
+        self   $handler,
         string $context = null
-    ): array {
+    ): array
+    {
         $name = \md5($streamName);
 
         if (null !== $context) {
             if (false === StreamContext::contextExists($context)) {
-                throw new StreamException('Context %s was not previously declared, cannot retrieve '.'this context.', 0, $context);
+                throw new StreamException('Context %s was not previously declared, cannot retrieve ' . 'this context.', 0, $context);
             }
 
             $context = StreamContext::getInstance($context);
@@ -164,18 +165,18 @@ abstract class Stream implements IStream, EventListenable
 
         if (!isset(self::$_register[$name])) {
             self::$_register[$name] = [
-                self::NAME     => $streamName,
-                self::HANDLER  => $handler,
+                self::NAME => $streamName,
+                self::HANDLER => $handler,
                 self::RESOURCE => $handler->_open($streamName, $context),
-                self::CONTEXT  => $context,
+                self::CONTEXT => $context,
             ];
             Event::register(
-                'hoa://Event/Stream/'.$streamName,
+                'hoa://Event/Stream/' . $streamName,
                 $handler
             );
             // Add :open-ready?
             Event::register(
-                'hoa://Event/Stream/'.$streamName.':close-before',
+                'hoa://Event/Stream/' . $streamName . ':close-before',
                 $handler
             );
         } else {
@@ -258,7 +259,7 @@ abstract class Stream implements IStream, EventListenable
         }
 
         Event::notify(
-            'hoa://Event/Stream/'.$streamName.':close-before',
+            'hoa://Event/Stream/' . $streamName . ':close-before',
             $this,
             new EventBucket()
         );
@@ -270,10 +271,10 @@ abstract class Stream implements IStream, EventListenable
         unset(self::$_register[$name]);
         $this->_bucket[self::HANDLER] = null;
         Event::unregister(
-            'hoa://Event/Stream/'.$streamName
+            'hoa://Event/Stream/' . $streamName
         );
         Event::unregister(
-            'hoa://Event/Stream/'.$streamName.':close-before'
+            'hoa://Event/Stream/' . $streamName . ':close-before'
         );
 
         return;
@@ -339,8 +340,8 @@ abstract class Stream implements IStream, EventListenable
     {
         if (false === \is_resource($stream) &&
             ('resource' !== \gettype($stream) ||
-             'Unknown' !== \get_resource_type($stream))) {
-            throw new StreamException('Try to change the stream resource with an invalid one; '.'given %s.', 1, \gettype($stream));
+                'Unknown' !== \get_resource_type($stream))) {
+            throw new StreamException('Try to change the stream resource with an invalid one; ' . 'given %s.', 1, \gettype($stream));
         }
 
         $old = $this->_bucket[self::RESOURCE];
@@ -463,30 +464,31 @@ abstract class Stream implements IStream, EventListenable
     public function _notify(
         int $ncode,
         int $severity,
-        $message,
-        $code,
-        $transferred,
-        $max
-    ) {
+            $message,
+            $code,
+            $transferred,
+            $max
+    )
+    {
         static $_map = [
             \STREAM_NOTIFY_AUTH_REQUIRED => 'authrequire',
-            \STREAM_NOTIFY_AUTH_RESULT   => 'authresult',
-            \STREAM_NOTIFY_COMPLETED     => 'complete',
-            \STREAM_NOTIFY_CONNECT       => 'connect',
-            \STREAM_NOTIFY_FAILURE       => 'failure',
-            \STREAM_NOTIFY_MIME_TYPE_IS  => 'mimetype',
-            \STREAM_NOTIFY_PROGRESS      => 'progress',
-            \STREAM_NOTIFY_REDIRECTED    => 'redirect',
-            \STREAM_NOTIFY_RESOLVE       => 'resolve',
-            \STREAM_NOTIFY_FILE_SIZE_IS  => 'size',
+            \STREAM_NOTIFY_AUTH_RESULT => 'authresult',
+            \STREAM_NOTIFY_COMPLETED => 'complete',
+            \STREAM_NOTIFY_CONNECT => 'connect',
+            \STREAM_NOTIFY_FAILURE => 'failure',
+            \STREAM_NOTIFY_MIME_TYPE_IS => 'mimetype',
+            \STREAM_NOTIFY_PROGRESS => 'progress',
+            \STREAM_NOTIFY_REDIRECTED => 'redirect',
+            \STREAM_NOTIFY_RESOLVE => 'resolve',
+            \STREAM_NOTIFY_FILE_SIZE_IS => 'size',
         ];
 
         $this->getListener()->fire($_map[$ncode], new EventBucket([
-            'code'        => $code,
-            'severity'    => $severity,
-            'message'     => $message,
+            'code' => $code,
+            'severity' => $severity,
+            'message' => $message,
             'transferred' => $transferred,
-            'max'         => $max,
+            'max' => $max,
         ]));
     }
 

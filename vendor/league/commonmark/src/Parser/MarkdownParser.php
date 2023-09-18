@@ -73,8 +73,8 @@ final class MarkdownParser implements MarkdownParserInterface
 
     private function initialize(): void
     {
-        $this->referenceMap       = new ReferenceMap();
-        $this->lineNumber         = 0;
+        $this->referenceMap = new ReferenceMap();
+        $this->lineNumber = 0;
         $this->activeBlockParsers = [];
         $this->closedBlockParsers = [];
 
@@ -123,7 +123,7 @@ final class MarkdownParser implements MarkdownParserInterface
         }
 
         $unmatchedBlocks = \count($this->activeBlockParsers) - $matches;
-        $blockParser     = $this->activeBlockParsers[$matches - 1];
+        $blockParser = $this->activeBlockParsers[$matches - 1];
         $startedNewBlock = false;
 
         // Unless last matched container is a code block, try new container starts,
@@ -163,7 +163,7 @@ final class MarkdownParser implements MarkdownParserInterface
             }
 
             foreach ($blockStart->getBlockParsers() as $newBlockParser) {
-                $blockParser    = $this->addChild($newBlockParser);
+                $blockParser = $this->addChild($newBlockParser);
                 $tryBlockStarts = $newBlockParser->isContainer();
             }
         }
@@ -171,7 +171,7 @@ final class MarkdownParser implements MarkdownParserInterface
         // What remains at the offset is a text line. Add the text to the appropriate block.
 
         // First check for a lazy paragraph continuation:
-        if (! $startedNewBlock && ! $this->cursor->isBlank() && $this->getActiveBlockParser()->canHaveLazyContinuationLines()) {
+        if (!$startedNewBlock && !$this->cursor->isBlank() && $this->getActiveBlockParser()->canHaveLazyContinuationLines()) {
             $this->getActiveBlockParser()->addLine($this->cursor->getRemainder());
         } else {
             // finalize any blocks not matched
@@ -179,9 +179,9 @@ final class MarkdownParser implements MarkdownParserInterface
                 $this->closeBlockParsers($unmatchedBlocks, $this->lineNumber);
             }
 
-            if (! $blockParser->isContainer()) {
+            if (!$blockParser->isContainer()) {
                 $this->getActiveBlockParser()->addLine($this->cursor->getRemainder());
-            } elseif (! $this->cursor->isBlank()) {
+            } elseif (!$this->cursor->isBlank()) {
                 $this->addChild(new ParagraphParser());
                 $this->getActiveBlockParser()->addLine($this->cursor->getRemainder());
             }
@@ -194,7 +194,7 @@ final class MarkdownParser implements MarkdownParserInterface
         // The document will always match, so we can skip the first block parser and start at 1 matches
         $matches = 1;
         for ($i = 1; $i < \count($this->activeBlockParsers); $i++) {
-            $blockParser   = $this->activeBlockParsers[$i];
+            $blockParser = $this->activeBlockParsers[$i];
             $blockContinue = $blockParser->tryContinue(clone $this->cursor, $this->getActiveBlockParser());
             if ($blockContinue === null) {
                 break;
@@ -279,7 +279,7 @@ final class MarkdownParser implements MarkdownParserInterface
     {
         $blockParser->getBlock()->setStartLine($this->lineNumber);
 
-        while (! $this->getActiveBlockParser()->canContain($blockParser->getBlock())) {
+        while (!$this->getActiveBlockParser()->canContain($blockParser->getBlock())) {
             $this->closeBlockParsers(1, $this->lineNumber - 1);
         }
 
@@ -325,7 +325,7 @@ final class MarkdownParser implements MarkdownParserInterface
     private function updateReferenceMap(iterable $references): void
     {
         foreach ($references as $reference) {
-            if (! $this->referenceMap->contains($reference->getLabel())) {
+            if (!$this->referenceMap->contains($reference->getLabel())) {
                 $this->referenceMap->add($reference);
             }
         }

@@ -69,7 +69,7 @@ final class Color
 
     public function apply(string $text): string
     {
-        return $this->set().$text.$this->unset();
+        return $this->set() . $text . $this->unset();
     }
 
     public function set(): string
@@ -120,22 +120,22 @@ final class Color
             $color = substr($color, 1);
 
             if (3 === \strlen($color)) {
-                $color = $color[0].$color[0].$color[1].$color[1].$color[2].$color[2];
+                $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
             }
 
             if (6 !== \strlen($color)) {
                 throw new InvalidArgumentException(sprintf('Invalid "%s" color.', $color));
             }
 
-            return ($background ? '4' : '3').$this->convertHexColorToAnsi(hexdec($color));
+            return ($background ? '4' : '3') . $this->convertHexColorToAnsi(hexdec($color));
         }
 
         if (isset(self::COLORS[$color])) {
-            return ($background ? '4' : '3').self::COLORS[$color];
+            return ($background ? '4' : '3') . self::COLORS[$color];
         }
 
         if (isset(self::BRIGHT_COLORS[$color])) {
-            return ($background ? '10' : '9').self::BRIGHT_COLORS[$color];
+            return ($background ? '10' : '9') . self::BRIGHT_COLORS[$color];
         }
 
         throw new InvalidArgumentException(sprintf('Invalid "%s" color; expected one of (%s).', $color, implode(', ', array_merge(array_keys(self::COLORS), array_keys(self::BRIGHT_COLORS)))));
@@ -149,7 +149,7 @@ final class Color
 
         // see https://github.com/termstandard/colors/ for more information about true color support
         if ('truecolor' !== getenv('COLORTERM')) {
-            return (string) $this->degradeHexColorToAnsi($r, $g, $b);
+            return (string)$this->degradeHexColorToAnsi($r, $g, $b);
         }
 
         return sprintf('8;2;%d;%d;%d', $r, $g, $b);
@@ -175,6 +175,6 @@ final class Color
             return 0;
         }
 
-        return (int) $diff * 100 / $v;
+        return (int)$diff * 100 / $v;
     }
 }

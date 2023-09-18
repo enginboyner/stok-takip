@@ -45,7 +45,7 @@ class EventCacheCommand extends Command
 
         file_put_contents(
             $this->laravel->getCachedEventsPath(),
-            '<?php return '.var_export($this->getEvents(), true).';'
+            '<?php return ' . var_export($this->getEvents(), true) . ';'
         );
 
         $this->components->info('Events cached successfully.');

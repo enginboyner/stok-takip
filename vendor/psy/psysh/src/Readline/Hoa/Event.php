@@ -80,7 +80,7 @@ class Event
     {
         if (!isset(self::$_register[$eventId][self::KEY_EVENT])) {
             self::$_register[$eventId] = [
-                self::KEY_EVENT  => new self(),
+                self::KEY_EVENT => new self(),
                 self::KEY_SOURCE => null,
             ];
         }
@@ -95,16 +95,16 @@ class Event
     public static function register(string $eventId, /* Source|string */ $source)
     {
         if (true === self::eventExists($eventId)) {
-            throw new EventException('Cannot redeclare an event with the same ID, i.e. the event '.'ID %s already exists.', 0, $eventId);
+            throw new EventException('Cannot redeclare an event with the same ID, i.e. the event ' . 'ID %s already exists.', 0, $eventId);
         }
 
         if (\is_object($source) && !($source instanceof EventSource)) {
-            throw new EventException('The source must implement \Hoa\Event\Source '.'interface; given %s.', 1, \get_class($source));
+            throw new EventException('The source must implement \Hoa\Event\Source ' . 'interface; given %s.', 1, \get_class($source));
         } else {
             $reflection = new \ReflectionClass($source);
 
             if (false === $reflection->implementsInterface('\Psy\Readline\Hoa\EventSource')) {
-                throw new EventException('The source must implement \Hoa\Event\Source '.'interface; given %s.', 2, $source);
+                throw new EventException('The source must implement \Hoa\Event\Source ' . 'interface; given %s.', 2, $source);
             }
         }
 

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const PHP_OS;
@@ -109,11 +110,11 @@ final class Test
     }
 
     /**
-     * @throws CodeCoverageException
-     *
      * @return array|bool
      *
      * @psalm-param class-string $className
+     * @throws CodeCoverageException
+     *
      */
     public static function getLinesToBeCovered(string $className, string $methodName)
     {
@@ -130,11 +131,11 @@ final class Test
     }
 
     /**
-     * Returns lines of code specified with the @uses annotation.
-     *
-     * @throws CodeCoverageException
+     * Returns lines of code specified with the @throws CodeCoverageException
      *
      * @psalm-param class-string $className
+     * @uses annotation.
+     *
      */
     public static function getLinesToBeUsed(string $className, string $methodName): array
     {
@@ -197,15 +198,15 @@ final class Test
     public static function getMissingRequirements(string $className, string $methodName): array
     {
         $required = self::getRequirements($className, $methodName);
-        $missing  = [];
-        $hint     = null;
+        $missing = [];
+        $hint = null;
 
         if (!empty($required['PHP'])) {
             $operator = new VersionComparisonOperator(empty($required['PHP']['operator']) ? '>=' : $required['PHP']['operator']);
 
             if (!version_compare(PHP_VERSION, $required['PHP']['version'], $operator->asString())) {
                 $missing[] = sprintf('PHP %s %s is required.', $operator->asString(), $required['PHP']['version']);
-                $hint      = 'PHP';
+                $hint = 'PHP';
             }
         } elseif (!empty($required['PHP_constraint'])) {
             $version = new \PharIo\Version\Version(self::sanitizeVersionNumber(PHP_VERSION));
@@ -227,7 +228,7 @@ final class Test
 
             if (!version_compare($phpunitVersion, $required['PHPUnit']['version'], $operator->asString())) {
                 $missing[] = sprintf('PHPUnit %s %s is required.', $operator->asString(), $required['PHPUnit']['version']);
-                $hint      = $hint ?? 'PHPUnit';
+                $hint = $hint ?? 'PHPUnit';
             }
         } elseif (!empty($required['PHPUnit_constraint'])) {
             $phpunitVersion = new \PharIo\Version\Version(self::sanitizeVersionNumber(Version::id()));
@@ -244,7 +245,7 @@ final class Test
 
         if (!empty($required['OSFAMILY']) && $required['OSFAMILY'] !== (new OperatingSystem)->getFamily()) {
             $missing[] = sprintf('Operating system %s is required.', $required['OSFAMILY']);
-            $hint      = $hint ?? 'OSFAMILY';
+            $hint = $hint ?? 'OSFAMILY';
         }
 
         if (!empty($required['OS'])) {
@@ -252,7 +253,7 @@ final class Test
 
             if (!preg_match($requiredOsPattern, PHP_OS)) {
                 $missing[] = sprintf('Operating system matching %s is required.', $requiredOsPattern);
-                $hint      = $hint ?? 'OS';
+                $hint = $hint ?? 'OS';
             }
         }
 
@@ -269,7 +270,7 @@ final class Test
                 }
 
                 $missing[] = sprintf('Function %s is required.', $function);
-                $hint      = $hint ?? 'function_' . $function;
+                $hint = $hint ?? 'function_' . $function;
             }
         }
 
@@ -277,7 +278,7 @@ final class Test
             foreach ($required['setting'] as $setting => $value) {
                 if (ini_get($setting) !== $value) {
                     $missing[] = sprintf('Setting "%s" must be "%s".', $setting, $value);
-                    $hint      = $hint ?? '__SETTING_' . $setting;
+                    $hint = $hint ?? '__SETTING_' . $setting;
                 }
             }
         }
@@ -290,7 +291,7 @@ final class Test
 
                 if (!extension_loaded($extension)) {
                     $missing[] = sprintf('Extension %s is required.', $extension);
-                    $hint      = $hint ?? 'extension_' . $extension;
+                    $hint = $hint ?? 'extension_' . $extension;
                 }
             }
         }
@@ -303,7 +304,7 @@ final class Test
 
                 if ($actualVersion === false || !version_compare($actualVersion, $req['version'], $operator->asString())) {
                     $missing[] = sprintf('Extension %s %s %s is required.', $extension, $operator->asString(), $req['version']);
-                    $hint      = $hint ?? 'extension_' . $extension;
+                    $hint = $hint ?? 'extension_' . $extension;
                 }
             }
         }
@@ -339,7 +340,7 @@ final class Test
             try {
                 return [
                     'method' => $registry->forMethod($className, $methodName)->symbolAnnotations(),
-                    'class'  => $registry->forClassName($className)->symbolAnnotations(),
+                    'class' => $registry->forClassName($className)->symbolAnnotations(),
                 ];
             } catch (Exception $methodNotFound) {
                 // ignored
@@ -348,7 +349,7 @@ final class Test
 
         return [
             'method' => null,
-            'class'  => $registry->forClassName($className)->symbolAnnotations(),
+            'class' => $registry->forClassName($className)->symbolAnnotations(),
         ];
     }
 
@@ -630,7 +631,7 @@ final class Test
         }
 
         $codeUnits = CodeUnitCollection::fromArray([]);
-        $mapper    = new Mapper;
+        $mapper = new Mapper;
 
         foreach (array_unique($list) as $element) {
             if ($classShortcut && strncmp($element, '::', 2) === 0) {
@@ -671,12 +672,12 @@ final class Test
     private static function emptyHookMethodsArray(): array
     {
         return [
-            'beforeClass'   => ['setUpBeforeClass'],
-            'before'        => ['setUp'],
-            'preCondition'  => ['assertPreConditions'],
+            'beforeClass' => ['setUpBeforeClass'],
+            'before' => ['setUp'],
+            'preCondition' => ['assertPreConditions'],
             'postCondition' => ['assertPostConditions'],
-            'after'         => ['tearDown'],
-            'afterClass'    => ['tearDownAfterClass'],
+            'after' => ['tearDown'],
+            'afterClass' => ['tearDownAfterClass'],
         ];
     }
 

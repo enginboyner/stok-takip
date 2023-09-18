@@ -61,11 +61,11 @@ trait Localization
     protected static $humanDiffOptions = CarbonInterface::NO_ZERO_DIFF;
 
     /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
+     * @param int $humanDiffOptions
      * @see settings
      *
-     * @param int $humanDiffOptions
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
      */
     public static function setHumanDiffOptions($humanDiffOptions)
     {
@@ -73,11 +73,11 @@ trait Localization
     }
 
     /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
+     * @param int $humanDiffOption
      * @see settings
      *
-     * @param int $humanDiffOption
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
      */
     public static function enableHumanDiffOption($humanDiffOption)
     {
@@ -85,11 +85,11 @@ trait Localization
     }
 
     /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather use the ->settings() method.
+     * @param int $humanDiffOption
      * @see settings
      *
-     * @param int $humanDiffOption
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
      */
     public static function disableHumanDiffOption($humanDiffOption)
     {
@@ -166,9 +166,9 @@ trait Localization
      * Returns raw translation message for a given key.
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
+     * @param string $key key to find
+     * @param string|null $locale current locale used if null
+     * @param string|null $default default value if translation returns the key
      *
      * @return string
      */
@@ -176,8 +176,8 @@ trait Localization
     {
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
-                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
-                (\is_object($translator) ? \get_class($translator) : \gettype($translator)).' has been given.'
+                'Translator does not implement ' . TranslatorInterface::class . ' and ' . TranslatorBagInterface::class . '. ' .
+                (\is_object($translator) ? \get_class($translator) : \gettype($translator)) . ' has been given.'
             );
         }
 
@@ -193,9 +193,9 @@ trait Localization
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
+     * @param string $key key to find
+     * @param string|null $locale current locale used if null
+     * @param string|null $default default value if translation returns the key
      * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
      *
      * @return string
@@ -209,9 +209,9 @@ trait Localization
      * Translate using translation string or callback available.
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
+     * @param string $key
+     * @param array $parameters
+     * @param null $number
      *
      * @return string
      */
@@ -219,7 +219,7 @@ trait Localization
     {
         $message = static::getTranslationMessageWith($translator, $key, null, $key);
         if ($message instanceof Closure) {
-            return (string) $message(...array_values($parameters));
+            return (string)$message(...array_values($parameters));
         }
 
         if ($number !== null) {
@@ -235,17 +235,17 @@ trait Localization
             : $translator->transChoice($key, $number, $parameters);
         // @codeCoverageIgnoreEnd
 
-        return (string) $choice;
+        return (string)$choice;
     }
 
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                                                  $key
-     * @param array                                                   $parameters
-     * @param string|int|float|null                                   $number
+     * @param string $key
+     * @param array $parameters
+     * @param string|int|float|null $number
      * @param \Symfony\Component\Translation\TranslatorInterface|null $translator
-     * @param bool                                                    $altNumbers
+     * @param bool $altNumbers
      *
      * @return string
      */
@@ -283,13 +283,13 @@ trait Localization
                 if ($number >= $exp && $number < $exp * 10 && ($pow = $this->translate($key)) !== $key) {
                     $unit = floor($number / $exp);
                     $number -= $unit * $exp;
-                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '').$pow;
+                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '') . $pow;
                 }
             }
             $result = '';
             while ($number) {
                 $chunk = $number % 100;
-                $result = $this->translate("alt_numbers.$chunk").$result;
+                $result = $this->translate("alt_numbers.$chunk") . $result;
                 $number = floor($number / 100);
             }
 
@@ -300,23 +300,23 @@ trait Localization
             $result = '';
             while ($number) {
                 $chunk = $number % 10;
-                $result = $this->translate("alt_numbers.$chunk").$result;
+                $result = $this->translate("alt_numbers.$chunk") . $result;
                 $number = floor($number / 10);
             }
 
             return $result;
         }
 
-        return (string) $number;
+        return (string)$number;
     }
 
     /**
      * Translate a time string from a locale to an other.
      *
-     * @param string      $timeString date/time/duration string to translate (may also contain English)
-     * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
-     * @param string|null $to         output locale of the result returned (`"en"` by default)
-     * @param int         $mode       specify what to translate with options:
+     * @param string $timeString date/time/duration string to translate (may also contain English)
+     * @param string|null $from input locale of the $timeString parameter (`Carbon::getLocale()` by default)
+     * @param string|null $to output locale of the result returned (`"en"` by default)
+     * @param int $mode specify what to translate with options:
      *                                - CarbonInterface::TRANSLATE_ALL (default)
      *                                - CarbonInterface::TRANSLATE_MONTHS
      *                                - CarbonInterface::TRANSLATE_DAYS
@@ -351,7 +351,7 @@ trait Localization
                 return $timeString;
             }
 
-            $translationKey = $key.'Translations';
+            $translationKey = $key . 'Translations';
             $messages = $translations[$language];
             $months = $messages['months'] ?? [];
             $weekdays = $messages['weekdays'] ?? [];
@@ -366,11 +366,11 @@ trait Localization
 
             if ($key === 'from') {
                 foreach (['months', 'weekdays'] as $variable) {
-                    $list = $messages[$variable.'_standalone'] ?? null;
+                    $list = $messages[$variable . '_standalone'] ?? null;
 
                     if ($list) {
                         foreach ($$variable as $index => &$name) {
-                            $name .= '|'.$messages[$variable.'_standalone'][$index];
+                            $name .= '|' . $messages[$variable . '_standalone'][$index];
                         }
                     }
                 }
@@ -408,7 +408,7 @@ trait Localization
             );
         }
 
-        return substr(preg_replace_callback('/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/iu', function ($match) use ($fromTranslations, $toTranslations) {
+        return substr(preg_replace_callback('/(?<=[\d\s+.\/,_-])(' . implode('|', $fromTranslations) . ')(?=[\d\s+.\/,_-])/iu', function ($match) use ($fromTranslations, $toTranslations) {
             [$chunk] = $match;
 
             foreach ($fromTranslations as $index => $word) {
@@ -424,8 +424,8 @@ trait Localization
     /**
      * Translate a time string from the current locale (`$date->locale()`) to an other.
      *
-     * @param string      $timeString time string to translate
-     * @param string|null $to         output locale of the result returned ("en" by default)
+     * @param string $timeString time string to translate
+     * @param string|null $to output locale of the result returned ("en" by default)
      *
      * @return string
      */
@@ -438,7 +438,7 @@ trait Localization
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
-     * @param string      ...$fallbackLocales
+     * @param string ...$fallbackLocales
      *
      * @return $this|string
      */
@@ -539,7 +539,7 @@ trait Localization
      * Set the current locale to the given, execute the passed function, reset the locale to previous one,
      * then return the result of the closure (or null if the closure was void).
      *
-     * @param string   $locale locale ex. en
+     * @param string $locale locale ex. en
      * @param callable $func
      *
      * @return mixed
@@ -565,12 +565,12 @@ trait Localization
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return ($newLocale && (($y = static::translateWith($translator, 'y')) !== 'y' && $y !== static::translateWith($translator, 'year'))) || (
-                ($y = static::translateWith($translator, 'd')) !== 'd' &&
+                    ($y = static::translateWith($translator, 'd')) !== 'd' &&
                     $y !== static::translateWith($translator, 'day')
-            ) || (
-                ($y = static::translateWith($translator, 'h')) !== 'h' &&
+                ) || (
+                    ($y = static::translateWith($translator, 'h')) !== 'h' &&
                     $y !== static::translateWith($translator, 'hour')
-            );
+                );
         });
     }
 
@@ -746,7 +746,7 @@ trait Localization
     }
 
     /**
-     * @param mixed                                                    $translator
+     * @param mixed $translator
      * @param \Symfony\Component\Translation\MessageCatalogueInterface $catalogue
      *
      * @return mixed
@@ -777,17 +777,17 @@ trait Localization
     /**
      * Translate a list of words.
      *
-     * @param string[] $keys     keys to translate.
+     * @param string[] $keys keys to translate.
      * @param string[] $messages messages bag handling translations.
-     * @param string   $key      'to' (to get the translation) or 'from' (to get the detection RegExp pattern).
+     * @param string $key 'to' (to get the translation) or 'from' (to get the detection RegExp pattern).
      *
      * @return string[]
      */
     private static function translateWordsByKeys($keys, $messages, $key): array
     {
         return array_map(function ($wordKey) use ($messages, $key) {
-            $message = $key === 'from' && isset($messages[$wordKey.'_regexp'])
-                ? $messages[$wordKey.'_regexp']
+            $message = $key === 'from' && isset($messages[$wordKey . '_regexp'])
+                ? $messages[$wordKey . '_regexp']
                 : ($messages[$wordKey] ?? null);
 
             if (!$message) {
@@ -798,7 +798,7 @@ trait Localization
 
             return $key === 'to'
                 ? self::cleanWordFromTranslationString(end($parts))
-                : '(?:'.implode('|', array_map([static::class, 'cleanWordFromTranslationString'], $parts)).')';
+                : '(?:' . implode('|', array_map([static::class, 'cleanWordFromTranslationString'], $parts)) . ')';
         }, $keys);
     }
 
@@ -806,8 +806,8 @@ trait Localization
      * Get an array of translations based on the current date.
      *
      * @param callable $translation
-     * @param int      $length
-     * @param string   $timeString
+     * @param int $length
+     * @param string $timeString
      *
      * @return string[]
      */

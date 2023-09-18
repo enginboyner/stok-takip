@@ -62,8 +62,8 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     private $needsType;
 
     /**
-     * @param Client|Client8 $client  Elasticsearch Client object
-     * @param mixed[]        $options Handler configuration
+     * @param Client|Client8 $client Elasticsearch Client object
+     * @param mixed[] $options Handler configuration
      */
     public function __construct($client, array $options = [], $level = Logger::DEBUG, bool $bubble = true)
     {
@@ -75,8 +75,8 @@ class ElasticsearchHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->options = array_merge(
             [
-                'index'        => 'monolog', // Elastic index name
-                'type'         => '_doc',    // Elastic document type
+                'index' => 'monolog', // Elastic index name
+                'type' => '_doc',    // Elastic document type
                 'ignore_error' => false,     // Suppress Elasticsearch exceptions
             ],
             $options
@@ -141,7 +141,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     /**
      * Use Elasticsearch bulk API to send list of documents
      *
-     * @param  array[]           $records Records + _index/_type keys
+     * @param array[] $records Records + _index/_type keys
      * @throws \RuntimeException
      */
     protected function bulkSend(array $records): void
@@ -155,7 +155,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 $params['body'][] = [
                     'index' => $this->needsType ? [
                         '_index' => $record['_index'],
-                        '_type'  => $record['_type'],
+                        '_type' => $record['_type'],
                     ] : [
                         '_index' => $record['_index'],
                     ],
@@ -172,7 +172,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 throw $this->createExceptionFromResponses($responses);
             }
         } catch (Throwable $e) {
-            if (! $this->options['ignore_error']) {
+            if (!$this->options['ignore_error']) {
                 throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);
             }
         }

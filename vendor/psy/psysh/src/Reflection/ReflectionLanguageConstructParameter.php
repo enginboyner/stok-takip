@@ -53,9 +53,9 @@ class ReflectionLanguageConstructParameter extends \ReflectionParameter
     /**
      * Get param default value.
      *
+     * @return mixed
      * @todo remove \ReturnTypeWillChange attribute after dropping support for PHP 7.x (when we can use mixed type)
      *
-     * @return mixed
      */
     #[\ReturnTypeWillChange]
     public function getDefaultValue()

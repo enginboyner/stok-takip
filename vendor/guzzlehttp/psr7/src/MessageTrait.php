@@ -16,7 +16,7 @@ trait MessageTrait
     private $headers = [];
 
     /** @var array<string, string> Map of lowercase header name => original name at registration */
-    private $headerNames  = [];
+    private $headerNames = [];
 
     /** @var string */
     private $protocol = '1.1';
@@ -146,7 +146,7 @@ trait MessageTrait
         $this->headerNames = $this->headers = [];
         foreach ($headers as $header => $value) {
             // Numeric array keys are converted to int by PHP.
-            $header = (string) $header;
+            $header = (string)$header;
 
             $this->assertHeader($header);
             $value = $this->normalizeHeaderValue($value);
@@ -203,7 +203,7 @@ trait MessageTrait
                 ));
             }
 
-            $trimmed = trim((string) $value, " \t");
+            $trimmed = trim((string)$value, " \t");
             $this->assertValue($trimmed);
 
             return $trimmed;
@@ -224,7 +224,7 @@ trait MessageTrait
             ));
         }
 
-        if (! preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/D', $header)) {
+        if (!preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/D', $header)) {
             throw new \InvalidArgumentException(
                 sprintf('"%s" is not valid header name.', $header)
             );
@@ -254,7 +254,7 @@ trait MessageTrait
         // Clients must not send a request with line folding and a server sending folded headers is
         // likely very rare. Line folding is a fairly obscure feature of HTTP/1.1 and thus not accepting
         // folding is not likely to break any legitimate use case.
-        if (! preg_match('/^[\x20\x09\x21-\x7E\x80-\xFF]*$/D', $value)) {
+        if (!preg_match('/^[\x20\x09\x21-\x7E\x80-\xFF]*$/D', $value)) {
             throw new \InvalidArgumentException(
                 sprintf('"%s" is not valid header value.', $value)
             );

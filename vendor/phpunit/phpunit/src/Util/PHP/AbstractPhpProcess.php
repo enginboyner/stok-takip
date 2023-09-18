@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\PHP;
 
 use const DIRECTORY_SEPARATOR;
@@ -272,11 +273,10 @@ abstract class AbstractPhpProcess
             );
         } else {
             set_error_handler(
-                /**
-                 * @throws ErrorException
-                 */
-                static function ($errno, $errstr, $errfile, $errline): void
-                {
+            /**
+             * @throws ErrorException
+             */
+                static function ($errno, $errstr, $errfile, $errline): void {
                     throw new ErrorException($errstr, $errno, $errno, $errfile, $errline);
                 },
             );
@@ -326,13 +326,13 @@ abstract class AbstractPhpProcess
                     );
                 }
 
-                $time           = $childResult->time();
+                $time = $childResult->time();
                 $notImplemented = $childResult->notImplemented();
-                $risky          = $childResult->risky();
-                $skipped        = $childResult->skipped();
-                $errors         = $childResult->errors();
-                $warnings       = $childResult->warnings();
-                $failures       = $childResult->failures();
+                $risky = $childResult->risky();
+                $skipped = $childResult->skipped();
+                $errors = $childResult->errors();
+                $warnings = $childResult->warnings();
+                $failures = $childResult->failures();
 
                 if (!empty($notImplemented)) {
                     $result->addError(
@@ -393,8 +393,8 @@ abstract class AbstractPhpProcess
         if ($exception instanceof __PHP_Incomplete_Class) {
             $exceptionArray = [];
 
-            foreach ((array) $exception as $key => $value) {
-                $key                  = substr($key, strrpos($key, "\0") + 1);
+            foreach ((array)$exception as $key => $value) {
+                $key = substr($key, strrpos($key, "\0") + 1);
                 $exceptionArray[$key] = $value;
             }
 

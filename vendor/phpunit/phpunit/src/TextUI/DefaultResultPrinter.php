@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
 use const PHP_EOL;
@@ -47,15 +48,15 @@ use Throwable;
  */
 class DefaultResultPrinter extends Printer implements ResultPrinter
 {
-    public const EVENT_TEST_START      = 0;
-    public const EVENT_TEST_END        = 1;
+    public const EVENT_TEST_START = 0;
+    public const EVENT_TEST_END = 1;
     public const EVENT_TESTSUITE_START = 2;
-    public const EVENT_TESTSUITE_END   = 3;
-    public const COLOR_NEVER           = 'never';
-    public const COLOR_AUTO            = 'auto';
-    public const COLOR_ALWAYS          = 'always';
-    public const COLOR_DEFAULT         = self::COLOR_NEVER;
-    private const AVAILABLE_COLORS     = [self::COLOR_NEVER, self::COLOR_AUTO, self::COLOR_ALWAYS];
+    public const EVENT_TESTSUITE_END = 3;
+    public const COLOR_NEVER = 'never';
+    public const COLOR_AUTO = 'auto';
+    public const COLOR_ALWAYS = 'always';
+    public const COLOR_DEFAULT = self::COLOR_NEVER;
+    private const AVAILABLE_COLORS = [self::COLOR_NEVER, self::COLOR_AUTO, self::COLOR_ALWAYS];
 
     /**
      * @var int
@@ -131,7 +132,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
      * Constructor.
      *
      * @param null|resource|string $out
-     * @param int|string           $numberOfColumns
+     * @param int|string $numberOfColumns
      *
      * @throws Exception
      */
@@ -150,7 +151,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
             throw InvalidArgumentException::create(5, 'integer or "max"');
         }
 
-        $console            = new Console;
+        $console = new Console;
         $maxNumberOfColumns = $console->getNumberOfColumns();
 
         if ($numberOfColumns === 'max' || ($numberOfColumns !== 80 && $numberOfColumns > $maxNumberOfColumns)) {
@@ -158,9 +159,9 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
         }
 
         $this->numberOfColumns = $numberOfColumns;
-        $this->verbose         = $verbose;
-        $this->debug           = $debug;
-        $this->reverse         = $reverse;
+        $this->verbose = $verbose;
+        $this->debug = $debug;
+        $this->reverse = $reverse;
 
         if ($colors === self::COLOR_AUTO && $console->hasColorSupport()) {
             $this->colors = true;
@@ -249,9 +250,9 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     public function startTestSuite(TestSuite $suite): void
     {
         if ($this->numTests == -1) {
-            $this->numTests      = count($suite);
-            $this->numTestsWidth = strlen((string) $this->numTests);
-            $this->maxColumn     = $this->numberOfColumns - strlen('  /  (XXX%)') - (2 * $this->numTestsWidth);
+            $this->numTests = count($suite);
+            $this->numTestsWidth = strlen((string)$this->numTests);
+            $this->maxColumn = $this->numberOfColumns - strlen('  /  (XXX%)') - (2 * $this->numTestsWidth);
         }
     }
 
@@ -364,10 +365,10 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     {
         $e = $defect->thrownException();
 
-        $this->write((string) $e);
+        $this->write((string)$e);
 
         while ($e = $e->getPrevious()) {
-            $this->write("\nCaused by\n" . trim((string) $e) . "\n");
+            $this->write("\nCaused by\n" . trim((string)$e) . "\n");
         }
     }
 
@@ -530,7 +531,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
             return $buffer;
         }
 
-        $lines   = preg_split('/\r\n|\r|\n/', $buffer);
+        $lines = preg_split('/\r\n|\r|\n/', $buffer);
         $padding = max(array_map('\strlen', $lines));
 
         $styledLines = [];

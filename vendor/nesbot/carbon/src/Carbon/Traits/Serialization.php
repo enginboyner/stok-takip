@@ -80,13 +80,13 @@ trait Serialization
      *
      * @param string $value
      *
+     * @return static
      * @throws InvalidFormatException
      *
-     * @return static
      */
     public static function fromSerialized($value)
     {
-        $instance = @unserialize((string) $value);
+        $instance = @unserialize((string)$value);
 
         if (!$instance instanceof static) {
             throw new InvalidFormatException("Invalid serialized value: $value");
@@ -111,8 +111,8 @@ trait Serialization
 
         /** @var \DateTimeInterface $date */
         $date = get_parent_class(static::class) && method_exists(parent::class, '__set_state')
-            ? parent::__set_state((array) $dump)
-            : (object) $dump;
+            ? parent::__set_state((array)$dump)
+            : (object)$dump;
 
         return static::instance($date);
     }
@@ -266,14 +266,14 @@ trait Serialization
     }
 
     /**
+     * @param callable $callback
+     *
+     * @return void
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather transform Carbon object before the serialization.
      *
      * JSON serialize all Carbon instances using the given callback.
      *
-     * @param callable $callback
-     *
-     * @return void
      */
     public static function serializeUsing($callback)
     {

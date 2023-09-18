@@ -56,7 +56,7 @@ class SignatureFormatter implements ReflectorFormatter
                 return self::formatConstant($reflector);
 
             default:
-                throw new \InvalidArgumentException('Unexpected Reflector class: '.\get_class($reflector));
+                throw new \InvalidArgumentException('Unexpected Reflector class: ' . \get_class($reflector));
         }
     }
 
@@ -283,7 +283,7 @@ class SignatureFormatter implements ReflectorFormatter
                 // Hax: we'll try to extract it :P
 
                 // @codeCoverageIgnoreStart
-                $chunks = \explode('$'.$param->getName(), (string) $param);
+                $chunks = \explode('$' . $param->getName(), (string)$param);
                 $chunks = \explode(' ', \trim($chunks[0]));
                 $guess = \end($chunks);
 
@@ -336,7 +336,7 @@ class SignatureFormatter implements ReflectorFormatter
             $typeStyle = $type->isBuiltin() ? 'keyword' : 'class';
 
             // PHP 7.0 didn't have `getName` on reflection types, so wheee!
-            $typeName = \method_exists($type, 'getName') ? $type->getName() : (string) $type;
+            $typeName = \method_exists($type, 'getName') ? $type->getName() : (string)$type;
 
             // @todo Do we want to include the ? for nullable types? Maybe only sometimes?
             $formattedTypes[] = \sprintf('<%s>%s</%s>', $typeStyle, OutputFormatter::escape($typeName), $typeStyle);

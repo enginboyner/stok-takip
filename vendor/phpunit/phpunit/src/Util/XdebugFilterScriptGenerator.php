@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const DIRECTORY_SEPARATOR;
@@ -28,8 +29,7 @@ final class XdebugFilterScriptGenerator
     public function generate(FilterConfiguration $filter): string
     {
         $files = array_map(
-            static function ($item)
-            {
+            static function ($item) {
                 return sprintf(
                     "        '%s'",
                     $item,

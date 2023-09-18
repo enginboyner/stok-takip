@@ -29,7 +29,7 @@ class FileDownloader implements Downloader
     {
         $tempDir = $this->tempDir ?: \sys_get_temp_dir();
         $this->outputFile = \tempnam($tempDir, 'psysh-archive-');
-        $targetName = $this->outputFile.'.tar.gz';
+        $targetName = $this->outputFile . '.tar.gz';
 
         if (!\rename($this->outputFile, $targetName)) {
             return false;
@@ -37,7 +37,7 @@ class FileDownloader implements Downloader
 
         $this->outputFile = $targetName;
 
-        return (bool) \file_put_contents($this->outputFile, \file_get_contents($url));
+        return (bool)\file_put_contents($this->outputFile, \file_get_contents($url));
     }
 
     /** {@inheritDoc} */

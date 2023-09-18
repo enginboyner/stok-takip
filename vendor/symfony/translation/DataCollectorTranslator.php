@@ -45,7 +45,7 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
      */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
-        $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
+        $trans = $this->translator->trans($id = (string)$id, $parameters, $domain, $locale);
         $this->collectMessage($locale, $domain, $id, $trans, $parameters);
 
         return $trans;
@@ -91,7 +91,7 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     public function warmUp(string $cacheDir): array
     {
         if ($this->translator instanceof WarmableInterface) {
-            return (array) $this->translator->warmUp($cacheDir);
+            return (array)$this->translator->warmUp($cacheDir);
         }
 
         return [];

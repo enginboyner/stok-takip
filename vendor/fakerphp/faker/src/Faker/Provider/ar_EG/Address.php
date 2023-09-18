@@ -206,9 +206,9 @@ class Address extends \Faker\Provider\Address
     }
 
     /**
+     * @return string
      * @example '01'
      *
-     * @return string
      */
     public static function governorateId()
     {

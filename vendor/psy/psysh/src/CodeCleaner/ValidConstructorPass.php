@@ -46,12 +46,12 @@ class ValidConstructorPass extends CodeCleanerPass
     /**
      * Validate that the constructor is not static and does not have a return type.
      *
-     * @throws FatalErrorException the constructor function is static
-     * @throws FatalErrorException the constructor function has a return type
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws FatalErrorException the constructor function is static
+     * @throws FatalErrorException the constructor function has a return type
+     *
      */
     public function enterNode(Node $node)
     {
@@ -82,11 +82,11 @@ class ValidConstructorPass extends CodeCleanerPass
     }
 
     /**
+     * @param Node $constructor
+     * @param Node $classNode
      * @throws FatalErrorException the constructor function is static
      * @throws FatalErrorException the constructor function has a return type
      *
-     * @param Node $constructor
-     * @param Node $classNode
      */
     private function validateConstructor(Node $constructor, Node $classNode)
     {
@@ -96,7 +96,7 @@ class ValidConstructorPass extends CodeCleanerPass
 
             $msg = \sprintf(
                 'Constructor %s::%s() cannot be static',
-                \implode('\\', \array_merge($this->namespace, (array) $className)),
+                \implode('\\', \array_merge($this->namespace, (array)$className)),
                 $constructor->name
             );
             throw new FatalErrorException($msg, 0, \E_ERROR, null, $classNode->getLine());
@@ -108,7 +108,7 @@ class ValidConstructorPass extends CodeCleanerPass
 
             $msg = \sprintf(
                 'Constructor %s::%s() cannot declare a return type',
-                \implode('\\', \array_merge($this->namespace, (array) $className)),
+                \implode('\\', \array_merge($this->namespace, (array)$className)),
                 $constructor->name
             );
             throw new FatalErrorException($msg, 0, \E_ERROR, null, $classNode->getLine());

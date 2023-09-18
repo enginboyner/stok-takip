@@ -55,8 +55,8 @@ class MigrateCommand extends BaseCommand implements Isolatable
     /**
      * Create a new migration command instance.
      *
-     * @param  \Illuminate\Database\Migrations\Migrator  $migrator
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+     * @param \Illuminate\Database\Migrations\Migrator $migrator
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      * @return void
      */
     public function __construct(Migrator $migrator, Dispatcher $dispatcher)
@@ -74,7 +74,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
@@ -85,15 +85,15 @@ class MigrateCommand extends BaseCommand implements Isolatable
             // we will use the path relative to the root of this installation folder
             // so that migrations may be run for any path within the applications.
             $migrations = $this->migrator->setOutput($this->output)
-                    ->run($this->getMigrationPaths(), [
-                        'pretend' => $this->option('pretend'),
-                        'step' => $this->option('step'),
-                    ]);
+                ->run($this->getMigrationPaths(), [
+                    'pretend' => $this->option('pretend'),
+                    'step' => $this->option('step'),
+                ]);
 
             // Finally, if the "seed" option has been given, we will re-run the database
             // seed task to re-populate the database, which is convenient when adding
             // a migration and a seed at the same time, as it is only this command.
-            if ($this->option('seed') && ! $this->option('pretend')) {
+            if ($this->option('seed') && !$this->option('pretend')) {
                 $this->call('db:seed', [
                     '--class' => $this->option('seeder') ?: 'Database\\Seeders\\DatabaseSeeder',
                     '--force' => true,
@@ -111,19 +111,19 @@ class MigrateCommand extends BaseCommand implements Isolatable
      */
     protected function prepareDatabase()
     {
-        if (! $this->repositoryExists()) {
+        if (!$this->repositoryExists()) {
             $this->components->info('Preparing database.');
 
             $this->components->task('Creating migration table', function () {
                 return $this->callSilent('migrate:install', array_filter([
-                    '--database' => $this->option('database'),
-                ])) == 0;
+                        '--database' => $this->option('database'),
+                    ])) == 0;
             });
 
             $this->newLine();
         }
 
-        if (! $this->migrator->hasRunAnyMigrations() && ! $this->option('pretend')) {
+        if (!$this->migrator->hasRunAnyMigrations() && !$this->option('pretend')) {
             $this->loadSchemaState();
         }
     }
@@ -135,7 +135,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
      */
     protected function repositoryExists()
     {
-        return retry(2, fn () => $this->migrator->repositoryExists(), 0, function ($e) {
+        return retry(2, fn() => $this->migrator->repositoryExists(), 0, function ($e) {
             try {
                 if ($e->getPrevious() instanceof SQLiteDatabaseDoesNotExistException) {
                     return $this->createMissingSqliteDatbase($e->getPrevious()->path);
@@ -160,7 +160,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
     /**
      * Create a missing SQLite database.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     protected function createMissingSqliteDatbase($path)
@@ -173,9 +173,9 @@ class MigrateCommand extends BaseCommand implements Isolatable
             return false;
         }
 
-        $this->components->warn('The SQLite database does not exist: '.$path);
+        $this->components->warn('The SQLite database does not exist: ' . $path);
 
-        if (! $this->components->confirm('Would you like to create it?')) {
+        if (!$this->components->confirm('Would you like to create it?')) {
             return false;
         }
 
@@ -193,14 +193,14 @@ class MigrateCommand extends BaseCommand implements Isolatable
             return false;
         }
 
-        if (! $this->option('force') && $this->option('no-interaction')) {
+        if (!$this->option('force') && $this->option('no-interaction')) {
             return false;
         }
 
-        if (! $this->option('force') && ! $this->option('no-interaction')) {
+        if (!$this->option('force') && !$this->option('no-interaction')) {
             $this->components->warn("The database '{$connection->getDatabaseName()}' does not exist on the '{$connection->getName()}' connection.");
 
-            if (! $this->components->confirm('Would you like to create it?')) {
+            if (!$this->components->confirm('Would you like to create it?')) {
                 return false;
             }
         }
@@ -233,7 +233,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
         // the schema file exists before we proceed any further. If not, we will just
         // continue with the standard migration operation as normal without errors.
         if ($connection instanceof SqlServerConnection ||
-            ! is_file($path = $this->schemaPath($connection))) {
+            !is_file($path = $this->schemaPath($connection))) {
             return;
         }
 
@@ -263,7 +263,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
     /**
      * Get the path to the stored schema for the given connection.
      *
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param \Illuminate\Database\Connection $connection
      * @return string
      */
     protected function schemaPath($connection)
@@ -272,10 +272,10 @@ class MigrateCommand extends BaseCommand implements Isolatable
             return $this->option('schema-path');
         }
 
-        if (file_exists($path = database_path('schema/'.$connection->getName().'-schema.dump'))) {
+        if (file_exists($path = database_path('schema/' . $connection->getName() . '-schema.dump'))) {
             return $path;
         }
 
-        return database_path('schema/'.$connection->getName().'-schema.sql');
+        return database_path('schema/' . $connection->getName() . '-schema.sql');
     }
 }

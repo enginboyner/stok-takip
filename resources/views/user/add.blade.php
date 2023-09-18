@@ -2,7 +2,7 @@
 
 
 @section('pageName')
-Kullanıcı Ekle
+    Kullanıcı Ekle
 @endsection
 
 

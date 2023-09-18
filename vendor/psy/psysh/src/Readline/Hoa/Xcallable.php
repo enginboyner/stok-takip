@@ -113,7 +113,7 @@ class Xcallable
                 } elseif (\method_exists($call, '__invoke')) {
                     $able = '__invoke';
                 } else {
-                    throw new Exception('Bad callback form; an object but without a known '.'method.', 2);
+                    throw new Exception('Bad callback form; an object but without a known ' . 'method.', 2);
                 }
             } elseif (\is_array($call) && isset($call[0])) {
                 if (!isset($call[1])) {
@@ -177,7 +177,7 @@ class Xcallable
                 case 'boolean':
                 case 'integer':
                 case 'array':
-                    $method = 'write'.\ucfirst($type);
+                    $method = 'write' . \ucfirst($type);
 
                     break;
 
@@ -188,7 +188,7 @@ class Xcallable
 
                 default:
                     $method = 'writeAll';
-                    $head = $head."\n";
+                    $head = $head . "\n";
             }
 
             $callback[1] = $method;
@@ -215,23 +215,23 @@ class Xcallable
         $_ = &$this->_callback;
 
         if (\is_string($_)) {
-            return $this->_hash = 'function#'.$_;
+            return $this->_hash = 'function#' . $_;
         }
 
         if (\is_array($_)) {
             return
                 $this->_hash =
                     (\is_object($_[0])
-                        ? 'object('.\spl_object_hash($_[0]).')'.
-                          '#'.\get_class($_[0])
-                        : 'class#'.$_[0]).
-                    '::'.
+                        ? 'object(' . \spl_object_hash($_[0]) . ')' .
+                        '#' . \get_class($_[0])
+                        : 'class#' . $_[0]) .
+                    '::' .
                     (null !== $_[1]
                         ? $_[1]
                         : '???');
         }
 
-        return $this->_hash = 'closure('.\spl_object_hash($_).')';
+        return $this->_hash = 'closure(' . \spl_object_hash($_) . ')';
     }
 
     /**

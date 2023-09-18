@@ -79,7 +79,7 @@ class RedirectMiddleware
      */
     public function checkRedirect(RequestInterface $request, array $options, ResponseInterface $response)
     {
-        if (\strpos((string) $response->getStatusCode(), '3') !== 0
+        if (\strpos((string)$response->getStatusCode(), '3') !== 0
             || !$response->hasHeader('Location')
         ) {
             return $response;
@@ -110,7 +110,7 @@ class RedirectMiddleware
         if (!empty($options['allow_redirects']['track_redirects'])) {
             return $this->withTracking(
                 $promise,
-                (string) $nextRequest->getUri(),
+                (string)$nextRequest->getUri(),
                 $response->getStatusCode()
             );
         }
@@ -131,10 +131,10 @@ class RedirectMiddleware
                 $historyHeader = $response->getHeader(self::HISTORY_HEADER);
                 $statusHeader = $response->getHeader(self::STATUS_HISTORY_HEADER);
                 \array_unshift($historyHeader, $uri);
-                \array_unshift($statusHeader, (string) $statusCode);
+                \array_unshift($statusHeader, (string)$statusCode);
 
                 return $response->withHeader(self::HISTORY_HEADER, $historyHeader)
-                                ->withHeader(self::STATUS_HISTORY_HEADER, $statusHeader);
+                    ->withHeader(self::STATUS_HISTORY_HEADER, $statusHeader);
             }
         );
     }
@@ -191,7 +191,7 @@ class RedirectMiddleware
             && $modify['uri']->getScheme() === $request->getUri()->getScheme()
         ) {
             $uri = $request->getUri()->withUserInfo('');
-            $modify['set_headers']['Referer'] = (string) $uri;
+            $modify['set_headers']['Referer'] = (string)$uri;
         } else {
             $modify['remove_headers'][] = 'Referer';
         }
@@ -209,10 +209,11 @@ class RedirectMiddleware
      * Set the appropriate URL on the request based on the location header.
      */
     private static function redirectUri(
-        RequestInterface $request,
+        RequestInterface  $request,
         ResponseInterface $response,
-        array $protocols
-    ): UriInterface {
+        array             $protocols
+    ): UriInterface
+    {
         $location = Psr7\UriResolver::resolve(
             $request->getUri(),
             new Psr7\Uri($response->getHeaderLine('Location'))

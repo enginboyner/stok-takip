@@ -66,13 +66,14 @@ class Report
 
     /** @param array<class-string<ArgumentReducer>|ArgumentReducer>|ArgumentReducers|null $argumentReducers */
     public static function createForThrowable(
-        Throwable $throwable,
-        ContextProvider $context,
-        ?string $applicationPath = null,
-        ?string $version = null,
+        Throwable                   $throwable,
+        ContextProvider             $context,
+        ?string                     $applicationPath = null,
+        ?string                     $version = null,
         null|array|ArgumentReducers $argumentReducers = null,
-        bool $withStackTraceArguments = true,
-    ): self {
+        bool                        $withStackTraceArguments = true,
+    ): self
+    {
         $stacktrace = Backtrace::createForThrowable($throwable)
             ->withArguments($withStackTraceArguments)
             ->reduceArguments($argumentReducers)
@@ -104,13 +105,14 @@ class Report
 
     /** @param array<class-string<ArgumentReducer>|ArgumentReducer>|ArgumentReducers|null $argumentReducers */
     public static function createForMessage(
-        string $message,
-        string $logLevel,
-        ContextProvider $context,
-        ?string $applicationPath = null,
+        string                      $message,
+        string                      $logLevel,
+        ContextProvider             $context,
+        ?string                     $applicationPath = null,
         null|array|ArgumentReducers $argumentReducers = null,
-        bool $withStackTraceArguments = true,
-    ): self {
+        bool                        $withStackTraceArguments = true,
+    ): self
+    {
         $stacktrace = Backtrace::create()
             ->withArguments($withStackTraceArguments)
             ->reduceArguments($argumentReducers)
@@ -314,7 +316,7 @@ class Report
     protected function stracktraceAsArray(): array
     {
         return array_map(
-            fn (SpatieFrame $frame) => Frame::fromSpatieFrame($frame)->toArray(),
+            fn(SpatieFrame $frame) => Frame::fromSpatieFrame($frame)->toArray(),
             $this->stacktrace->frames(),
         );
     }

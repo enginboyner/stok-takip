@@ -53,7 +53,7 @@ class EachPromise implements PromisorInterface
      *   creating a capped pool of promises. There is no limit by default.
      *
      * @param mixed $iterable Promises or values to iterate.
-     * @param array $config   Configuration options
+     * @param array $config Configuration options
      */
     public function __construct($iterable, array $config = [])
     {

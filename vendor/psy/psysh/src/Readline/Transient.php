@@ -106,9 +106,9 @@ class Transient implements Readline
     /**
      * {@inheritdoc}
      *
+     * @return false|string
      * @throws BreakException if user hits Ctrl+D
      *
-     * @return false|string
      */
     public function readline(string $prompt = null)
     {
@@ -136,9 +136,9 @@ class Transient implements Readline
     /**
      * Get a STDIN file handle.
      *
+     * @return resource
      * @throws BreakException if user hits Ctrl+D
      *
-     * @return resource
      */
     private function getStdin()
     {

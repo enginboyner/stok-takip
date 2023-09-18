@@ -21,11 +21,11 @@ class ErrorException extends \ErrorException implements Exception
     /**
      * Construct a Psy ErrorException.
      *
-     * @param string          $message  (default: "")
-     * @param int             $code     (default: 0)
-     * @param int             $severity (default: 1)
-     * @param string|null     $filename (default: null)
-     * @param int|null        $lineno   (default: null)
+     * @param string $message (default: "")
+     * @param int $code (default: 0)
+     * @param int $severity (default: 1)
+     * @param string|null $filename (default: null)
+     * @param int|null $lineno (default: null)
      * @param \Throwable|null $previous (default: null)
      */
     public function __construct($message = '', $code = 0, $severity = 1, $filename = null, $lineno = null, \Throwable $previous = null)
@@ -67,7 +67,7 @@ class ErrorException extends \ErrorException implements Exception
                 break;
         }
 
-        $message = \sprintf('PHP %s:  %s%s on line %d', $type, $message, $filename ? ' in '.$filename : '', $lineno);
+        $message = \sprintf('PHP %s:  %s%s on line %d', $type, $message, $filename ? ' in ' . $filename : '', $lineno);
         parent::__construct($message, $code, $severity, $filename, $lineno, $previous);
     }
 
@@ -86,12 +86,12 @@ class ErrorException extends \ErrorException implements Exception
      *
      *     set_error_handler([ErrorException::class, 'throwException']);
      *
+     * @param int $errno Error type
+     * @param string $errstr Message
+     * @param string $errfile Filename
+     * @param int $errline Line number
      * @throws self
      *
-     * @param int    $errno   Error type
-     * @param string $errstr  Message
-     * @param string $errfile Filename
-     * @param int    $errline Line number
      */
     public static function throwException($errno, $errstr, $errfile, $errline)
     {
@@ -101,9 +101,9 @@ class ErrorException extends \ErrorException implements Exception
     /**
      * Create an ErrorException from an Error.
      *
+     * @param \Error $e
      * @deprecated PsySH no longer wraps Errors
      *
-     * @param \Error $e
      */
     public static function fromError(\Error $e): self
     {

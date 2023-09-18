@@ -19,20 +19,21 @@ class ErrorPageViewModel
      * @param string|null $solutionTransformerClass
      */
     public function __construct(
-        protected ?Throwable $throwable,
+        protected ?Throwable     $throwable,
         protected IgnitionConfig $ignitionConfig,
-        protected Report $report,
-        protected array $solutions,
-        protected ?string $solutionTransformerClass = null,
-        protected string $customHtmlHead = '',
-        protected string $customHtmlBody = ''
-    ) {
+        protected Report         $report,
+        protected array          $solutions,
+        protected ?string        $solutionTransformerClass = null,
+        protected string         $customHtmlHead = '',
+        protected string         $customHtmlBody = ''
+    )
+    {
         $this->solutionTransformerClass ??= SolutionTransformer::class;
     }
 
     public function throwableString(): string
     {
-        if (! $this->throwable) {
+        if (!$this->throwable) {
             return '';
         }
 
@@ -94,14 +95,14 @@ class ErrorPageViewModel
     {
         $jsonOptions = JSON_PARTIAL_OUTPUT_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT;
 
-        return (string) json_encode($data, $jsonOptions);
+        return (string)json_encode($data, $jsonOptions);
     }
 
     public function getAssetContents(string $asset): string
     {
-        $assetPath = __DIR__."/../../resources/compiled/{$asset}";
+        $assetPath = __DIR__ . "/../../resources/compiled/{$asset}";
 
-        return (string) file_get_contents($assetPath);
+        return (string)file_get_contents($assetPath);
     }
 
     /**

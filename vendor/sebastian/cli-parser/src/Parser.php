@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CliParser;
 
 use function array_map;
@@ -47,8 +48,8 @@ final class Parser
             return [[], []];
         }
 
-        $options     = [];
-        $nonOptions  = [];
+        $options = [];
+        $nonOptions = [];
 
         if ($longOptions) {
             sort($longOptions);
@@ -113,7 +114,7 @@ final class Parser
         $argLength = strlen($arg);
 
         for ($i = 0; $i < $argLength; $i++) {
-            $option         = $arg[$i];
+            $option = $arg[$i];
             $optionArgument = null;
 
             if ($arg[$i] === ':' || ($spec = strstr($shortOptions, $option)) === false) {
@@ -156,9 +157,9 @@ final class Parser
      */
     private function parseLongOption(string $arg, array $longOptions, array &$opts, array &$args): void
     {
-        $count          = count($longOptions);
-        $list           = explode('=', $arg);
-        $option         = $list[0];
+        $count = count($longOptions);
+        $list = explode('=', $arg);
+        $option = $list[0];
         $optionArgument = null;
 
         if (count($list) > 1) {
@@ -182,7 +183,7 @@ final class Parser
 
             if (substr($longOption, -1) === '=') {
                 /* @noinspection StrlenInEmptyStringCheckContextInspection */
-                if (substr($longOption, -2) !== '==' && !strlen((string) $optionArgument)) {
+                if (substr($longOption, -2) !== '==' && !strlen((string)$optionArgument)) {
                     if (false === $optionArgument = current($args)) {
                         throw new RequiredOptionArgumentMissingException('--' . $option);
                     }
@@ -194,7 +195,7 @@ final class Parser
             }
 
             $fullOption = '--' . preg_replace('/={1,2}$/', '', $longOption);
-            $opts[]     = [$fullOption, $optionArgument];
+            $opts[] = [$fullOption, $optionArgument];
 
             return;
         }

@@ -35,7 +35,7 @@ final class HtmlRenderer
             return Termwind::span($html);
         }
 
-        $html = '<?xml encoding="UTF-8">'.trim($html);
+        $html = '<?xml encoding="UTF-8">' . trim($html);
         $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_COMPACT | LIBXML_HTML_NODEFDTD | LIBXML_NOBLANKS | LIBXML_NOXMLDECL);
 
         /** @var DOMNode $body */
@@ -68,7 +68,7 @@ final class HtmlRenderer
             $children[] = $this->convert($child);
         }
 
-        $children = array_filter($children, fn ($child) => $child !== '');
+        $children = array_filter($children, fn($child) => $child !== '');
 
         return $this->toElement($node, $children);
     }
@@ -76,12 +76,12 @@ final class HtmlRenderer
     /**
      * Convert a given DOM node to it's termwind element equivalent.
      *
-     * @param  array<int, Components\Element|string>  $children
+     * @param array<int, Components\Element|string> $children
      */
     private function toElement(Node $node, array $children): Components\Element|string
     {
         if ($node->isText() || $node->isComment()) {
-            return (string) $node;
+            return (string)$node;
         }
 
         /** @var array<string, mixed> $properties */

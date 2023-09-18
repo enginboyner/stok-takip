@@ -25,7 +25,7 @@ trait DatabaseTruncation
     protected function truncateDatabaseTables(): void
     {
         // Migrate and seed the database on first run...
-        if (! RefreshDatabaseState::$migrated) {
+        if (!RefreshDatabaseState::$migrated) {
             $this->artisan('migrate:fresh', $this->migrateFreshUsing());
 
             $this->app[Kernel::class]->setArtisan(null);
@@ -61,7 +61,7 @@ trait DatabaseTruncation
                 $connection = $database->connection($name);
 
                 $connection->getSchemaBuilder()->withoutForeignKeyConstraints(
-                    fn () => $this->truncateTablesForConnection($connection, $name)
+                    fn() => $this->truncateTablesForConnection($connection, $name)
                 );
             });
     }
@@ -69,8 +69,8 @@ trait DatabaseTruncation
     /**
      * Truncate the database tables for the given database connection.
      *
-     * @param  \Illuminate\Database\ConnectionInterface  $connection
-     * @param  string|null  $name
+     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param string|null $name
      * @return void
      */
     protected function truncateTablesForConnection(ConnectionInterface $connection, ?string $name): void
@@ -82,11 +82,11 @@ trait DatabaseTruncation
         collect(static::$allTables[$name] ??= $connection->getDoctrineSchemaManager()->listTableNames())
             ->when(
                 property_exists($this, 'tablesToTruncate'),
-                fn ($tables) => $tables->intersect($this->tablesToTruncate),
-                fn ($tables) => $tables->diff($this->exceptTables($name))
+                fn($tables) => $tables->intersect($this->tablesToTruncate),
+                fn($tables) => $tables->diff($this->exceptTables($name))
             )
-            ->filter(fn ($table) => $connection->table($table)->exists())
-            ->each(fn ($table) => $connection->table($table)->truncate());
+            ->filter(fn($table) => $connection->table($table)->exists())
+            ->each(fn($table) => $connection->table($table)->truncate());
 
         $connection->setEventDispatcher($dispatcher);
     }
@@ -99,13 +99,13 @@ trait DatabaseTruncation
     protected function connectionsToTruncate(): array
     {
         return property_exists($this, 'connectionsToTruncate')
-                    ? $this->connectionsToTruncate : [null];
+            ? $this->connectionsToTruncate : [null];
     }
 
     /**
      * Get the tables that should not be truncated.
      *
-     * @param  string|null  $connectionName
+     * @param string|null $connectionName
      * @return array
      */
     protected function exceptTables(?string $connectionName): array

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage;
 
 use function array_key_exists;
@@ -240,14 +241,14 @@ final class ProcessedCodeCoverageData
     {
         foreach ($functionData['branches'] as $branchId => $branchData) {
             if (!isset($this->functionCoverage[$file][$functionName]['branches'][$branchId])) {
-                $this->functionCoverage[$file][$functionName]['branches'][$branchId]        = $branchData;
+                $this->functionCoverage[$file][$functionName]['branches'][$branchId] = $branchData;
                 $this->functionCoverage[$file][$functionName]['branches'][$branchId]['hit'] = [];
             }
         }
 
         foreach ($functionData['paths'] as $pathId => $pathData) {
             if (!isset($this->functionCoverage[$file][$functionName]['paths'][$pathId])) {
-                $this->functionCoverage[$file][$functionName]['paths'][$pathId]        = $pathData;
+                $this->functionCoverage[$file][$functionName]['paths'][$pathId] = $pathData;
                 $this->functionCoverage[$file][$functionName]['paths'][$pathId]['hit'] = [];
             }
         }

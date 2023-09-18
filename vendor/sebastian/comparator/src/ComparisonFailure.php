@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Comparator;
 
 use RuntimeException;
@@ -62,21 +63,21 @@ class ComparisonFailure extends RuntimeException
     /**
      * Initialises with the expected value and the actual value.
      *
-     * @param mixed  $expected         expected value retrieved
-     * @param mixed  $actual           actual value retrieved
+     * @param mixed $expected expected value retrieved
+     * @param mixed $actual actual value retrieved
      * @param string $expectedAsString
      * @param string $actualAsString
-     * @param bool   $identical
-     * @param string $message          a string which is prefixed on all returned lines
+     * @param bool $identical
+     * @param string $message a string which is prefixed on all returned lines
      *                                 in the difference output
      */
     public function __construct($expected, $actual, $expectedAsString, $actualAsString, $identical = false, $message = '')
     {
-        $this->expected         = $expected;
-        $this->actual           = $actual;
+        $this->expected = $expected;
+        $this->actual = $actual;
         $this->expectedAsString = $expectedAsString;
-        $this->actualAsString   = $actualAsString;
-        $this->message          = $message;
+        $this->actualAsString = $actualAsString;
+        $this->message = $message;
     }
 
     public function getActual()

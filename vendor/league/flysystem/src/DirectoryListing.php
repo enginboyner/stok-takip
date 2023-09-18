@@ -85,6 +85,6 @@ class DirectoryListing implements IteratorAggregate
     {
         return $this->listing instanceof Traversable
             ? iterator_to_array($this->listing, false)
-            : (array) $this->listing;
+            : (array)$this->listing;
     }
 }

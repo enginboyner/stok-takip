@@ -204,7 +204,7 @@ final class Ctype
      * (negative values have 256 added in order to allow characters in the Extended ASCII range).
      * Any other integer is interpreted as a string containing the decimal digits of the integer.
      *
-     * @param mixed  $int
+     * @param mixed $int
      * @param string $function
      *
      * @return mixed
@@ -216,11 +216,11 @@ final class Ctype
         }
 
         if ($int < -128 || $int > 255) {
-            return (string) $int;
+            return (string)$int;
         }
 
         if (\PHP_VERSION_ID >= 80100) {
-            @trigger_error($function.'(): Argument of type int will be interpreted as string in the future', \E_USER_DEPRECATED);
+            @trigger_error($function . '(): Argument of type int will be interpreted as string in the future', \E_USER_DEPRECATED);
         }
 
         if ($int < 0) {

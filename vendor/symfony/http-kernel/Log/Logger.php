@@ -48,14 +48,18 @@ class Logger extends AbstractLogger
             $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? LogLevel::ERROR : LogLevel::WARNING;
 
             if (isset($_ENV['SHELL_VERBOSITY']) || isset($_SERVER['SHELL_VERBOSITY'])) {
-                switch ((int) ($_ENV['SHELL_VERBOSITY'] ?? $_SERVER['SHELL_VERBOSITY'])) {
-                    case -1: $minLevel = LogLevel::ERROR;
+                switch ((int)($_ENV['SHELL_VERBOSITY'] ?? $_SERVER['SHELL_VERBOSITY'])) {
+                    case -1:
+                        $minLevel = LogLevel::ERROR;
                         break;
-                    case 1: $minLevel = LogLevel::NOTICE;
+                    case 1:
+                        $minLevel = LogLevel::NOTICE;
                         break;
-                    case 2: $minLevel = LogLevel::INFO;
+                    case 2:
+                        $minLevel = LogLevel::INFO;
                         break;
-                    case 3: $minLevel = LogLevel::DEBUG;
+                    case 3:
+                        $minLevel = LogLevel::DEBUG;
                         break;
                 }
             }
@@ -87,7 +91,7 @@ class Logger extends AbstractLogger
 
         $formatter = $this->formatter;
         if ($this->handle) {
-            @fwrite($this->handle, $formatter($level, $message, $context).\PHP_EOL);
+            @fwrite($this->handle, $formatter($level, $message, $context) . \PHP_EOL);
         } else {
             error_log($formatter($level, $message, $context, false));
         }
@@ -103,9 +107,9 @@ class Logger extends AbstractLogger
                 } elseif ($val instanceof \DateTimeInterface) {
                     $replacements["{{$key}}"] = $val->format(\DateTime::RFC3339);
                 } elseif (\is_object($val)) {
-                    $replacements["{{$key}}"] = '[object '.\get_class($val).']';
+                    $replacements["{{$key}}"] = '[object ' . \get_class($val) . ']';
                 } else {
-                    $replacements["{{$key}}"] = '['.\gettype($val).']';
+                    $replacements["{{$key}}"] = '[' . \gettype($val) . ']';
                 }
             }
 
@@ -114,7 +118,7 @@ class Logger extends AbstractLogger
 
         $log = sprintf('[%s] %s', $level, $message);
         if ($prefixDate) {
-            $log = date(\DateTime::RFC3339).' '.$log;
+            $log = date(\DateTime::RFC3339) . ' ' . $log;
         }
 
         return $log;

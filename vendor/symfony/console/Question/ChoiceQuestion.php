@@ -27,8 +27,8 @@ class ChoiceQuestion extends Question
 
     /**
      * @param string $question The question to ask to the user
-     * @param array  $choices  The list of available choices
-     * @param mixed  $default  The default answer to return
+     * @param array $choices The list of available choices
+     * @param mixed $default The default answer to return
      */
     public function __construct(string $question, array $choices, mixed $default = null)
     {
@@ -119,18 +119,18 @@ class ChoiceQuestion extends Question
         return function ($selected) use ($choices, $errorMessage, $multiselect, $isAssoc) {
             if ($multiselect) {
                 // Check for a separated comma values
-                if (!preg_match('/^[^,]+(?:,[^,]+)*$/', (string) $selected, $matches)) {
+                if (!preg_match('/^[^,]+(?:,[^,]+)*$/', (string)$selected, $matches)) {
                     throw new InvalidArgumentException(sprintf($errorMessage, $selected));
                 }
 
-                $selectedChoices = explode(',', (string) $selected);
+                $selectedChoices = explode(',', (string)$selected);
             } else {
                 $selectedChoices = [$selected];
             }
 
             if ($this->isTrimmable()) {
                 foreach ($selectedChoices as $k => $v) {
-                    $selectedChoices[$k] = trim((string) $v);
+                    $selectedChoices[$k] = trim((string)$v);
                 }
             }
 
@@ -164,7 +164,7 @@ class ChoiceQuestion extends Question
                 }
 
                 // For associative choices, consistently return the key as string:
-                $multiselectChoices[] = $isAssoc ? (string) $result : $result;
+                $multiselectChoices[] = $isAssoc ? (string)$result : $result;
             }
 
             if ($multiselect) {

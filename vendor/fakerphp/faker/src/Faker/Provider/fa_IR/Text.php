@@ -7,14 +7,14 @@ class Text extends \Faker\Provider\Text
     /**
      * generates text string in arabic
      *
-     * @example 'از تاریخ‌الشعرا را بکوبند روی نبش دیوار کوچه‌شان. تابلوی مدرسه.'
-     *
      * @param int $maxNbChars
      * @param int $indexSize
      *
+     * @return string
      * @throws \InvalidArgumentException
      *
-     * @return string
+     * @example 'از تاریخ‌الشعرا را بکوبند روی نبش دیوار کوچه‌شان. تابلوی مدرسه.'
+     *
      */
     public function realText($maxNbChars = 200, $indexSize = 2)
     {

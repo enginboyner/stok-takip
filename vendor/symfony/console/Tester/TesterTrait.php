@@ -170,7 +170,7 @@ trait TesterTrait
         $stream = fopen('php://memory', 'r+', false);
 
         foreach ($inputs as $input) {
-            fwrite($stream, $input.\PHP_EOL);
+            fwrite($stream, $input . \PHP_EOL);
         }
 
         rewind($stream);

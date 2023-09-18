@@ -70,15 +70,15 @@ class SolutionProviderRepository implements SolutionProviderRepositoryContract
 
     public function getSolutionForClass(string $solutionClass): ?Solution
     {
-        if (! class_exists($solutionClass)) {
+        if (!class_exists($solutionClass)) {
             return null;
         }
 
-        if (! in_array(Solution::class, class_implements($solutionClass) ?: [])) {
+        if (!in_array(Solution::class, class_implements($solutionClass) ?: [])) {
             return null;
         }
 
-        if (! function_exists('app')) {
+        if (!function_exists('app')) {
             return null;
         }
 
@@ -89,7 +89,7 @@ class SolutionProviderRepository implements SolutionProviderRepositoryContract
     protected function initialiseSolutionProviderRepositories(): Collection
     {
         return $this->solutionProviders
-            ->filter(fn (HasSolutionsForThrowable|string $provider) => in_array(HasSolutionsForThrowable::class, class_implements($provider) ?: []))
+            ->filter(fn(HasSolutionsForThrowable|string $provider) => in_array(HasSolutionsForThrowable::class, class_implements($provider) ?: []))
             ->map(function (string|HasSolutionsForThrowable $provider): HasSolutionsForThrowable {
                 if (is_string($provider)) {
                     return new $provider;

@@ -25,7 +25,7 @@ class DomainFilteringAdapter implements EmbedAdapterInterface
     public function __construct(EmbedAdapterInterface $decorated, array $allowedDomains)
     {
         $this->decorated = $decorated;
-        $this->regex     = self::createRegex($allowedDomains);
+        $this->regex = self::createRegex($allowedDomains);
     }
 
     /**

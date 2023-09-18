@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use const PHP_EOL;
@@ -387,7 +388,7 @@ final class TestResult implements Countable
             }
         } else {
             $this->failures[] = new TestFailure($test, $e);
-            $notifyMethod     = 'addFailure';
+            $notifyMethod = 'addFailure';
 
             if ($this->stopOnFailure || $this->stopOnDefect) {
                 $this->stop();
@@ -454,11 +455,11 @@ final class TestResult implements Countable
 
         if (!$this->lastTestFailed && $test instanceof TestCase) {
             $class = get_class($test);
-            $key   = $class . '::' . $test->getName();
+            $key = $class . '::' . $test->getName();
 
             $this->passed[$key] = [
                 'result' => $test->getResult(),
-                'size'   => TestUtil::getSize(
+                'size' => TestUtil::getSize(
                     $class,
                     $test->getName(false),
                 ),
@@ -650,15 +651,15 @@ final class TestResult implements Countable
             );
 
             $isAnyCoverageRequired = TestUtil::requiresCodeCoverageDataCollection($test);
-            $size                  = $test->getSize();
+            $size = $test->getSize();
         }
 
-        $error      = false;
-        $failure    = false;
-        $warning    = false;
+        $error = false;
+        $failure = false;
+        $warning = false;
         $incomplete = false;
-        $risky      = false;
-        $skipped    = false;
+        $risky = false;
+        $skipped = false;
 
         $this->startTest($test);
 
@@ -674,19 +675,19 @@ final class TestResult implements Countable
         }
 
         $collectCodeCoverage = $this->codeCoverage !== null &&
-                               !$test instanceof ErrorTestCase &&
-                               !$test instanceof WarningTestCase &&
-                               $isAnyCoverageRequired;
+            !$test instanceof ErrorTestCase &&
+            !$test instanceof WarningTestCase &&
+            $isAnyCoverageRequired;
 
         if ($collectCodeCoverage) {
             $this->codeCoverage->start($test);
         }
 
         $monitorFunctions = $this->beStrictAboutResourceUsageDuringSmallTests &&
-                            !$test instanceof ErrorTestCase &&
-                            !$test instanceof WarningTestCase &&
-                            $size === TestUtil::SMALL &&
-                            function_exists('xdebug_start_function_monitor');
+            !$test instanceof ErrorTestCase &&
+            !$test instanceof WarningTestCase &&
+            $size === TestUtil::SMALL &&
+            function_exists('xdebug_start_function_monitor');
 
         if ($monitorFunctions) {
             /* @noinspection ForgottenDebugOutputInspection */
@@ -751,7 +752,7 @@ final class TestResult implements Countable
             $test->addToAssertionCount(1);
 
             $failure = true;
-            $frame   = $e->getTrace()[0];
+            $frame = $e->getTrace()[0];
 
             $e = new AssertionFailedError(
                 sprintf(
@@ -768,7 +769,7 @@ final class TestResult implements Countable
         } catch (Exception $e) {
             $error = true;
         } catch (Throwable $e) {
-            $e     = new ExceptionWrapper($e);
+            $e = new ExceptionWrapper($e);
             $error = true;
         }
 
@@ -832,9 +833,9 @@ final class TestResult implements Countable
         }
 
         if ($collectCodeCoverage) {
-            $append           = !$risky && !$incomplete && !$skipped;
+            $append = !$risky && !$incomplete && !$skipped;
             $linesToBeCovered = [];
-            $linesToBeUsed    = [];
+            $linesToBeUsed = [];
 
             if ($append && $test instanceof TestCase) {
                 try {

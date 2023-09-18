@@ -66,8 +66,8 @@ final class CodeRenderer
      */
     public function toElement(Node $node): Element
     {
-        $line = max((int) $node->getAttribute('line'), 0);
-        $startLine = max((int) $node->getAttribute('start-line'), 1);
+        $line = max((int)$node->getAttribute('line'), 0);
+        $startLine = max((int)$node->getAttribute('start-line'), 1);
 
         $html = $node->getHtml();
         $lines = explode("\n", $html);
@@ -90,7 +90,7 @@ final class CodeRenderer
     /**
      * Finds extra spaces which should be removed from HTML.
      *
-     * @param  array<int, string>  $lines
+     * @param array<int, string> $lines
      */
     private function findExtraSpaces(array $lines): string
     {
@@ -172,8 +172,8 @@ final class CodeRenderer
     /**
      * Splits tokens into lines.
      *
-     * @param  array<int, array{0: string, 1: string}>  $tokens
-     * @param  int  $startLine
+     * @param array<int, array{0: string, 1: string}> $tokens
+     * @param int $startLine
      * @return array<int, array<int, array{0: string, 1: non-empty-string}>>
      */
     private function splitToLines(array $tokens, int $startLine): array
@@ -204,7 +204,7 @@ final class CodeRenderer
     /**
      * Applies colors to tokens according to a color schema.
      *
-     * @param  array<int, array<int, array{0: string, 1: non-empty-string}>>  $tokenLines
+     * @param array<int, array<int, array{0: string, 1: non-empty-string}>> $tokenLines
      * @return array<int, string>
      */
     private function colorLines(array $tokenLines): array
@@ -227,18 +227,18 @@ final class CodeRenderer
     /**
      * Prepends line numbers into lines.
      *
-     * @param  array<int, string>  $lines
-     * @param  int  $markLine
+     * @param array<int, string> $lines
+     * @param int $markLine
      * @return string
      */
     private function lineNumbers(array $lines, int $markLine): string
     {
-        $lastLine = (int) array_key_last($lines);
-        $lineLength = strlen((string) ($lastLine + 1));
+        $lastLine = (int)array_key_last($lines);
+        $lineLength = strlen((string)($lastLine + 1));
         $lineLength = $lineLength < self::WIDTH ? self::WIDTH : $lineLength;
 
         $snippet = '';
-        $mark = '  '.$this->arrow.' ';
+        $mark = '  ' . $this->arrow . ' ';
         foreach ($lines as $i => $line) {
             $coloredLineNumber = $this->coloredLineNumber(self::LINE_NUMBER, $i, $lineLength);
 
@@ -256,7 +256,7 @@ final class CodeRenderer
 
             $snippet .= $coloredLineNumber;
             $snippet .= $this->styleToken(self::LINE_NUMBER_DIVIDER, $this->delimiter);
-            $snippet .= $line.PHP_EOL;
+            $snippet .= $line . PHP_EOL;
         }
 
         return $snippet;
@@ -268,7 +268,7 @@ final class CodeRenderer
     private function coloredLineNumber(string $token, int $lineNumber, int $length): string
     {
         return $this->styleToken(
-            $token, str_pad((string) ($lineNumber + 1), $length, ' ', STR_PAD_LEFT)
+            $token, str_pad((string)($lineNumber + 1), $length, ' ', STR_PAD_LEFT)
         );
     }
 
@@ -277,6 +277,6 @@ final class CodeRenderer
      */
     private function styleToken(string $token, string $string): string
     {
-        return (string) Termwind::span($string, self::THEME[$token]);
+        return (string)Termwind::span($string, self::THEME[$token]);
     }
 }

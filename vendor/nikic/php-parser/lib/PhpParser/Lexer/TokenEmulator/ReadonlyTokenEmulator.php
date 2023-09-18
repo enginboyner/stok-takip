@@ -28,9 +28,9 @@ final class ReadonlyTokenEmulator extends KeywordEmulator
         }
         // Support "function readonly("
         return !(isset($tokens[$pos + 1]) &&
-                 ($tokens[$pos + 1][0] === '(' ||
-                  ($tokens[$pos + 1][0] === \T_WHITESPACE &&
-                   isset($tokens[$pos + 2]) &&
-                   $tokens[$pos + 2][0] === '(')));
+            ($tokens[$pos + 1][0] === '(' ||
+                ($tokens[$pos + 1][0] === \T_WHITESPACE &&
+                    isset($tokens[$pos + 2]) &&
+                    $tokens[$pos + 2][0] === '(')));
     }
 }

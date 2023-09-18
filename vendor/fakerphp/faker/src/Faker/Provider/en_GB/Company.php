@@ -92,7 +92,7 @@ class Company extends \Faker\Provider\Company
         return sprintf(
             '%sGD%s',
             static::VAT_PREFIX,
-            str_pad((string) static::numberBetween(0, 499), 3, '0', STR_PAD_LEFT),
+            str_pad((string)static::numberBetween(0, 499), 3, '0', STR_PAD_LEFT),
         );
     }
 
@@ -112,8 +112,8 @@ class Company extends \Faker\Provider\Company
         $sum = 0;
 
         foreach ($digits as $digit) {
-            $sum += (int) $digit * $multiplier;
-            --$multiplier ;
+            $sum += (int)$digit * $multiplier;
+            --$multiplier;
         }
 
         if ($use9755) {
@@ -125,6 +125,6 @@ class Company extends \Faker\Provider\Company
         }
         $sum = $sum * -1;
 
-        return str_pad((string) $sum, 2, '0', STR_PAD_LEFT);
+        return str_pad((string)$sum, 2, '0', STR_PAD_LEFT);
     }
 }

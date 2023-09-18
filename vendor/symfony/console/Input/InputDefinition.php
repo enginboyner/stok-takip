@@ -239,7 +239,7 @@ class InputDefinition
         }
 
         if ($option->isNegatable()) {
-            $negatedName = 'no-'.$option->getName();
+            $negatedName = 'no-' . $option->getName();
             if (isset($this->options[$negatedName])) {
                 throw new LogicException(sprintf('An option named "%s" already exists.', $negatedName));
             }
@@ -384,19 +384,19 @@ class InputDefinition
 
         $tail = '';
         foreach ($this->getArguments() as $argument) {
-            $element = '<'.$argument->getName().'>';
+            $element = '<' . $argument->getName() . '>';
             if ($argument->isArray()) {
                 $element .= '...';
             }
 
             if (!$argument->isRequired()) {
-                $element = '['.$element;
+                $element = '[' . $element;
                 $tail .= ']';
             }
 
             $elements[] = $element;
         }
 
-        return implode(' ', $elements).$tail;
+        return implode(' ', $elements) . $tail;
     }
 }

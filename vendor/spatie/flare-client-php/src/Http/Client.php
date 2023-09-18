@@ -19,18 +19,19 @@ class Client
 
     public function __construct(
         ?string $apiToken = null,
-        string $baseUrl = 'https://reporting.flareapp.io/api',
-        int $timeout = 10
-    ) {
+        string  $baseUrl = 'https://reporting.flareapp.io/api',
+        int     $timeout = 10
+    )
+    {
         $this->apiToken = $apiToken;
 
-        if (! $baseUrl) {
+        if (!$baseUrl) {
             throw MissingParameter::create('baseUrl');
         }
 
         $this->baseUrl = $baseUrl;
 
-        if (! $timeout) {
+        if (!$timeout) {
             throw MissingParameter::create('timeout');
         }
 
@@ -46,7 +47,7 @@ class Client
 
     public function apiTokenSet(): bool
     {
-        return ! empty($this->apiToken);
+        return !empty($this->apiToken);
     }
 
     public function setBaseUrl(string $baseUrl): self
@@ -58,7 +59,7 @@ class Client
 
     /**
      * @param string $url
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return array|false
      */
@@ -69,7 +70,7 @@ class Client
 
     /**
      * @param string $url
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return array|false
      */
@@ -80,7 +81,7 @@ class Client
 
     /**
      * @param string $url
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return array|false
      */
@@ -91,7 +92,7 @@ class Client
 
     /**
      * @param string $url
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return array|false
      */
@@ -102,7 +103,7 @@ class Client
 
     /**
      * @param string $method
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return array|false
      */
@@ -127,7 +128,7 @@ class Client
         $fullUrl = "{$this->baseUrl}/{$url}?{$queryString}";
 
         $headers = [
-            'x-api-token: '.$this->apiToken,
+            'x-api-token: ' . $this->apiToken,
         ];
 
         $response = $this->makeCurlRequest($httpVerb, $fullUrl, $headers, $arguments);
@@ -159,7 +160,7 @@ class Client
                 break;
 
             case 'get':
-                curl_setopt($curlHandle, CURLOPT_URL, $fullUrl.'&'.http_build_query($arguments));
+                curl_setopt($curlHandle, CURLOPT_URL, $fullUrl . '&' . http_build_query($arguments));
 
                 break;
 

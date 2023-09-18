@@ -33,8 +33,8 @@ class EditCommand extends Command implements ContextAware
     /**
      * Constructor.
      *
-     * @param string      $runtimeDir The directory to use for temporary files
-     * @param string|null $name       The name of the command; passing null means it must be set in configure()
+     * @param string $runtimeDir The directory to use for temporary files
+     * @param string|null $name The name of the command; passing null means it must be set in configure()
      *
      * @throws \Symfony\Component\Console\Exception\LogicException When the command name is empty
      */
@@ -71,7 +71,7 @@ class EditCommand extends Command implements ContextAware
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, or an exit code
@@ -111,8 +111,8 @@ class EditCommand extends Command implements ContextAware
     }
 
     /**
-     * @param bool        $execOption
-     * @param bool        $noExecOption
+     * @param bool $execOption
+     * @param bool $noExecOption
      * @param string|null $filePath
      */
     private function shouldExecuteFile(bool $execOption, bool $noExecOption, string $filePath = null): bool
@@ -150,7 +150,7 @@ class EditCommand extends Command implements ContextAware
 
     /**
      * @param string $filePath
-     * @param bool   $shouldRemoveFile
+     * @param bool $shouldRemoveFile
      *
      * @throws \UnexpectedValueException if file_get_contents on $filePath returns false instead of a string
      */

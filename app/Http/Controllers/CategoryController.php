@@ -24,18 +24,21 @@ class CategoryController extends Controller
         return view('category.add');
 
     }
+
     public function edit($CategoryID)
     {
         $categoryEdit = Category::find($CategoryID);
-        return view('category.edit',["categoryEdit"=>$categoryEdit]);
+        return view('category.edit', ["categoryEdit" => $categoryEdit]);
     }
+
     public function delete($id)
     {
-        $categoryDelete= Category::find($id);
-        $categoryDelete->status=false;
+        $categoryDelete = Category::find($id);
+        $categoryDelete->status = false;
         $categoryDelete->update();
 
     }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -50,18 +53,18 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->update();
 
-        return $this->responseMessage("İşlem Başarılı","success",200,"/category");
+        return $this->responseMessage("İşlem Başarılı", "success", 200, "/category");
 
 
     }
 
     public function show($CategoryID)
     {
-        $category=Category::find($CategoryID);
-        $product=Product::with("category")->where('category_id',$CategoryID)->get();
+        $category = Category::find($CategoryID);
+        $product = Product::with("category")->where('category_id', $CategoryID)->get();
 
 
-        return view('category.show', ["category" => $category,"product"=>$product]);
+        return view('category.show', ["category" => $category, "product" => $product]);
     }
 
     public function store(Request $request)

@@ -28,45 +28,45 @@ class Theme
     const CLASSIC_THEME = [
         'compact' => true,
 
-        'prompt'       => '>>> ',
+        'prompt' => '>>> ',
         'bufferPrompt' => '... ',
         'replayPrompt' => '--> ',
-        'returnValue'  => '=>  ',
+        'returnValue' => '=>  ',
     ];
 
     const DEFAULT_STYLES = [
-        'info'    => ['white', 'blue', ['bold']],
+        'info' => ['white', 'blue', ['bold']],
         'warning' => ['black', 'yellow'],
-        'error'   => ['white', 'red', ['bold']],
+        'error' => ['white', 'red', ['bold']],
         'whisper' => ['gray'],
 
-        'aside'  => ['blue'],
+        'aside' => ['blue'],
         'strong' => [null, null, ['bold']],
         'return' => ['cyan'],
         'urgent' => ['red'],
         'hidden' => ['black'],
 
         // Visibility
-        'public'    => [null, null, ['bold']],
+        'public' => [null, null, ['bold']],
         'protected' => ['yellow'],
-        'private'   => ['red'],
-        'global'    => ['cyan', null, ['bold']],
-        'const'     => ['cyan'],
-        'class'     => ['blue', null, ['underscore']],
-        'function'  => [null],
-        'default'   => [null],
+        'private' => ['red'],
+        'global' => ['cyan', null, ['bold']],
+        'const' => ['cyan'],
+        'class' => ['blue', null, ['underscore']],
+        'function' => [null],
+        'default' => [null],
 
         // Types
-        'number'       => ['magenta'],
-        'integer'      => ['magenta'],
-        'float'        => ['yellow'],
-        'string'       => ['green'],
-        'bool'         => ['cyan'],
-        'keyword'      => ['yellow'],
-        'comment'      => ['blue'],
+        'number' => ['magenta'],
+        'integer' => ['magenta'],
+        'float' => ['yellow'],
+        'string' => ['green'],
+        'bool' => ['cyan'],
+        'keyword' => ['yellow'],
+        'comment' => ['blue'],
         'code_comment' => ['gray'],
-        'object'       => ['blue'],
-        'resource'     => ['yellow'],
+        'object' => ['blue'],
+        'resource' => ['yellow'],
 
         // Code-specific formatting
         'inline_html' => ['cyan'],

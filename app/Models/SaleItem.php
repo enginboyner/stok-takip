@@ -10,7 +10,7 @@ class SaleItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id','price','quantity','sale_id'];
+    protected $fillable = ['product_id', 'price', 'quantity', 'sale_id'];
 
 
     public function sale()
@@ -22,7 +22,6 @@ class SaleItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
 
 
 }

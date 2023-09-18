@@ -64,9 +64,9 @@ class Company extends \Faker\Provider\Company
     ];
 
     /**
+     * @return string
      * @example 'Fietsenmaker Zijlemans'
      *
-     * @return string
      */
     public function company()
     {
@@ -99,11 +99,11 @@ class Company extends \Faker\Provider\Company
     /**
      * Belasting Toegevoegde Waarde (BTW) = VAT
      *
-     * @example 'NL123456789B01'
-     *
+     * @return string VAT Number
      * @see https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer
      *
-     * @return string VAT Number
+     * @example 'NL123456789B01'
+     *
      */
     public static function vat()
     {

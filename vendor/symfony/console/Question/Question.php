@@ -33,8 +33,8 @@ class Question
     private bool $multiline = false;
 
     /**
-     * @param string                     $question The question to ask to the user
-     * @param string|bool|int|float|null $default  The default answer to return if the user enters nothing
+     * @param string $question The question to ask to the user
+     * @param string|bool|int|float|null $default The default answer to return if the user enters nothing
      */
     public function __construct(string $question, string|bool|int|float $default = null)
     {
@@ -263,7 +263,7 @@ class Question
 
     protected function isAssoc(array $array)
     {
-        return (bool) \count(array_filter(array_keys($array), 'is_string'));
+        return (bool)\count(array_filter(array_keys($array), 'is_string'));
     }
 
     public function isTrimmable(): bool

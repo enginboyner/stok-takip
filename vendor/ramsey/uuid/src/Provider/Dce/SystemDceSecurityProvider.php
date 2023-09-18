@@ -107,7 +107,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
 
         return match ($this->getOs()) {
             'WIN' => $this->getWindowsUid(),
-            default => trim((string) shell_exec('id -u')),
+            default => trim((string)shell_exec('id -u')),
         };
     }
 
@@ -122,7 +122,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
 
         return match ($this->getOs()) {
             'WIN' => $this->getWindowsGid(),
-            default => trim((string) shell_exec('id -g')),
+            default => trim((string)shell_exec('id -g')),
         };
     }
 
@@ -131,7 +131,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
      */
     private function hasShellExec(): bool
     {
-        $disabledFunctions = strtolower((string) ini_get('disable_functions'));
+        $disabledFunctions = strtolower((string)ini_get('disable_functions'));
 
         return !str_contains($disabledFunctions, 'shell_exec');
     }
@@ -174,7 +174,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
             return '';
         }
 
-        $sid = str_getcsv(trim((string) $response))[1] ?? '';
+        $sid = str_getcsv(trim((string)$response))[1] ?? '';
 
         if (($lastHyphen = strrpos($sid, '-')) === false) {
             return '';
@@ -203,7 +203,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
         }
 
         /** @var string[] $userGroups */
-        $userGroups = preg_split('/\s{2,}/', (string) $response, -1, PREG_SPLIT_NO_EMPTY);
+        $userGroups = preg_split('/\s{2,}/', (string)$response, -1, PREG_SPLIT_NO_EMPTY);
 
         $firstGroup = trim($userGroups[1] ?? '', "* \t\n\r\0\x0B");
 
@@ -218,7 +218,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
         }
 
         /** @var string[] $userGroup */
-        $userGroup = preg_split('/\s{2,}/', (string) $response, -1, PREG_SPLIT_NO_EMPTY);
+        $userGroup = preg_split('/\s{2,}/', (string)$response, -1, PREG_SPLIT_NO_EMPTY);
 
         $sid = $userGroup[1] ?? '';
 

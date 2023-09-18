@@ -112,10 +112,10 @@ abstract class ReflectingCommand extends Command implements ContextAware
     /**
      * Resolve a class or function name (with the current shell namespace).
      *
+     * @param string $name
+     * @param bool $includeFunctions (default: false)
      * @throws ErrorException when `self` or `static` is used in a non-class scope
      *
-     * @param string $name
-     * @param bool   $includeFunctions (default: false)
      */
     protected function resolveName(string $name, bool $includeFunctions = false): string
     {
@@ -142,14 +142,14 @@ abstract class ReflectingCommand extends Command implements ContextAware
         // Check $name against the current namespace and use statements.
         if (self::couldBeClassName($name)) {
             try {
-                $name = $this->resolveCode($name.'::class');
+                $name = $this->resolveCode($name . '::class');
             } catch (RuntimeException $e) {
                 // /shrug
             }
         }
 
         if ($namespace = $shell->getNamespace()) {
-            $fullName = $namespace.'\\'.$name;
+            $fullName = $namespace . '\\' . $name;
 
             if (\class_exists($fullName) || \interface_exists($fullName) || ($includeFunctions && \function_exists($fullName))) {
                 return $fullName;
@@ -185,11 +185,11 @@ abstract class ReflectingCommand extends Command implements ContextAware
     /**
      * Resolve code to a value in the current scope.
      *
-     * @throws RuntimeException when the code does not return a value in the current scope
-     *
      * @param string $code
      *
      * @return mixed Variable value
+     * @throws RuntimeException when the code does not return a value in the current scope
+     *
      */
     protected function resolveCode(string $code)
     {
@@ -203,7 +203,7 @@ abstract class ReflectingCommand extends Command implements ContextAware
         }
 
         if (!isset($value) || $value instanceof NoReturnValue) {
-            throw new RuntimeException('Unknown target: '.$code);
+            throw new RuntimeException('Unknown target: ' . $code);
         }
 
         return $value;
@@ -218,7 +218,7 @@ abstract class ReflectingCommand extends Command implements ContextAware
      */
     private function parse($code)
     {
-        $code = '<?php '.$code;
+        $code = '<?php ' . $code;
 
         try {
             return $this->parser->parse($code);
@@ -228,18 +228,18 @@ abstract class ReflectingCommand extends Command implements ContextAware
             }
 
             // If we got an unexpected EOF, let's try it again with a semicolon.
-            return $this->parser->parse($code.';');
+            return $this->parser->parse($code . ';');
         }
     }
 
     /**
      * Resolve code to an object in the current scope.
      *
-     * @throws UnexpectedTargetException when the code resolves to a non-object value
-     *
      * @param string $code
      *
      * @return object Variable instance
+     * @throws UnexpectedTargetException when the code resolves to a non-object value
+     *
      */
     private function resolveObject(string $code)
     {
@@ -253,11 +253,11 @@ abstract class ReflectingCommand extends Command implements ContextAware
     }
 
     /**
-     * @deprecated Use `resolveCode` instead
-     *
      * @param string $name
      *
      * @return mixed Variable instance
+     * @deprecated Use `resolveCode` instead
+     *
      */
     protected function resolveInstance(string $name)
     {

@@ -35,7 +35,7 @@ final class TableRenderer
     public function __construct()
     {
         $this->output = new BufferedOutput(
-            // Content should output as is, without changes
+        // Content should output as is, without changes
             OutputInterface::VERBOSITY_NORMAL | OutputInterface::OUTPUT_RAW,
             true
         );
@@ -95,7 +95,7 @@ final class TableRenderer
         foreach ($node->getChildNodes() as $child) {
             if ($child->isName('tr')) {
                 foreach ($this->parseRow($child) as $row) {
-                    if (! is_array($row)) {
+                    if (!is_array($row)) {
                         continue;
                     }
                     $this->table->setHeaders($row);
@@ -170,22 +170,22 @@ final class TableRenderer
                     $class .= ' strong';
                 }
 
-                $text = (string) (new HtmlRenderer)->parse(
+                $text = (string)(new HtmlRenderer)->parse(
                     trim(preg_replace('/<br\s?+\/?>/', "\n", $child->getHtml()) ?? '')
                 );
 
-                if ((bool) preg_match(Styles::STYLING_REGEX, $text)) {
+                if ((bool)preg_match(Styles::STYLING_REGEX, $text)) {
                     $class .= ' font-normal';
                 }
 
                 $row[] = new TableCell(
-                    // I need only spaces after applying margin, padding and width except tags.
-                    // There is no place for tags, they broke cell formatting.
-                    (string) Termwind::span($text, $class),
+                // I need only spaces after applying margin, padding and width except tags.
+                // There is no place for tags, they broke cell formatting.
+                    (string)Termwind::span($text, $class),
                     [
                         // Gets rowspan and colspan from tr and td tag attributes
-                        'colspan' => max((int) $child->getAttribute('colspan'), 1),
-                        'rowspan' => max((int) $child->getAttribute('rowspan'), 1),
+                        'colspan' => max((int)$child->getAttribute('colspan'), 1),
+                        'rowspan' => max((int)$child->getAttribute('rowspan'), 1),
 
                         // There are background and foreground and options
                         'style' => $this->parseCellStyle(
@@ -201,7 +201,7 @@ final class TableRenderer
             yield $row;
         }
 
-        $border = (int) $node->getAttribute('border');
+        $border = (int)$node->getAttribute('border');
         for ($i = $border; $i--; $i > 0) {
             yield new TableSeparator();
         }
@@ -232,7 +232,7 @@ final class TableRenderer
         if ($styles === []) {
             $cellFormat = '%s';
         } else {
-            $cellFormat = '<'.implode(';', $styles).'>%s</>';
+            $cellFormat = '<' . implode(';', $styles) . '>%s</>';
         }
 
         return new TableCellStyle([
@@ -246,6 +246,6 @@ final class TableRenderer
      */
     private function parseTitleStyle(Node $node): string
     {
-        return (string) Termwind::span(' %s ', $node->getClassAttribute());
+        return (string)Termwind::span(' %s ', $node->getClassAttribute());
     }
 }

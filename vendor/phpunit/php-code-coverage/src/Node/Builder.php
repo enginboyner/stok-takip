@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Node;
 
 use const DIRECTORY_SEPARATOR;
@@ -41,9 +42,9 @@ final class Builder
 
     public function build(CodeCoverage $coverage): Directory
     {
-        $data       = clone $coverage->getData(); // clone because path munging is destructive to the original data
+        $data = clone $coverage->getData(); // clone because path munging is destructive to the original data
         $commonPath = $this->reducePaths($data);
-        $root       = new Directory(
+        $root = new Directory(
             $commonPath,
             null
         );
@@ -60,10 +61,10 @@ final class Builder
     private function addItems(Directory $root, array $items, array $tests): void
     {
         foreach ($items as $key => $value) {
-            $key = (string) $key;
+            $key = (string)$key;
 
             if (substr($key, -2) === '/f') {
-                $key      = substr($key, 0, -2);
+                $key = substr($key, 0, -2);
                 $filename = $root->pathAsString() . DIRECTORY_SEPARATOR . $key;
 
                 if (is_file($filename)) {
@@ -134,9 +135,9 @@ final class Builder
         $result = [];
 
         foreach ($data->coveredFiles() as $originalPath) {
-            $path    = explode(DIRECTORY_SEPARATOR, $originalPath);
+            $path = explode(DIRECTORY_SEPARATOR, $originalPath);
             $pointer = &$result;
-            $max     = count($path);
+            $max = count($path);
 
             for ($i = 0; $i < $max; $i++) {
                 $type = '';
@@ -149,7 +150,7 @@ final class Builder
             }
 
             $pointer = [
-                'lineCoverage'     => $data->lineCoverage()[$originalPath] ?? [],
+                'lineCoverage' => $data->lineCoverage()[$originalPath] ?? [],
                 'functionCoverage' => $data->functionCoverage()[$originalPath] ?? [],
             ];
         }
@@ -201,7 +202,7 @@ final class Builder
         }
 
         $commonPath = '';
-        $paths      = $coverage->coveredFiles();
+        $paths = $coverage->coveredFiles();
 
         if (count($paths) === 1) {
             $commonPath = dirname($paths[0]) . DIRECTORY_SEPARATOR;
@@ -226,7 +227,7 @@ final class Builder
         }
 
         $done = false;
-        $max  = count($paths);
+        $max = count($paths);
 
         while (!$done) {
             for ($i = 0; $i < $max - 1; $i++) {
@@ -253,7 +254,7 @@ final class Builder
         }
 
         $original = $coverage->coveredFiles();
-        $max      = count($original);
+        $max = count($original);
 
         for ($i = 0; $i < $max; $i++) {
             $coverage->renameFile($original[$i], implode(DIRECTORY_SEPARATOR, $paths[$i]));

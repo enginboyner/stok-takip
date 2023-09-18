@@ -21,7 +21,7 @@ class DocblockFormatter implements ReflectorFormatter
 {
     private static $vectorParamTemplates = [
         'type' => 'info',
-        'var'  => 'strong',
+        'var' => 'strong',
     ];
 
     /**
@@ -130,7 +130,7 @@ class DocblockFormatter implements ReflectorFormatter
      * Get a docblock vector template.
      *
      * @param string $type Vector type
-     * @param int    $max  Pad width
+     * @param int $max Pad width
      */
     private static function getVectorParamTemplate(string $type, int $max): string
     {
@@ -144,12 +144,12 @@ class DocblockFormatter implements ReflectorFormatter
     /**
      * Indent a string.
      *
-     * @param string $text   String to indent
+     * @param string $text String to indent
      * @param string $indent (default: '  ')
      */
     private static function indent(string $text, string $indent = '  '): string
     {
-        return $indent.\str_replace("\n", "\n".$indent, $text);
+        return $indent . \str_replace("\n", "\n" . $indent, $text);
     }
 
     /**

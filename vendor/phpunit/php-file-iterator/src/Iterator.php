@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\FileIterator;
 
 use function array_filter;
@@ -50,14 +51,14 @@ class Iterator extends FilterIterator
         $this->basePath = realpath($basePath);
         $this->prefixes = $prefixes;
         $this->suffixes = $suffixes;
-        $this->exclude  = array_filter(array_map('realpath', $exclude));
+        $this->exclude = array_filter(array_map('realpath', $exclude));
 
         parent::__construct($iterator);
     }
 
     public function accept(): bool
     {
-        $current  = $this->getInnerIterator()->current();
+        $current = $this->getInnerIterator()->current();
         $filename = $current->getFilename();
         $realPath = $current->getRealPath();
 
@@ -66,8 +67,8 @@ class Iterator extends FilterIterator
         }
 
         return $this->acceptPath($realPath) &&
-               $this->acceptPrefix($filename) &&
-               $this->acceptSuffix($filename);
+            $this->acceptPrefix($filename) &&
+            $this->acceptSuffix($filename);
     }
 
     private function acceptPath(string $path): bool
@@ -107,7 +108,7 @@ class Iterator extends FilterIterator
         foreach ($subStrings as $string) {
             if (($type === self::PREFIX && strpos($filename, $string) === 0) ||
                 ($type === self::SUFFIX &&
-                 substr($filename, -1 * strlen($string)) === $string)) {
+                    substr($filename, -1 * strlen($string)) === $string)) {
                 $matched = true;
 
                 break;

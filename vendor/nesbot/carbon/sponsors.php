@@ -11,7 +11,7 @@
 
 use Carbon\CarbonImmutable;
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 function getOpenCollectiveSponsors(): string
 {
@@ -35,16 +35,16 @@ function getOpenCollectiveSponsors(): string
                 ->modify($lastTransactionAt->format('H:i:s.u'));
         }
 
-        $monthlyContribution = (float) ($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()));
+        $monthlyContribution = (float)($member['totalAmountDonated'] / ceil($createdAt->floatDiffInMonths()));
 
         if (
             $lastTransactionAt->isAfter('last month') &&
             $member['lastTransactionAmount'] > $monthlyContribution
         ) {
-            $monthlyContribution = (float) $member['lastTransactionAmount'];
+            $monthlyContribution = (float)$member['lastTransactionAmount'];
         }
 
-        $yearlyContribution = (float) ($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
+        $yearlyContribution = (float)($member['totalAmountDonated'] / max(1, $createdAt->floatDiffInYears()));
         $status = null;
 
         if ($monthlyContribution > 29) {
@@ -69,27 +69,27 @@ function getOpenCollectiveSponsors(): string
     });
 
     return implode('', array_map(static function (array $member) {
-        $href = htmlspecialchars($member['website'] ?? $member['profile']);
-        $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']).'/avatar/256.png');
-        [$x, $y] = @getimagesize($src) ?: [0, 0];
-        $validImage = ($x && $y);
-        $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
-        $height = 64;
-        $width = $validImage ? round($x * $height / $y) : $height;
-        $href .= (strpos($href, '?') === false ? '?' : '&amp;').'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
-        $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
-        $alt = htmlspecialchars($member['name']);
+            $href = htmlspecialchars($member['website'] ?? $member['profile']);
+            $src = $member['image'] ?? (strtr($member['profile'], ['https://opencollective.com/' => 'https://images.opencollective.com/']) . '/avatar/256.png');
+            [$x, $y] = @getimagesize($src) ?: [0, 0];
+            $validImage = ($x && $y);
+            $src = $validImage ? htmlspecialchars($src) : 'https://opencollective.com/static/images/default-guest-logo.svg';
+            $height = 64;
+            $width = $validImage ? round($x * $height / $y) : $height;
+            $href .= (strpos($href, '?') === false ? '?' : '&amp;') . 'utm_source=opencollective&amp;utm_medium=github&amp;utm_campaign=Carbon';
+            $title = htmlspecialchars(($member['description'] ?? null) ?: $member['name']);
+            $alt = htmlspecialchars($member['name']);
 
-        return "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank" rel="sponsored">'.
-            '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
-            '</a>';
-    }, $list))."\n";
+            return "\n" . '<a title="' . $title . '" href="' . $href . '" target="_blank" rel="sponsored">' .
+                '<img alt="' . $alt . '" src="' . $src . '" width="' . $width . '" height="' . $height . '">' .
+                '</a>';
+        }, $list)) . "\n";
 }
 
 file_put_contents('readme.md', preg_replace_callback(
     '/(<!-- <open-collective-sponsors> -->)[\s\S]+(<!-- <\/open-collective-sponsors> -->)/',
     static function (array $match) {
-        return $match[1].getOpenCollectiveSponsors().$match[2];
+        return $match[1] . getOpenCollectiveSponsors() . $match[2];
     },
     file_get_contents('readme.md')
 ));

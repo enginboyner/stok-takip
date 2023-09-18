@@ -16,7 +16,7 @@ class AddGitInformation
         try {
             $this->baseDir = $this->getGitBaseDirectory();
 
-            if (! $this->baseDir) {
+            if (!$this->baseDir) {
                 return $next($report);
             }
 
@@ -25,7 +25,7 @@ class AddGitInformation
                 'message' => $this->message(),
                 'tag' => $this->tag(),
                 'remote' => $this->remote(),
-                'isDirty' => ! $this->isClean(),
+                'isDirty' => !$this->isClean(),
             ]);
         } catch (Throwable) {
         }
@@ -65,13 +65,13 @@ class AddGitInformation
 
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             return null;
         }
 
         $directory = trim($process->getOutput());
 
-        if (! file_exists($directory)) {
+        if (!file_exists($directory)) {
             return null;
         }
 

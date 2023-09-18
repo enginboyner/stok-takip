@@ -47,7 +47,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = []): array
     {
         return [
-            'message' => (string) $message,
+            'message' => (string)$message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),

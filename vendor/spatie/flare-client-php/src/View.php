@@ -42,7 +42,7 @@ class View
 
         $output = fopen('php://memory', 'r+b');
 
-        if (! $output) {
+        if (!$output) {
             return '';
         }
 

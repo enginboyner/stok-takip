@@ -24,12 +24,13 @@ class Frame
 
     public function __construct(
         string $file,
-        int $lineNumber,
+        int    $lineNumber,
         ?array $arguments,
         string $method = null,
         string $class = null,
-        bool $isApplicationFrame = false
-    ) {
+        bool   $isApplicationFrame = false
+    )
+    {
         $this->file = $file;
 
         $this->lineNumber = $lineNumber;

@@ -45,6 +45,7 @@ This tag was deleted due to a mistake with the composer.json PHP version
 constraint, see [#1266](https://github.com/mockery/mockery/issues/1266)
 
 ## 1.3.6 (2022-09-07)
+
 * PHP 8.2 | Fix "Use of "parent" in callables is deprecated" notice #1169
 
 ## 1.5.1 (2022-09-07)
@@ -69,14 +70,17 @@ constraint, see [#1266](https://github.com/mockery/mockery/issues/1266)
 * Adds support for tentative types #1130
 * Fixes for PHP 8.1 Support (#1130 and #1140)
 * Add method that allows defining a set of arguments the mock should yield #1133
-* Added option to configure default matchers for objects `\Mockery::getConfiguration()->setDefaultMatcher($class, $matcherClass)` #1120
+* Added option to configure default matchers for
+  objects `\Mockery::getConfiguration()->setDefaultMatcher($class, $matcherClass)` #1120
 
 ## 1.3.5 (2021-09-13)
+
 * Fix auto-generated return values with union types #1143
 * Adds support for tentative types #1130
 * Fixes for PHP 8.1 Support (#1130 and #1140)
 * Add method that allows defining a set of arguments the mock should yield #1133
-* Added option to configure default matchers for objects `\Mockery::getConfiguration()->setDefaultMatcher($class, $matcherClass)` #1120
+* Added option to configure default matchers for
+  objects `\Mockery::getConfiguration()->setDefaultMatcher($class, $matcherClass)` #1120
 
 ## 1.4.3 (2021-02-24)
 
@@ -211,7 +215,8 @@ constraint, see [#1266](https://github.com/mockery/mockery/issues/1266)
 * Subset matcher matches recursively
 * BC BREAK - Spies return `null` by default from ignored (non-mocked) methods with nullable return type
 * Removed extracting getter methods of object instances
-* BC BREAK - Remove implicit regex matching when trying to match string arguments, introduce `\Mockery::pattern()` when regex matching is needed
+* BC BREAK - Remove implicit regex matching when trying to match string arguments, introduce `\Mockery::pattern()` when
+  regex matching is needed
 * Fix Mockery not getting closed in cases of failing test cases
 * Fix Mockery not setting properties on overloaded instance mocks
 * BC BREAK - Fix Mockery not trying default expectations if there is any concrete expectation

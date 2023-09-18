@@ -15,9 +15,9 @@ class Company extends Base
     ];
 
     /**
+     * @return string
      * @example 'Acme Ltd'
      *
-     * @return string
      */
     public function company()
     {
@@ -27,9 +27,9 @@ class Company extends Base
     }
 
     /**
+     * @return string
      * @example 'Ltd'
      *
-     * @return string
      */
     public static function companySuffix()
     {
@@ -37,9 +37,9 @@ class Company extends Base
     }
 
     /**
+     * @return string
      * @example 'Job'
      *
-     * @return string
      */
     public function jobTitle()
     {

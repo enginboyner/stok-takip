@@ -64,7 +64,7 @@ class LogManager implements LoggerInterface
     /**
      * Create a new Log manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
      * @return void
      */
     public function __construct($app)
@@ -75,7 +75,7 @@ class LogManager implements LoggerInterface
     /**
      * Build an on-demand log channel.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     public function build(array $config)
@@ -88,8 +88,8 @@ class LogManager implements LoggerInterface
     /**
      * Create a new, on-demand aggregate logger instance.
      *
-     * @param  array  $channels
-     * @param  string|null  $channel
+     * @param array $channels
+     * @param string|null $channel
      * @return \Psr\Log\LoggerInterface
      */
     public function stack(array $channels, $channel = null)
@@ -103,7 +103,7 @@ class LogManager implements LoggerInterface
     /**
      * Get a log channel instance.
      *
-     * @param  string|null  $channel
+     * @param string|null $channel
      * @return \Psr\Log\LoggerInterface
      */
     public function channel($channel = null)
@@ -114,7 +114,7 @@ class LogManager implements LoggerInterface
     /**
      * Get a log driver instance.
      *
-     * @param  string|null  $driver
+     * @param string|null $driver
      * @return \Psr\Log\LoggerInterface
      */
     public function driver($driver = null)
@@ -125,8 +125,8 @@ class LogManager implements LoggerInterface
     /**
      * Attempt to get the log from the local cache.
      *
-     * @param  string  $name
-     * @param  array|null  $config
+     * @param string $name
+     * @param array|null $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function get($name, ?array $config = null)
@@ -147,8 +147,8 @@ class LogManager implements LoggerInterface
     /**
      * Apply the configured taps for the logger.
      *
-     * @param  string  $name
-     * @param  \Illuminate\Log\Logger  $logger
+     * @param string $name
+     * @param \Illuminate\Log\Logger $logger
      * @return \Illuminate\Log\Logger
      */
     protected function tap($name, Logger $logger)
@@ -165,7 +165,7 @@ class LogManager implements LoggerInterface
     /**
      * Parse the given tap class string into a class name and arguments string.
      *
-     * @param  string  $tap
+     * @param string $tap
      * @return array
      */
     protected function parseTap($tap)
@@ -183,7 +183,7 @@ class LogManager implements LoggerInterface
         $config = $this->configurationFor('emergency');
 
         $handler = new StreamHandler(
-            $config['path'] ?? $this->app->storagePath().'/logs/laravel.log',
+            $config['path'] ?? $this->app->storagePath() . '/logs/laravel.log',
             $this->level(['level' => 'debug'])
         );
 
@@ -196,8 +196,8 @@ class LogManager implements LoggerInterface
     /**
      * Resolve the given log instance by name.
      *
-     * @param  string  $name
-     * @param  array|null  $config
+     * @param string $name
+     * @param array|null $config
      * @return \Psr\Log\LoggerInterface
      *
      * @throws \InvalidArgumentException
@@ -214,7 +214,7 @@ class LogManager implements LoggerInterface
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+        $driverMethod = 'create' . ucfirst($config['driver']) . 'Driver';
 
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
@@ -226,7 +226,7 @@ class LogManager implements LoggerInterface
     /**
      * Call a custom driver creator.
      *
-     * @param  array  $config
+     * @param array $config
      * @return mixed
      */
     protected function callCustomCreator(array $config)
@@ -237,7 +237,7 @@ class LogManager implements LoggerInterface
     /**
      * Create a custom log driver instance.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createCustomDriver(array $config)
@@ -250,7 +250,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an aggregate log driver instance.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createStackDriver(array $config)
@@ -281,7 +281,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of the single file log driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createSingleDriver(array $config)
@@ -299,7 +299,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of the daily file log driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createDailyDriver(array $config)
@@ -315,7 +315,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of the Slack log driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createSlackDriver(array $config)
@@ -339,7 +339,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of the syslog log driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createSyslogDriver(array $config)
@@ -355,7 +355,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of the "error log" log driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      */
     protected function createErrorlogDriver(array $config)
@@ -370,7 +370,7 @@ class LogManager implements LoggerInterface
     /**
      * Create an instance of any handler available in Monolog.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Psr\Log\LoggerInterface
      *
      * @throws \InvalidArgumentException
@@ -378,9 +378,9 @@ class LogManager implements LoggerInterface
      */
     protected function createMonologDriver(array $config)
     {
-        if (! is_a($config['handler'], HandlerInterface::class, true)) {
+        if (!is_a($config['handler'], HandlerInterface::class, true)) {
             throw new InvalidArgumentException(
-                $config['handler'].' must be an instance of '.HandlerInterface::class
+                $config['handler'] . ' must be an instance of ' . HandlerInterface::class
             );
         }
 
@@ -398,7 +398,7 @@ class LogManager implements LoggerInterface
     /**
      * Prepare the handlers for usage by Monolog.
      *
-     * @param  array  $handlers
+     * @param array $handlers
      * @return array
      */
     protected function prepareHandlers(array $handlers)
@@ -413,8 +413,8 @@ class LogManager implements LoggerInterface
     /**
      * Prepare the handler for usage by Monolog.
      *
-     * @param  \Monolog\Handler\HandlerInterface  $handler
-     * @param  array  $config
+     * @param \Monolog\Handler\HandlerInterface $handler
+     * @param array $config
      * @return \Monolog\Handler\HandlerInterface
      */
     protected function prepareHandler(HandlerInterface $handler, array $config = [])
@@ -429,11 +429,11 @@ class LogManager implements LoggerInterface
             );
         }
 
-        if (! $handler instanceof FormattableHandlerInterface) {
+        if (!$handler instanceof FormattableHandlerInterface) {
             return $handler;
         }
 
-        if (! isset($config['formatter'])) {
+        if (!isset($config['formatter'])) {
             $handler->setFormatter($this->formatter());
         } elseif ($config['formatter'] !== 'default') {
             $handler->setFormatter($this->app->make($config['formatter'], $config['formatter_with'] ?? []));
@@ -457,7 +457,7 @@ class LogManager implements LoggerInterface
     /**
      * Share context across channels and stacks.
      *
-     * @param  array  $context
+     * @param array $context
      * @return $this
      */
     public function shareContext(array $context)
@@ -506,7 +506,7 @@ class LogManager implements LoggerInterface
     /**
      * Get the log connection configuration.
      *
-     * @param  string  $name
+     * @param string $name
      * @return array
      */
     protected function configurationFor($name)
@@ -527,7 +527,7 @@ class LogManager implements LoggerInterface
     /**
      * Set the default log driver name.
      *
-     * @param  string  $name
+     * @param string $name
      * @return void
      */
     public function setDefaultDriver($name)
@@ -538,8 +538,8 @@ class LogManager implements LoggerInterface
     /**
      * Register a custom driver creator Closure.
      *
-     * @param  string  $driver
-     * @param  \Closure  $callback
+     * @param string $driver
+     * @param \Closure $callback
      * @return $this
      */
     public function extend($driver, Closure $callback)
@@ -552,7 +552,7 @@ class LogManager implements LoggerInterface
     /**
      * Unset the given channel instance.
      *
-     * @param  string|null  $driver
+     * @param string|null $driver
      * @return void
      */
     public function forgetChannel($driver = null)
@@ -567,7 +567,7 @@ class LogManager implements LoggerInterface
     /**
      * Parse the driver name.
      *
-     * @param  string|null  $driver
+     * @param string|null $driver
      * @return string|null
      */
     protected function parseDriver($driver)
@@ -594,8 +594,8 @@ class LogManager implements LoggerInterface
     /**
      * System is unusable.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function emergency($message, array $context = []): void
@@ -609,8 +609,8 @@ class LogManager implements LoggerInterface
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function alert($message, array $context = []): void
@@ -623,8 +623,8 @@ class LogManager implements LoggerInterface
      *
      * Example: Application component unavailable, unexpected exception.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function critical($message, array $context = []): void
@@ -636,8 +636,8 @@ class LogManager implements LoggerInterface
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function error($message, array $context = []): void
@@ -651,8 +651,8 @@ class LogManager implements LoggerInterface
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function warning($message, array $context = []): void
@@ -663,8 +663,8 @@ class LogManager implements LoggerInterface
     /**
      * Normal but significant events.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function notice($message, array $context = []): void
@@ -677,8 +677,8 @@ class LogManager implements LoggerInterface
      *
      * Example: User logs in, SQL logs.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function info($message, array $context = []): void
@@ -689,8 +689,8 @@ class LogManager implements LoggerInterface
     /**
      * Detailed debug information.
      *
-     * @param  string  $message
-     * @param  array  $context
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function debug($message, array $context = []): void
@@ -701,9 +701,9 @@ class LogManager implements LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param  mixed  $level
-     * @param  string  $message
-     * @param  array  $context
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
      * @return void
      */
     public function log($level, $message, array $context = []): void
@@ -714,8 +714,8 @@ class LogManager implements LoggerInterface
     /**
      * Dynamically call the default driver instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

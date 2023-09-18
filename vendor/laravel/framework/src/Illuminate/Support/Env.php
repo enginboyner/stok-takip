@@ -67,8 +67,8 @@ class Env
     /**
      * Gets the value of an environment variable.
      *
-     * @param  string  $key
-     * @param  mixed  $default
+     * @param string $key
+     * @param mixed $default
      * @return mixed
      */
     public static function get($key, $default = null)
@@ -96,6 +96,6 @@ class Env
 
                 return $value;
             })
-            ->getOrCall(fn () => value($default));
+            ->getOrCall(fn() => value($default));
     }
 }

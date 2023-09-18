@@ -10,7 +10,7 @@ use Termwind\Repositories\Styles as StyleRepository;
 use Termwind\ValueObjects\Style;
 use Termwind\ValueObjects\Styles;
 
-if (! function_exists('Termwind\renderUsing')) {
+if (!function_exists('Termwind\renderUsing')) {
     /**
      * Sets the renderer implementation.
      */
@@ -20,7 +20,7 @@ if (! function_exists('Termwind\renderUsing')) {
     }
 }
 
-if (! function_exists('Termwind\style')) {
+if (!function_exists('Termwind\style')) {
     /**
      * Creates a new style.
      *
@@ -32,7 +32,7 @@ if (! function_exists('Termwind\style')) {
     }
 }
 
-if (! function_exists('Termwind\render')) {
+if (!function_exists('Termwind\render')) {
     /**
      * Render HTML to a string.
      */
@@ -42,7 +42,7 @@ if (! function_exists('Termwind\render')) {
     }
 }
 
-if (! function_exists('Termwind\terminal')) {
+if (!function_exists('Termwind\terminal')) {
     /**
      * Returns a Terminal instance.
      */
@@ -52,11 +52,11 @@ if (! function_exists('Termwind\terminal')) {
     }
 }
 
-if (! function_exists('Termwind\ask')) {
+if (!function_exists('Termwind\ask')) {
     /**
      * Renders a prompt to the user.
      *
-     * @param  iterable<array-key, string>|null  $autocomplete
+     * @param iterable<array-key, string>|null $autocomplete
      */
     function ask(string $question, iterable $autocomplete = null): mixed
     {

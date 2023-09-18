@@ -9,12 +9,13 @@ use Throwable;
 class OpenAiSolutionProvider implements HasSolutionsForThrowable
 {
     public function __construct(
-        protected string $openAiKey,
+        protected string          $openAiKey,
         protected ?CacheInterface $cache = null,
-        protected int $cacheTtlInSeconds = 60 * 60,
-        protected string|null $applicationType = null,
-        protected string|null $applicationPath = null,
-    ) {
+        protected int             $cacheTtlInSeconds = 60 * 60,
+        protected string|null     $applicationType = null,
+        protected string|null     $applicationPath = null,
+    )
+    {
         $this->cache ??= new DummyCache();
     }
 

@@ -37,9 +37,9 @@ class BroadcastNotificationCreated implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  mixed  $notifiable
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @param  array  $data
+     * @param mixed $notifiable
+     * @param \Illuminate\Notifications\Notification $notification
+     * @param array $data
      * @return void
      */
     public function __construct($notifiable, $notification, $data)
@@ -63,7 +63,7 @@ class BroadcastNotificationCreated implements ShouldBroadcast
             $channels = $this->notification->broadcastOn();
         }
 
-        if (! empty($channels)) {
+        if (!empty($channels)) {
             return $channels;
         }
 
@@ -89,7 +89,7 @@ class BroadcastNotificationCreated implements ShouldBroadcast
 
         $class = str_replace('\\', '.', get_class($this->notifiable));
 
-        return $class.'.'.$this->notifiable->getKey();
+        return $class . '.' . $this->notifiable->getKey();
     }
 
     /**
@@ -117,7 +117,7 @@ class BroadcastNotificationCreated implements ShouldBroadcast
     public function broadcastType()
     {
         return method_exists($this->notification, 'broadcastType')
-                    ? $this->notification->broadcastType()
-                    : get_class($this->notification);
+            ? $this->notification->broadcastType()
+            : get_class($this->notification);
     }
 }

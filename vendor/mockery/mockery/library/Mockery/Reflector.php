@@ -141,7 +141,7 @@ class Reflector
     /**
      * Get the string representation of the given type.
      *
-     * @param \ReflectionType  $type
+     * @param \ReflectionType $type
      * @param \ReflectionClass $declaringClass
      *
      * @return list<array{typeHint: string, isPrimitive: bool}>

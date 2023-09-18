@@ -52,11 +52,12 @@ class UuidV6 extends BaseUuid implements UuidInterface
      *     for converting timestamps extracted from a UUID to unix timestamps
      */
     public function __construct(
-        Rfc4122FieldsInterface $fields,
+        Rfc4122FieldsInterface   $fields,
         NumberConverterInterface $numberConverter,
-        CodecInterface $codec,
-        TimeConverterInterface $timeConverter
-    ) {
+        CodecInterface           $codec,
+        TimeConverterInterface   $timeConverter
+    )
+    {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_REORDERED_TIME) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV6 must represent a '
@@ -80,7 +81,7 @@ class UuidV6 extends BaseUuid implements UuidInterface
             . substr($hex, 16);
 
         /** @var LazyUuidFromString $uuid */
-        $uuid = Uuid::fromBytes((string) hex2bin($hex));
+        $uuid = Uuid::fromBytes((string)hex2bin($hex));
 
         return $uuid->toUuidV1();
     }
@@ -98,7 +99,7 @@ class UuidV6 extends BaseUuid implements UuidInterface
             . substr($hex, 16);
 
         /** @var LazyUuidFromString $uuid */
-        $uuid = Uuid::fromBytes((string) hex2bin($hex));
+        $uuid = Uuid::fromBytes((string)hex2bin($hex));
 
         return $uuid->toUuidV6();
     }

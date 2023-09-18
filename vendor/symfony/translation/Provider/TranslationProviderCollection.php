@@ -33,7 +33,7 @@ final class TranslationProviderCollection
 
     public function __toString(): string
     {
-        return '['.implode(',', array_keys($this->providers)).']';
+        return '[' . implode(',', array_keys($this->providers)) . ']';
     }
 
     public function has(string $name): bool
@@ -44,7 +44,7 @@ final class TranslationProviderCollection
     public function get(string $name): ProviderInterface
     {
         if (!$this->has($name)) {
-            throw new InvalidArgumentException(sprintf('Provider "%s" not found. Available: "%s".', $name, (string) $this));
+            throw new InvalidArgumentException(sprintf('Provider "%s" not found. Available: "%s".', $name, (string)$this));
         }
 
         return $this->providers[$name];

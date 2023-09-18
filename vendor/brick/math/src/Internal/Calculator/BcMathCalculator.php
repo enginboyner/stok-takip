@@ -15,22 +15,22 @@ use Brick\Math\Internal\Calculator;
  */
 class BcMathCalculator extends Calculator
 {
-    public function add(string $a, string $b) : string
+    public function add(string $a, string $b): string
     {
         return \bcadd($a, $b, 0);
     }
 
-    public function sub(string $a, string $b) : string
+    public function sub(string $a, string $b): string
     {
         return \bcsub($a, $b, 0);
     }
 
-    public function mul(string $a, string $b) : string
+    public function mul(string $a, string $b): string
     {
         return \bcmul($a, $b, 0);
     }
 
-    public function divQ(string $a, string $b) : string
+    public function divQ(string $a, string $b): string
     {
         return \bcdiv($a, $b, 0);
     }
@@ -39,12 +39,12 @@ class BcMathCalculator extends Calculator
      * @psalm-suppress InvalidNullableReturnType
      * @psalm-suppress NullableReturnStatement
      */
-    public function divR(string $a, string $b) : string
+    public function divR(string $a, string $b): string
     {
         return \bcmod($a, $b, 0);
     }
 
-    public function divQR(string $a, string $b) : array
+    public function divQR(string $a, string $b): array
     {
         $q = \bcdiv($a, $b, 0);
         $r = \bcmod($a, $b, 0);
@@ -54,12 +54,12 @@ class BcMathCalculator extends Calculator
         return [$q, $r];
     }
 
-    public function pow(string $a, int $e) : string
+    public function pow(string $a, int $e): string
     {
-        return \bcpow($a, (string) $e, 0);
+        return \bcpow($a, (string)$e, 0);
     }
 
-    public function modPow(string $base, string $exp, string $mod) : string
+    public function modPow(string $base, string $exp, string $mod): string
     {
         return \bcpowmod($base, $exp, $mod, 0);
     }
@@ -68,7 +68,7 @@ class BcMathCalculator extends Calculator
      * @psalm-suppress InvalidNullableReturnType
      * @psalm-suppress NullableReturnStatement
      */
-    public function sqrt(string $n) : string
+    public function sqrt(string $n): string
     {
         return \bcsqrt($n, 0);
     }

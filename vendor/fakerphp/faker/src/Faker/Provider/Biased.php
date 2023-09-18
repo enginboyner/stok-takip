@@ -14,8 +14,8 @@ class Biased extends Base
      * between $min and $max. Otherwise two new doubles are created until the pair
      * is accepted.
      *
-     * @param int      $min      Minimum value of the generated integers.
-     * @param int      $max      Maximum value of the generated integers.
+     * @param int $min Minimum value of the generated integers.
+     * @param int $max Maximum value of the generated integers.
      * @param callable $function A function mapping x ∈ [0, 1] onto a double ∈ [0, 1]
      *
      * @return int An integer between $min and $max.
@@ -27,7 +27,7 @@ class Biased extends Base
             $y = mt_rand() / (mt_getrandmax() + 1);
         } while (call_user_func($function, $x) < $y);
 
-        return (int) floor($x * ($max - $min + 1) + $min);
+        return (int)floor($x * ($max - $min + 1) + $min);
     }
 
     /**

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Rule;
 
 use function count;
@@ -75,7 +76,7 @@ final class Parameters implements ParametersRule
      */
     public function apply(BaseInvocation $invocation): void
     {
-        $this->invocation                  = $invocation;
+        $this->invocation = $invocation;
         $this->parameterVerificationResult = null;
 
         try {
@@ -155,6 +156,6 @@ final class Parameters implements ParametersRule
             throw $this->parameterVerificationResult;
         }
 
-        return (bool) $this->parameterVerificationResult;
+        return (bool)$this->parameterVerificationResult;
     }
 }

@@ -14,7 +14,7 @@ class TokenAuthenticated
     /**
      * Create a new event instance.
      *
-     * @param  \Laravel\Sanctum\PersonalAccessToken  $token
+     * @param \Laravel\Sanctum\PersonalAccessToken $token
      * @return void
      */
     public function __construct($token)

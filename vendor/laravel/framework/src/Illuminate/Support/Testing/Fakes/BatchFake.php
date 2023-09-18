@@ -26,26 +26,26 @@ class BatchFake extends Batch
     /**
      * Create a new batch instance.
      *
-     * @param  string  $id
-     * @param  string  $name
-     * @param  int  $totalJobs
-     * @param  int  $pendingJobs
-     * @param  int  $failedJobs
-     * @param  array  $failedJobIds
-     * @param  array  $options
-     * @param  \Carbon\CarbonImmutable  $createdAt
-     * @param  \Carbon\CarbonImmutable|null  $cancelledAt
-     * @param  \Carbon\CarbonImmutable|null  $finishedAt
+     * @param string $id
+     * @param string $name
+     * @param int $totalJobs
+     * @param int $pendingJobs
+     * @param int $failedJobs
+     * @param array $failedJobIds
+     * @param array $options
+     * @param \Carbon\CarbonImmutable $createdAt
+     * @param \Carbon\CarbonImmutable|null $cancelledAt
+     * @param \Carbon\CarbonImmutable|null $finishedAt
      * @return void
      */
-    public function __construct(string $id,
-                                string $name,
-                                int $totalJobs,
-                                int $pendingJobs,
-                                int $failedJobs,
-                                array $failedJobIds,
-                                array $options,
-                                CarbonImmutable $createdAt,
+    public function __construct(string           $id,
+                                string           $name,
+                                int              $totalJobs,
+                                int              $pendingJobs,
+                                int              $failedJobs,
+                                array            $failedJobIds,
+                                array            $options,
+                                CarbonImmutable  $createdAt,
                                 ?CarbonImmutable $cancelledAt = null,
                                 ?CarbonImmutable $finishedAt = null)
     {
@@ -74,7 +74,7 @@ class BatchFake extends Batch
     /**
      * Add additional jobs to the batch.
      *
-     * @param  \Illuminate\Support\Enumerable|object|array  $jobs
+     * @param \Illuminate\Support\Enumerable|object|array $jobs
      * @return self
      */
     public function add($jobs)
@@ -89,7 +89,7 @@ class BatchFake extends Batch
     /**
      * Record that a job within the batch finished successfully, executing any callbacks if necessary.
      *
-     * @param  string  $jobId
+     * @param string $jobId
      * @return void
      */
     public function recordSuccessfulJob(string $jobId)
@@ -100,7 +100,7 @@ class BatchFake extends Batch
     /**
      * Decrement the pending jobs for the batch.
      *
-     * @param  string  $jobId
+     * @param string $jobId
      * @return \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function decrementPendingJobs(string $jobId)
@@ -111,8 +111,8 @@ class BatchFake extends Batch
     /**
      * Record that a job within the batch failed to finish successfully, executing any callbacks if necessary.
      *
-     * @param  string  $jobId
-     * @param  \Throwable  $e
+     * @param string $jobId
+     * @param \Throwable $e
      * @return void
      */
     public function recordFailedJob(string $jobId, $e)
@@ -123,7 +123,7 @@ class BatchFake extends Batch
     /**
      * Increment the failed jobs for the batch.
      *
-     * @param  string  $jobId
+     * @param string $jobId
      * @return \Illuminate\Bus\UpdatedBatchJobCounts
      */
     public function incrementFailedJobs(string $jobId)

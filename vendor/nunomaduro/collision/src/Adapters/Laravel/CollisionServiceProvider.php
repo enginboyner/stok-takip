@@ -44,7 +44,7 @@ class CollisionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
+        if ($this->app->runningInConsole() && !$this->app->runningUnitTests()) {
             $this->app->bind(ProviderContract::class, function () {
                 // @phpstan-ignore-next-line
                 if ($this->app->has(\Spatie\Ignition\Contracts\SolutionProviderRepository::class)) {

@@ -107,7 +107,7 @@ class BladeSourceMapCompiler
         $before = mb_substr($value, 0, $position);
         $lineNumber = count(explode("\n", $before));
 
-        return mb_substr($value, 0, $position)."|---LINE:{$lineNumber}---|".mb_substr($value, $position);
+        return mb_substr($value, 0, $position) . "|---LINE:{$lineNumber}---|" . mb_substr($value, $position);
     }
 
     protected function trimEmptyLines(string $value): string

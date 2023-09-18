@@ -145,9 +145,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Bank
      *
+     * @return string
      * @example 'Maybank'
      *
-     * @return string
      */
     public function bank()
     {
@@ -159,9 +159,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Bank account number
      *
+     * @return string
      * @example '1234567890123456'
      *
-     * @return string
      */
     public function bankAccountNumber()
     {
@@ -173,9 +173,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Local Bank
      *
+     * @return string
      * @example 'Public Bank'
      *
-     * @return string
      */
     public static function localBank()
     {
@@ -185,9 +185,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Foreign Bank
      *
+     * @return string
      * @example 'Citibank Berhad'
      *
-     * @return string
      */
     public static function foreignBank()
     {
@@ -197,9 +197,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Government Bank
      *
+     * @return string
      * @example 'Bank Simpanan Nasional'
      *
-     * @return string
      */
     public static function governmentBank()
     {
@@ -209,9 +209,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian insurance company
      *
+     * @return string
      * @example 'AIA Malaysia'
      *
-     * @return string
      */
     public static function insurance()
     {
@@ -221,9 +221,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return a Malaysian Bank SWIFT Code
      *
+     * @return string
      * @example 'MBBEMYKLXXX'
      *
-     * @return string
      */
     public static function swiftCode()
     {
@@ -233,9 +233,9 @@ class Payment extends \Faker\Provider\Payment
     /**
      * Return the Malaysian currency symbol
      *
+     * @return string
      * @example 'RM'
      *
-     * @return string
      */
     public static function currencySymbol()
     {

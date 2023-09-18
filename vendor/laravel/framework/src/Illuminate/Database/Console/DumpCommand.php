@@ -45,8 +45,8 @@ class DumpCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Illuminate\Database\ConnectionResolverInterface  $connections
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+     * @param \Illuminate\Database\ConnectionResolverInterface $connections
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
      * @return int
      */
     public function handle(ConnectionResolverInterface $connections, Dispatcher $dispatcher)
@@ -69,32 +69,32 @@ class DumpCommand extends Command
             $info .= ' and pruned';
         }
 
-        $this->components->info($info.' successfully.');
+        $this->components->info($info . ' successfully.');
     }
 
     /**
      * Create a schema state instance for the given connection.
      *
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param \Illuminate\Database\Connection $connection
      * @return mixed
      */
     protected function schemaState(Connection $connection)
     {
         return $connection->getSchemaState()
-                ->withMigrationTable($connection->getTablePrefix().Config::get('database.migrations', 'migrations'))
-                ->handleOutputUsing(function ($type, $buffer) {
-                    $this->output->write($buffer);
-                });
+            ->withMigrationTable($connection->getTablePrefix() . Config::get('database.migrations', 'migrations'))
+            ->handleOutputUsing(function ($type, $buffer) {
+                $this->output->write($buffer);
+            });
     }
 
     /**
      * Get the path that the dump should be written to.
      *
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param \Illuminate\Database\Connection $connection
      */
     protected function path(Connection $connection)
     {
-        return tap($this->option('path') ?: database_path('schema/'.$connection->getName().'-schema.sql'), function ($path) {
+        return tap($this->option('path') ?: database_path('schema/' . $connection->getName() . '-schema.sql'), function ($path) {
             (new Filesystem)->ensureDirectoryExists(dirname($path));
         });
     }

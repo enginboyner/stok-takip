@@ -160,7 +160,7 @@ class Readline
             if (true === $direct) {
                 $output->writeAll($prefix);
             } else {
-                $output->writeAll($prefix.$out."\n");
+                $output->writeAll($prefix . $out . "\n");
             }
 
             return $out;
@@ -228,10 +228,10 @@ class Readline
             $this->getLine(),
             $this->getLineCurrent() - 1
         );
-        $this->_buffer = "\033[K".$tail.\str_repeat(
-            "\033[D",
-            \mb_strlen($tail) - 1
-        );
+        $this->_buffer = "\033[K" . $tail . \str_repeat(
+                "\033[D",
+                \mb_strlen($tail) - 1
+            );
 
         return static::STATE_CONTINUE;
     }
@@ -258,7 +258,7 @@ class Readline
     public function addMapping(string $key, $mapping)
     {
         if ('\e[' === \substr($key, 0, 3)) {
-            $this->_mapping["\033[".\substr($key, 3)] = $mapping;
+            $this->_mapping["\033[" . \substr($key, 3)] = $mapping;
         } elseif ('\C-' === \substr($key, 0, 3)) {
             $_key = \ord(\strtolower(\substr($key, 3))) - 96;
             $this->_mapping[\chr($_key)] = $mapping;
@@ -358,9 +358,9 @@ class Readline
             return $this->appendLine($insert);
         }
 
-        $this->_line = \mb_substr($this->_line, 0, $this->_lineCurrent).
-                               $insert.
-                               \mb_substr($this->_line, $this->_lineCurrent);
+        $this->_line = \mb_substr($this->_line, 0, $this->_lineCurrent) .
+            $insert .
+            \mb_substr($this->_line, $this->_lineCurrent);
         $this->_lineLength = \mb_strlen($this->_line);
         $this->_lineCurrent += \mb_strlen($insert);
 
@@ -574,8 +574,8 @@ class Readline
                 $line = $self->getLine();
                 $current = $self->getLineCurrent();
                 $tail = \mb_substr($line, $current);
-                $buffer = $tail.\str_repeat("\033[D", \mb_strlen($tail));
-                $self->setLine(\mb_substr($line, 0, $current - 1).$tail);
+                $buffer = $tail . \str_repeat("\033[D", \mb_strlen($tail));
+                $self->setLine(\mb_substr($line, 0, $current - 1) . $tail);
                 $self->setLineCurrent($current - 1);
             }
         }
@@ -749,7 +749,7 @@ class Readline
         }
 
         $matches = \preg_match_all(
-            '#'.$autocompleter->getWordDefinition().'$#u',
+            '#' . $autocompleter->getWordDefinition() . '$#u',
             \mb_substr($line, 0, $current),
             $words
         );
@@ -800,8 +800,8 @@ class Readline
                 return;
             });
 
-            $mColumns = (int) \floor($wWidth / ($cWidth + 2));
-            $mLines = (int) \ceil(($count + 1) / $mColumns);
+            $mColumns = (int)\floor($wWidth / ($cWidth + 2));
+            $mLines = (int)\ceil(($count + 1) / $mColumns);
             --$mColumns;
             $i = 0;
 
@@ -816,7 +816,7 @@ class Readline
             ConsoleCursor::clear('↓');
 
             foreach ($_solution as $j => $s) {
-                $output->writeAll("\033[0m".$s."\033[0m");
+                $output->writeAll("\033[0m" . $s . "\033[0m");
 
                 if ($i++ < $mColumns) {
                     $output->writeAll('  ');
@@ -852,7 +852,7 @@ class Readline
                 ConsoleCursor::move('↓ LEFT');
                 ConsoleCursor::move('→', $mColumn * ($cWidth + 2));
                 ConsoleCursor::move('↓', $mLine);
-                $output->writeAll("\033[0m".$_solution[$coord]."\033[0m");
+                $output->writeAll("\033[0m" . $_solution[$coord] . "\033[0m");
                 ConsoleCursor::restore();
                 ConsoleCursor::show();
 
@@ -871,7 +871,7 @@ class Readline
                 ConsoleCursor::move('↓ LEFT');
                 ConsoleCursor::move('→', $mColumn * ($cWidth + 2));
                 ConsoleCursor::move('↓', $mLine);
-                $output->writeAll("\033[7m".$_solution[$coord]."\033[0m");
+                $output->writeAll("\033[7m" . $_solution[$coord] . "\033[0m");
                 ConsoleCursor::restore();
                 ConsoleCursor::show();
 
@@ -910,7 +910,7 @@ class Readline
 
                         $unselect();
                         $coord = \max(0, $coord - $mColumns);
-                        $mLine = (int) \floor($coord / $mColumns);
+                        $mLine = (int)\floor($coord / $mColumns);
                         $mColumn = $coord % $mColumns;
                         $select();
 
@@ -925,7 +925,7 @@ class Readline
 
                         $unselect();
                         $coord = \min($count, $coord + $mColumns);
-                        $mLine = (int) \floor($coord / $mColumns);
+                        $mLine = (int)\floor($coord / $mColumns);
                         $mColumn = $coord % $mColumns;
                         $select();
 
@@ -941,7 +941,7 @@ class Readline
 
                         $unselect();
                         $coord = \min($count, $coord + 1);
-                        $mLine = (int) \floor($coord / $mColumns);
+                        $mLine = (int)\floor($coord / $mColumns);
                         $mColumn = $coord % $mColumns;
                         $select();
 
@@ -956,7 +956,7 @@ class Readline
 
                         $unselect();
                         $coord = \max(0, $coord - 1);
-                        $mLine = (int) \floor($coord / $mColumns);
+                        $mLine = (int)\floor($coord / $mColumns);
                         $mColumn = $coord % $mColumns;
                         $select();
 
@@ -967,8 +967,8 @@ class Readline
                             $tail = \mb_substr($line, $current);
                             $current -= $length;
                             $self->setLine(
-                                \mb_substr($line, 0, $current).
-                                $solution[$coord].
+                                \mb_substr($line, 0, $current) .
+                                $solution[$coord] .
                                 $tail
                             );
                             $self->setLineCurrent(
@@ -982,7 +982,7 @@ class Readline
                             ConsoleCursor::move('←', \mb_strlen($tail));
                         }
 
-                        // no break
+                    // no break
                     default:
                         $mColumn = -1;
                         $mLine = -1;
@@ -1008,8 +1008,8 @@ class Readline
         $tail = \mb_substr($line, $current);
         $current -= $length;
         $self->setLine(
-            \mb_substr($line, 0, $current).
-            $solution.
+            \mb_substr($line, 0, $current) .
+            $solution .
             $tail
         );
         $self->setLineCurrent(

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const ENT_QUOTES;
@@ -97,7 +98,7 @@ final class Xml
                     $value = self::xmlToVariable($item);
 
                     if ($entry->hasAttribute('key')) {
-                        $variable[(string) $entry->getAttribute('key')] = $value;
+                        $variable[(string)$entry->getAttribute('key')] = $value;
                     } else {
                         $variable[] = $value;
                     }
@@ -109,7 +110,7 @@ final class Xml
                 $className = $element->getAttribute('class');
 
                 if ($element->hasChildNodes()) {
-                    $arguments       = $element->childNodes->item(0)->childNodes;
+                    $arguments = $element->childNodes->item(0)->childNodes;
                     $constructorArgs = [];
 
                     foreach ($arguments as $argument) {

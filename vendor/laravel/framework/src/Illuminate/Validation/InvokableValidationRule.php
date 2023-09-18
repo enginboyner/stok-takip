@@ -49,7 +49,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Create a new explicit Invokable validation rule.
      *
-     * @param  \Illuminate\Contracts\Validation\InvokableRule  $invokable
+     * @param \Illuminate\Contracts\Validation\InvokableRule $invokable
      * @return void
      */
     protected function __construct(InvokableRule $invokable)
@@ -60,13 +60,14 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Create a new implicit or explicit Invokable validation rule.
      *
-     * @param  \Illuminate\Contracts\Validation\InvokableRule  $invokable
+     * @param \Illuminate\Contracts\Validation\InvokableRule $invokable
      * @return \Illuminate\Contracts\Validation\Rule
      */
     public static function make($invokable)
     {
         if ($invokable->implicit ?? false) {
-            return new class($invokable) extends InvokableValidationRule implements ImplicitRule {};
+            return new class($invokable) extends InvokableValidationRule implements ImplicitRule {
+            };
         }
 
         return new InvokableValidationRule($invokable);
@@ -75,8 +76,8 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
@@ -97,7 +98,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
             return $this->pendingPotentiallyTranslatedString($attribute, $message);
         });
 
-        return ! $this->failed;
+        return !$this->failed;
     }
 
     /**
@@ -123,7 +124,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Set the data under validation.
      *
-     * @param  array  $data
+     * @param array $data
      * @return $this
      */
     public function setData($data)
@@ -136,7 +137,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Set the current validator.
      *
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param \Illuminate\Validation\Validator $validator
      * @return $this
      */
     public function setValidator($validator)
@@ -149,18 +150,17 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     /**
      * Create a pending potentially translated string.
      *
-     * @param  string  $attribute
-     * @param  string|null  $message
+     * @param string $attribute
+     * @param string|null $message
      * @return \Illuminate\Translation\PotentiallyTranslatedString
      */
     protected function pendingPotentiallyTranslatedString($attribute, $message)
     {
         $destructor = $message === null
-            ? fn ($message) => $this->messages[] = $message
-            : fn ($message) => $this->messages[$attribute] = $message;
+            ? fn($message) => $this->messages[] = $message
+            : fn($message) => $this->messages[$attribute] = $message;
 
-        return new class($message ?? $attribute, $this->validator->getTranslator(), $destructor) extends PotentiallyTranslatedString
-        {
+        return new class($message ?? $attribute, $this->validator->getTranslator(), $destructor) extends PotentiallyTranslatedString {
             /**
              * The callback to call when the object destructs.
              *
@@ -171,9 +171,9 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
             /**
              * Create a new pending potentially translated string.
              *
-             * @param  string  $message
-             * @param  \Illuminate\Contracts\Translation\Translator  $translator
-             * @param  \Closure  $destructor
+             * @param string $message
+             * @param \Illuminate\Contracts\Translation\Translator $translator
+             * @param \Closure $destructor
              */
             public function __construct($message, $translator, $destructor)
             {

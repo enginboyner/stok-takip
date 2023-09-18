@@ -6,7 +6,8 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 ### Fixed
 
-* [#26](https://github.com/sebastianbergmann/recursion-context/pull/26): Don't clobber `null` values if `array_key_exists(PHP_INT_MAX, $array)`
+* [#26](https://github.com/sebastianbergmann/recursion-context/pull/26): Don't clobber `null` values
+  if `array_key_exists(PHP_INT_MAX, $array)`
 
 ## [4.0.4] - 2020-10-26
 
@@ -34,7 +35,11 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Tests etc. are now ignored for archive exports
 
 [4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0.5
+
 [4.0.4]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.3...4.0.4
+
 [4.0.3]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.2...4.0.3
+
 [4.0.2]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.1...4.0.2
+
 [4.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.0...4.0.1

@@ -26,7 +26,7 @@ class ReflectionClassConstant implements \Reflector
      * Construct a ReflectionClassConstant object.
      *
      * @param string|object $class
-     * @param string        $name
+     * @param string $name
      */
     public function __construct($class, string $name)
     {
@@ -39,7 +39,7 @@ class ReflectionClassConstant implements \Reflector
 
         $constants = $class->getConstants();
         if (!\array_key_exists($name, $constants)) {
-            throw new \InvalidArgumentException('Unknown constant: '.$name);
+            throw new \InvalidArgumentException('Unknown constant: ' . $name);
         }
 
         $this->value = $constants[$name];
@@ -49,8 +49,8 @@ class ReflectionClassConstant implements \Reflector
      * Exports a reflection.
      *
      * @param string|object $class
-     * @param string        $name
-     * @param bool          $return pass true to return the export, as opposed to emitting it
+     * @param string $name
+     * @param bool $return pass true to return the export, as opposed to emitting it
      *
      * @return string|null
      */
@@ -65,7 +65,7 @@ class ReflectionClassConstant implements \Reflector
             return $str;
         }
 
-        echo $str."\n";
+        echo $str . "\n";
     }
 
     /**
@@ -205,7 +205,7 @@ class ReflectionClassConstant implements \Reflector
      * standard reflection library. For older PHP, it will return this polyfill.
      *
      * @param string|object $class
-     * @param string        $name
+     * @param string $name
      *
      * @return ReflectionClassConstant|\ReflectionClassConstant
      */

@@ -37,7 +37,7 @@ class Frame implements Serializable
     }
 
     /**
-     * @param  bool        $shortened
+     * @param bool $shortened
      * @return string|null
      */
     public function getFile($shortened = false)
@@ -54,7 +54,7 @@ class Frame implements Serializable
         // trace collector(s).
         if (preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches)) {
             $file = $this->frame['file'] = $matches[1];
-            $this->frame['line'] = (int) $matches[2];
+            $this->frame['line'] = (int)$matches[2];
         }
 
         if ($shortened && is_string($file)) {
@@ -98,7 +98,7 @@ class Frame implements Serializable
      */
     public function getArgs()
     {
-        return isset($this->frame['args']) ? (array) $this->frame['args'] : [];
+        return isset($this->frame['args']) ? (array)$this->frame['args'] : [];
     }
 
     /**
@@ -150,7 +150,7 @@ class Frame implements Serializable
      * a filter to only retrieve comments from a specific
      * context.
      *
-     * @param  string  $filter
+     * @param string $filter
      * @return array[]
      */
     public function getComments($filter = null)
@@ -183,6 +183,10 @@ class Frame implements Serializable
      *
      * NOTE: lines are 0-indexed
      *
+     * @param int $start
+     * @param int $length
+     * @return string[]|null
+     * @throws InvalidArgumentException if $length is less than or equal to 0
      * @example
      *     Get all lines for this file
      *     $frame->getFileLines(); // => array( 0 => '<?php', 1 => '...', ...)
@@ -190,10 +194,6 @@ class Frame implements Serializable
      *     Get one line for this file, starting at line 10 (zero-indexed, remember!)
      *     $frame->getFileLines(9, 1); // array( 9 => '...' )
      *
-     * @throws InvalidArgumentException if $length is less than or equal to 0
-     * @param  int                      $start
-     * @param  int                      $length
-     * @return string[]|null
      */
     public function getFileLines($start = 0, $length = null)
     {
@@ -202,8 +202,8 @@ class Frame implements Serializable
 
             // Get a subset of lines from $start to $end
             if ($length !== null) {
-                $start  = (int) $start;
-                $length = (int) $length;
+                $start = (int)$start;
+                $length = (int)$length;
                 if ($start < 0) {
                     $start = 0;
                 }
@@ -225,8 +225,8 @@ class Frame implements Serializable
      * Implements the Serializable interface, with special
      * steps to also save the existing comments.
      *
-     * @see Serializable::serialize
      * @return string
+     * @see Serializable::serialize
      */
     public function serialize()
     {
@@ -251,8 +251,8 @@ class Frame implements Serializable
      * Unserializes the frame data, while also preserving
      * any existing comment data.
      *
-     * @see Serializable::unserialize
      * @param string $serializedFrame
+     * @see Serializable::unserialize
      */
     public function unserialize($serializedFrame)
     {
@@ -278,7 +278,7 @@ class Frame implements Serializable
 
     /**
      * Compares Frame against one another
-     * @param  Frame $frame
+     * @param Frame $frame
      * @return bool
      */
     public function equals(Frame $frame)

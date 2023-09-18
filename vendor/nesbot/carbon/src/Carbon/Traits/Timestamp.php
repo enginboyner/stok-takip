@@ -21,7 +21,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string          $timestamp
+     * @param float|int|string $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -46,7 +46,7 @@ trait Timestamp
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
         $integer += $delta;
         $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
-        $decimal = str_pad((string) $decimal, 6, '0', STR_PAD_LEFT);
+        $decimal = str_pad((string)$decimal, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
@@ -80,7 +80,7 @@ trait Timestamp
      *
      * Timestamp input can be given as int, float or a string containing one or more numbers.
      *
-     * @param float|int|string          $timestamp
+     * @param float|int|string $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -108,6 +108,9 @@ trait Timestamp
     /**
      * Returns a timestamp rounded with the given precision (6 by default).
      *
+     * @param int $precision
+     *
+     * @return float
      * @example getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
      * @example getPreciseTimestamp(6)  1532087464437474
      * @example getPreciseTimestamp(5)  153208746443747  (1/100000 second precision)
@@ -119,13 +122,10 @@ trait Timestamp
      * @example getPreciseTimestamp(-1) 153208746        (10 second precision)
      * @example getPreciseTimestamp(-2) 15320875         (100 second precision)
      *
-     * @param int $precision
-     *
-     * @return float
      */
     public function getPreciseTimestamp($precision = 6)
     {
-        return round(((float) $this->rawFormat('Uu')) / pow(10, 6 - $precision));
+        return round(((float)$this->rawFormat('Uu')) / pow(10, 6 - $precision));
     }
 
     /**
@@ -145,7 +145,7 @@ trait Timestamp
      */
     public function getTimestampMs()
     {
-        return (int) $this->getPreciseTimestamp(3);
+        return (int)$this->getPreciseTimestamp(3);
     }
 
     /**
@@ -167,8 +167,8 @@ trait Timestamp
      * By splitting integer and decimal, this method obtain a better precision than
      * number_format when the input is a string.
      *
-     * @param float|int|string $numbers  one or more numbers
-     * @param int              $decimals number of decimals precision (6 by default)
+     * @param float|int|string $numbers one or more numbers
+     * @param int $decimals number of decimals precision (6 by default)
      *
      * @return array 0-index is integer part, 1-index is decimal part digits
      */
@@ -185,8 +185,8 @@ trait Timestamp
         foreach (preg_split('`[^\d.]+`', $numbers) as $chunk) {
             [$integerPart, $decimalPart] = explode('.', "$chunk.");
 
-            $integer += (int) $integerPart;
-            $decimal += (float) ("0.$decimalPart");
+            $integer += (int)$integerPart;
+            $decimal += (float)("0.$decimalPart");
         }
 
         $overflow = floor($decimal);

@@ -80,7 +80,7 @@ class SelfUpdate
     {
         $versionPostfix = '';
         if (\strpos(Shell::VERSION, '+')) {
-            $versionPostfix = '-'.\substr(Shell::VERSION, \strpos(Shell::VERSION, '+') + 1);
+            $versionPostfix = '-' . \substr(Shell::VERSION, \strpos(Shell::VERSION, '+') + 1);
         }
         $downloadFilename = \sprintf('psysh-%s%s.tar.gz', $latestVersion, $versionPostfix);
 
@@ -92,7 +92,7 @@ class SelfUpdate
     /**
      * Execute the self-update process.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @throws ErrorException if the current version is not restored when installation fails
@@ -144,7 +144,7 @@ class SelfUpdate
 
             return self::FAILURE;
         } else {
-            $output->write(' <info>OK</info>'.\PHP_EOL);
+            $output->write(' <info>OK</info>' . \PHP_EOL);
         }
 
         $downloadedFile = $downloader->getFilename();
@@ -165,7 +165,7 @@ class SelfUpdate
             return self::FAILURE;
         } elseif ($input->getOption('verbose')) {
             $backupFilename = $this->installer->getBackupFilename($currentVersion);
-            $output->writeln('Created backup of current version: '.$backupFilename);
+            $output->writeln('Created backup of current version: ' . $backupFilename);
         }
 
         if (!$this->installer->install($downloadedFile)) {

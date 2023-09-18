@@ -91,9 +91,9 @@ class Address extends \Faker\Provider\fr_FR\Address
     /**
      * Returns a random street prefix
      *
+     * @return string
      * @example Rue
      *
-     * @return string
      */
     public static function streetPrefix()
     {
@@ -103,9 +103,9 @@ class Address extends \Faker\Provider\fr_FR\Address
     /**
      * Returns a random city name.
      *
+     * @return string
      * @example Luzern
      *
-     * @return string
      */
     public function cityName()
     {
@@ -115,9 +115,9 @@ class Address extends \Faker\Provider\fr_FR\Address
     /**
      * Returns a canton
      *
+     * @return array
      * @example array('BE' => 'Bern')
      *
-     * @return array
      */
     public static function canton()
     {

@@ -17,8 +17,8 @@ trait InteractsWithSignals
     /**
      * Define a callback to be run when the given signal(s) occurs.
      *
-     * @param  iterable<array-key, int>|int  $signals
-     * @param  callable(int $signal): void  $callback
+     * @param iterable<array-key, int>|int $signals
+     * @param callable(int $signal): void $callback
      * @return void
      */
     public function trap($signals, $callback)
@@ -29,7 +29,7 @@ trait InteractsWithSignals
             );
 
             collect(Arr::wrap($signals))
-                ->each(fn ($signal) => $this->signals->register($signal, $callback));
+                ->each(fn($signal) => $this->signals->register($signal, $callback));
         });
     }
 
@@ -42,7 +42,7 @@ trait InteractsWithSignals
      */
     public function untrap()
     {
-        if (! is_null($this->signals)) {
+        if (!is_null($this->signals)) {
             $this->signals->unregister();
 
             $this->signals = null;

@@ -292,9 +292,10 @@ class UuidFactory implements UuidFactoryInterface
 
     public function fromDateTime(
         DateTimeInterface $dateTime,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface {
+        ?Hexadecimal      $node = null,
+        ?int              $clockSeq = null
+    ): UuidInterface
+    {
         $timeProvider = new FixedTimeProvider(
             new Time($dateTime->format('U'), $dateTime->format('u'))
         );
@@ -331,11 +332,12 @@ class UuidFactory implements UuidFactoryInterface
     }
 
     public function uuid2(
-        int $localDomain,
+        int            $localDomain,
         ?IntegerObject $localIdentifier = null,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface {
+        ?Hexadecimal   $node = null,
+        ?int           $clockSeq = null
+    ): UuidInterface
+    {
         $bytes = $this->dceSecurityGenerator->generate(
             $localDomain,
             $localIdentifier,
@@ -463,11 +465,12 @@ class UuidFactory implements UuidFactoryInterface
      * @psalm-pure
      */
     private function uuidFromNsAndName(
-        UuidInterface | string $ns,
-        string $name,
-        int $version,
-        string $hashAlgorithm
-    ): UuidInterface {
+        UuidInterface|string $ns,
+        string               $name,
+        int                  $version,
+        string               $hashAlgorithm
+    ): UuidInterface
+    {
         if (!($ns instanceof UuidInterface)) {
             $ns = $this->fromString($ns);
         }
@@ -492,12 +495,12 @@ class UuidFactory implements UuidFactoryInterface
     {
         /** @var array $unpackedTime */
         $unpackedTime = unpack('n*', substr($bytes, 6, 2));
-        $timeHi = (int) $unpackedTime[1];
+        $timeHi = (int)$unpackedTime[1];
         $timeHiAndVersion = pack('n*', BinaryUtils::applyVersion($timeHi, $version));
 
         /** @var array $unpackedClockSeq */
         $unpackedClockSeq = unpack('n*', substr($bytes, 8, 2));
-        $clockSeqHi = (int) $unpackedClockSeq[1];
+        $clockSeqHi = (int)$unpackedClockSeq[1];
         $clockSeqHiAndReserved = pack('n*', BinaryUtils::applyVariant($clockSeqHi));
 
         $bytes = substr_replace($bytes, $timeHiAndVersion, 6, 2);

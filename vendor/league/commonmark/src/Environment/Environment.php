@@ -109,9 +109,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
         $this->config = self::createDefaultConfiguration();
         $this->config->merge($config);
 
-        $this->blockStartParsers   = new PrioritizedList();
-        $this->inlineParsers       = new PrioritizedList();
-        $this->listenerData        = new PrioritizedList();
+        $this->blockStartParsers = new PrioritizedList();
+        $this->inlineParsers = new PrioritizedList();
+        $this->listenerData = new PrioritizedList();
         $this->delimiterProcessors = new DelimiterProcessorCollection();
 
         // Performance optimization: always include a block "parser" that aborts parsing if a line starts with a letter
@@ -125,9 +125,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     }
 
     /**
+     * @param array<string, mixed> $config
      * @deprecated Environment::mergeConfig() is deprecated since league/commonmark v2.0 and will be removed in v3.0. Configuration should be set when instantiating the environment instead.
      *
-     * @param array<string, mixed> $config
      */
     public function mergeConfig(array $config): void
     {
@@ -171,7 +171,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     {
         $this->assertUninitialized('Failed to add renderer.');
 
-        if (! isset($this->renderersByClass[$nodeClass])) {
+        if (!isset($this->renderersByClass[$nodeClass])) {
             $this->renderersByClass[$nodeClass] = new PrioritizedList();
         }
 
@@ -186,7 +186,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
      */
     public function getBlockStartParsers(): iterable
     {
-        if (! $this->extensionsInitialized) {
+        if (!$this->extensionsInitialized) {
             $this->initializeExtensions();
         }
 
@@ -195,7 +195,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
 
     public function getDelimiterProcessors(): DelimiterProcessorCollection
     {
-        if (! $this->extensionsInitialized) {
+        if (!$this->extensionsInitialized) {
             $this->initializeExtensions();
         }
 
@@ -207,7 +207,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
      */
     public function getRenderersForClass(string $nodeClass): iterable
     {
-        if (! $this->extensionsInitialized) {
+        if (!$this->extensionsInitialized) {
             $this->initializeExtensions();
         }
 
@@ -218,7 +218,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
 
         /** @psalm-suppress TypeDoesNotContainType -- Bug: https://github.com/vimeo/psalm/issues/3332 */
         while (\class_exists($parent ??= $nodeClass) && $parent = \get_parent_class($parent)) {
-            if (! isset($this->renderersByClass[$parent])) {
+            if (!isset($this->renderersByClass[$parent])) {
                 continue;
             }
 
@@ -246,7 +246,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     {
         $this->assertUninitialized('Failed to add extension.');
 
-        $this->extensions[]              = $extension;
+        $this->extensions[] = $extension;
         $this->uninitializedExtensions[] = $extension;
 
         if ($extension instanceof ConfigurableExtensionInterface) {
@@ -289,9 +289,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     }
 
     /**
+     * @param array<string, mixed> $config
      * @deprecated Instantiate the environment and add the extension yourself
      *
-     * @param array<string, mixed> $config
      */
     public static function createCommonMarkEnvironment(array $config = []): Environment
     {
@@ -302,9 +302,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     }
 
     /**
+     * @param array<string, mixed> $config
      * @deprecated Instantiate the environment and add the extension yourself
      *
-     * @param array<string, mixed> $config
      */
     public static function createGFMEnvironment(array $config = []): Environment
     {
@@ -332,7 +332,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
 
     public function dispatch(object $event): object
     {
-        if (! $this->extensionsInitialized) {
+        if (!$this->extensionsInitialized) {
             $this->initializeExtensions();
         }
 
@@ -367,12 +367,12 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
             \assert($listenerData instanceof ListenerData);
 
             /** @psalm-suppress ArgumentTypeCoercion */
-            if (! \is_a($event, $listenerData->getEvent())) {
+            if (!\is_a($event, $listenerData->getEvent())) {
                 continue;
             }
 
             yield function (object $event) use ($listenerData) {
-                if (! $this->extensionsInitialized) {
+                if (!$this->extensionsInitialized) {
                     $this->initializeExtensions();
                 }
 
@@ -386,7 +386,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
      */
     public function getInlineParsers(): iterable
     {
-        if (! $this->extensionsInitialized) {
+        if (!$this->extensionsInitialized) {
             $this->initializeExtensions();
         }
 
@@ -400,7 +400,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
             \assert($normalizer instanceof TextNormalizerInterface);
             $this->injectEnvironmentAndConfigurationIfNeeded($normalizer);
 
-            if ($this->config->get('slug_normalizer/unique') !== UniqueSlugNormalizerInterface::DISABLED && ! $normalizer instanceof UniqueSlugNormalizer) {
+            if ($this->config->get('slug_normalizer/unique') !== UniqueSlugNormalizerInterface::DISABLED && !$normalizer instanceof UniqueSlugNormalizer) {
                 $normalizer = new UniqueSlugNormalizer($normalizer);
             }
 

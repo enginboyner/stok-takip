@@ -50,8 +50,9 @@ class FileRead extends File implements StreamIn
         string $streamName,
         string $mode = parent::MODE_READ,
         string $context = null,
-        bool $wait = false
-    ) {
+        bool   $wait = false
+    )
+    {
         parent::__construct($streamName, $mode, $context, $wait);
 
         return;
@@ -123,7 +124,7 @@ class FileRead extends File implements StreamIn
      */
     public function readBoolean()
     {
-        return (bool) $this->read(1);
+        return (bool)$this->read(1);
     }
 
     /**
@@ -131,7 +132,7 @@ class FileRead extends File implements StreamIn
      */
     public function readInteger(int $length = 1)
     {
-        return (int) $this->read($length);
+        return (int)$this->read($length);
     }
 
     /**
@@ -139,7 +140,7 @@ class FileRead extends File implements StreamIn
      */
     public function readFloat(int $length = 1)
     {
-        return (float) $this->read($length);
+        return (float)$this->read($length);
     }
 
     /**

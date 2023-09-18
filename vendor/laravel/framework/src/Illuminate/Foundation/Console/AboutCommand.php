@@ -60,7 +60,7 @@ class AboutCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param  \Illuminate\Support\Composer  $composer
+     * @param \Illuminate\Support\Composer $composer
      * @return void
      */
     public function __construct(Composer $composer)
@@ -80,7 +80,7 @@ class AboutCommand extends Command
         $this->gatherApplicationInformation();
 
         collect(static::$data)
-            ->map(fn ($items) => collect($items)
+            ->map(fn($items) => collect($items)
                 ->map(function ($value) {
                     if (is_array($value)) {
                         return [$value];
@@ -91,7 +91,7 @@ class AboutCommand extends Command
                     }
 
                     return collect($this->laravel->call($value))
-                        ->map(fn ($value, $key) => [$key, $value])
+                        ->map(fn($value, $key) => [$key, $value])
                         ->values()
                         ->all();
                 })->flatten(1)
@@ -104,7 +104,7 @@ class AboutCommand extends Command
             ->filter(function ($data, $key) {
                 return $this->option('only') ? in_array(Str::of($key)->lower()->snake(), $this->sections()) : true;
             })
-            ->pipe(fn ($data) => $this->display($data));
+            ->pipe(fn($data) => $this->display($data));
 
         $this->newLine();
 
@@ -114,7 +114,7 @@ class AboutCommand extends Command
     /**
      * Display the application information.
      *
-     * @param  \Illuminate\Support\Collection  $data
+     * @param \Illuminate\Support\Collection $data
      * @return void
      */
     protected function display($data)
@@ -125,7 +125,7 @@ class AboutCommand extends Command
     /**
      * Display the application information as a detail view.
      *
-     * @param  \Illuminate\Support\Collection  $data
+     * @param \Illuminate\Support\Collection $data
      * @return void
      */
     protected function displayDetail($data)
@@ -133,9 +133,9 @@ class AboutCommand extends Command
         $data->each(function ($data, $section) {
             $this->newLine();
 
-            $this->components->twoColumnDetail('  <fg=green;options=bold>'.$section.'</>');
+            $this->components->twoColumnDetail('  <fg=green;options=bold>' . $section . '</>');
 
-            $data->pipe(fn ($data) => $section !== 'Environment' ? $data->sort() : $data)->each(function ($detail) {
+            $data->pipe(fn($data) => $section !== 'Environment' ? $data->sort() : $data)->each(function ($detail) {
                 [$label, $value] = $detail;
 
                 $this->components->twoColumnDetail($label, value($value));
@@ -146,13 +146,13 @@ class AboutCommand extends Command
     /**
      * Display the application information as JSON.
      *
-     * @param  \Illuminate\Support\Collection  $data
+     * @param \Illuminate\Support\Collection $data
      * @return void
      */
     protected function displayJson($data)
     {
         $output = $data->flatMap(function ($data, $section) {
-            return [(string) Str::of($section)->snake() => $data->mapWithKeys(fn ($item, $key) => [(string) Str::of($item[0])->lower()->snake() => value($item[1])])];
+            return [(string)Str::of($section)->snake() => $data->mapWithKeys(fn($item, $key) => [(string)Str::of($item[0])->lower()->snake() => value($item[1])])];
         });
 
         $this->output->writeln(strip_tags(json_encode($output)));
@@ -165,7 +165,7 @@ class AboutCommand extends Command
      */
     protected function gatherApplicationInformation()
     {
-        static::addToSection('Environment', fn () => [
+        static::addToSection('Environment', fn() => [
             'Application Name' => config('app.name'),
             'Laravel Version' => $this->laravel->version(),
             'PHP Version' => phpversion(),
@@ -176,7 +176,7 @@ class AboutCommand extends Command
             'Maintenance Mode' => $this->laravel->isDownForMaintenance() ? '<fg=yellow;options=bold>ENABLED</>' : 'OFF',
         ]);
 
-        static::addToSection('Cache', fn () => [
+        static::addToSection('Cache', fn() => [
             'Config' => $this->laravel->configurationIsCached() ? '<fg=green;options=bold>CACHED</>' : '<fg=yellow;options=bold>NOT CACHED</>',
             'Events' => $this->laravel->eventsAreCached() ? '<fg=green;options=bold>CACHED</>' : '<fg=yellow;options=bold>NOT CACHED</>',
             'Routes' => $this->laravel->routesAreCached() ? '<fg=green;options=bold>CACHED</>' : '<fg=yellow;options=bold>NOT CACHED</>',
@@ -185,16 +185,16 @@ class AboutCommand extends Command
 
         $logChannel = config('logging.default');
 
-        if (config('logging.channels.'.$logChannel.'.driver') === 'stack') {
-            $secondary = collect(config('logging.channels.'.$logChannel.'.channels'))
+        if (config('logging.channels.' . $logChannel . '.driver') === 'stack') {
+            $secondary = collect(config('logging.channels.' . $logChannel . '.channels'))
                 ->implode(', ');
 
-            $logs = '<fg=yellow;options=bold>'.$logChannel.'</> <fg=gray;options=bold>/</> '.$secondary;
+            $logs = '<fg=yellow;options=bold>' . $logChannel . '</> <fg=gray;options=bold>/</> ' . $secondary;
         } else {
             $logs = $logChannel;
         }
 
-        static::addToSection('Drivers', fn () => array_filter([
+        static::addToSection('Drivers', fn() => array_filter([
             'Broadcasting' => config('broadcasting.default'),
             'Cache' => config('cache.default'),
             'Database' => config('database.default'),
@@ -212,33 +212,33 @@ class AboutCommand extends Command
     /**
      * Determine whether the given directory has PHP files.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     protected function hasPhpFiles(string $path): bool
     {
-        return count(glob($path.'/*.php')) > 0;
+        return count(glob($path . '/*.php')) > 0;
     }
 
     /**
      * Add additional data to the output of the "about" command.
      *
-     * @param  string  $section
-     * @param  callable|string|array  $data
-     * @param  string|null  $value
+     * @param string $section
+     * @param callable|string|array $data
+     * @param string|null $value
      * @return void
      */
     public static function add(string $section, $data, string $value = null)
     {
-        static::$customDataResolvers[] = fn () => static::addToSection($section, $data, $value);
+        static::$customDataResolvers[] = fn() => static::addToSection($section, $data, $value);
     }
 
     /**
      * Add additional data to the output of the "about" command.
      *
-     * @param  string  $section
-     * @param  callable|string|array  $data
-     * @param  string|null  $value
+     * @param string $section
+     * @param callable|string|array $data
+     * @param string|null $value
      * @return void
      */
     protected static function addToSection(string $section, $data, string $value = null)

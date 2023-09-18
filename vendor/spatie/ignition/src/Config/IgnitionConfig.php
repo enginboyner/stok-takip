@@ -37,7 +37,7 @@ class IgnitionConfig implements Arrayable
     private function initConfigManager(): ConfigManager
     {
         try {
-            /** @phpstan-ignore-next-line  */
+            /** @phpstan-ignore-next-line */
             return app(ConfigManager::class);
         } catch (Throwable) {
             return new FileConfigManager();

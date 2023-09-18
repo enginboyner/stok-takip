@@ -25,7 +25,7 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
         'isset' => [
             'var' => [],
             '...' => [
-                'isOptional'   => true,
+                'isOptional' => true,
                 'defaultValue' => null,
             ],
         ],
@@ -33,7 +33,7 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
         'unset' => [
             'var' => [],
             '...' => [
-                'isOptional'   => true,
+                'isOptional' => true,
                 'defaultValue' => null,
             ],
         ],
@@ -44,8 +44,8 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
 
         'echo' => [
             'arg1' => [],
-            '...'  => [
-                'isOptional'   => true,
+            '...' => [
+                'isOptional' => true,
                 'defaultValue' => null,
             ],
         ],
@@ -56,14 +56,14 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
 
         'die' => [
             'status' => [
-                'isOptional'   => true,
+                'isOptional' => true,
                 'defaultValue' => 0,
             ],
         ],
 
         'exit' => [
             'status' => [
-                'isOptional'   => true,
+                'isOptional' => true,
                 'defaultValue' => 0,
             ],
         ],
@@ -77,7 +77,7 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
     public function __construct(string $keyword)
     {
         if (!self::isLanguageConstruct($keyword)) {
-            throw new \InvalidArgumentException('Unknown language construct: '.$keyword);
+            throw new \InvalidArgumentException('Unknown language construct: ' . $keyword);
         }
 
         $this->keyword = $keyword;
@@ -129,9 +129,9 @@ class ReflectionLanguageConstruct extends \ReflectionFunctionAbstract
      *
      * (Hint: it always returns false)
      *
+     * @return string|false (false)
      * @todo remove \ReturnTypeWillChange attribute after dropping support for PHP 7.x (when we can use union types)
      *
-     * @return string|false (false)
      */
     #[\ReturnTypeWillChange]
     public function getFileName()

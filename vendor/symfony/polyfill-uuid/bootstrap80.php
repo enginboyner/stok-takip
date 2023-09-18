@@ -52,38 +52,74 @@ if (!defined('UUID_TYPE_INVALID')) {
 }
 
 if (!function_exists('uuid_create')) {
-    function uuid_create(?int $uuid_type = \UUID_TYPE_DEFAULT): string { return p\Uuid::uuid_create((int) $uuid_type); }
+    function uuid_create(?int $uuid_type = \UUID_TYPE_DEFAULT): string
+    {
+        return p\Uuid::uuid_create((int)$uuid_type);
+    }
 }
 if (!function_exists('uuid_generate_md5')) {
-    function uuid_generate_md5(?string $uuid_ns, ?string $name): string { return p\Uuid::uuid_generate_md5((string) $uuid_ns, (string) $name); }
+    function uuid_generate_md5(?string $uuid_ns, ?string $name): string
+    {
+        return p\Uuid::uuid_generate_md5((string)$uuid_ns, (string)$name);
+    }
 }
 if (!function_exists('uuid_generate_sha1')) {
-    function uuid_generate_sha1(?string $uuid_ns, ?string $name): string { return p\Uuid::uuid_generate_sha1((string) $uuid_ns, (string) $name); }
+    function uuid_generate_sha1(?string $uuid_ns, ?string $name): string
+    {
+        return p\Uuid::uuid_generate_sha1((string)$uuid_ns, (string)$name);
+    }
 }
 if (!function_exists('uuid_is_valid')) {
-    function uuid_is_valid(?string $uuid): bool { return p\Uuid::uuid_is_valid((string) $uuid); }
+    function uuid_is_valid(?string $uuid): bool
+    {
+        return p\Uuid::uuid_is_valid((string)$uuid);
+    }
 }
 if (!function_exists('uuid_compare')) {
-    function uuid_compare(?string $uuid1, ?string $uuid2): int { return p\Uuid::uuid_compare((string) $uuid1, (string) $uuid2); }
+    function uuid_compare(?string $uuid1, ?string $uuid2): int
+    {
+        return p\Uuid::uuid_compare((string)$uuid1, (string)$uuid2);
+    }
 }
 if (!function_exists('uuid_is_null')) {
-    function uuid_is_null(?string $uuid): bool { return p\Uuid::uuid_is_null((string) $uuid); }
+    function uuid_is_null(?string $uuid): bool
+    {
+        return p\Uuid::uuid_is_null((string)$uuid);
+    }
 }
 if (!function_exists('uuid_type')) {
-    function uuid_type(?string $uuid): int { return p\Uuid::uuid_type((string) $uuid); }
+    function uuid_type(?string $uuid): int
+    {
+        return p\Uuid::uuid_type((string)$uuid);
+    }
 }
 if (!function_exists('uuid_variant')) {
-    function uuid_variant(?string $uuid): int { return p\Uuid::uuid_variant((string) $uuid); }
+    function uuid_variant(?string $uuid): int
+    {
+        return p\Uuid::uuid_variant((string)$uuid);
+    }
 }
 if (!function_exists('uuid_time')) {
-    function uuid_time(?string $uuid): int { return p\Uuid::uuid_time((string) $uuid); }
+    function uuid_time(?string $uuid): int
+    {
+        return p\Uuid::uuid_time((string)$uuid);
+    }
 }
 if (!function_exists('uuid_mac')) {
-    function uuid_mac(?string $uuid): string { return p\Uuid::uuid_mac((string) $uuid); }
+    function uuid_mac(?string $uuid): string
+    {
+        return p\Uuid::uuid_mac((string)$uuid);
+    }
 }
 if (!function_exists('uuid_parse')) {
-    function uuid_parse(?string $uuid): string { return p\Uuid::uuid_parse((string) $uuid); }
+    function uuid_parse(?string $uuid): string
+    {
+        return p\Uuid::uuid_parse((string)$uuid);
+    }
 }
 if (!function_exists('uuid_unparse')) {
-    function uuid_unparse(?string $uuid): string { return p\Uuid::uuid_unparse((string) $uuid); }
+    function uuid_unparse(?string $uuid): string
+    {
+        return p\Uuid::uuid_unparse((string)$uuid);
+    }
 }

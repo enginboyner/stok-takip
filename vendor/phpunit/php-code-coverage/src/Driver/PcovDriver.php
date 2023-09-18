@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Driver;
 
 use const pcov\inclusive;
@@ -53,7 +54,7 @@ final class PcovDriver extends Driver
         stop();
 
         $filesToCollectCoverageFor = waiting();
-        $collected                 = [];
+        $collected = [];
 
         if ($filesToCollectCoverageFor) {
             if (!$this->filter->isEmpty()) {

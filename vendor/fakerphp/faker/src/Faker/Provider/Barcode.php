@@ -21,11 +21,11 @@ class Barcode extends Base
     /**
      * Utility function for computing EAN checksums
      *
-     * @deprecated Use \Faker\Calculator\Ean::checksum() instead
-     *
      * @param string $input
      *
      * @return int
+     * @deprecated Use \Faker\Calculator\Ean::checksum() instead
+     *
      */
     protected static function eanChecksum($input)
     {

@@ -385,7 +385,7 @@ class NativeSessionStorage implements SessionStorageInterface
                 if ('cookie_secure' === $key && 'auto' === $value) {
                     continue;
                 }
-                ini_set('session.'.$key, $value);
+                ini_set('session.' . $key, $value);
             }
         }
     }

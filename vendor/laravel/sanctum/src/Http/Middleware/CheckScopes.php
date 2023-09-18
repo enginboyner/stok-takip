@@ -13,9 +13,9 @@ class CheckScopes
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  mixed  ...$scopes
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param mixed ...$scopes
      * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Auth\AuthenticationException|\Laravel\Sanctum\Exceptions\MissingScopeException

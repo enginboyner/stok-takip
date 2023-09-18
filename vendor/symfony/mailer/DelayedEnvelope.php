@@ -52,7 +52,7 @@ final class DelayedEnvelope extends Envelope
     {
         parent::setRecipients($recipients);
 
-        $this->recipientsSet = (bool) parent::getRecipients();
+        $this->recipientsSet = (bool)parent::getRecipients();
     }
 
     /**

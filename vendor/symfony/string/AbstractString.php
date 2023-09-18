@@ -22,10 +22,10 @@ use Symfony\Component\String\Exception\RuntimeException;
  * This class is the abstract type to use as a type-hint when the logic you want to
  * implement doesn't care about the exact variant it deals with.
  *
- * @author Nicolas Grekas <p@tchwork.com>
+ * @throws ExceptionInterface
  * @author Hugo Hamon <hugohamon@neuf.fr>
  *
- * @throws ExceptionInterface
+ * @author Nicolas Grekas <p@tchwork.com>
  */
 abstract class AbstractString implements \Stringable, \JsonSerializable
 {
@@ -73,7 +73,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         $keys = null;
 
         foreach ($values as $k => $v) {
-            if (\is_string($k) && '' !== $k && $k !== $j = (string) new static($k)) {
+            if (\is_string($k) && '' !== $k && $k !== $j = (string)new static($k)) {
                 $keys = $keys ?? array_keys($values);
                 $keys[$i] = $j;
             }
@@ -103,7 +103,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($needle as $n) {
-            $n = (string) $n;
+            $n = (string)$n;
             $j = $this->indexOf($n, $offset);
 
             if (null !== $j && $j < $i) {
@@ -136,7 +136,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($needle as $n) {
-            $n = (string) $n;
+            $n = (string)$n;
             $j = $this->indexOfLast($n, $offset);
 
             if (null !== $j && $j >= $i) {
@@ -171,7 +171,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($needle as $n) {
-            $n = (string) $n;
+            $n = (string)$n;
             $j = $this->indexOf($n, $offset);
 
             if (null !== $j && $j < $i) {
@@ -204,7 +204,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($needle as $n) {
-            $n = (string) $n;
+            $n = (string)$n;
             $j = $this->indexOfLast($n, $offset);
 
             if (null !== $j && $j >= $i) {
@@ -267,7 +267,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($suffix as $s) {
-            if ($this->endsWith((string) $s)) {
+            if ($this->endsWith((string)$s)) {
                 return true;
             }
         }
@@ -282,9 +282,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         $suffix = preg_quote($suffix);
-        $regex = '{('.$suffix.')(?:'.$suffix.')++$}D';
+        $regex = '{(' . $suffix . ')(?:' . $suffix . ')++$}D';
 
-        return $this->replaceMatches($regex.($this->ignoreCase ? 'i' : ''), '$1');
+        return $this->replaceMatches($regex . ($this->ignoreCase ? 'i' : ''), '$1');
     }
 
     public function ensureStart(string $prefix): static
@@ -316,7 +316,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($string as $s) {
-            if ($this->equalsTo((string) $s)) {
+            if ($this->equalsTo((string)$s)) {
                 return true;
             }
         }
@@ -346,7 +346,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         $i = \PHP_INT_MAX;
 
         foreach ($needle as $n) {
-            $j = $this->indexOf((string) $n, $offset);
+            $j = $this->indexOf((string)$n, $offset);
 
             if (null !== $j && $j < $i) {
                 $i = $j;
@@ -368,7 +368,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         $i = null;
 
         foreach ($needle as $n) {
-            $j = $this->indexOfLast((string) $n, $offset);
+            $j = $this->indexOfLast((string)$n, $offset);
 
             if (null !== $j && $j >= $i) {
                 $i = $offset = $j;
@@ -448,7 +448,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
             $delimiter .= 'i';
         }
 
-        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
+        set_error_handler(static function ($t, $m) {
+            throw new InvalidArgumentException($m);
+        });
 
         try {
             if (false === $chunks = preg_split($delimiter, $this->string, $limit, $flags)) {
@@ -456,7 +458,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
 
                 foreach (get_defined_constants(true)['pcre'] as $k => $v) {
                     if ($lastError === $v && '_ERROR' === substr($k, -6)) {
-                        throw new RuntimeException('Splitting failed with '.$k.'.');
+                        throw new RuntimeException('Splitting failed with ' . $k . '.');
                     }
                 }
 
@@ -493,7 +495,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         foreach ($prefix as $prefix) {
-            if ($this->startsWith((string) $prefix)) {
+            if ($this->startsWith((string)$prefix)) {
                 return true;
             }
         }
@@ -515,7 +517,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
             return $b;
         }
 
-        set_error_handler(static function ($t, $m) { throw new InvalidArgumentException($m); });
+        set_error_handler(static function ($t, $m) {
+            throw new InvalidArgumentException($m);
+        });
 
         try {
             try {
@@ -575,7 +579,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         if ($prefix instanceof self) {
             $prefix = $prefix->string;
         } else {
-            $prefix = (string) $prefix;
+            $prefix = (string)$prefix;
         }
 
         if ('' !== $prefix && \strlen($this->string) >= \strlen($prefix) && 0 === substr_compare($this->string, $prefix, 0, \strlen($prefix), $this->ignoreCase)) {
@@ -609,7 +613,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         if ($suffix instanceof self) {
             $suffix = $suffix->string;
         } else {
-            $suffix = (string) $suffix;
+            $suffix = (string)$suffix;
         }
 
         if ('' !== $suffix && \strlen($this->string) >= \strlen($suffix) && 0 === substr_compare($this->string, $suffix, -\strlen($suffix), null, $this->ignoreCase)) {
@@ -694,7 +698,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         }
 
         $str = clone $this;
-        $str->string = $string.implode('', $chars);
+        $str->string = $string . implode('', $chars);
 
         return $str;
     }

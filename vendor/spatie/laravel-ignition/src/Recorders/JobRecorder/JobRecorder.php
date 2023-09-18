@@ -22,8 +22,9 @@ class JobRecorder
 
     public function __construct(
         protected Application $app,
-        protected int $maxChainedJobReportingDepth = 5,
-    ) {
+        protected int         $maxChainedJobReportingDepth = 5,
+    )
+    {
     }
 
     public function start(): self
@@ -70,7 +71,7 @@ class JobRecorder
         $properties = [];
 
         foreach ($payload as $key => $value) {
-            if (! in_array($key, ['job', 'data', 'displayName'])) {
+            if (!in_array($key, ['job', 'data', 'displayName'])) {
                 $properties[$key] = $value;
             }
         }
@@ -92,7 +93,7 @@ class JobRecorder
 
     protected function resolveJobPayload(): array
     {
-        if (! $this->job instanceof RedisJob) {
+        if (!$this->job instanceof RedisJob) {
             return $this->job->payload();
         }
 

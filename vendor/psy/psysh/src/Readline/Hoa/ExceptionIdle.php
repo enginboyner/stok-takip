@@ -76,11 +76,12 @@ class ExceptionIdle extends \Exception
      * chaining, we can add a previous exception.
      */
     public function __construct(
-        string $message,
-        int $code = 0,
-        $arguments = [],
+        string     $message,
+        int        $code = 0,
+                   $arguments = [],
         \Exception $previous = null
-    ) {
+    )
+    {
         $this->_tmpArguments = $arguments;
         parent::__construct($message, $code, $previous);
         $this->_rawMessage = $message;
@@ -171,11 +172,11 @@ class ExceptionIdle extends \Exception
             $from = '';
 
             if (isset($t['class'])) {
-                $from .= $t['class'].'::';
+                $from .= $t['class'] . '::';
             }
 
             if (isset($t['function'])) {
-                $from .= $t['function'].'()';
+                $from .= $t['function'] . '()';
             }
         }
 
@@ -202,20 +203,20 @@ class ExceptionIdle extends \Exception
 
         try {
             $out =
-                $pre.'('.$this->getCode().') '.$message."\n".
-                'in '.$this->getFile().' at line '.
-                $this->getLine().'.';
+                $pre . '(' . $this->getCode() . ') ' . $message . "\n" .
+                'in ' . $this->getFile() . ' at line ' .
+                $this->getLine() . '.';
         } catch (\Exception $e) {
             $out =
-                $pre.'('.$this->getCode().') '.$message."\n".
-                'in '.$file.' around line '.$line.'.';
+                $pre . '(' . $this->getCode() . ') ' . $message . "\n" .
+                'in ' . $file . ' around line ' . $line . '.';
         }
 
         if (true === $includePrevious &&
             null !== $previous = $this->getPreviousThrow()) {
             $out .=
-                "\n\n".'    ⬇'."\n\n".
-                'Nested exception ('.\get_class($previous).'):'."\n".
+                "\n\n" . '    ⬇' . "\n\n" .
+                'Nested exception (' . \get_class($previous) . '):' . "\n" .
                 ($previous instanceof self
                     ? $previous->raise(true)
                     : $previous->getMessage());
@@ -237,7 +238,7 @@ class ExceptionIdle extends \Exception
             \ob_end_flush();
         }
 
-        echo 'Uncaught exception ('.\get_class($exception).'):'."\n".
+        echo 'Uncaught exception (' . \get_class($exception) . '):' . "\n" .
             $exception->raise(true);
     }
 

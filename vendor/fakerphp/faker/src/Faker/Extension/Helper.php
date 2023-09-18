@@ -42,13 +42,13 @@ final class Helper
         }
 
         if ($nbReplacements = count($toReplace)) {
-            $maxAtOnce = strlen((string) mt_getrandmax()) - 1;
+            $maxAtOnce = strlen((string)mt_getrandmax()) - 1;
             $numbers = '';
             $i = 0;
 
             while ($i < $nbReplacements) {
                 $size = min($nbReplacements - $i, $maxAtOnce);
-                $numbers .= str_pad((string) mt_rand(0, 10 ** $size - 1), $size, '0', STR_PAD_LEFT);
+                $numbers .= str_pad((string)mt_rand(0, 10 ** $size - 1), $size, '0', STR_PAD_LEFT);
                 $i += $size;
             }
 

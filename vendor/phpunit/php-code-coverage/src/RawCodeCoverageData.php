@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage;
 
 use function array_diff;
@@ -55,11 +56,11 @@ final class RawCodeCoverageData
 
     public static function fromXdebugWithPathCoverage(array $rawCoverage): self
     {
-        $lineCoverage     = [];
+        $lineCoverage = [];
         $functionCoverage = [];
 
         foreach ($rawCoverage as $file => $fileCoverageData) {
-            $lineCoverage[$file]     = $fileCoverageData['lines'];
+            $lineCoverage[$file] = $fileCoverageData['lines'];
             $functionCoverage[$file] = $fileCoverageData['functions'];
         }
 
@@ -68,7 +69,7 @@ final class RawCodeCoverageData
 
     public static function fromXdebugWithMixedCoverage(array $rawCoverage): self
     {
-        $lineCoverage     = [];
+        $lineCoverage = [];
         $functionCoverage = [];
 
         foreach ($rawCoverage as $file => $fileCoverageData) {
@@ -80,7 +81,7 @@ final class RawCodeCoverageData
                 continue;
             }
 
-            $lineCoverage[$file]     = $fileCoverageData['lines'];
+            $lineCoverage[$file] = $fileCoverageData['lines'];
             $functionCoverage[$file] = $fileCoverageData['functions'];
         }
 
@@ -100,7 +101,7 @@ final class RawCodeCoverageData
 
     private function __construct(array $lineCoverage, array $functionCoverage)
     {
-        $this->lineCoverage     = $lineCoverage;
+        $this->lineCoverage = $lineCoverage;
         $this->functionCoverage = $functionCoverage;
 
         $this->skipEmptyLines();

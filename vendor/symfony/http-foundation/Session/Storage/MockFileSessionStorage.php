@@ -104,7 +104,7 @@ class MockFileSessionStorage extends MockArraySessionStorage
         try {
             if ($data) {
                 $path = $this->getFilePath();
-                $tmp = $path.bin2hex(random_bytes(6));
+                $tmp = $path . bin2hex(random_bytes(6));
                 file_put_contents($tmp, serialize($data));
                 rename($tmp, $path);
             } else {
@@ -125,7 +125,8 @@ class MockFileSessionStorage extends MockArraySessionStorage
      */
     private function destroy(): void
     {
-        set_error_handler(static function () {});
+        set_error_handler(static function () {
+        });
         try {
             unlink($this->getFilePath());
         } finally {
@@ -138,7 +139,7 @@ class MockFileSessionStorage extends MockArraySessionStorage
      */
     private function getFilePath(): string
     {
-        return $this->savePath.'/'.$this->id.'.mocksess';
+        return $this->savePath . '/' . $this->id . '.mocksess';
     }
 
     /**
@@ -146,7 +147,8 @@ class MockFileSessionStorage extends MockArraySessionStorage
      */
     private function read(): void
     {
-        set_error_handler(static function () {});
+        set_error_handler(static function () {
+        });
         try {
             $data = file_get_contents($this->getFilePath());
         } finally {

@@ -56,8 +56,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     public function __construct(array $baseSchemas = [])
     {
         $this->configSchemas = $baseSchemas;
-        $this->userConfig    = new Data();
-        $this->finalConfig   = new Data();
+        $this->userConfig = new Data();
+        $this->finalConfig = new Data();
 
         $this->reader = new ReadOnlyConfiguration($this);
     }
@@ -98,7 +98,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
         try {
             $this->userConfig->set($key, $value);
         } catch (DataException $ex) {
-            throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
+            throw new UnknownOptionException($ex->getMessage(), $key, (int)$ex->getCode(), $ex);
         }
     }
 
@@ -117,8 +117,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->build(self::getTopLevelKey($key));
 
             return $this->cache[$key] = $this->finalConfig->get($key);
-        } catch (InvalidPathException | MissingPathException $ex) {
-            throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
+        } catch (InvalidPathException|MissingPathException $ex) {
+            throw new UnknownOptionException($ex->getMessage(), $key, (int)$ex->getCode(), $ex);
         }
     }
 
@@ -137,7 +137,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->build(self::getTopLevelKey($key));
 
             return $this->finalConfig->has($key);
-        } catch (InvalidPathException | UnknownOptionException $ex) {
+        } catch (InvalidPathException|UnknownOptionException $ex) {
             return false;
         }
     }
@@ -155,7 +155,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
      */
     private function invalidate(): void
     {
-        $this->cache       = [];
+        $this->cache = [];
         $this->finalConfig = new Data();
     }
 
@@ -172,7 +172,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             return;
         }
 
-        if (! isset($this->configSchemas[$topLevelKey])) {
+        if (!isset($this->configSchemas[$topLevelKey])) {
             throw new UnknownOptionException(\sprintf('Missing config schema for "%s"', $topLevelKey), $topLevelKey);
         }
 
@@ -183,14 +183,14 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
         }
 
         try {
-            $schema    = $this->configSchemas[$topLevelKey];
+            $schema = $this->configSchemas[$topLevelKey];
             $processor = new Processor();
 
             $processed = $processor->process(Expect::structure([$topLevelKey => $schema]), $userData);
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
 
-            $this->finalConfig->import((array) self::convertStdClassesToArrays($processed));
+            $this->finalConfig->import((array)self::convertStdClassesToArrays($processed));
         } catch (NetteValidationException $ex) {
             throw new ValidationException($ex);
         }
@@ -212,7 +212,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     private static function convertStdClassesToArrays($data)
     {
         if ($data instanceof \stdClass) {
-            $data = (array) $data;
+            $data = (array)$data;
         }
 
         if (\is_array($data)) {

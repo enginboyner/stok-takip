@@ -56,7 +56,8 @@ class Backtrace
 
     public function withArguments(
         bool $withArguments = true
-    ): self {
+    ): self
+    {
         $this->withArguments = $withArguments;
 
         return $this;
@@ -69,7 +70,8 @@ class Backtrace
      */
     public function reduceArguments(
         $argumentReducers = null
-    ): self {
+    ): self
+    {
         $this->reduceArguments = true;
         $this->argumentReducers = $argumentReducers;
 
@@ -140,7 +142,7 @@ class Backtrace
 
         $options = null;
 
-        if (! $this->withArguments) {
+        if (!$this->withArguments) {
             $options = $options | DEBUG_BACKTRACE_IGNORE_ARGS;
         }
 
@@ -217,11 +219,11 @@ class Backtrace
     {
         $relativeFile = str_replace('\\', DIRECTORY_SEPARATOR, $frameFilename);
 
-        if (! empty($this->applicationPath)) {
+        if (!empty($this->applicationPath)) {
             $relativeFile = array_reverse(explode($this->applicationPath ?? '', $frameFilename, 2))[0];
         }
 
-        if (strpos($relativeFile, DIRECTORY_SEPARATOR.'vendor') === 0) {
+        if (strpos($relativeFile, DIRECTORY_SEPARATOR . 'vendor') === 0) {
             return false;
         }
 

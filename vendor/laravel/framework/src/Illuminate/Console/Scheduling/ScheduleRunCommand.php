@@ -100,9 +100,9 @@ class ScheduleRunCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
-     * @param  \Illuminate\Contracts\Debug\ExceptionHandler  $handler
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Contracts\Events\Dispatcher $dispatcher
+     * @param \Illuminate\Contracts\Debug\ExceptionHandler $handler
      * @return void
      */
     public function handle(Schedule $schedule, Dispatcher $dispatcher, ExceptionHandler $handler)
@@ -115,7 +115,7 @@ class ScheduleRunCommand extends Command
         $this->newLine();
 
         foreach ($this->schedule->dueEvents($this->laravel) as $event) {
-            if (! $event->filtersPass($this->laravel)) {
+            if (!$event->filtersPass($this->laravel)) {
                 $this->dispatcher->dispatch(new ScheduledTaskSkipped($event));
 
                 continue;
@@ -130,7 +130,7 @@ class ScheduleRunCommand extends Command
             $this->eventsRan = true;
         }
 
-        if (! $this->eventsRan) {
+        if (!$this->eventsRan) {
             $this->components->info('No scheduled commands are ready to run.');
         } else {
             $this->newLine();
@@ -140,7 +140,7 @@ class ScheduleRunCommand extends Command
     /**
      * Run the given single server event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
+     * @param \Illuminate\Console\Scheduling\Event $event
      * @return void
      */
     protected function runSingleServerEvent($event)
@@ -157,7 +157,7 @@ class ScheduleRunCommand extends Command
     /**
      * Run the given event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
+     * @param \Illuminate\Console\Scheduling\Event $event
      * @return void
      */
     protected function runEvent($event)
@@ -198,7 +198,7 @@ class ScheduleRunCommand extends Command
             return $event->exitCode == 0;
         });
 
-        if (! $event instanceof CallbackEvent) {
+        if (!$event instanceof CallbackEvent) {
             $this->components->bulletList([
                 $event->getSummaryForDisplay(),
             ]);

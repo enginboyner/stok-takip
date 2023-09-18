@@ -67,12 +67,12 @@ class Base
      *
      * The maximum value returned is mt_getrandmax()
      *
-     * @param int  $nbDigits Defaults to a random number between 1 and 9
-     * @param bool $strict   Whether the returned number should have exactly $nbDigits
-     *
-     * @example 79907610
+     * @param int $nbDigits Defaults to a random number between 1 and 9
+     * @param bool $strict Whether the returned number should have exactly $nbDigits
      *
      * @return int
+     * @example 79907610
+     *
      */
     public static function randomNumber($nbDigits = null, $strict = false)
     {
@@ -99,13 +99,13 @@ class Base
     /**
      * Return a random float number
      *
-     * @param int       $nbMaxDecimals
+     * @param int $nbMaxDecimals
      * @param float|int $min
      * @param float|int $max
      *
+     * @return float
      * @example 48.8932
      *
-     * @return float
      */
     public static function randomFloat($nbMaxDecimals = null, $min = 0, $max = null)
     {
@@ -136,9 +136,9 @@ class Base
      * @param int $int1 default to 0
      * @param int $int2 defaults to 32 bit max integer, ie 2147483647
      *
+     * @return int
      * @example 79907610
      *
-     * @return int
      */
     public static function numberBetween($int1 = 0, $int2 = 2147483647)
     {
@@ -179,16 +179,16 @@ class Base
     /**
      * Returns randomly ordered subsequence of $count elements from a provided array
      *
-     * @todo update default $count to `null` (BC) for next major version
-     *
-     * @param array|class-string|\Traversable $array           Array to take elements from. Defaults to a-c
-     * @param int|null                        $count           Number of elements to take. If `null` then returns random number of elements
-     * @param bool                            $allowDuplicates Allow elements to be picked several times. Defaults to false
-     *
-     * @throws \InvalidArgumentException
-     * @throws \LengthException          When requesting more elements than provided
+     * @param array|class-string|\Traversable $array Array to take elements from. Defaults to a-c
+     * @param int|null $count Number of elements to take. If `null` then returns random number of elements
+     * @param bool $allowDuplicates Allow elements to be picked several times. Defaults to false
      *
      * @return array New array with $count elements from $array
+     * @throws \LengthException          When requesting more elements than provided
+     *
+     * @throws \InvalidArgumentException
+     * @todo update default $count to `null` (BC) for next major version
+     *
      */
     public static function randomElements($array = ['a', 'b', 'c'], $count = 1, $allowDuplicates = false)
     {
@@ -389,7 +389,7 @@ class Base
      *
      * @example $faker->shuffleString('hello, world'); // 'rlo,h eold!lw'
      *
-     * @param string $string   The set to shuffle
+     * @param string $string The set to shuffle
      * @param string $encoding The string encoding (defaults to UTF-8)
      *
      * @return string The shuffled set
@@ -449,7 +449,7 @@ class Base
         }
 
         if ($nbReplacements = count($toReplace)) {
-            $maxAtOnce = strlen((string) mt_getrandmax()) - 1;
+            $maxAtOnce = strlen((string)mt_getrandmax()) - 1;
             $numbers = '';
             $i = 0;
 
@@ -477,7 +477,7 @@ class Base
      */
     public static function lexify($string = '????')
     {
-        return self::replaceWildcard($string, '?', [static::class,  'randomLetter']);
+        return self::replaceWildcard($string, '?', [static::class, 'randomLetter']);
     }
 
     /**
@@ -568,8 +568,8 @@ class Base
         // All A-F inside of [] become ABCDEF
         $regex = preg_replace_callback('/\[([^\]]+)\]/', static function ($matches) {
             return '[' . preg_replace_callback('/(\w|\d)\-(\w|\d)/', static function ($range) {
-                return implode('', range($range[1], $range[2]));
-            }, $matches[1]) . ']';
+                    return implode('', range($range[1], $range[2]));
+                }, $matches[1]) . ']';
         }, $regex);
         // All [ABC] become B (or A or C)
         $regex = preg_replace_callback('/\[([^\]]+)\]/', static function ($matches) {
@@ -661,13 +661,13 @@ class Base
      * $faker->unique()->randomElement(array(1, 2, 3));
      * </code>
      *
-     * @param bool $reset      If set to true, resets the list of existing values
-     * @param int  $maxRetries Maximum number of retries to find a unique value,
+     * @param bool $reset If set to true, resets the list of existing values
+     * @param int $maxRetries Maximum number of retries to find a unique value,
      *                         After which an OverflowException is thrown.
      *
+     * @return UniqueGenerator A proxy class returning only non-existing values
      * @throws \OverflowException When no unique value can be found by iterating $maxRetries times
      *
-     * @return UniqueGenerator A proxy class returning only non-existing values
      */
     public function unique($reset = false, $maxRetries = 10000)
     {
@@ -694,13 +694,13 @@ class Base
      * print_r($values); // [0, 4, 8, 4, 2, 6, 0, 8, 8, 6]
      * </code>
      *
-     * @param Closure $validator  A function returning true for valid values
-     * @param int     $maxRetries Maximum number of retries to find a unique value,
+     * @param Closure $validator A function returning true for valid values
+     * @param int $maxRetries Maximum number of retries to find a unique value,
      *                            After which an OverflowException is thrown.
      *
+     * @return ValidGenerator A proxy class returning only valid values
      * @throws \OverflowException When no valid value can be found by iterating $maxRetries times
      *
-     * @return ValidGenerator A proxy class returning only valid values
      */
     public function valid($validator = null, $maxRetries = 10000)
     {

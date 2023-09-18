@@ -32,11 +32,11 @@ class ValidFunctionNamePass extends NamespaceAwarePass
     /**
      * Store newly defined function names on the way in, to allow recursion.
      *
-     * @throws FatalErrorException if a function is redefined in a non-conditional scope
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws FatalErrorException if a function is redefined in a non-conditional scope
+     *
      */
     public function enterNode(Node $node)
     {

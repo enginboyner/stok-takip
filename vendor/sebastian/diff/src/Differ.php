@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Diff;
 
 use const PHP_INT_SIZE;
@@ -35,13 +36,13 @@ use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
 final class Differ
 {
-    public const OLD                     = 0;
+    public const OLD = 0;
 
-    public const ADDED                   = 1;
+    public const ADDED = 1;
 
-    public const REMOVED                 = 2;
+    public const REMOVED = 2;
 
-    public const DIFF_LINE_END_WARNING   = 3;
+    public const DIFF_LINE_END_WARNING = 3;
 
     public const NO_LINE_END_EOF_WARNING = 4;
 
@@ -104,8 +105,8 @@ final class Differ
      * - 1: ADDED: $token was added to $from
      * - 0: OLD: $token is not changed in $to
      *
-     * @param array|string                       $from
-     * @param array|string                       $to
+     * @param array|string $from
+     * @param array|string $to
      * @param LongestCommonSubsequenceCalculator $lcs
      */
     public function diffToArray($from, $to, LongestCommonSubsequenceCalculator $lcs = null): array
@@ -129,7 +130,7 @@ final class Differ
         }
 
         $common = $lcs->calculate(array_values($from), array_values($to));
-        $diff   = [];
+        $diff = [];
 
         foreach ($start as $token) {
             $diff[] = [$token, self::OLD];
@@ -180,7 +181,7 @@ final class Differ
     private function normalizeDiffInput($input)
     {
         if (!is_array($input) && !is_string($input)) {
-            return (string) $input;
+            return (string)$input;
         }
 
         return $input;
@@ -231,7 +232,7 @@ final class Differ
 
         foreach ($diff as $entry) {
             if (self::OLD === $entry[1]) {
-                $ln                 = $this->getLinebreak($entry[0]);
+                $ln = $this->getLinebreak($entry[0]);
                 $oldLineBreaks[$ln] = true;
                 $newLineBreaks[$ln] = true;
             } elseif (self::ADDED === $entry[1]) {
@@ -288,7 +289,7 @@ final class Differ
     private static function getArrayDiffParted(array &$from, array &$to): array
     {
         $start = [];
-        $end   = [];
+        $end = [];
 
         reset($to);
 
@@ -309,7 +310,7 @@ final class Differ
 
         do {
             $fromK = key($from);
-            $toK   = key($to);
+            $toK = key($to);
 
             if (null === $fromK || null === $toK || current($from) !== current($to)) {
                 break;

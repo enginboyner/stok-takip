@@ -250,8 +250,8 @@ class TraceableEventDispatcher implements EventDispatcherInterface, ResetInterfa
     /**
      * Proxies all method calls to the original event dispatcher.
      *
-     * @param string $method    The method name
-     * @param array  $arguments The method arguments
+     * @param string $method The method name
+     * @param array $arguments The method arguments
      */
     public function __call(string $method, array $arguments): mixed
     {

@@ -82,13 +82,13 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
         }
 
         $isHeuristicallyCacheable = $response->headers->hasCacheControlDirective('public');
-        $maxAge = $response->headers->hasCacheControlDirective('max-age') ? (int) $response->headers->getCacheControlDirective('max-age') : null;
+        $maxAge = $response->headers->hasCacheControlDirective('max-age') ? (int)$response->headers->getCacheControlDirective('max-age') : null;
         $this->storeRelativeAgeDirective('max-age', $maxAge, $age, $isHeuristicallyCacheable);
-        $sharedMaxAge = $response->headers->hasCacheControlDirective('s-maxage') ? (int) $response->headers->getCacheControlDirective('s-maxage') : $maxAge;
+        $sharedMaxAge = $response->headers->hasCacheControlDirective('s-maxage') ? (int)$response->headers->getCacheControlDirective('s-maxage') : $maxAge;
         $this->storeRelativeAgeDirective('s-maxage', $sharedMaxAge, $age, $isHeuristicallyCacheable);
 
         $expires = $response->getExpires();
-        $expires = null !== $expires ? (int) $expires->format('U') - (int) $response->getDate()->format('U') : null;
+        $expires = null !== $expires ? (int)$expires->format('U') - (int)$response->getDate()->format('U') : null;
         $this->storeRelativeAgeDirective('expires', $expires >= 0 ? $expires : null, 0, $isHeuristicallyCacheable);
     }
 
@@ -147,7 +147,7 @@ class ResponseCacheStrategy implements ResponseCacheStrategyInterface
 
         if (is_numeric($this->ageDirectives['expires'])) {
             $date = clone $response->getDate();
-            $date->modify('+'.($this->ageDirectives['expires'] + $this->age).' seconds');
+            $date->modify('+' . ($this->ageDirectives['expires'] + $this->age) . ' seconds');
             $response->setExpires($date);
         }
     }

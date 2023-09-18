@@ -98,7 +98,7 @@ HELP
         if (\preg_match('/eval\(/', $stackFrame['file'])) {
             \preg_match_all('/([^\(]+)\((\d+)/', $stackFrame['file'], $matches);
             $file = $matches[1][0];
-            $line = (int) $matches[2][0];
+            $line = (int)$matches[2][0];
         } else {
             $file = $stackFrame['file'];
             $line = $stackFrame['line'];
@@ -152,8 +152,8 @@ HELP
             return $file;
         }
 
-        $cwd = \rtrim($cwd, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
+        $cwd = \rtrim($cwd, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
 
-        return \preg_replace('/^'.\preg_quote($cwd, '/').'/', '', $file);
+        return \preg_replace('/^' . \preg_quote($cwd, '/') . '/', '', $file);
     }
 }

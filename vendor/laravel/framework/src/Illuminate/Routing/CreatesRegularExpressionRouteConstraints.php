@@ -9,7 +9,7 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be alphabetic.
      *
-     * @param  array|string  $parameters
+     * @param array|string $parameters
      * @return $this
      */
     public function whereAlpha($parameters)
@@ -20,7 +20,7 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be alphanumeric.
      *
-     * @param  array|string  $parameters
+     * @param array|string $parameters
      * @return $this
      */
     public function whereAlphaNumeric($parameters)
@@ -31,7 +31,7 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be numeric.
      *
-     * @param  array|string  $parameters
+     * @param array|string $parameters
      * @return $this
      */
     public function whereNumber($parameters)
@@ -42,7 +42,7 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be ULIDs.
      *
-     * @param  array|string  $parameters
+     * @param array|string $parameters
      * @return $this
      */
     public function whereUlid($parameters)
@@ -53,7 +53,7 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be UUIDs.
      *
-     * @param  array|string  $parameters
+     * @param array|string $parameters
      * @return $this
      */
     public function whereUuid($parameters)
@@ -64,8 +64,8 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Specify that the given route parameters must be one of the given values.
      *
-     * @param  array|string  $parameters
-     * @param  array  $values
+     * @param array|string $parameters
+     * @param array $values
      * @return $this
      */
     public function whereIn($parameters, array $values)
@@ -76,14 +76,14 @@ trait CreatesRegularExpressionRouteConstraints
     /**
      * Apply the given regular expression to the given parameters.
      *
-     * @param  array|string  $parameters
-     * @param  string  $expression
+     * @param array|string $parameters
+     * @param string $expression
      * @return $this
      */
     protected function assignExpressionToParameters($parameters, $expression)
     {
         return $this->where(collect(Arr::wrap($parameters))
-                    ->mapWithKeys(fn ($parameter) => [$parameter => $expression])
-                    ->all());
+            ->mapWithKeys(fn($parameter) => [$parameter => $expression])
+            ->all());
     }
 }

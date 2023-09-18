@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
 use const PHP_EOL;
@@ -27,7 +28,7 @@ use SebastianBergmann\Environment\Console;
 final class Help
 {
     private const LEFT_MARGIN = '  ';
-    private const HELP_TEXT   = [
+    private const HELP_TEXT = [
         'Usage' => [
             ['text' => 'phpunit [options] UnitTest.php'],
             ['text' => 'phpunit [options] <directory>'],
@@ -75,46 +76,46 @@ final class Help
 
         'Test Execution Options' => [
             ['arg' => '--dont-report-useless-tests', 'desc' => 'Do not report tests that do not test anything'],
-            ['arg'    => '--strict-coverage', 'desc' => 'Be strict about @covers annotation usage'],
-            ['arg'    => '--strict-global-state', 'desc' => 'Be strict about changes to global state'],
-            ['arg'    => '--disallow-test-output', 'desc' => 'Be strict about output during tests'],
-            ['arg'    => '--disallow-resource-usage', 'desc' => 'Be strict about resource usage during small tests'],
-            ['arg'    => '--enforce-time-limit', 'desc' => 'Enforce time limit based on test size'],
-            ['arg'    => '--default-time-limit <sec>', 'desc' => 'Timeout in seconds for tests without @small, @medium or @large'],
-            ['arg'    => '--disallow-todo-tests', 'desc' => 'Disallow @todo-annotated tests'],
+            ['arg' => '--strict-coverage', 'desc' => 'Be strict about @covers annotation usage'],
+            ['arg' => '--strict-global-state', 'desc' => 'Be strict about changes to global state'],
+            ['arg' => '--disallow-test-output', 'desc' => 'Be strict about output during tests'],
+            ['arg' => '--disallow-resource-usage', 'desc' => 'Be strict about resource usage during small tests'],
+            ['arg' => '--enforce-time-limit', 'desc' => 'Enforce time limit based on test size'],
+            ['arg' => '--default-time-limit <sec>', 'desc' => 'Timeout in seconds for tests without @small, @medium or @large'],
+            ['arg' => '--disallow-todo-tests', 'desc' => 'Disallow @todo-annotated tests'],
             ['spacer' => ''],
 
-            ['arg'    => '--process-isolation', 'desc' => 'Run each test in a separate PHP process'],
-            ['arg'    => '--globals-backup', 'desc' => 'Backup and restore $GLOBALS for each test'],
-            ['arg'    => '--static-backup', 'desc' => 'Backup and restore static attributes for each test'],
+            ['arg' => '--process-isolation', 'desc' => 'Run each test in a separate PHP process'],
+            ['arg' => '--globals-backup', 'desc' => 'Backup and restore $GLOBALS for each test'],
+            ['arg' => '--static-backup', 'desc' => 'Backup and restore static attributes for each test'],
             ['spacer' => ''],
 
-            ['arg'    => '--colors <flag>', 'desc' => 'Use colors in output ("never", "auto" or "always")'],
-            ['arg'    => '--columns <n>', 'desc' => 'Number of columns to use for progress output'],
-            ['arg'    => '--columns max', 'desc' => 'Use maximum number of columns for progress output'],
-            ['arg'    => '--stderr', 'desc' => 'Write to STDERR instead of STDOUT'],
-            ['arg'    => '--stop-on-defect', 'desc' => 'Stop execution upon first not-passed test'],
-            ['arg'    => '--stop-on-error', 'desc' => 'Stop execution upon first error'],
-            ['arg'    => '--stop-on-failure', 'desc' => 'Stop execution upon first error or failure'],
-            ['arg'    => '--stop-on-warning', 'desc' => 'Stop execution upon first warning'],
-            ['arg'    => '--stop-on-risky', 'desc' => 'Stop execution upon first risky test'],
-            ['arg'    => '--stop-on-skipped', 'desc' => 'Stop execution upon first skipped test'],
-            ['arg'    => '--stop-on-incomplete', 'desc' => 'Stop execution upon first incomplete test'],
-            ['arg'    => '--fail-on-incomplete', 'desc' => 'Treat incomplete tests as failures'],
-            ['arg'    => '--fail-on-risky', 'desc' => 'Treat risky tests as failures'],
-            ['arg'    => '--fail-on-skipped', 'desc' => 'Treat skipped tests as failures'],
-            ['arg'    => '--fail-on-warning', 'desc' => 'Treat tests with warnings as failures'],
-            ['arg'    => '-v|--verbose', 'desc' => 'Output more verbose information'],
-            ['arg'    => '--debug', 'desc' => 'Display debugging information'],
+            ['arg' => '--colors <flag>', 'desc' => 'Use colors in output ("never", "auto" or "always")'],
+            ['arg' => '--columns <n>', 'desc' => 'Number of columns to use for progress output'],
+            ['arg' => '--columns max', 'desc' => 'Use maximum number of columns for progress output'],
+            ['arg' => '--stderr', 'desc' => 'Write to STDERR instead of STDOUT'],
+            ['arg' => '--stop-on-defect', 'desc' => 'Stop execution upon first not-passed test'],
+            ['arg' => '--stop-on-error', 'desc' => 'Stop execution upon first error'],
+            ['arg' => '--stop-on-failure', 'desc' => 'Stop execution upon first error or failure'],
+            ['arg' => '--stop-on-warning', 'desc' => 'Stop execution upon first warning'],
+            ['arg' => '--stop-on-risky', 'desc' => 'Stop execution upon first risky test'],
+            ['arg' => '--stop-on-skipped', 'desc' => 'Stop execution upon first skipped test'],
+            ['arg' => '--stop-on-incomplete', 'desc' => 'Stop execution upon first incomplete test'],
+            ['arg' => '--fail-on-incomplete', 'desc' => 'Treat incomplete tests as failures'],
+            ['arg' => '--fail-on-risky', 'desc' => 'Treat risky tests as failures'],
+            ['arg' => '--fail-on-skipped', 'desc' => 'Treat skipped tests as failures'],
+            ['arg' => '--fail-on-warning', 'desc' => 'Treat tests with warnings as failures'],
+            ['arg' => '-v|--verbose', 'desc' => 'Output more verbose information'],
+            ['arg' => '--debug', 'desc' => 'Display debugging information'],
             ['spacer' => ''],
 
-            ['arg'    => '--repeat <times>', 'desc' => 'Runs the test(s) repeatedly'],
-            ['arg'    => '--teamcity', 'desc' => 'Report test execution progress in TeamCity format'],
-            ['arg'    => '--testdox', 'desc' => 'Report test execution progress in TestDox format'],
-            ['arg'    => '--testdox-group', 'desc' => 'Only include tests from the specified group(s)'],
-            ['arg'    => '--testdox-exclude-group', 'desc' => 'Exclude tests from the specified group(s)'],
-            ['arg'    => '--no-interaction', 'desc' => 'Disable TestDox progress animation'],
-            ['arg'    => '--printer <printer>', 'desc' => 'TestListener implementation to use'],
+            ['arg' => '--repeat <times>', 'desc' => 'Runs the test(s) repeatedly'],
+            ['arg' => '--teamcity', 'desc' => 'Report test execution progress in TeamCity format'],
+            ['arg' => '--testdox', 'desc' => 'Report test execution progress in TestDox format'],
+            ['arg' => '--testdox-group', 'desc' => 'Only include tests from the specified group(s)'],
+            ['arg' => '--testdox-exclude-group', 'desc' => 'Exclude tests from the specified group(s)'],
+            ['arg' => '--no-interaction', 'desc' => 'Disable TestDox progress animation'],
+            ['arg' => '--printer <printer>', 'desc' => 'TestListener implementation to use'],
             ['spacer' => ''],
 
             ['arg' => '--order-by <order>', 'desc' => 'Run tests in order: default|defects|duration|no-depends|random|reverse|size'],
@@ -242,8 +243,7 @@ final class Help
                     $arg = Color::colorize('fg-green', str_pad($option['arg'], $this->maxArgLength));
                     $arg = preg_replace_callback(
                         '/(<[^>]+>)/',
-                        static function ($matches)
-                        {
+                        static function ($matches) {
                             return Color::colorize('fg-cyan', $matches[0]);
                         },
                         $arg,

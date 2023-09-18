@@ -223,7 +223,7 @@ class Inflector
     public function __construct(WordInflector $singularizer, WordInflector $pluralizer)
     {
         $this->singularizer = $singularizer;
-        $this->pluralizer   = $pluralizer;
+        $this->pluralizer = $pluralizer;
     }
 
     /**
@@ -279,7 +279,7 @@ class Inflector
      * ?>
      * </code>
      *
-     * @param string $string     The string to operate on.
+     * @param string $string The string to operate on.
      * @param string $delimiters A list of word separators.
      *
      * @return string The string with all delimiter-separated words capitalized.
@@ -328,7 +328,7 @@ class Inflector
     /**
      * Remove any illegal characters, accents, etc.
      *
-     * @param  string $string String to unaccent
+     * @param string $string String to unaccent
      *
      * @return string Unaccented string
      */
@@ -345,7 +345,7 @@ class Inflector
 
             // Assume ISO-8859-1 if not UTF-8
             $characters['in'] =
-                  chr(128)
+                chr(128)
                 . chr(131)
                 . chr(138)
                 . chr(142)
@@ -441,7 +441,7 @@ class Inflector
      * Convert any passed string to a url friendly string.
      * Converts 'My first blog post' to 'my-first-blog-post'
      *
-     * @param  string $string String to urlize.
+     * @param string $string String to urlize.
      *
      * @return string Urlized string.
      */

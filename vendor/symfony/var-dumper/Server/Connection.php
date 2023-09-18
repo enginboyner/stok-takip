@@ -30,13 +30,13 @@ class Connection
     private $socket;
 
     /**
-     * @param string                     $host             The server host
+     * @param string $host The server host
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
     public function __construct(string $host, array $contextProviders = [])
     {
         if (!str_contains($host, '://')) {
-            $host = 'tcp://'.$host;
+            $host = 'tcp://' . $host;
         }
 
         $this->host = $host;
@@ -60,7 +60,7 @@ class Connection
             $context[$name] = $provider->getContext();
         }
         $context = array_filter($context);
-        $encodedPayload = base64_encode(serialize([$data, $context]))."\n";
+        $encodedPayload = base64_encode(serialize([$data, $context])) . "\n";
 
         set_error_handler([self::class, 'nullErrorHandler']);
         try {

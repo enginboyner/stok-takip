@@ -39,11 +39,11 @@ class CalledClassPass extends CodeCleanerPass
     }
 
     /**
-     * @throws ErrorException if get_class or get_called_class is called without an object from outside a class
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws ErrorException if get_class or get_called_class is called without an object from outside a class
+     *
      */
     public function enterNode(Node $node)
     {

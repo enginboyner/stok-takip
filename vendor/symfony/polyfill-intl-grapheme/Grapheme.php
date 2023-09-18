@@ -11,7 +11,7 @@
 
 namespace Symfony\Polyfill\Intl\Grapheme;
 
-\define('SYMFONY_GRAPHEME_CLUSTER_RX', ((float) \PCRE_VERSION < 10 ? (float) \PCRE_VERSION >= 8.32 : (float) \PCRE_VERSION >= 10.39) ? '\X' : Grapheme::GRAPHEME_CLUSTER_RX);
+\define('SYMFONY_GRAPHEME_CLUSTER_RX', ((float)\PCRE_VERSION < 10 ? (float)\PCRE_VERSION >= 8.32 : (float)\PCRE_VERSION >= 10.39) ? '\X' : Grapheme::GRAPHEME_CLUSTER_RX);
 
 /**
  * Partial intl implementation in pure PHP.
@@ -39,7 +39,7 @@ final class Grapheme
 
     private const CASE_FOLD = [
         ['µ', 'ſ', "\xCD\x85", 'ς', "\xCF\x90", "\xCF\x91", "\xCF\x95", "\xCF\x96", "\xCF\xB0", "\xCF\xB1", "\xCF\xB5", "\xE1\xBA\x9B", "\xE1\xBE\xBE"],
-        ['μ', 's', 'ι',        'σ', 'β',        'θ',        'φ',        'π',        'κ',        'ρ',        'ε',        "\xE1\xB9\xA1", 'ι'],
+        ['μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "\xE1\xB9\xA1", 'ι'],
     ];
 
     public static function grapheme_extract($s, $size, $type = \GRAPHEME_EXTR_COUNT, $start = 0, &$next = 0)
@@ -50,7 +50,9 @@ final class Grapheme
 
         if (!\is_scalar($s)) {
             $hasError = false;
-            set_error_handler(function () use (&$hasError) { $hasError = true; });
+            set_error_handler(function () use (&$hasError) {
+                $hasError = true;
+            });
             $next = substr($s, $start);
             restore_error_handler();
             if ($hasError) {
@@ -62,9 +64,9 @@ final class Grapheme
         } else {
             $s = substr($s, $start);
         }
-        $size = (int) $size;
-        $type = (int) $type;
-        $start = (int) $start;
+        $size = (int)$size;
+        $type = (int)$type;
+        $start = (int)$start;
 
         if (\GRAPHEME_EXTR_COUNT !== $type && \GRAPHEME_EXTR_MAXBYTES !== $type && \GRAPHEME_EXTR_MAXCHARS !== $type) {
             if (80000 > \PHP_VERSION_ID) {
@@ -83,7 +85,7 @@ final class Grapheme
 
         $next = $start;
 
-        $s = preg_split('/('.SYMFONY_GRAPHEME_CLUSTER_RX.')/u', "\r\n".$s, $size + 1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
+        $s = preg_split('/(' . SYMFONY_GRAPHEME_CLUSTER_RX . ')/u', "\r\n" . $s, $size + 1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
 
         if (!isset($s[1])) {
             return false;
@@ -113,7 +115,7 @@ final class Grapheme
 
     public static function grapheme_strlen($s)
     {
-        preg_replace('/'.SYMFONY_GRAPHEME_CLUSTER_RX.'/u', '', $s, -1, $len);
+        preg_replace('/' . SYMFONY_GRAPHEME_CLUSTER_RX . '/u', '', $s, -1, $len);
 
         return 0 === $len && '' !== $s ? null : $len;
     }
@@ -124,10 +126,10 @@ final class Grapheme
             $len = 2147483647;
         }
 
-        preg_match_all('/'.SYMFONY_GRAPHEME_CLUSTER_RX.'/u', $s, $s);
+        preg_match_all('/' . SYMFONY_GRAPHEME_CLUSTER_RX . '/u', $s, $s);
 
         $slen = \count($s[0]);
-        $start = (int) $start;
+        $start = (int)$start;
 
         if (0 > $start) {
             $start += $slen;
@@ -193,11 +195,11 @@ final class Grapheme
 
     private static function grapheme_position($s, $needle, $offset, $mode)
     {
-        $needle = (string) $needle;
+        $needle = (string)$needle;
         if (80000 > \PHP_VERSION_ID && !preg_match('/./us', $needle)) {
             return false;
         }
-        $s = (string) $s;
+        $s = (string)$s;
         if (!preg_match('/./us', $s)) {
             return false;
         }

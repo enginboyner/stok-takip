@@ -295,7 +295,7 @@ class Command
             }
         }
 
-        return is_numeric($statusCode) ? (int) $statusCode : 0;
+        return is_numeric($statusCode) ? (int)$statusCode : 0;
     }
 
     /**
@@ -324,7 +324,8 @@ class Command
         if ($code instanceof \Closure) {
             $r = new \ReflectionFunction($code);
             if (null === $r->getClosureThis()) {
-                set_error_handler(static function () {});
+                set_error_handler(static function () {
+                });
                 try {
                     if ($c = \Closure::bind($code, $this)) {
                         $code = $c;
@@ -411,12 +412,12 @@ class Command
     /**
      * Adds an argument.
      *
-     * @param int|null $mode    The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
-     * @param mixed    $default The default value (for InputArgument::OPTIONAL mode only)
-     *
-     * @throws InvalidArgumentException When argument mode is not valid
+     * @param int|null $mode The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
+     * @param mixed $default The default value (for InputArgument::OPTIONAL mode only)
      *
      * @return $this
+     * @throws InvalidArgumentException When argument mode is not valid
+     *
      */
     public function addArgument(string $name, int $mode = null, string $description = '', mixed $default = null): static
     {
@@ -435,9 +436,9 @@ class Command
      * @param $mode     The option mode: One of the InputOption::VALUE_* constants
      * @param $default  The default value (must be null for InputOption::VALUE_NONE)
      *
+     * @return $this
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      *
-     * @return $this
      */
     public function addOption(string $name, string|array $shortcut = null, int $mode = null, string $description = '', mixed $default = null): static
     {
@@ -568,7 +569,7 @@ class Command
         ];
         $replacements = [
             $name,
-            $isSingleCommand ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'].' '.$name,
+            $isSingleCommand ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . ' ' . $name,
         ];
 
         return str_replace($placeholders, $replacements, $this->getHelp() ?: $this->getDescription());

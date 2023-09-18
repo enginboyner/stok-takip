@@ -20,7 +20,7 @@ class Iban
         $checkString = preg_replace_callback(
             '/[A-Z]/',
             static function (array $matches): string {
-                return (string) self::alphaToNumber($matches[0]);
+                return (string)self::alphaToNumber($matches[0]);
             },
             $checkString,
         );
@@ -52,10 +52,10 @@ class Iban
      */
     public static function mod97($number)
     {
-        $checksum = (int) $number[0];
+        $checksum = (int)$number[0];
 
         for ($i = 1, $size = strlen($number); $i < $size; ++$i) {
-            $checksum = (10 * $checksum + (int) $number[$i]) % 97;
+            $checksum = (10 * $checksum + (int)$number[$i]) % 97;
         }
 
         return $checksum;

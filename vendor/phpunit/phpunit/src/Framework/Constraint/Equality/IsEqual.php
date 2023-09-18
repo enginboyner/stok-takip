@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function is_string;
@@ -44,10 +45,10 @@ final class IsEqual extends Constraint
 
     public function __construct($value, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false)
     {
-        $this->value        = $value;
-        $this->delta        = $delta;
+        $this->value = $value;
+        $this->delta = $delta;
         $this->canonicalize = $canonicalize;
-        $this->ignoreCase   = $ignoreCase;
+        $this->ignoreCase = $ignoreCase;
     }
 
     /**
@@ -60,9 +61,9 @@ final class IsEqual extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @return bool
      * @throws ExpectationFailedException
      *
-     * @return bool
      */
     public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {

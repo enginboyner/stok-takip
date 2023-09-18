@@ -18,7 +18,7 @@ final class Transformation implements WordInflector
 
     public function __construct(Pattern $pattern, string $replacement)
     {
-        $this->pattern     = $pattern;
+        $this->pattern = $pattern;
         $this->replacement = $replacement;
     }
 
@@ -34,6 +34,6 @@ final class Transformation implements WordInflector
 
     public function inflect(string $word): string
     {
-        return (string) preg_replace($this->pattern->getRegex(), $this->replacement, $word);
+        return (string)preg_replace($this->pattern->getRegex(), $this->replacement, $word);
     }
 }

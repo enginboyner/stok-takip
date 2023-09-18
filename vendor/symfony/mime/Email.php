@@ -502,7 +502,7 @@ class Email extends Message
                     continue 2;
                 }
                 $part->setDisposition('inline');
-                $html = str_replace('cid:'.$name, 'cid:'.$part->getContentId(), $html, $count);
+                $html = str_replace('cid:' . $name, 'cid:' . $part->getContentId(), $html, $count);
                 if ($count) {
                     $related = true;
                 }

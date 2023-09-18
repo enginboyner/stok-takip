@@ -39,7 +39,7 @@ final class ListItemRenderer implements NodeRendererInterface, XmlNodeRendererIn
         ListItem::assertInstanceOf($node);
 
         $contents = $childRenderer->renderNodes($node->children());
-        if (\substr($contents, 0, 1) === '<' && ! $this->startsTaskListItem($node)) {
+        if (\substr($contents, 0, 1) === '<' && !$this->startsTaskListItem($node)) {
             $contents = "\n" . $contents;
         }
 

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function sprintf;
@@ -43,7 +44,7 @@ final class ExceptionCode extends Constraint
      */
     protected function matches($other): bool
     {
-        return (string) $other->getCode() === (string) $this->expectedCode;
+        return (string)$other->getCode() === (string)$this->expectedCode;
     }
 
     /**

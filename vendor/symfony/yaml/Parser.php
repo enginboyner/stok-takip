@@ -43,7 +43,7 @@ class Parser
      * Parses a YAML file into a PHP value.
      *
      * @param string $filename The path to the YAML file to be parsed
-     * @param int    $flags    A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
+     * @param int $flags A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
      *
      * @throws ParseException If the file could not be read or the YAML is not valid
      */
@@ -70,7 +70,7 @@ class Parser
      * Parses a YAML string to a PHP value.
      *
      * @param string $value A YAML string
-     * @param int    $flags A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
+     * @param int $flags A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
      *
      * @throws ParseException If the YAML is not valid
      */
@@ -167,7 +167,7 @@ class Parser
 
                     $sequenceIndentation = \strlen($values['leadspaces']) + 1;
                     $sequenceYaml = substr($this->currentLine, $sequenceIndentation);
-                    $sequenceYaml .= "\n".$this->getNextEmbedBlock($sequenceIndentation, true);
+                    $sequenceYaml .= "\n" . $this->getNextEmbedBlock($sequenceIndentation, true);
 
                     $data[] = $this->parseBlock($currentLineNumber, rtrim($sequenceYaml), $flags);
                 } elseif (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
@@ -182,13 +182,13 @@ class Parser
                         isset($values['leadspaces'])
                         && (
                             '!' === $values['value'][0]
-                            || self::preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\{\[].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $this->trimTag($values['value']), $matches)
+                            || self::preg_match('#^(?P<key>' . Inline::REGEX_QUOTED_STRING . '|[^ \'"\{\[].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $this->trimTag($values['value']), $matches)
                         )
                     ) {
                         // this is a compact notation element, add to next block and parse
                         $block = $values['value'];
                         if ($this->isNextLineIndented()) {
-                            $block .= "\n".$this->getNextEmbedBlock($this->getCurrentLineIndentation() + \strlen($values['leadspaces']) + 1);
+                            $block .= "\n" . $this->getNextEmbedBlock($this->getCurrentLineIndentation() + \strlen($values['leadspaces']) + 1);
                         }
 
                         $data[] = $this->parseBlock($this->getRealCurrentLineNb(), $block, $flags);
@@ -201,7 +201,7 @@ class Parser
                     array_pop($this->refsBeingParsed);
                 }
             } elseif (
-                self::preg_match('#^(?P<key>(?:![^\s]++\s++)?(?:'.Inline::REGEX_QUOTED_STRING.'|(?:!?!php/const:)?[^ \'"\[\{!].*?)) *\:(( |\t)++(?P<value>.+))?$#u', rtrim($this->currentLine), $values)
+                self::preg_match('#^(?P<key>(?:![^\s]++\s++)?(?:' . Inline::REGEX_QUOTED_STRING . '|(?:!?!php/const:)?[^ \'"\[\{!].*?)) *\:(( |\t)++(?P<value>.+))?$#u', rtrim($this->currentLine), $values)
                 && (false === strpos($values['key'], ' #') || \in_array($values['key'][0], ['"', "'"]))
             ) {
                 if ($context && 'sequence' == $context) {
@@ -219,12 +219,12 @@ class Parser
                 }
 
                 if (!\is_string($key) && !\is_int($key)) {
-                    throw new ParseException((is_numeric($key) ? 'Numeric' : 'Non-string').' keys are not supported. Quote your evaluable mapping keys instead.', $this->getRealCurrentLineNb() + 1, $this->currentLine);
+                    throw new ParseException((is_numeric($key) ? 'Numeric' : 'Non-string') . ' keys are not supported. Quote your evaluable mapping keys instead.', $this->getRealCurrentLineNb() + 1, $this->currentLine);
                 }
 
                 // Convert float keys to strings, to avoid being converted to integers by PHP
                 if (\is_float($key)) {
-                    $key = (string) $key;
+                    $key = (string)$key;
                 }
 
                 if ('<<' === $key && (!isset($values['value']) || '&' !== $values['value'][0] || !self::preg_match('#^&(?P<ref>[^ ]+)#u', $values['value'], $refMatches))) {
@@ -243,7 +243,7 @@ class Parser
                         $refValue = $this->refs[$refName];
 
                         if (Yaml::PARSE_OBJECT_FOR_MAP & $flags && $refValue instanceof \stdClass) {
-                            $refValue = (array) $refValue;
+                            $refValue = (array)$refValue;
                         }
 
                         if (!\is_array($refValue)) {
@@ -260,7 +260,7 @@ class Parser
                         $parsed = $this->parseBlock($this->getRealCurrentLineNb() + 1, $value, $flags);
 
                         if (Yaml::PARSE_OBJECT_FOR_MAP & $flags && $parsed instanceof \stdClass) {
-                            $parsed = (array) $parsed;
+                            $parsed = (array)$parsed;
                         }
 
                         if (!\is_array($parsed)) {
@@ -273,7 +273,7 @@ class Parser
                             // in the sequence override keys specified in later mapping nodes.
                             foreach ($parsed as $parsedItem) {
                                 if (Yaml::PARSE_OBJECT_FOR_MAP & $flags && $parsedItem instanceof \stdClass) {
-                                    $parsedItem = (array) $parsedItem;
+                                    $parsedItem = (array)$parsedItem;
                                 }
 
                                 if (!\is_array($parsedItem)) {
@@ -320,7 +320,7 @@ class Parser
                             $this->refs[$refMatches['ref']] = $value;
 
                             if (Yaml::PARSE_OBJECT_FOR_MAP & $flags && $value instanceof \stdClass) {
-                                $value = (array) $value;
+                                $value = (array)$value;
                             }
 
                             $data += $value;
@@ -556,7 +556,7 @@ class Parser
      * Returns the next embed block of YAML.
      *
      * @param int|null $indentation The indent level at which the block is to be read, or null for default
-     * @param bool     $inSequence  True if the enclosing data structure is a sequence
+     * @param bool $inSequence True if the enclosing data structure is a sequence
      *
      * @throws ParseException When indentation problem are detected
      */
@@ -693,8 +693,8 @@ class Parser
     /**
      * Parses a YAML value.
      *
-     * @param string $value   A YAML value
-     * @param int    $flags   A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
+     * @param string $value A YAML value
+     * @param int $flags A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
      * @param string $context The parser context (either sequence or mapping)
      *
      * @throws ParseException When reference does not exist
@@ -719,10 +719,10 @@ class Parser
             return $this->refs[$value];
         }
 
-        if (\in_array($value[0], ['!', '|', '>'], true) && self::preg_match('/^(?:'.self::TAG_PATTERN.' +)?'.self::BLOCK_SCALAR_HEADER_PATTERN.'$/', $value, $matches)) {
+        if (\in_array($value[0], ['!', '|', '>'], true) && self::preg_match('/^(?:' . self::TAG_PATTERN . ' +)?' . self::BLOCK_SCALAR_HEADER_PATTERN . '$/', $value, $matches)) {
             $modifiers = $matches['modifiers'] ?? '';
 
-            $data = $this->parseBlockScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), abs((int) $modifiers));
+            $data = $this->parseBlockScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), abs((int)$modifiers));
 
             if ('' !== $matches['tag'] && '!' !== $matches['tag']) {
                 if ('!!binary' === $matches['tag']) {
@@ -779,7 +779,7 @@ class Parser
                             $value .= $lines[$i];
                             $previousLineBlank = false;
                         } else {
-                            $value .= ' '.$lines[$i];
+                            $value .= ' ' . $lines[$i];
                             $previousLineBlank = false;
                         }
                     }
@@ -805,9 +805,9 @@ class Parser
     /**
      * Parses a block scalar.
      *
-     * @param string $style       The style indicator that was used to begin this block scalar (| or >)
-     * @param string $chomping    The chomping indicator that was used to begin this block scalar (+ or -)
-     * @param int    $indentation The indentation indicator that was used to begin this block scalar
+     * @param string $style The style indicator that was used to begin this block scalar (| or >)
+     * @param string $chomping The chomping indicator that was used to begin this block scalar (+ or -)
+     * @param int $indentation The indentation indicator that was used to begin this block scalar
      */
     private function parseBlockScalar(string $style, string $chomping = '', int $indentation = 0): string
     {
@@ -882,11 +882,11 @@ class Parser
                     $previousLineIndented = false;
                     $previousLineBlank = true;
                 } elseif (' ' === $blockLines[$i][0]) {
-                    $text .= "\n".$blockLines[$i];
+                    $text .= "\n" . $blockLines[$i];
                     $previousLineIndented = true;
                     $previousLineBlank = false;
                 } elseif ($previousLineIndented) {
-                    $text .= "\n".$blockLines[$i];
+                    $text .= "\n" . $blockLines[$i];
                     $previousLineIndented = false;
                     $previousLineBlank = false;
                 } elseif ($previousLineBlank || 0 === $i) {
@@ -894,7 +894,7 @@ class Parser
                     $previousLineIndented = false;
                     $previousLineBlank = false;
                 } else {
-                    $text .= ' '.$blockLines[$i];
+                    $text .= ' ' . $blockLines[$i];
                     $previousLineIndented = false;
                     $previousLineBlank = false;
                 }
@@ -1086,7 +1086,7 @@ class Parser
 
     private function getLineTag(string $value, int $flags, bool $nextLineCheck = true): ?string
     {
-        if ('' === $value || '!' !== $value[0] || 1 !== self::preg_match('/^'.self::TAG_PATTERN.' *( +#.*)?$/', $value, $matches)) {
+        if ('' === $value || '!' !== $value[0] || 1 !== self::preg_match('/^' . self::TAG_PATTERN . ' *( +#.*)?$/', $value, $matches)) {
             return null;
         }
 
@@ -1135,7 +1135,7 @@ class Parser
                         if ("'" === $quotation) {
                             $value .= '\\';
                         } elseif (isset($this->currentLine[++$cursor])) {
-                            $value .= '\\'.$this->currentLine[$cursor];
+                            $value .= '\\' . $this->currentLine[$cursor];
                         }
 
                         break;
@@ -1147,7 +1147,7 @@ class Parser
                             break;
                         }
 
-                        return $value.$quotation;
+                        return $value . $quotation;
                     default:
                         $value .= $this->currentLine[$cursor];
                 }

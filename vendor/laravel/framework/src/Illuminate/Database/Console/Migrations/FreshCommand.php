@@ -33,7 +33,7 @@ class FreshCommand extends Command
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
@@ -41,12 +41,12 @@ class FreshCommand extends Command
 
         $this->newLine();
 
-        $this->components->task('Dropping all tables', fn () => $this->callSilent('db:wipe', array_filter([
-            '--database' => $database,
-            '--drop-views' => $this->option('drop-views'),
-            '--drop-types' => $this->option('drop-types'),
-            '--force' => true,
-        ])) == 0);
+        $this->components->task('Dropping all tables', fn() => $this->callSilent('db:wipe', array_filter([
+                '--database' => $database,
+                '--drop-views' => $this->option('drop-views'),
+                '--drop-types' => $this->option('drop-types'),
+                '--force' => true,
+            ])) == 0);
 
         $this->newLine();
 
@@ -85,7 +85,7 @@ class FreshCommand extends Command
     /**
      * Run the database seeder command.
      *
-     * @param  string  $database
+     * @param string $database
      * @return void
      */
     protected function runSeeder($database)

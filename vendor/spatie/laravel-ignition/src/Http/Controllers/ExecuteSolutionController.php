@@ -13,9 +13,10 @@ class ExecuteSolutionController
     use ValidatesRequests;
 
     public function __invoke(
-        ExecuteSolutionRequest $request,
+        ExecuteSolutionRequest     $request,
         SolutionProviderRepository $solutionProviderRepository
-    ) {
+    )
+    {
         $this
             ->ensureRunnableSolutionsEnabled()
             ->ensureLocalRequest();

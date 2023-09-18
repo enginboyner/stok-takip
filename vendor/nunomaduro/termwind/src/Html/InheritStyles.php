@@ -16,7 +16,7 @@ final class InheritStyles
     /**
      * Applies styles from parent element to child elements.
      *
-     * @param  array<int, Element|string>  $elements
+     * @param array<int, Element|string> $elements
      * @return array<int, Element|string>
      */
     public function __invoke(array $elements, Styles $styles): array
@@ -48,7 +48,7 @@ final class InheritStyles
     /**
      * Applies flex-1 to child elements with the class.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return array<int, Element>
      */
     private function applyFlex(array $elements): array
@@ -60,11 +60,11 @@ final class InheritStyles
         }, $parentWidth - $totalWidth));
 
         $flexed = array_values(array_filter(
-            $elements, fn ($element) => $element->hasStyle('flex-1')
+            $elements, fn($element) => $element->hasStyle('flex-1')
         ));
 
         foreach ($flexed as $index => &$element) {
-            if ($width === 0 && ! ($element->getProperties()['styles']['contentRepeat'] ?? false)) {
+            if ($width === 0 && !($element->getProperties()['styles']['contentRepeat'] ?? false)) {
                 continue;
             }
 
@@ -84,7 +84,7 @@ final class InheritStyles
     /**
      * Applies the space between the elements.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return array<int, Element|string>
      */
     private function applyJustifyBetween(array $elements): array
@@ -106,7 +106,7 @@ final class InheritStyles
             if ($index !== 0) {
                 // Since there is no float pixel, on the last one it should round up...
                 $length = $index === count($elements) - 1 ? ceil($space) : floor($space);
-                $arr[] = str_repeat(' ', (int) $length);
+                $arr[] = str_repeat(' ', (int)$length);
             }
 
             $arr[] = $element;
@@ -118,7 +118,7 @@ final class InheritStyles
     /**
      * Applies the space between and around the elements.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return array<int, Element|string>
      */
     private function applyJustifyEvenly(array $elements): array
@@ -132,12 +132,12 @@ final class InheritStyles
 
         $arr = [];
         foreach ($elements as &$element) {
-            $arr[] = str_repeat(' ', (int) floor($space));
+            $arr[] = str_repeat(' ', (int)floor($space));
             $arr[] = $element;
         }
 
         $decimals = ceil(($space - floor($space)) * (count($elements) + 1));
-        $arr[] = str_repeat(' ', (int) (floor($space) + $decimals));
+        $arr[] = str_repeat(' ', (int)(floor($space) + $decimals));
 
         return $arr;
     }
@@ -145,7 +145,7 @@ final class InheritStyles
     /**
      * Applies the space around the elements.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return array<int, Element|string>
      */
     private function applyJustifyAround(array $elements): array
@@ -166,7 +166,7 @@ final class InheritStyles
 
         foreach ($elements as $index => &$element) {
             if ($index !== 0) {
-                $arr[] = str_repeat(' ', (int) ceil($space));
+                $arr[] = str_repeat(' ', (int)ceil($space));
                 $contentSize += ceil($space);
             }
 
@@ -174,16 +174,16 @@ final class InheritStyles
         }
 
         return [
-            str_repeat(' ', (int) floor(($parentWidth - $contentSize) / 2)),
+            str_repeat(' ', (int)floor(($parentWidth - $contentSize) / 2)),
             ...$arr,
-            str_repeat(' ', (int) ceil(($parentWidth - $contentSize) / 2)),
+            str_repeat(' ', (int)ceil(($parentWidth - $contentSize) / 2)),
         ];
     }
 
     /**
      * Applies the space on before first element and after last element.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return array<int, Element|string>
      */
     private function applyJustifyCenter(array $elements): array
@@ -196,21 +196,21 @@ final class InheritStyles
         }
 
         return [
-            str_repeat(' ', (int) floor($space / 2)),
+            str_repeat(' ', (int)floor($space / 2)),
             ...$elements,
-            str_repeat(' ', (int) ceil($space / 2)),
+            str_repeat(' ', (int)ceil($space / 2)),
         ];
     }
 
     /**
      * Gets the total width for the elements and their parent width.
      *
-     * @param  array<int, Element>  $elements
+     * @param array<int, Element> $elements
      * @return int[]
      */
     private function getWidthFromElements(array $elements)
     {
-        $totalWidth = (int) array_reduce($elements, fn ($carry, $element) => $carry += $element->getLength(), 0);
+        $totalWidth = (int)array_reduce($elements, fn($carry, $element) => $carry += $element->getLength(), 0);
         $parentWidth = Styles::getParentWidth($elements[0]->getProperties()['parentStyles'] ?? []);
 
         return [$totalWidth, $parentWidth];

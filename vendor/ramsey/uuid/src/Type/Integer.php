@@ -44,9 +44,9 @@ final class Integer implements NumberInterface
 
     private bool $isNegative = false;
 
-    public function __construct(float | int | string | self $value)
+    public function __construct(float|int|string|self $value)
     {
-        $this->value = $value instanceof self ? (string) $value : $this->prepareValue($value);
+        $this->value = $value instanceof self ? (string)$value : $this->prepareValue($value);
     }
 
     public function isNegative(): bool
@@ -117,9 +117,9 @@ final class Integer implements NumberInterface
     /**
      * @return numeric-string
      */
-    private function prepareValue(float | int | string $value): string
+    private function prepareValue(float|int|string $value): string
     {
-        $value = (string) $value;
+        $value = (string)$value;
         $sign = '+';
 
         // If the value contains a sign, remove it for digit pattern check.

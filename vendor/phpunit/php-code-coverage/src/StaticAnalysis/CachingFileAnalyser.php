@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function file_get_contents;
@@ -48,7 +49,7 @@ final class CachingFileAnalyser implements FileAnalyser
     {
         Filesystem::createDirectory($directory);
 
-        $this->analyser  = $analyser;
+        $this->analyser = $analyser;
         $this->directory = $directory;
     }
 
@@ -120,11 +121,11 @@ final class CachingFileAnalyser implements FileAnalyser
         }
 
         $this->cache[$filename] = [
-            'classesIn'         => $this->analyser->classesIn($filename),
-            'traitsIn'          => $this->analyser->traitsIn($filename),
-            'functionsIn'       => $this->analyser->functionsIn($filename),
-            'linesOfCodeFor'    => $this->analyser->linesOfCodeFor($filename),
-            'ignoredLinesFor'   => $this->analyser->ignoredLinesFor($filename),
+            'classesIn' => $this->analyser->classesIn($filename),
+            'traitsIn' => $this->analyser->traitsIn($filename),
+            'functionsIn' => $this->analyser->functionsIn($filename),
+            'linesOfCodeFor' => $this->analyser->linesOfCodeFor($filename),
+            'ignoredLinesFor' => $this->analyser->ignoredLinesFor($filename),
             'executableLinesIn' => $this->analyser->executableLinesIn($filename),
         ];
 

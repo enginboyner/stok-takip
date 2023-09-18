@@ -15,14 +15,16 @@
     <!-- Theme style -->
     <link rel="stylesheet"
           href="{{ asset('assets/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     @yield('extraCss')
-<style> .table th {
-        background-color: #3579f6;
-        color: #fff;
-        font-weight: normal;
-    }</style>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+    <style> .table th {
+            background-color: #3579f6;
+            color: #fff;
+            font-weight: normal;
+        }</style>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
 
 </head>
@@ -292,6 +294,50 @@
         }
     });
 </script>
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script
+        src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script>
+
+    $(function () {
+        fetch('assets/dataTablesCeviri.txt')
+            .then(response => response.json())
+            .then(ceviri => {
+                $("#example1").DataTable({
+                    language: ceviri,
+                    responsive: true,
+                    lengthChange: false,
+                    autoWidth: false,
+                    ordering: false,
+                    buttons: ["csv", "excel", "pdf", "colvis"],
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+
+        $('#example2').DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: true,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+        });
+    });
+</script>
+
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
     $('#form').on('submit', function (e) {
@@ -308,7 +354,7 @@
             success: function (data) {
                 console.log(data);
                 $("#response").html(data.message);
-                if(data.redirect){
+                if (data.redirect) {
                     setTimeout(function () {
                         window.location.replace(data.redirect);
                     }, 150);
@@ -322,6 +368,12 @@
         });
     });
 
+</script>
+<script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
 </script>
 <script>
 
@@ -347,7 +399,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function(result) {
+                    success: function (result) {
                         Swal.fire(
                             'Silindi!',
                             '',
@@ -355,7 +407,7 @@
                         );
                         location.reload();
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         Swal.fire(
                             'Hata',
                             '',

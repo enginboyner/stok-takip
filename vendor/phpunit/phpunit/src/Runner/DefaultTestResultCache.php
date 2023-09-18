@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
 use const DIRECTORY_SEPARATOR;
@@ -126,7 +127,7 @@ final class DefaultTestResultCache implements TestResultCache
         assert(isset($data['times']) && is_array($data['times']));
 
         $this->defects = $data['defects'];
-        $this->times   = $data['times'];
+        $this->times = $data['times'];
     }
 
     /**
@@ -149,7 +150,7 @@ final class DefaultTestResultCache implements TestResultCache
                 [
                     'version' => self::VERSION,
                     'defects' => $this->defects,
-                    'times'   => $this->times,
+                    'times' => $this->times,
                 ],
             ),
             LOCK_EX,

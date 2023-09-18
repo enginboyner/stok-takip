@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Type;
 
 use function strtolower;
@@ -30,9 +31,9 @@ final class SimpleType extends Type
 
     public function __construct(string $name, bool $nullable, $value = null)
     {
-        $this->name       = $this->normalize($name);
+        $this->name = $this->normalize($name);
         $this->allowsNull = $nullable;
-        $this->value      = $value;
+        $this->value = $value;
     }
 
     public function isAssignable(Type $other): bool

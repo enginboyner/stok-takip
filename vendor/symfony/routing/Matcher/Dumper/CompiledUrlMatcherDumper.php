@@ -69,7 +69,7 @@ EOF;
         foreach ($this->getRoutes()->all() as $name => $route) {
             if ($host = $route->getHost()) {
                 $matchHost = true;
-                $host = '/'.strtr(strrev($host), '}.{', '(/)');
+                $host = '/' . strtr(strrev($host), '}.{', '(/)');
             }
 
             $routes->addRoute($host ?: '/(.*)', [$name, $route]);
@@ -121,7 +121,7 @@ EOF;
         }
     }
 EOF;
-            $compiledRoutes[4] = $forDump ? $checkConditionCode.",\n" : eval('return '.$checkConditionCode.';');
+            $compiledRoutes[4] = $forDump ? $checkConditionCode . ",\n" : eval('return ' . $checkConditionCode . ';');
         } else {
             $compiledRoutes[4] = $forDump ? "    null, // \$checkCondition\n" : null;
         }
@@ -133,9 +133,9 @@ EOF;
     {
         [$matchHost, $staticRoutes, $regexpCode, $dynamicRoutes, $checkConditionCode] = $this->getCompiledRoutes(true);
 
-        $code = self::export($matchHost).', // $matchHost'."\n";
+        $code = self::export($matchHost) . ', // $matchHost' . "\n";
 
-        $code .= '[ // $staticRoutes'."\n";
+        $code .= '[ // $staticRoutes' . "\n";
         foreach ($staticRoutes as $path => $routes) {
             $code .= sprintf("    %s => [\n", self::export($path));
             foreach ($routes as $route) {
@@ -147,7 +147,7 @@ EOF;
 
         $code .= sprintf("[ // \$regexpList%s\n],\n", $regexpCode);
 
-        $code .= '[ // $dynamicRoutes'."\n";
+        $code .= '[ // $dynamicRoutes' . "\n";
         foreach ($dynamicRoutes as $path => $routes) {
             $code .= sprintf("    %s => [\n", self::export($path));
             foreach ($routes as $route) {
@@ -158,7 +158,7 @@ EOF;
         $code .= "],\n";
         $code = preg_replace('/ => \[\n        (\[.+?),\n    \],/', ' => [$1],', $code);
 
-        return $this->indent($code, 1).$checkConditionCode;
+        return $this->indent($code, 1) . $checkConditionCode;
     }
 
     /**
@@ -187,7 +187,7 @@ EOF;
                     $url = substr($url, 0, -1);
                 }
                 foreach ($dynamicRegex as [$hostRx, $rx, $prefix]) {
-                    if (('' === $prefix || str_starts_with($url, $prefix)) && (preg_match($rx, $url) || preg_match($rx, $url.'/')) && (!$host || !$hostRx || preg_match($hostRx, $host))) {
+                    if (('' === $prefix || str_starts_with($url, $prefix)) && (preg_match($rx, $url) || preg_match($rx, $url . '/')) && (!$host || !$hostRx || preg_match($hostRx, $host))) {
                         $dynamicRegex[] = [$hostRegex, $regex, $staticPrefix];
                         $dynamicRoutes->add($name, $route);
                         continue 2;
@@ -254,7 +254,7 @@ EOF;
         }
         $regexpList = [];
         $code = '';
-        $state = (object) [
+        $state = (object)[
             'regexMark' => 0,
             'regex' => [],
             'routes' => [],
@@ -301,7 +301,7 @@ EOF;
             }
             $prev = false;
             $rx = '{^(?';
-            $code .= "\n    {$state->mark} => ".self::export($rx);
+            $code .= "\n    {$state->mark} => " . self::export($rx);
             $startingMark = $state->mark;
             $state->mark += \strlen($rx);
             $state->regex = $rx;
@@ -311,14 +311,14 @@ EOF;
                     if ($hostRegex) {
                         preg_match('#^.\^(.*)\$.[a-zA-Z]*$#', $hostRegex, $rx);
                         $state->vars = [];
-                        $hostRegex = '(?i:'.preg_replace_callback('#\?P<([^>]++)>#', $state->getVars, $rx[1]).')\.';
+                        $hostRegex = '(?i:' . preg_replace_callback('#\?P<([^>]++)>#', $state->getVars, $rx[1]) . ')\.';
                         $state->hostVars = $state->vars;
                     } else {
                         $hostRegex = '(?:(?:[^./]*+\.)++)';
                         $state->hostVars = [];
                     }
-                    $state->mark += \strlen($rx = ($prev ? ')' : '')."|{$hostRegex}(?");
-                    $code .= "\n        .".self::export($rx);
+                    $state->mark += \strlen($rx = ($prev ? ')' : '') . "|{$hostRegex}(?");
+                    $code .= "\n        ." . self::export($rx);
                     $state->regex .= $rx;
                     $prev = true;
                 }
@@ -332,7 +332,7 @@ EOF;
                     if ($hasTrailingSlash = '/' !== $regex && '/' === $regex[-1]) {
                         $regex = substr($regex, 0, -1);
                     }
-                    $hasTrailingVar = (bool) preg_match('#\{\w+\}/?$#', $route->getPath());
+                    $hasTrailingVar = (bool)preg_match('#\{\w+\}/?$#', $route->getPath());
 
                     $tree->addRoute($regex, [$name, $regex, $state->vars, $route, $hasTrailingSlash, $hasTrailingVar]);
                 }
@@ -349,7 +349,9 @@ EOF;
             $state->markTail = 0;
 
             // if the regex is too large, throw a signaling exception to recompute with smaller chunk size
-            set_error_handler(function ($type, $message) { throw str_contains($message, $this->signalingException->getMessage()) ? $this->signalingException : new \ErrorException($message); });
+            set_error_handler(function ($type, $message) {
+                throw str_contains($message, $this->signalingException->getMessage()) ? $this->signalingException : new \ErrorException($message);
+            });
             try {
                 preg_match($state->regex, '');
             } finally {
@@ -382,7 +384,7 @@ EOF;
                 $prevRegex = null;
                 $prefix = substr($route->getPrefix(), $prefixLen);
                 $state->mark += \strlen($rx = "|{$prefix}(?");
-                $code .= "\n            .".self::export($rx);
+                $code .= "\n            ." . self::export($rx);
                 $state->regex .= $rx;
                 $code .= $this->indent($this->compileStaticPrefixCollection($route, $state, $prefixLen + \strlen($prefix), $conditions));
                 $code .= "\n            .')'";
@@ -403,7 +405,7 @@ EOF;
             $state->mark += 3 + $state->markTail + \strlen($regex) - $prefixLen;
             $state->markTail = 2 + \strlen($state->mark);
             $rx = sprintf('|%s(*:%s)', substr($regex, $prefixLen), $state->mark);
-            $code .= "\n            .".self::export($rx);
+            $code .= "\n            ." . self::export($rx);
             $state->regex .= $rx;
 
             $prevRegex = $compiledRoute->getRegex();
@@ -457,7 +459,7 @@ EOF;
 
     private function indent(string $code, int $level = 1): string
     {
-        return preg_replace('/^./m', str_repeat('    ', $level).'$0', $code);
+        return preg_replace('/^./m', str_repeat('    ', $level) . '$0', $code);
     }
 
     /**
@@ -486,14 +488,14 @@ EOF;
             if ($i === $k) {
                 ++$i;
             } else {
-                $export .= self::export($k).' => ';
+                $export .= self::export($k) . ' => ';
 
                 if (\is_int($k) && $i < $k) {
                     $i = 1 + $k;
                 }
             }
 
-            $export .= self::export($v).', ';
+            $export .= self::export($v) . ', ';
         }
 
         return substr_replace($export, ']', -2);

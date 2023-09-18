@@ -31,17 +31,17 @@ class Image extends Base
      *
      * Set randomize to false to remove the random GET parameter at the end of the url.
      *
-     * @example 'http://via.placeholder.com/640x480.png/CCCCCC?text=well+hi+there'
-     *
-     * @param int         $width
-     * @param int         $height
+     * @param int $width
+     * @param int $height
      * @param string|null $category
-     * @param bool        $randomize
+     * @param bool $randomize
      * @param string|null $word
-     * @param bool        $gray
-     * @param string      $format
+     * @param bool $gray
+     * @param string $format
      *
      * @return string
+     * @example 'http://via.placeholder.com/640x480.png/CCCCCC?text=well+hi+there'
+     *
      */
     public static function imageUrl(
         $width = 640,
@@ -51,7 +51,8 @@ class Image extends Base
         $word = null,
         $gray = false,
         $format = 'png'
-    ) {
+    )
+    {
         trigger_deprecation(
             'fakerphp/faker',
             '1.20',
@@ -101,9 +102,9 @@ class Image extends Base
      *
      * Requires curl, or allow_url_fopen to be on in php.ini.
      *
+     * @return bool|string
      * @example '/path/to/dir/13b73edae8443990be1aa8f1a483bc27.png'
      *
-     * @return bool|string
      */
     public static function image(
         $dir = null,
@@ -115,7 +116,8 @@ class Image extends Base
         $word = null,
         $gray = false,
         $format = 'png'
-    ) {
+    )
+    {
         trigger_deprecation(
             'fakerphp/faker',
             '1.20',

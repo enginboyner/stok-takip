@@ -124,7 +124,7 @@ class AutoExpireFlashBag implements FlashBagInterface
      */
     public function set(string $type, string|array $messages)
     {
-        $this->flashes['new'][$type] = (array) $messages;
+        $this->flashes['new'][$type] = (array)$messages;
     }
 
     /**

@@ -26,10 +26,10 @@ class ConfigPaths
      *
      * Optionally provide `configDir`, `dataDir` and `runtimeDir` overrides.
      *
+     * @param string[] $overrides Directory overrides
+     * @param EnvInterface $env
      * @see self::overrideDirs
      *
-     * @param string[]     $overrides Directory overrides
-     * @param EnvInterface $env
      */
     public function __construct(array $overrides = [], EnvInterface $env = null)
     {
@@ -81,7 +81,7 @@ class ConfigPaths
             $homeDrive = $this->getEnv('HOMEDRIVE');
             $homePath = $this->getEnv('HOMEPATH');
             if ($homeDrive && $homePath) {
-                return $homeDrive.'/'.$homePath;
+                return $homeDrive . '/' . $homePath;
             }
         }
 
@@ -96,7 +96,7 @@ class ConfigPaths
 
         $homeDir = $this->homeDir();
 
-        return $homeDir === '/' ? $homeDir.'.config' : $homeDir.'/.config';
+        return $homeDir === '/' ? $homeDir . '.config' : $homeDir . '/.config';
     }
 
     /**
@@ -136,9 +136,9 @@ class ConfigPaths
      *
      *     http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
      *
+     * @return string[]
      * @deprecated
      *
-     * @return string[]
      */
     public static function getHomeConfigDirs(): array
     {
@@ -219,7 +219,7 @@ class ConfigPaths
             return [$this->dataDir];
         }
 
-        $homeDataDir = $this->getEnv('XDG_DATA_HOME') ?: $this->homeDir().'/.local/share';
+        $homeDataDir = $this->getEnv('XDG_DATA_HOME') ?: $this->homeDir() . '/.local/share';
         $dataDirs = $this->getEnvArray('XDG_DATA_DIRS') ?: ['/usr/local/share', '/usr/share'];
 
         return $this->allDirNames(\array_merge([$homeDataDir], $dataDirs));
@@ -267,7 +267,7 @@ class ConfigPaths
         // Fallback to a boring old folder in the system temp dir.
         $runtimeDir = $this->getEnv('XDG_RUNTIME_DIR') ?: \sys_get_temp_dir();
 
-        return \strtr($runtimeDir, '\\', '/').'/psysh';
+        return \strtr($runtimeDir, '\\', '/') . '/psysh';
     }
 
     /**
@@ -303,7 +303,7 @@ class ConfigPaths
     public function which($command)
     {
         foreach ($this->pathDirs() as $path) {
-            $fullpath = $path.\DIRECTORY_SEPARATOR.$command;
+            $fullpath = $path . \DIRECTORY_SEPARATOR . $command;
             if (@\is_file($fullpath) && @\is_executable($fullpath)) {
                 return $fullpath;
             }
@@ -326,23 +326,23 @@ class ConfigPaths
     private function allDirNames(array $baseDirs): array
     {
         $dirs = \array_map(function ($dir) {
-            return \strtr($dir, '\\', '/').'/psysh';
+            return \strtr($dir, '\\', '/') . '/psysh';
         }, $baseDirs);
 
         // Add ~/.psysh
         if ($home = $this->getEnv('HOME')) {
-            $dirs[] = \strtr($home, '\\', '/').'/.psysh';
+            $dirs[] = \strtr($home, '\\', '/') . '/.psysh';
         }
 
         // Add some Windows specific ones :)
         if (\defined('PHP_WINDOWS_VERSION_MAJOR')) {
             if ($appData = $this->getEnv('APPDATA')) {
                 // AppData gets preference
-                \array_unshift($dirs, \strtr($appData, '\\', '/').'/PsySH');
+                \array_unshift($dirs, \strtr($appData, '\\', '/') . '/PsySH');
             }
 
             if ($windowsHomeDir = $this->windowsHomeDir()) {
-                $dir = \strtr($windowsHomeDir, '\\', '/').'/.psysh';
+                $dir = \strtr($windowsHomeDir, '\\', '/') . '/.psysh';
                 if (!\in_array($dir, $dirs)) {
                     $dirs[] = $dir;
                 }
@@ -363,7 +363,7 @@ class ConfigPaths
         $files = [];
         foreach ($dirNames as $dir) {
             foreach ($fileNames as $name) {
-                $file = $dir.'/'.$name;
+                $file = $dir . '/' . $name;
                 if (@\is_file($file)) {
                     $files[] = $file;
                 }

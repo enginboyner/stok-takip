@@ -9,7 +9,7 @@ class TransientToken implements HasAbilities
     /**
      * Determine if the token has a given ability.
      *
-     * @param  string  $ability
+     * @param string $ability
      * @return bool
      */
     public function can($ability)
@@ -20,7 +20,7 @@ class TransientToken implements HasAbilities
     /**
      * Determine if the token is missing a given ability.
      *
-     * @param  string  $ability
+     * @param string $ability
      * @return bool
      */
     public function cant($ability)

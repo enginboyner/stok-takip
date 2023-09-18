@@ -61,9 +61,9 @@ class RedisManager implements Factory
     /**
      * Create a new Redis manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @param  string  $driver
-     * @param  array  $config
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param string $driver
+     * @param array $config
      * @return void
      */
     public function __construct($app, $driver, array $config)
@@ -76,7 +76,7 @@ class RedisManager implements Factory
     /**
      * Get a Redis connection by name.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return \Illuminate\Redis\Connections\Connection
      */
     public function connection($name = null)
@@ -95,7 +95,7 @@ class RedisManager implements Factory
     /**
      * Resolve the given connection by name.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return \Illuminate\Redis\Connections\Connection
      *
      * @throws \InvalidArgumentException
@@ -109,7 +109,7 @@ class RedisManager implements Factory
         if (isset($this->config[$name])) {
             return $this->connector()->connect(
                 $this->parseConnectionConfiguration($this->config[$name]),
-                array_merge(Arr::except($options, 'parameters'), ['parameters' => Arr::get($options, 'parameters.'.$name, Arr::get($options, 'parameters', []))])
+                array_merge(Arr::except($options, 'parameters'), ['parameters' => Arr::get($options, 'parameters.' . $name, Arr::get($options, 'parameters', []))])
             );
         }
 
@@ -123,7 +123,7 @@ class RedisManager implements Factory
     /**
      * Resolve the given cluster connection by name.
      *
-     * @param  string  $name
+     * @param string $name
      * @return \Illuminate\Redis\Connections\Connection
      */
     protected function resolveCluster($name)
@@ -140,8 +140,8 @@ class RedisManager implements Factory
     /**
      * Configure the given connection to prepare it for commands.
      *
-     * @param  \Illuminate\Redis\Connections\Connection  $connection
-     * @param  string  $name
+     * @param \Illuminate\Redis\Connections\Connection $connection
+     * @param string $name
      * @return \Illuminate\Redis\Connections\Connection
      */
     protected function configure(Connection $connection, $name)
@@ -178,7 +178,7 @@ class RedisManager implements Factory
     /**
      * Parse the Redis connection configuration.
      *
-     * @param  mixed  $config
+     * @param mixed $config
      * @return array
      */
     protected function parseConnectionConfiguration($config)
@@ -192,7 +192,7 @@ class RedisManager implements Factory
         }
 
         return array_filter($parsed, function ($key) {
-            return ! in_array($key, ['driver'], true);
+            return !in_array($key, ['driver'], true);
         }, ARRAY_FILTER_USE_KEY);
     }
 
@@ -229,7 +229,7 @@ class RedisManager implements Factory
     /**
      * Set the default driver.
      *
-     * @param  string  $driver
+     * @param string $driver
      * @return void
      */
     public function setDriver($driver)
@@ -240,7 +240,7 @@ class RedisManager implements Factory
     /**
      * Disconnect the given connection and remove from local cache.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return void
      */
     public function purge($name = null)
@@ -253,8 +253,8 @@ class RedisManager implements Factory
     /**
      * Register a custom driver creator Closure.
      *
-     * @param  string  $driver
-     * @param  \Closure  $callback
+     * @param string $driver
+     * @param \Closure $callback
      * @return $this
      */
     public function extend($driver, Closure $callback)
@@ -267,8 +267,8 @@ class RedisManager implements Factory
     /**
      * Pass methods onto the default Redis connection.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

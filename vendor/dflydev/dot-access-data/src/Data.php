@@ -52,7 +52,7 @@ class Data implements DataInterface, ArrayAccess
 
         $endKey = array_pop($keyPath);
         foreach ($keyPath as $currentKey) {
-            if (! isset($currentValue[$currentKey])) {
+            if (!isset($currentValue[$currentKey])) {
                 $currentValue[$currentKey] = [];
             }
             $currentValue =& $currentValue[$currentKey];

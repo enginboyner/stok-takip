@@ -174,7 +174,7 @@ HELP
      * Write the list items to $output.
      *
      * @param OutputInterface $output
-     * @param array           $result List of enumerated items
+     * @param array $result List of enumerated items
      */
     protected function write(OutputInterface $output, array $result)
     {
@@ -194,7 +194,7 @@ HELP
      * Items are listed one per line, and include the item signature.
      *
      * @param OutputInterface $output
-     * @param array           $result List of enumerated items
+     * @param array $result List of enumerated items
      */
     protected function writeLong(OutputInterface $output, array $result)
     {
@@ -234,9 +234,9 @@ HELP
     /**
      * Validate that input options make sense, provide defaults when called without options.
      *
+     * @param InputInterface $input
      * @throws RuntimeException if options are inconsistent
      *
-     * @param InputInterface $input
      */
     private function validateInput(InputInterface $input)
     {
@@ -244,7 +244,7 @@ HELP
             // if no target is passed, there can be no properties or methods
             foreach (['properties', 'methods', 'no-inherit'] as $option) {
                 if ($input->getOption($option)) {
-                    throw new RuntimeException('--'.$option.' does not make sense without a specified target');
+                    throw new RuntimeException('--' . $option . ' does not make sense without a specified target');
                 }
             }
 
@@ -260,7 +260,7 @@ HELP
             // if a target is passed, classes, functions, etc don't make sense
             foreach (['vars', 'globals'] as $option) {
                 if ($input->getOption($option)) {
-                    throw new RuntimeException('--'.$option.' does not make sense with a specified target');
+                    throw new RuntimeException('--' . $option . ' does not make sense with a specified target');
                 }
             }
 

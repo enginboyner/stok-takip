@@ -14,9 +14,8 @@ if (class_exists('PhpCsFixer\Finder')) {    // PHP-CS-Fixer 2.x
         ->setRules(array(
             '@PSR2' => true,
         ))
-		->setUsingCache(true)
-        ->setFinder($finder)
-    ;
+        ->setUsingCache(true)
+        ->setFinder($finder);
 }
 
 $finder = DefaultFinder::create()->in(

@@ -61,7 +61,7 @@ class DownCommand extends Command
 
             file_put_contents(
                 storage_path('framework/maintenance.php'),
-                file_get_contents(__DIR__.'/stubs/maintenance-mode.stub')
+                file_get_contents(__DIR__ . '/stubs/maintenance-mode.stub')
             );
 
             $this->laravel->get('events')->dispatch(new MaintenanceModeEnabled());
@@ -90,7 +90,7 @@ class DownCommand extends Command
             'retry' => $this->getRetryTime(),
             'refresh' => $this->option('refresh'),
             'secret' => $this->option('secret'),
-            'status' => (int) $this->option('status', 503),
+            'status' => (int)$this->option('status', 503),
             'template' => $this->option('render') ? $this->prerenderView() : null,
         ];
     }
@@ -117,7 +117,7 @@ class DownCommand extends Command
     protected function redirectPath()
     {
         if ($this->option('redirect') && $this->option('redirect') !== '/') {
-            return '/'.trim($this->option('redirect'), '/');
+            return '/' . trim($this->option('redirect'), '/');
         }
 
         return $this->option('redirect');
@@ -146,6 +146,6 @@ class DownCommand extends Command
     {
         $retry = $this->option('retry');
 
-        return is_numeric($retry) && $retry > 0 ? (int) $retry : null;
+        return is_numeric($retry) && $retry > 0 ? (int)$retry : null;
     }
 }

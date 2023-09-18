@@ -194,8 +194,8 @@ class Expectation implements ExpectationInterface
     /**
      * Throws an exception if the expectation has been configured to do so
      *
-     * @throws \Throwable
      * @return void
+     * @throws \Throwable
      */
     private function throwAsNecessary($return)
     {
@@ -289,11 +289,11 @@ class Expectation implements ExpectationInterface
     public function validateOrder()
     {
         if ($this->_orderNumber) {
-            $this->_mock->mockery_validateOrder((string) $this, $this->_orderNumber, $this->_mock);
+            $this->_mock->mockery_validateOrder((string)$this, $this->_orderNumber, $this->_mock);
         }
         if ($this->_globalOrderNumber) {
             $this->_mock->mockery_getContainer()
-                ->mockery_validateOrder((string) $this, $this->_globalOrderNumber, $this->_mock);
+                ->mockery_validateOrder((string)$this, $this->_globalOrderNumber, $this->_mock);
         }
     }
 
@@ -335,7 +335,7 @@ class Expectation implements ExpectationInterface
             return $this->_matchArg($this->_expectedArgs[0], $args);
         }
         $argCount = count($args);
-        if ($argCount !== count((array) $this->_expectedArgs)) {
+        if ($argCount !== count((array)$this->_expectedArgs)) {
             $lastExpectedArgument = end($this->_expectedArgs);
             reset($this->_expectedArgs);
 
@@ -359,7 +359,7 @@ class Expectation implements ExpectationInterface
     protected function _matchArgs($args)
     {
         $argCount = count($args);
-        for ($i=0; $i<$argCount; $i++) {
+        for ($i = 0; $i < $argCount; $i++) {
             $param =& $args[$i];
             if (!$this->_matchArg($this->_expectedArgs[$i], $param)) {
                 return false;
@@ -718,8 +718,8 @@ class Expectation implements ExpectationInterface
      * Indicates the number of times this expectation should occur
      *
      * @param int $limit
-     * @throws \InvalidArgumentException
      * @return self
+     * @throws \InvalidArgumentException
      */
     public function times($limit = null)
     {

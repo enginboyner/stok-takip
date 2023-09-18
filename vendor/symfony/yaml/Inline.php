@@ -36,10 +36,10 @@ class Inline
 
     public static function initialize(int $flags, int $parsedLineNumber = null, string $parsedFilename = null)
     {
-        self::$exceptionOnInvalidType = (bool) (Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE & $flags);
-        self::$objectSupport = (bool) (Yaml::PARSE_OBJECT & $flags);
-        self::$objectForMap = (bool) (Yaml::PARSE_OBJECT_FOR_MAP & $flags);
-        self::$constantSupport = (bool) (Yaml::PARSE_CONSTANT & $flags);
+        self::$exceptionOnInvalidType = (bool)(Yaml::PARSE_EXCEPTION_ON_INVALID_TYPE & $flags);
+        self::$objectSupport = (bool)(Yaml::PARSE_OBJECT & $flags);
+        self::$objectForMap = (bool)(Yaml::PARSE_OBJECT_FOR_MAP & $flags);
+        self::$constantSupport = (bool)(Yaml::PARSE_CONSTANT & $flags);
         self::$parsedFilename = $parsedFilename;
 
         if (null !== $parsedLineNumber) {
@@ -50,7 +50,7 @@ class Inline
     /**
      * Converts a YAML string to a PHP value.
      *
-     * @param int   $flags      A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
+     * @param int $flags A bit field of Yaml::PARSE_* constants to customize the YAML parser behavior
      * @param array $references Mapping of variable names to values
      *
      * @throws ParseException
@@ -96,7 +96,7 @@ class Inline
      * Dumps a given PHP variable to a YAML string.
      *
      * @param mixed $value The PHP variable to convert
-     * @param int   $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string
+     * @param int $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string
      *
      * @throws DumpException When trying to dump PHP resource
      */
@@ -115,11 +115,11 @@ class Inline
                 return sprintf('!php/const %s::%s', \get_class($value), $value->name);
             case \is_object($value):
                 if ($value instanceof TaggedValue) {
-                    return '!'.$value->getTag().' '.self::dump($value->getValue(), $flags);
+                    return '!' . $value->getTag() . ' ' . self::dump($value->getValue(), $flags);
                 }
 
                 if (Yaml::DUMP_OBJECT & $flags) {
-                    return '!php/object '.self::dump(serialize($value));
+                    return '!php/object ' . self::dump(serialize($value));
                 }
 
                 if (Yaml::DUMP_OBJECT_AS_MAP & $flags && ($value instanceof \stdClass || $value instanceof \ArrayObject)) {
@@ -153,17 +153,17 @@ class Inline
                     setlocale(\LC_NUMERIC, 'C');
                 }
                 if (\is_float($value)) {
-                    $repr = (string) $value;
+                    $repr = (string)$value;
                     if (is_infinite($value)) {
                         $repr = str_ireplace('INF', '.Inf', $repr);
                     } elseif (floor($value) == $value && $repr == $value) {
                         // Preserve float data type since storing a whole number will result in integer value.
                         if (false === strpos($repr, 'E')) {
-                            $repr = $repr.'.0';
+                            $repr = $repr . '.0';
                         }
                     }
                 } else {
-                    $repr = \is_string($value) ? "'$value'" : (string) $value;
+                    $repr = \is_string($value) ? "'$value'" : (string)$value;
                 }
                 if (false !== $locale) {
                     setlocale(\LC_NUMERIC, $locale);
@@ -173,7 +173,7 @@ class Inline
             case '' == $value:
                 return "''";
             case self::isBinaryString($value):
-                return '!!binary '.base64_encode($value);
+                return '!!binary ' . base64_encode($value);
             case Escaper::requiresDoubleQuoting($value):
                 return Escaper::escapeWithDoubleQuotes($value);
             case Escaper::requiresSingleQuoting($value):
@@ -210,7 +210,7 @@ class Inline
      * Dumps a PHP array to a YAML string.
      *
      * @param array $value The PHP array to dump
-     * @param int   $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string
+     * @param int $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string
      */
     private static function dumpArray(array $value, int $flags): string
     {
@@ -275,7 +275,7 @@ class Inline
                 if (Parser::preg_match('/[ \t]+#/', $output, $match, \PREG_OFFSET_CAPTURE)) {
                     $output = substr($output, 0, $match[0][1]);
                 }
-            } elseif (Parser::preg_match('/^(.*?)('.implode('|', $delimiters).')/', substr($scalar, $i), $match)) {
+            } elseif (Parser::preg_match('/^(.*?)(' . implode('|', $delimiters) . ')/', substr($scalar, $i), $match)) {
                 $output = $match[1];
                 $i += \strlen($output);
                 $output = trim($output);
@@ -303,7 +303,7 @@ class Inline
      */
     private static function parseQuotedScalar(string $scalar, int &$i = 0): string
     {
-        if (!Parser::preg_match('/'.self::REGEX_QUOTED_STRING.'/Au', substr($scalar, $i), $match)) {
+        if (!Parser::preg_match('/' . self::REGEX_QUOTED_STRING . '/Au', substr($scalar, $i), $match)) {
             throw new ParseException(sprintf('Malformed inline YAML string: "%s".', substr($scalar, $i)), self::$parsedLineNumber + 1, $scalar, self::$parsedFilename);
         }
 
@@ -361,7 +361,7 @@ class Inline
                         // embedded mapping?
                         try {
                             $pos = 0;
-                            $value = self::parseMapping('{'.$value.'}', $flags, $pos, $references);
+                            $value = self::parseMapping('{' . $value . '}', $flags, $pos, $references);
                         } catch (\InvalidArgumentException $e) {
                             // no, it's not
                         }
@@ -409,7 +409,7 @@ class Inline
                     continue 2;
                 case '}':
                     if (self::$objectForMap) {
-                        return (object) $output;
+                        return (object)$output;
                     }
 
                     return $output;
@@ -425,7 +425,7 @@ class Inline
             }
 
             if ('!php/const' === $key) {
-                $key .= ' '.self::parseScalar($mapping, $flags, [':'], $i, false);
+                $key .= ' ' . self::parseScalar($mapping, $flags, [':'], $i, false);
                 $key = self::evaluateScalar($key, $flags);
             }
 
@@ -574,7 +574,7 @@ class Inline
             case '!' === $scalar[0]:
                 switch (true) {
                     case 0 === strpos($scalar, '!!str '):
-                        $s = (string) substr($scalar, 6);
+                        $s = (string)substr($scalar, 6);
 
                         if (\in_array($s[0] ?? '', ['"', "'"], true)) {
                             $isQuotedString = true;
@@ -617,7 +617,7 @@ class Inline
 
                         return null;
                     case 0 === strpos($scalar, '!!float '):
-                        return (float) substr($scalar, 8);
+                        return (float)substr($scalar, 8);
                     case 0 === strpos($scalar, '!!binary '):
                         return self::evaluateBinaryScalar(substr($scalar, 9));
                 }
@@ -639,21 +639,21 @@ class Inline
                 switch (true) {
                     case ctype_digit($scalar):
                     case '-' === $scalar[0] && ctype_digit(substr($scalar, 1)):
-                        $cast = (int) $scalar;
+                        $cast = (int)$scalar;
 
-                        return ($scalar === (string) $cast) ? $cast : $scalar;
+                        return ($scalar === (string)$cast) ? $cast : $scalar;
                     case is_numeric($scalar):
                     case Parser::preg_match(self::getHexRegex(), $scalar):
                         $scalar = str_replace('_', '', $scalar);
 
-                        return '0x' === $scalar[0].$scalar[1] ? hexdec($scalar) : (float) $scalar;
+                        return '0x' === $scalar[0] . $scalar[1] ? hexdec($scalar) : (float)$scalar;
                     case '.inf' === $scalarLower:
                     case '.nan' === $scalarLower:
                         return -log(0);
                     case '-.inf' === $scalarLower:
                         return log(0);
                     case Parser::preg_match('/^(-|\+)?[0-9][0-9_]*(\.[0-9_]+)?$/', $scalar):
-                        return (float) str_replace('_', '', $scalar);
+                        return (float)str_replace('_', '', $scalar);
                     case Parser::preg_match(self::getTimestampRegex(), $scalar):
                         // When no timezone is provided in the parsed date, YAML spec says we must assume UTC.
                         $time = new \DateTime($scalar, new \DateTimeZone('UTC'));
@@ -674,7 +674,7 @@ class Inline
                 }
         }
 
-        return (string) $scalar;
+        return (string)$scalar;
     }
 
     private static function parseTag(string $value, int &$i, int $flags): ?string

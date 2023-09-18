@@ -10,10 +10,10 @@ class StdClassArgumentReducer extends ArrayArgumentReducer
 {
     public function execute($argument): ReducedArgumentContract
     {
-        if (! $argument instanceof stdClass) {
+        if (!$argument instanceof stdClass) {
             return UnReducedArgument::create();
         }
 
-        return parent::reduceArgument((array) $argument, stdClass::class);
+        return parent::reduceArgument((array)$argument, stdClass::class);
     }
 }

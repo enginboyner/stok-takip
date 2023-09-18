@@ -21,11 +21,11 @@ class TypeErrorException extends \Exception implements Exception
     /**
      * Constructor!
      *
+     * @param string $message (default: "")
+     * @param int $code (default: 0)
+     * @param \Throwable|null $previous (default: null)
      * @deprecated PsySH no longer wraps TypeErrors
      *
-     * @param string          $message  (default: "")
-     * @param int             $code     (default: 0)
-     * @param \Throwable|null $previous (default: null)
      */
     public function __construct(string $message = '', int $code = 0, \Throwable $previous = null)
     {
@@ -45,9 +45,9 @@ class TypeErrorException extends \Exception implements Exception
     /**
      * Create a TypeErrorException from a TypeError.
      *
+     * @param \TypeError $e
      * @deprecated PsySH no longer wraps TypeErrors
      *
-     * @param \TypeError $e
      */
     public static function fromTypeError(\TypeError $e): self
     {

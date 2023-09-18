@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
 
-
-        $stockDatas = Stock::whereBetween('created_at', [2021-07-07, 2024-07-07])->get();
+        $stockDatas = Stock::whereBetween('created_at', [2021 - 07 - 07, 2024 - 07 - 07])->get();
         dd($stockDatas);
 
-           /* $product=Product::with('category')->where('category_id',88)->get();
+        /* $product=Product::with('category')->where('category_id',88)->get();
 dd($product[1]->name);*/
 
         /* $product=Product::find(57);
@@ -48,10 +48,9 @@ dd($product[1]->name);*/
          }])->find(57);
  */
 
-       /* $productWithActiveSales=Product::whereHas("sales.sale",function($q){
-            $q->where("status",1);
-        })->find(57);*/
-
+        /* $productWithActiveSales=Product::whereHas("sales.sale",function($q){
+             $q->where("status",1);
+         })->find(57);*/
 
 
         /*

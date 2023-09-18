@@ -251,7 +251,7 @@ final class LazyUuidFromString implements UuidInterface
 
     public function equals(?object $other): bool
     {
-        if (! $other instanceof UuidInterface) {
+        if (!$other instanceof UuidInterface) {
             return false;
         }
 
@@ -268,7 +268,7 @@ final class LazyUuidFromString implements UuidInterface
     public function getBytes(): string
     {
         /** @phpstan-ignore-next-line PHPStan complains that this is not a non-empty-string. */
-        return (string) hex2bin(str_replace('-', '', $this->uuid));
+        return (string)hex2bin(str_replace('-', '', $this->uuid));
     }
 
     public function getFields(): FieldsInterface

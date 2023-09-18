@@ -31,9 +31,9 @@ trait Rounding
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
-     * @param string    $unit
+     * @param string $unit
      * @param float|int $precision
-     * @param string    $function
+     * @param string $function
      *
      * @return CarbonInterface
      */
@@ -145,7 +145,7 @@ trait Rounding
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      *
-     * @param string    $unit
+     * @param string $unit
      * @param float|int $precision
      *
      * @return CarbonInterface
@@ -158,7 +158,7 @@ trait Rounding
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      *
-     * @param string    $unit
+     * @param string $unit
      * @param float|int $precision
      *
      * @return CarbonInterface
@@ -172,7 +172,7 @@ trait Rounding
      * Round the current instance second with given precision if specified.
      *
      * @param float|int|string|\DateInterval|null $precision
-     * @param string                              $function
+     * @param string $function
      *
      * @return CarbonInterface
      */

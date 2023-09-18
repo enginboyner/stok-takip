@@ -31,8 +31,8 @@ final class Termwind
     /**
      * Creates a div element instance.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function div(array|string $content = '', string $styles = '', array $properties = []): Components\Div
     {
@@ -46,8 +46,8 @@ final class Termwind
     /**
      * Creates a paragraph element instance.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function paragraph(array|string $content = '', string $styles = '', array $properties = []): Components\Paragraph
     {
@@ -61,8 +61,8 @@ final class Termwind
     /**
      * Creates a span element instance with the given style.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function span(array|string $content = '', string $styles = '', array $properties = []): Components\Span
     {
@@ -76,7 +76,7 @@ final class Termwind
     /**
      * Creates an element instance with raw content.
      *
-     * @param  array<int, Element|string>|string  $content
+     * @param array<int, Element|string>|string $content
      */
     public static function raw(array|string $content = ''): Components\Raw
     {
@@ -88,8 +88,8 @@ final class Termwind
     /**
      * Creates an anchor element instance with the given style.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function anchor(array|string $content = '', string $styles = '', array $properties = []): Components\Anchor
     {
@@ -103,8 +103,8 @@ final class Termwind
     /**
      * Creates an unordered list instance.
      *
-     * @param  array<int, string|Element>  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, string|Element> $content
+     * @param array<string, mixed> $properties
      */
     public static function ul(array $content = [], string $styles = '', array $properties = []): Components\Ul
     {
@@ -120,7 +120,7 @@ final class Termwind
                     return $li;
                 }
 
-                if (! $li instanceof Components\Li) {
+                if (!$li instanceof Components\Li) {
                     throw new InvalidChild('Unordered lists only accept `li` as child');
                 }
 
@@ -140,8 +140,8 @@ final class Termwind
     /**
      * Creates an ordered list instance.
      *
-     * @param  array<int, string|Element>  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, string|Element> $content
+     * @param array<string, mixed> $properties
      */
     public static function ol(array $content = [], string $styles = '', array $properties = []): Components\Ol
     {
@@ -159,14 +159,14 @@ final class Termwind
                     return $li;
                 }
 
-                if (! $li instanceof Components\Li) {
+                if (!$li instanceof Components\Li) {
                     throw new InvalidChild('Ordered lists only accept `li` as child');
                 }
 
                 return match (true) {
                     $li->hasStyle('list-none') => $li->addStyle('list-none'),
                     $ol->hasStyle('list-none') => $li->addStyle('list-none'),
-                    $ol->hasStyle('list-decimal') => $li->addStyle('list-decimal-'.(++$index)),
+                    $ol->hasStyle('list-decimal') => $li->addStyle('list-decimal-' . (++$index)),
                     default => $li->addStyle('list-none'),
                 };
             }
@@ -178,8 +178,8 @@ final class Termwind
     /**
      * Creates a list item instance.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function li(array|string $content = '', string $styles = '', array $properties = []): Components\Li
     {
@@ -193,8 +193,8 @@ final class Termwind
     /**
      * Creates a description list instance.
      *
-     * @param  array<int, string|Element>  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, string|Element> $content
+     * @param array<string, mixed> $properties
      */
     public static function dl(array $content = [], string $styles = '', array $properties = []): Components\Dl
     {
@@ -206,7 +206,7 @@ final class Termwind
                     return $element;
                 }
 
-                if (! $element instanceof Components\Dt && ! $element instanceof Components\Dd) {
+                if (!$element instanceof Components\Dt && !$element instanceof Components\Dd) {
                     throw new InvalidChild('Description lists only accept `dt` and `dd` as children');
                 }
 
@@ -222,8 +222,8 @@ final class Termwind
     /**
      * Creates a description term instance.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function dt(array|string $content = '', string $styles = '', array $properties = []): Components\Dt
     {
@@ -237,8 +237,8 @@ final class Termwind
     /**
      * Creates a description details instance.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     public static function dd(array|string $content = '', string $styles = '', array $properties = []): Components\Dd
     {
@@ -252,7 +252,7 @@ final class Termwind
     /**
      * Creates a horizontal rule instance.
      *
-     * @param  array<string, mixed>  $properties
+     * @param array<string, mixed> $properties
      */
     public static function hr(string $styles = '', array $properties = []): Components\Hr
     {
@@ -264,7 +264,7 @@ final class Termwind
     /**
      * Creates an break line element instance.
      *
-     * @param  array<string, mixed>  $properties
+     * @param array<string, mixed> $properties
      */
     public static function breakLine(string $styles = '', array $properties = []): Components\BreakLine
     {
@@ -284,13 +284,13 @@ final class Termwind
     /**
      * Convert child elements to a string.
      *
-     * @param  array<int, string|Element>|string  $elements
+     * @param array<int, string|Element>|string $elements
      * @return array<int, string|Element>
      */
     private static function prepareElements($elements, string $styles = '', Closure|null $callback = null): array
     {
         if ($callback === null) {
-            $callback = static fn ($element): string|Element => $element;
+            $callback = static fn($element): string|Element => $element;
         }
 
         $elements = is_array($elements) ? $elements : [$elements];

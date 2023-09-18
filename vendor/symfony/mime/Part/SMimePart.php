@@ -83,7 +83,7 @@ class SMimePart extends AbstractPart
     {
         $headers = clone parent::getHeaders();
 
-        $headers->setHeaderBody('Parameterized', 'Content-Type', $this->getMediaType().'/'.$this->getMediaSubtype());
+        $headers->setHeaderBody('Parameterized', 'Content-Type', $this->getMediaType() . '/' . $this->getMediaSubtype());
 
         foreach ($this->parameters as $name => $value) {
             $headers->setHeaderParameter('Content-Type', $name, $value);

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report\Xml;
 
 use const DIRECTORY_SEPARATOR;
@@ -170,7 +171,7 @@ final class Facade
                 continue;
             }
 
-            $coverage = $fileReport->lineCoverage((string) $line);
+            $coverage = $fileReport->lineCoverage((string)$line);
 
             foreach ($tests as $test) {
                 $coverage->addTest($test);
@@ -200,18 +201,18 @@ final class Facade
             $unit['executedLines']
         );
 
-        $unitObject->setCrap((float) $unit['crap']);
+        $unitObject->setCrap((float)$unit['crap']);
         $unitObject->setNamespace($unit['namespace']);
 
         foreach ($unit['methods'] as $method) {
             $methodObject = $unitObject->addMethod($method['methodName']);
             $methodObject->setSignature($method['signature']);
-            $methodObject->setLines((string) $method['startLine'], (string) $method['endLine']);
+            $methodObject->setLines((string)$method['startLine'], (string)$method['endLine']);
             $methodObject->setCrap($method['crap']);
             $methodObject->setTotals(
-                (string) $method['executableLines'],
-                (string) $method['executedLines'],
-                (string) $method['coverage']
+                (string)$method['executableLines'],
+                (string)$method['executedLines'],
+                (string)$method['coverage']
             );
         }
     }
@@ -221,9 +222,9 @@ final class Facade
         $functionObject = $report->functionObject($function['functionName']);
 
         $functionObject->setSignature($function['signature']);
-        $functionObject->setLines((string) $function['startLine']);
+        $functionObject->setLines((string)$function['startLine']);
         $functionObject->setCrap($function['crap']);
-        $functionObject->setTotals((string) $function['executableLines'], (string) $function['executedLines'], (string) $function['coverage']);
+        $functionObject->setTotals((string)$function['executableLines'], (string)$function['executedLines'], (string)$function['coverage']);
     }
 
     private function processTests(array $tests): void
@@ -280,7 +281,7 @@ final class Facade
     {
         $filename = sprintf('%s/%s.xml', $this->targetDirectory(), $name);
 
-        $document->formatOutput       = true;
+        $document->formatOutput = true;
         $document->preserveWhiteSpace = false;
         $this->initTargetDirectory(dirname($filename));
 
@@ -295,7 +296,7 @@ final class Facade
     private function documentAsString(DOMDocument $document): string
     {
         $xmlErrorHandling = libxml_use_internal_errors(true);
-        $xml              = $document->saveXML();
+        $xml = $document->saveXML();
 
         if ($xml === false) {
             $message = 'Unable to generate the XML';

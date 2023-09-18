@@ -25,7 +25,7 @@ use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Symfony\Component\VarDumper\Dumper\ServerDumper;
 
 // Load the global dump() function
-require_once __DIR__.'/Resources/functions/dump.php';
+require_once __DIR__ . '/Resources/functions/dump.php';
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -105,8 +105,8 @@ class VarDumper
         $fileLinkFormatter = class_exists(FileLinkFormatter::class) ? new FileLinkFormatter(null, $requestStack ?? null) : null;
 
         return $contextProviders + [
-            'cli' => new CliContextProvider(),
-            'source' => new SourceContextProvider(null, null, $fileLinkFormatter),
-        ];
+                'cli' => new CliContextProvider(),
+                'source' => new SourceContextProvider(null, null, $fileLinkFormatter),
+            ];
     }
 }

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Util;
 
 use function sprintf;
@@ -34,7 +35,7 @@ final class Percentage
     private function __construct(float $fraction, float $total)
     {
         $this->fraction = $fraction;
-        $this->total    = $total;
+        $this->total = $total;
     }
 
     public function asFloat(): float

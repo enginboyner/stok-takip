@@ -87,7 +87,7 @@ abstract class AbstractMatcher
                 continue;
             }
 
-            $class = $token[1].$class;
+            $class = $token[1] . $class;
         }
 
         return $class;
@@ -97,7 +97,7 @@ abstract class AbstractMatcher
      * Provide tab completion matches for readline input.
      *
      * @param array $tokens information substracted with get_token_all
-     * @param array $info   readline_info object
+     * @param array $info readline_info object
      *
      * @return array The matches resulting from the query
      */
@@ -117,7 +117,7 @@ abstract class AbstractMatcher
     /**
      * Check whether $token matches a given syntax pattern.
      *
-     * @param mixed  $token  A PHP token (see token_get_all)
+     * @param mixed $token A PHP token (see token_get_all)
      * @param string $syntax A syntax pattern (default: variable pattern)
      */
     public static function hasSyntax($token, string $syntax = self::VAR_SYNTAX): bool
@@ -128,13 +128,13 @@ abstract class AbstractMatcher
 
         $regexp = \sprintf('#%s#', $syntax);
 
-        return (bool) \preg_match($regexp, $token[1]);
+        return (bool)\preg_match($regexp, $token[1]);
     }
 
     /**
      * Check whether $token type is $which.
      *
-     * @param mixed  $token A PHP token (see token_get_all)
+     * @param mixed $token A PHP token (see token_get_all)
      * @param string $which A PHP token type
      */
     public static function tokenIs($token, string $which): bool
@@ -168,7 +168,7 @@ abstract class AbstractMatcher
     /**
      * Check whether $token type is present in $coll.
      *
-     * @param array $coll  A list of token types
+     * @param array $coll A list of token types
      * @param mixed $token A PHP token (see token_get_all)
      */
     public static function hasToken(array $coll, $token): bool

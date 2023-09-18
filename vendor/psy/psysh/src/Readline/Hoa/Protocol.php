@@ -96,36 +96,36 @@ class Protocol extends ProtocolNode
 
         $this[] = new ProtocolNode(
             'Application',
-            $cwd.\DIRECTORY_SEPARATOR,
+            $cwd . \DIRECTORY_SEPARATOR,
             [
-                new ProtocolNode('Public', 'Public'.\DIRECTORY_SEPARATOR),
+                new ProtocolNode('Public', 'Public' . \DIRECTORY_SEPARATOR),
             ]
         );
 
         $this[] = new ProtocolNode(
             'Data',
-            \dirname($cwd).\DIRECTORY_SEPARATOR,
+            \dirname($cwd) . \DIRECTORY_SEPARATOR,
             [
                 new ProtocolNode(
                     'Etc',
-                    'Etc'.\DIRECTORY_SEPARATOR,
+                    'Etc' . \DIRECTORY_SEPARATOR,
                     [
-                        new ProtocolNode('Configuration', 'Configuration'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Locale', 'Locale'.\DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Configuration', 'Configuration' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Locale', 'Locale' . \DIRECTORY_SEPARATOR),
                     ]
                 ),
-                new ProtocolNode('Lost+found', 'Lost+found'.\DIRECTORY_SEPARATOR),
-                new ProtocolNode('Temporary', 'Temporary'.\DIRECTORY_SEPARATOR),
+                new ProtocolNode('Lost+found', 'Lost+found' . \DIRECTORY_SEPARATOR),
+                new ProtocolNode('Temporary', 'Temporary' . \DIRECTORY_SEPARATOR),
                 new ProtocolNode(
                     'Variable',
-                    'Variable'.\DIRECTORY_SEPARATOR,
+                    'Variable' . \DIRECTORY_SEPARATOR,
                     [
-                        new ProtocolNode('Cache', 'Cache'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Database', 'Database'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Log', 'Log'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Private', 'Private'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Run', 'Run'.\DIRECTORY_SEPARATOR),
-                        new ProtocolNode('Test', 'Test'.\DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Cache', 'Cache' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Database', 'Database' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Log', 'Log' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Private', 'Private' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Run', 'Run' . \DIRECTORY_SEPARATOR),
+                        new ProtocolNode('Test', 'Test' . \DIRECTORY_SEPARATOR),
                     ]
                 ),
             ]
@@ -133,8 +133,8 @@ class Protocol extends ProtocolNode
 
         $this[] = new ProtocolNodeLibrary(
             'Library',
-            $root.\DIRECTORY_SEPARATOR.'Hoathis'.\DIRECTORY_SEPARATOR.';'.
-            $root.\DIRECTORY_SEPARATOR.'Hoa'.\DIRECTORY_SEPARATOR
+            $root . \DIRECTORY_SEPARATOR . 'Hoathis' . \DIRECTORY_SEPARATOR . ';' .
+            $root . \DIRECTORY_SEPARATOR . 'Hoa' . \DIRECTORY_SEPARATOR
         );
     }
 

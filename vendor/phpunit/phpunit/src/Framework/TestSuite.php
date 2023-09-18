@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use const PHP_EOL;
@@ -196,7 +197,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         }
 
         if (!$theClass->isSubclassOf(TestCase::class)) {
-            $this->setName((string) $theClass);
+            $this->setName((string)$theClass);
 
             return;
         }
@@ -394,7 +395,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
         // The given file may contain further stub classes in addition to the
         // test class itself. Figure out the actual test class.
-        $filename   = FileLoader::checkAndLoad($filename);
+        $filename = FileLoader::checkAndLoad($filename);
         $newClasses = array_slice(get_declared_classes(), $this->declaredClassesPointer);
 
         // The diff is empty in case a parent class (with test methods) is added
@@ -405,7 +406,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
             // On the assumption that test classes are defined first in files,
             // process discovered classes in approximate LIFO order, so as to
             // avoid unnecessary reflection.
-            $this->foundClasses           = array_merge($newClasses, $this->foundClasses);
+            $this->foundClasses = array_merge($newClasses, $this->foundClasses);
             $this->declaredClassesPointer = count(get_declared_classes());
         }
 
@@ -413,7 +414,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         // a PEAR/PSR-0 prefixed short name ('NameSpace_ShortName'), or as a
         // PSR-1 local short name ('NameSpace\ShortName'). The comparison must be
         // anchored to prevent false-positive matches (e.g., 'OtherShortName').
-        $shortName      = basename($filename, '.php');
+        $shortName = basename($filename, '.php');
         $shortNameRegEx = '/(?:^|_|\\\\)' . preg_quote($shortName, '/') . '$/';
 
         foreach ($this->foundClasses as $i => $className) {
@@ -486,7 +487,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
                     }
                 } elseif ($class->implementsInterface(Test::class)) {
                     // Do we have modern namespacing ('Foo\Bar\WhizBangTest') or old-school namespacing ('Foo_Bar_WhizBangTest')?
-                    $isPsr0            = (!$class->inNamespace()) && (strpos($class->getName(), '_') !== false);
+                    $isPsr0 = (!$class->inNamespace()) && (strpos($class->getName(), '_') !== false);
                     $expectedClassName = $isPsr0 ? $className : $shortName;
 
                     if (($pos = strpos($expectedClassName, '.')) !== false) {
@@ -533,7 +534,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     public function addTestFiles(iterable $fileNames): void
     {
         foreach ($fileNames as $filename) {
-            $this->addTestFile((string) $filename);
+            $this->addTestFile((string)$filename);
         }
     }
 
@@ -569,9 +570,8 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     public function getGroups(): array
     {
         return array_map(
-            static function ($key): string
-            {
-                return (string) $key;
+            static function ($key): string {
+                return (string)$key;
             },
             array_keys($this->groups),
         );
@@ -610,7 +610,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         }
 
         /** @psalm-var class-string $className */
-        $className   = $this->name;
+        $className = $this->name;
         $hookMethods = TestUtil::getHookMethods($className);
 
         $result->startTestSuite($this);
@@ -691,7 +691,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
                         call_user_func([$this->name, $afterClassMethod]);
                     } catch (Throwable $t) {
                         $message = "Exception in {$this->name}::{$afterClassMethod}" . PHP_EOL . $t->getMessage();
-                        $error   = new SyntheticError($message, 0, $t->getFile(), $t->getLine(), $t->getTrace());
+                        $error = new SyntheticError($message, 0, $t->getFile(), $t->getLine(), $t->getTrace());
 
                         $placeholderTest = clone $test;
                         $placeholderTest->setName($afterClassMethod);
@@ -903,7 +903,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
 
     private function clearCaches(): void
     {
-        $this->numTests      = -1;
+        $this->numTests = -1;
         $this->providedTests = null;
         $this->requiredTests = null;
     }

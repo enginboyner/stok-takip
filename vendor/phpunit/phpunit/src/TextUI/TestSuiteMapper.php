@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
 use const PHP_VERSION;
@@ -35,14 +36,14 @@ final class TestSuiteMapper
     {
         try {
             $filterAsArray = $filter ? explode(',', $filter) : [];
-            $result        = new TestSuiteObject;
+            $result = new TestSuiteObject;
 
             foreach ($configuration as $testSuiteConfiguration) {
                 if (!empty($filterAsArray) && !in_array($testSuiteConfiguration->name(), $filterAsArray, true)) {
                     continue;
                 }
 
-                $testSuite      = new TestSuiteObject($testSuiteConfiguration->name());
+                $testSuite = new TestSuiteObject($testSuiteConfiguration->name());
                 $testSuiteEmpty = true;
 
                 $exclude = [];

@@ -12,7 +12,7 @@ class ClosureArgumentReducer implements ArgumentReducer
 {
     public function execute($argument): ReducedArgumentContract
     {
-        if (! $argument instanceof Closure) {
+        if (!$argument instanceof Closure) {
             return UnReducedArgument::create();
         }
 

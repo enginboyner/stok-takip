@@ -17,7 +17,7 @@ class MissingImportSolutionProvider implements HasSolutionsForThrowable
     {
         $pattern = '/Class \'([^\s]+)\' not found/m';
 
-        if (! preg_match($pattern, $throwable->getMessage(), $matches)) {
+        if (!preg_match($pattern, $throwable->getMessage(), $matches)) {
             return false;
         }
 
@@ -27,7 +27,7 @@ class MissingImportSolutionProvider implements HasSolutionsForThrowable
 
         $this->search($class);
 
-        return ! is_null($this->foundClass);
+        return !is_null($this->foundClass);
     }
 
     /**

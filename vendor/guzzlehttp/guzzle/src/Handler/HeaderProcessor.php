@@ -37,6 +37,6 @@ final class HeaderProcessor
             throw new \RuntimeException('HTTP status code missing from header data');
         }
 
-        return [$version, (int) $status, $parts[2] ?? null, Utils::headersFromLines($headers)];
+        return [$version, (int)$status, $parts[2] ?? null, Utils::headersFromLines($headers)];
     }
 }

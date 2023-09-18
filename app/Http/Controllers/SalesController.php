@@ -30,39 +30,40 @@ class SalesController extends Controller
     public function add()
     {
 
-        $customers=Customer::all();
+        $customers = Customer::all();
         $products = Product::all();
-        return view("sales.add", ["products" => $products,"customers"=>$customers]);
+        return view("sales.add", ["products" => $products, "customers" => $customers]);
 
 
     }
+
     public function edit($SalesID)
     {
 
         $products = Product::all();
         $customers = Customer::all();
         $salesEdit = Sale::find($SalesID);
-        $salesItem=SaleItem::find($SalesID);
-        return view('sales.edit',["products" => $products,"salesEdit"=>$salesEdit, "customers"=>$customers, "salesItem"=>$salesItem]);
+        $salesItem = SaleItem::where('sale_id', $SalesID)->get();
+        return view('sales.edit', ["products" => $products, "salesEdit" => $salesEdit, "customers" => $customers, "salesItem" => $salesItem]);
     }
 
     public function delete($id)
     {
-        $saleDelete= Sale::find($id);
-        $saleDelete->status=false;
+        $saleDelete = Sale::find($id);
+        $saleDelete->status = false;
         $saleDelete->update();
 
     }
+
     public function show($SalesID)
     {
-        $sale=Sale::with("items.product", "customer")->find($SalesID);
+        $sale = Sale::with("items.product", "customer")->find($SalesID);
 
         return view('sales.show', ["sale" => $sale]);
     }
+
     public function update(Request $request, $id)
     {
-
-
         $validator = Validator::make($request->all(), [
             'product_id' => 'required|array',
             'price' => 'required|array',
@@ -71,23 +72,38 @@ class SalesController extends Controller
             'date' => 'required|date',
         ], [], ["product_id" => "Ürün", "quantity" => "Miktar", "price" => "Fiyat", "customer_id" => "Müşteri", "date" => "Tarih"]);
 
-
-
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
         }
 
+        $data = $request->all();
 
-        $sale = Sale::find($id);
-        $sale->product_id = $request->input('product_id');
-        $sale->quantity = $request->input('quantity');
-        $sale->price = $request->input('price');
+        // Check if the sale record exists
+        $sales = Sale::find($id);
+        if (!$sales) {
+            return $this->responseMessage("Satış kaydı bulunamadı.", "error", 404);
+        }
 
-        $sale->update();
+        // Update the sales record
+        $sales->customer_id = $data['customer_id'];
+        $sales->date = $data['date'];
+        $sales->save();
 
-        return $this->responseMessage("İşlem Başarılı","success",200,'/sales');
+        // Delete the existing sale items associated with the sale
+        SaleItem::where('sale_id', $id)->delete();
 
+        // Create new sale items for the updated sale
+        foreach ($data["product_id"] as $key => $product) {
+            $item = new SaleItem();
+            $item->sale_id = $id;
+            $item->product_id = $product;
+            $item->quantity = $data["quantity"][$key];
+            $item->price = $data["price"][$key];
+            // Diğer gerekli ürün kalemi bilgilerini burada atayın
+            $item->save();
+        }
 
+        return $this->responseMessage("Satış başarıyla güncellendi.", "success", 200, route('sales.edit', $id));
     }
 
     public function store(Request $request)
@@ -103,7 +119,6 @@ class SalesController extends Controller
         ], [], ["product_id" => "Ürün", "quantity" => "Miktar", "price" => "Fiyat", "customer_id" => "Müşteri", "date" => "Tarih"]);
 
 
-
         if ($validator->fails()) {
             return $this->responseMessage(implode(' ', $validator->errors()->all()), "error", 400);
         }
@@ -111,7 +126,7 @@ class SalesController extends Controller
         $data = $request->all();
 
         //her ürün için istenilen adet var mı diye kontrol et
-        foreach ($data["product_id"] as $key => $product){
+        foreach ($data["product_id"] as $key => $product) {
 
             /*
         foreach ($data["product_id"] as $key => $product){
@@ -127,24 +142,21 @@ class SalesController extends Controller
 
             */
 
-            $productWithTotalSalesCount=Product::withCount(["sales"=>function ($salesCount){
-                $salesCount->select( DB::raw('SUM(quantity)'))
-                ;
+            $productWithTotalSalesCount = Product::withCount(["sales" => function ($salesCount) {
+                $salesCount->select(DB::raw('SUM(quantity)'));
             }])->find($product);
-            $productWithTotalStockCount=Product::withCount(["stock"=>function ($stockCount){
-                $stockCount->select( DB::raw('SUM(quantity)'))
-                ;
+            $productWithTotalStockCount = Product::withCount(["stock" => function ($stockCount) {
+                $stockCount->select(DB::raw('SUM(quantity)'));
             }])->find($product);
 
 //            $amountProductsStock = Product::withCount(["productStock", "productSale"])->find($product)->productStock;
 //            $amountProductsSale = Product::withCount(["productStock", "productSale"])->find($product)->productSale;
 
             if (($productWithTotalStockCount->stock_count - $productWithTotalSalesCount->sales_count - $data["quantity"][$key]) <= 0) {
-                return $this->responseMessage($product ." Yeterli stok bulunmuyor.","error",200);
+                return $this->responseMessage($product . " Yeterli stok bulunmuyor.", "error", 200);
             }
 
         }
-
 
 
         //satışı kaydet
@@ -178,6 +190,7 @@ class SalesController extends Controller
         return $this->responseMessage("Başarılı.", "success", 200, route('sales.add'));
 
     }
+
     public function getSaleItems($saleID)
     {
 

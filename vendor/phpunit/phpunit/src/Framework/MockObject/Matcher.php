@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function assert;
@@ -226,8 +227,8 @@ final class Matcher
                 $this->parametersRule = new AnyParameters;
             }
 
-            $invocationIsAny    = $this->invocationRule instanceof AnyInvokedCount;
-            $invocationIsNever  = $this->invocationRule instanceof InvokedCount && $this->invocationRule->isNever();
+            $invocationIsAny = $this->invocationRule instanceof AnyInvokedCount;
+            $invocationIsNever = $this->invocationRule instanceof InvokedCount && $this->invocationRule->isNever();
             $invocationIsAtMost = $this->invocationRule instanceof InvokedAtMostCount;
 
             if (!$invocationIsAny && !$invocationIsNever && !$invocationIsAtMost) {

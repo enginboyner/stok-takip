@@ -63,9 +63,10 @@ class PhpTimeConverter implements TimeConverterInterface
     private TimeConverterInterface $fallbackConverter;
 
     public function __construct(
-        ?CalculatorInterface $calculator = null,
+        ?CalculatorInterface    $calculator = null,
         ?TimeConverterInterface $fallbackConverter = null
-    ) {
+    )
+    {
         if ($calculator === null) {
             $calculator = new BrickMathCalculator();
         }
@@ -76,7 +77,7 @@ class PhpTimeConverter implements TimeConverterInterface
 
         $this->calculator = $calculator;
         $this->fallbackConverter = $fallbackConverter;
-        $this->phpPrecision = (int) ini_get('precision');
+        $this->phpPrecision = (int)ini_get('precision');
     }
 
     public function calculateTime(string $seconds, string $microseconds): Hexadecimal
@@ -86,8 +87,8 @@ class PhpTimeConverter implements TimeConverterInterface
 
         // Calculate the count of 100-nanosecond intervals since the Gregorian
         // calendar epoch for the given seconds and microseconds.
-        $uuidTime = ((int) $seconds->toString() * self::SECOND_INTERVALS)
-            + ((int) $microseconds->toString() * self::MICROSECOND_INTERVALS)
+        $uuidTime = ((int)$seconds->toString() * self::SECOND_INTERVALS)
+            + ((int)$microseconds->toString() * self::MICROSECOND_INTERVALS)
             + self::GREGORIAN_TO_UNIX_INTERVALS;
 
         // Check to see whether we've overflowed the max/min integer size.
@@ -109,7 +110,7 @@ class PhpTimeConverter implements TimeConverterInterface
 
         // Convert the 100-nanosecond intervals into seconds and microseconds.
         $splitTime = $this->splitTime(
-            ((int) $timestamp->toString() - self::GREGORIAN_TO_UNIX_INTERVALS)
+            ((int)$timestamp->toString() - self::GREGORIAN_TO_UNIX_INTERVALS)
             / self::SECOND_INTERVALS
         );
 
@@ -125,9 +126,9 @@ class PhpTimeConverter implements TimeConverterInterface
      *
      * @return string[]
      */
-    private function splitTime(float | int $time): array
+    private function splitTime(float|int $time): array
     {
-        $split = explode('.', (string) $time, 2);
+        $split = explode('.', (string)$time, 2);
 
         // If the $time value is a float but $split only has 1 element, then the
         // float math was rounded up to the next second, so we want to return
@@ -147,7 +148,7 @@ class PhpTimeConverter implements TimeConverterInterface
         // the number is greater than or equal to the PHP precision, then it's
         // possible that we lost some precision for the microseconds. Return an
         // empty array, so that we can choose to use the fallback converter.
-        if (strlen($split[1]) < 6 && strlen((string) $time) >= $this->phpPrecision) {
+        if (strlen($split[1]) < 6 && strlen((string)$time) >= $this->phpPrecision) {
             return [];
         }
 
@@ -156,8 +157,8 @@ class PhpTimeConverter implements TimeConverterInterface
         // Ensure the microseconds are no longer than 6 digits. If they are,
         // truncate the number to the first 6 digits and round up, if needed.
         if (strlen($microseconds) > 6) {
-            $roundingDigit = (int) substr($microseconds, 6, 1);
-            $microseconds = (int) substr($microseconds, 0, 6);
+            $roundingDigit = (int)substr($microseconds, 6, 1);
+            $microseconds = (int)substr($microseconds, 0, 6);
 
             if ($roundingDigit >= 5) {
                 $microseconds++;
@@ -166,7 +167,7 @@ class PhpTimeConverter implements TimeConverterInterface
 
         return [
             'sec' => $split[0],
-            'usec' => str_pad((string) $microseconds, 6, '0', STR_PAD_RIGHT),
+            'usec' => str_pad((string)$microseconds, 6, '0', STR_PAD_RIGHT),
         ];
     }
 }

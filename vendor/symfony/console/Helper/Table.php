@@ -326,7 +326,7 @@ class Table
 
         $isHeader = !$this->horizontal;
         $isFirstRow = $this->horizontal;
-        $hasTitle = (bool) $this->headerTitle;
+        $hasTitle = (bool)$this->headerTitle;
 
         foreach ($rowGroups as $rowGroup) {
             $isHeaderSeparatorRendered = false;
@@ -423,14 +423,14 @@ class Table
             if ($titleLength > $limit = $markupLength - 4) {
                 $titleLength = $limit;
                 $formatLength = Helper::width(Helper::removeDecoration($formatter, sprintf($titleFormat, '')));
-                $formattedTitle = sprintf($titleFormat, Helper::substr($title, 0, $limit - $formatLength - 3).'...');
+                $formattedTitle = sprintf($titleFormat, Helper::substr($title, 0, $limit - $formatLength - 3) . '...');
             }
 
             $titleStart = intdiv($markupLength - $titleLength, 2);
             if (false === mb_detect_encoding($markup, null, true)) {
                 $markup = substr_replace($markup, $formattedTitle, $titleStart, $titleLength);
             } else {
-                $markup = mb_substr($markup, 0, $titleStart).$formattedTitle.mb_substr($markup, $titleStart + $titleLength);
+                $markup = mb_substr($markup, 0, $titleStart) . $formattedTitle . mb_substr($markup, $titleStart + $titleLength);
             }
         }
 
@@ -505,7 +505,7 @@ class Table
                 $cellFormat = $cell->getStyle()->getCellFormat();
                 if (!\is_string($cellFormat)) {
                     $tag = http_build_query($cell->getStyle()->getTagOptions(), '', ';');
-                    $cellFormat = '<'.$tag.'>%s</>';
+                    $cellFormat = '<' . $tag . '>%s</>';
                 }
 
                 if (strstr($content, '</>')) {
@@ -797,36 +797,31 @@ class Table
         $borderless
             ->setHorizontalBorderChars('=')
             ->setVerticalBorderChars(' ')
-            ->setDefaultCrossingChar(' ')
-        ;
+            ->setDefaultCrossingChar(' ');
 
         $compact = new TableStyle();
         $compact
             ->setHorizontalBorderChars('')
             ->setVerticalBorderChars('')
             ->setDefaultCrossingChar('')
-            ->setCellRowContentFormat('%s ')
-        ;
+            ->setCellRowContentFormat('%s ');
 
         $styleGuide = new TableStyle();
         $styleGuide
             ->setHorizontalBorderChars('-')
             ->setVerticalBorderChars(' ')
             ->setDefaultCrossingChar(' ')
-            ->setCellHeaderFormat('%s')
-        ;
+            ->setCellHeaderFormat('%s');
 
         $box = (new TableStyle())
             ->setHorizontalBorderChars('─')
             ->setVerticalBorderChars('│')
-            ->setCrossingChars('┼', '┌', '┬', '┐', '┤', '┘', '┴', '└', '├')
-        ;
+            ->setCrossingChars('┼', '┌', '┬', '┐', '┤', '┘', '┴', '└', '├');
 
         $boxDouble = (new TableStyle())
             ->setHorizontalBorderChars('═', '─')
             ->setVerticalBorderChars('║', '│')
-            ->setCrossingChars('┼', '╔', '╤', '╗', '╢', '╝', '╧', '╚', '╟', '╠', '╪', '╣')
-        ;
+            ->setCrossingChars('┼', '╔', '╤', '╗', '╢', '╝', '╧', '╚', '╟', '╠', '╪', '╣');
 
         return [
             'default' => new TableStyle(),

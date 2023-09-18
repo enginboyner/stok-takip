@@ -27,7 +27,7 @@ class Ean
         $sums = 0;
 
         foreach (str_split($digits) as $n => $digit) {
-            $sums += ((int) $digit) * $sequence[$n % 2];
+            $sums += ((int)$digit) * $sequence[$n % 2];
         }
 
         return (10 - $sums % 10) % 10;
@@ -47,6 +47,6 @@ class Ean
             return false;
         }
 
-        return self::checksum(substr($ean, 0, -1)) === (int) substr($ean, -1);
+        return self::checksum(substr($ean, 0, -1)) === (int)substr($ean, -1);
     }
 }

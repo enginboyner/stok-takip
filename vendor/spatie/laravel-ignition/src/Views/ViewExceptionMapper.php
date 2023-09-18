@@ -121,7 +121,7 @@ class ViewExceptionMapper
     {
         $compilerEngineReflection = new ReflectionClass($this->compilerEngine);
 
-        if (! $compilerEngineReflection->hasProperty('lastCompiled') && $compilerEngineReflection->hasProperty('engine')) {
+        if (!$compilerEngineReflection->hasProperty('lastCompiled') && $compilerEngineReflection->hasProperty('engine')) {
             $compilerEngine = $compilerEngineReflection->getProperty('engine');
             $compilerEngine->setAccessible(true);
             $compilerEngine = $compilerEngine->getValue($this->compilerEngine);
@@ -168,7 +168,7 @@ class ViewExceptionMapper
         // __env and app. We try to filter them out.
         return array_filter($data, function ($value, $key) {
             if ($key === 'app') {
-                return ! $value instanceof Application;
+                return !$value instanceof Application;
             }
 
             return $key !== '__env';

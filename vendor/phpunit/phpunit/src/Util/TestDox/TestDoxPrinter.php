@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\TestDox;
 
 use const PHP_EOL;
@@ -80,7 +81,7 @@ class TestDoxPrinter extends DefaultResultPrinter
 
     /**
      * @param null|resource|string $out
-     * @param int|string           $numberOfColumns
+     * @param int|string $numberOfColumns
      *
      * @throws \PHPUnit\Framework\Exception
      */
@@ -94,7 +95,7 @@ class TestDoxPrinter extends DefaultResultPrinter
     public function setOriginalExecutionOrder(array $order): void
     {
         $this->originalExecutionOrder = $order;
-        $this->enableOutputBuffer     = !empty($order);
+        $this->enableOutputBuffer = !empty($order);
     }
 
     public function setShowProgressAnimation(bool $showProgress): void
@@ -192,20 +193,20 @@ class TestDoxPrinter extends DefaultResultPrinter
         $testName = $test instanceof Reorderable ? $test->sortId() : $test->getName();
 
         $result = [
-            'className'  => $this->formatClassName($test),
-            'testName'   => $testName,
+            'className' => $this->formatClassName($test),
+            'testName' => $testName,
             'testMethod' => $this->formatTestName($test),
-            'message'    => '',
-            'status'     => $status,
-            'time'       => $time,
-            'verbose'    => $verbose,
+            'message' => '',
+            'status' => $status,
+            'time' => $time,
+            'verbose' => $verbose,
         ];
 
         if ($t !== null) {
             $result['message'] = $this->formatTestResultMessage($t, $result);
         }
 
-        $this->testResults[$this->testIndex]  = $result;
+        $this->testResults[$this->testIndex] = $result;
         $this->testNameResultIndex[$testName] = $this->testIndex;
     }
 
@@ -268,7 +269,7 @@ class TestDoxPrinter extends DefaultResultPrinter
                     $this->writeTestResult($prevResult, $result);
                     $this->testFlushIndex++;
                     $prevResult = $result;
-                    $flushed    = true;
+                    $flushed = true;
                 } else {
                     $this->showSpinner();
                 }
@@ -321,10 +322,10 @@ class TestDoxPrinter extends DefaultResultPrinter
     {
         return [
             'className' => '',
-            'testName'  => '',
-            'message'   => '',
-            'failed'    => '',
-            'verbose'   => '',
+            'testName' => '',
+            'message' => '',
+            'failed' => '',
+            'verbose' => '',
         ];
     }
 
@@ -377,8 +378,7 @@ class TestDoxPrinter extends DefaultResultPrinter
         return implode(
             PHP_EOL,
             array_map(
-                static function (string $text) use ($prefix)
-                {
+                static function (string $text) use ($prefix) {
                     return '   ' . $prefix . ($text ? ' ' . $text : '');
                 },
                 preg_split('/\r\n|\r|\n/', $message),

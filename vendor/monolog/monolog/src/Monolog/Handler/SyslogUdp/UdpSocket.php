@@ -32,8 +32,8 @@ class UdpSocket
     }
 
     /**
-     * @param  string $line
-     * @param  string $header
+     * @param string $line
+     * @param string $header
      * @return void
      */
     public function write($line, $header = "")
@@ -68,7 +68,7 @@ class UdpSocket
 
         $this->socket = socket_create($domain, SOCK_DGRAM, $protocol) ?: null;
         if (null === $this->socket) {
-            throw new \RuntimeException('The UdpSocket to '.$this->ip.':'.$this->port.' could not be opened via socket_create');
+            throw new \RuntimeException('The UdpSocket to ' . $this->ip . ':' . $this->port . ' could not be opened via socket_create');
         }
 
         return $this->socket;

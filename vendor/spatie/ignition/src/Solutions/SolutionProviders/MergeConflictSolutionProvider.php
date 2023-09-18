@@ -12,20 +12,20 @@ class MergeConflictSolutionProvider implements HasSolutionsForThrowable
 {
     public function canSolve(Throwable $throwable): bool
     {
-        if (! ($throwable instanceof ParseError)) {
+        if (!($throwable instanceof ParseError)) {
             return false;
         }
 
-        if (! $this->hasMergeConflictExceptionMessage($throwable)) {
+        if (!$this->hasMergeConflictExceptionMessage($throwable)) {
             return false;
         }
 
         $file = (string)file_get_contents($throwable->getFile());
 
-        if (! str_contains($file, '=======')) {
+        if (!str_contains($file, '=======')) {
             return false;
         }
-        if (! str_contains($file, '>>>>>>>')) {
+        if (!str_contains($file, '>>>>>>>')) {
             return false;
         }
 
@@ -48,7 +48,7 @@ class MergeConflictSolutionProvider implements HasSolutionsForThrowable
 
     protected function getCurrentBranch(string $directory): string
     {
-        $branch = "'".trim((string)shell_exec("cd {$directory}; git branch | grep \\* | cut -d ' ' -f2"))."'";
+        $branch = "'" . trim((string)shell_exec("cd {$directory}; git branch | grep \\* | cut -d ' ' -f2")) . "'";
 
         if ($branch === "''") {
             $branch = 'current branch';

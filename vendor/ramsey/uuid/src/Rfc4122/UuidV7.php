@@ -45,11 +45,12 @@ final class UuidV7 extends Uuid implements UuidInterface
      *     for converting timestamps extracted from a UUID to unix timestamps
      */
     public function __construct(
-        Rfc4122FieldsInterface $fields,
+        Rfc4122FieldsInterface   $fields,
         NumberConverterInterface $numberConverter,
-        CodecInterface $codec,
-        TimeConverterInterface $timeConverter
-    ) {
+        CodecInterface           $codec,
+        TimeConverterInterface   $timeConverter
+    )
+    {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_UNIX_TIME) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV7 must represent a '

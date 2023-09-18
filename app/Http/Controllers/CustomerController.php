@@ -20,20 +20,22 @@ class CustomerController extends Controller
     {
         return view('customer.add');
     }
+
     public function edit($customerID)
     {
 
         $customerEdit = Customer::find($customerID);
-        return view('customer.edit',["customerEdit"=>$customerEdit]);
+        return view('customer.edit', ["customerEdit" => $customerEdit]);
     }
 
     public function delete($id)
     {
-        $customerDelete= Customer::find($id);
-        $customerDelete->status=false;
+        $customerDelete = Customer::find($id);
+        $customerDelete->status = false;
         $customerDelete->update();
 
     }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -53,16 +55,16 @@ class CustomerController extends Controller
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
         $customer->mail = $request->input('mail');
-        $customer ->update();
+        $customer->update();
 
-        return $this->responseMessage("İşlem Başarılı","success",200,'/customers');
+        return $this->responseMessage("İşlem Başarılı", "success", 200, '/customers');
 
 
     }
 
     public function show($CustomerID)
     {
-        $customer=Customer::with("sales.items.product")->find($CustomerID);
+        $customer = Customer::with("sales.items.product")->find($CustomerID);
         return view('customer.show', ["customer" => $customer]);
     }
 

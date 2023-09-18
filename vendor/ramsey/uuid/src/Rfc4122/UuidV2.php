@@ -66,11 +66,12 @@ final class UuidV2 extends Uuid implements UuidInterface
      *     for converting timestamps extracted from a UUID to unix timestamps
      */
     public function __construct(
-        Rfc4122FieldsInterface $fields,
+        Rfc4122FieldsInterface   $fields,
         NumberConverterInterface $numberConverter,
-        CodecInterface $codec,
-        TimeConverterInterface $timeConverter
-    ) {
+        CodecInterface           $codec,
+        TimeConverterInterface   $timeConverter
+    )
+    {
         if ($fields->getVersion() !== Uuid::UUID_TYPE_DCE_SECURITY) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV2 must represent a '
@@ -89,7 +90,7 @@ final class UuidV2 extends Uuid implements UuidInterface
         /** @var Rfc4122FieldsInterface $fields */
         $fields = $this->getFields();
 
-        return (int) hexdec($fields->getClockSeqLow()->toString());
+        return (int)hexdec($fields->getClockSeqLow()->toString());
     }
 
     /**

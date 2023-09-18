@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Diff\Output;
 
 use function array_merge;
@@ -34,13 +35,13 @@ use SebastianBergmann\Diff\Differ;
 final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
 {
     private static $default = [
-        'collapseRanges'      => true, // ranges of length one are rendered with the trailing `,1`
+        'collapseRanges' => true, // ranges of length one are rendered with the trailing `,1`
         'commonLineThreshold' => 6,    // number of same lines before ending a new hunk and creating a new one (if needed)
-        'contextLines'        => 3,    // like `diff:  -u, -U NUM, --unified[=NUM]`, for patch/git apply compatibility best to keep at least @ 3
-        'fromFile'            => null,
-        'fromFileDate'        => null,
-        'toFile'              => null,
-        'toFileDate'          => null,
+        'contextLines' => 3,    // like `diff:  -u, -U NUM, --unified[=NUM]`, for patch/git apply compatibility best to keep at least @ 3
+        'fromFile' => null,
+        'fromFileDate' => null,
+        'toFile' => null,
+        'toFileDate' => null,
     ];
 
     /**
@@ -97,9 +98,9 @@ final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
             null === $options['toFileDate'] ? '' : "\t" . $options['toFileDate']
         );
 
-        $this->collapseRanges      = $options['collapseRanges'];
+        $this->collapseRanges = $options['collapseRanges'];
         $this->commonLineThreshold = $options['commonLineThreshold'];
-        $this->contextLines        = $options['contextLines'];
+        $this->contextLines = $options['contextLines'];
     }
 
     public function getDiff(array $diff): string
@@ -169,11 +170,11 @@ final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
 
         // write hunks to output buffer
 
-        $cutOff      = max($this->commonLineThreshold, $this->contextLines);
+        $cutOff = max($this->commonLineThreshold, $this->contextLines);
         $hunkCapture = false;
-        $sameCount   = $toRange = $fromRange = 0;
-        $toStart     = $fromStart = 1;
-        $i           = 0;
+        $sameCount = $toRange = $fromRange = 0;
+        $toStart = $fromStart = 1;
+        $i = 0;
 
         /** @var int $i */
         foreach ($diff as $i => $entry) {
@@ -220,7 +221,7 @@ final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
                     $toStart += $toRange;
 
                     $hunkCapture = false;
-                    $sameCount   = $toRange = $fromRange = 0;
+                    $sameCount = $toRange = $fromRange = 0;
                 }
 
                 continue;
@@ -279,14 +280,15 @@ final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
 
     private function writeHunk(
         array $diff,
-        int $diffStartIndex,
-        int $diffEndIndex,
-        int $fromStart,
-        int $fromRange,
-        int $toStart,
-        int $toRange,
-        $output
-    ): void {
+        int   $diffStartIndex,
+        int   $diffEndIndex,
+        int   $fromStart,
+        int   $fromRange,
+        int   $toStart,
+        int   $toRange,
+              $output
+    ): void
+    {
         fwrite($output, '@@ -' . $fromStart);
 
         if (!$this->collapseRanges || 1 !== $fromRange) {
@@ -315,9 +317,9 @@ final class StrictUnifiedDiffOutputBuilder implements DiffOutputBuilderInterface
                 fwrite($output, $diff[$i][0]);
             }
             //} elseif ($diff[$i][1] === Differ::DIFF_LINE_END_WARNING) { // custom comment inserted by PHPUnit/diff package
-                //  skip
+            //  skip
             //} else {
-                //  unknown/invalid
+            //  unknown/invalid
             //}
         }
     }

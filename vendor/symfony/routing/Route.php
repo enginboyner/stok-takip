@@ -37,14 +37,14 @@ class Route implements \Serializable
      *  * compiler_class: A class name able to compile this route instance (RouteCompiler by default)
      *  * utf8:           Whether UTF-8 matching is enforced ot not
      *
-     * @param string          $path         The path pattern to match
-     * @param array           $defaults     An array of default parameter values
-     * @param array           $requirements An array of requirements for parameters (regexes)
-     * @param array           $options      An array of options
-     * @param string|null     $host         The host pattern to match
-     * @param string|string[] $schemes      A required URI scheme or an array of restricted schemes
-     * @param string|string[] $methods      A required HTTP method or an array of restricted methods
-     * @param string|null     $condition    A condition that should evaluate to true for the route to match
+     * @param string $path The path pattern to match
+     * @param array $defaults An array of default parameter values
+     * @param array $requirements An array of requirements for parameters (regexes)
+     * @param array $options An array of options
+     * @param string|null $host The host pattern to match
+     * @param string|string[] $schemes A required URI scheme or an array of restricted schemes
+     * @param string|string[] $methods A required HTTP method or an array of restricted methods
+     * @param string|null $condition A condition that should evaluate to true for the route to match
      */
     public function __construct(string $path, array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', string|array $schemes = [], string|array $methods = [], ?string $condition = '')
     {
@@ -78,7 +78,7 @@ class Route implements \Serializable
      */
     final public function serialize(): string
     {
-        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
+        throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
     }
 
     public function __unserialize(array $data): void
@@ -121,7 +121,7 @@ class Route implements \Serializable
 
         // A pattern must start with a slash and must not have multiple slashes at the beginning because the
         // generated path for this route would be confused with a network path, e.g. '//domain.com/path'.
-        $this->path = '/'.ltrim(trim($pattern), '/');
+        $this->path = '/' . ltrim(trim($pattern), '/');
         $this->compiled = null;
 
         return $this;
@@ -137,7 +137,7 @@ class Route implements \Serializable
      */
     public function setHost(?string $pattern): static
     {
-        $this->host = $this->extractInlineDefaultsAndRequirements((string) $pattern);
+        $this->host = $this->extractInlineDefaultsAndRequirements((string)$pattern);
         $this->compiled = null;
 
         return $this;
@@ -164,7 +164,7 @@ class Route implements \Serializable
      */
     public function setSchemes(string|array $schemes): static
     {
-        $this->schemes = array_map('strtolower', (array) $schemes);
+        $this->schemes = array_map('strtolower', (array)$schemes);
         $this->compiled = null;
 
         return $this;
@@ -199,7 +199,7 @@ class Route implements \Serializable
      */
     public function setMethods(string|array $methods): static
     {
-        $this->methods = array_map('strtoupper', (array) $methods);
+        $this->methods = array_map('strtoupper', (array)$methods);
         $this->compiled = null;
 
         return $this;
@@ -385,7 +385,7 @@ class Route implements \Serializable
      */
     public function setCondition(?string $condition): static
     {
-        $this->condition = (string) $condition;
+        $this->condition = (string)$condition;
         $this->compiled = null;
 
         return $this;
@@ -424,7 +424,7 @@ class Route implements \Serializable
                 $this->setRequirement($m[2], substr($m[3], 1, -1));
             }
 
-            return '{'.$m[1].$m[2].'}';
+            return '{' . $m[1] . $m[2] . '}';
         }, $pattern);
     }
 

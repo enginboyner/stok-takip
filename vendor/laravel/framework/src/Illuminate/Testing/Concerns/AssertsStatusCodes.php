@@ -39,7 +39,7 @@ trait AssertsStatusCodes
     /**
      * Assert that the response has the given status code and no content.
      *
-     * @param  int  $status
+     * @param int $status
      * @return $this
      */
     public function assertNoContent($status = 204)
@@ -54,7 +54,7 @@ trait AssertsStatusCodes
     /**
      * Assert that the response has a 301 "Moved Permanently" status code.
      *
-     * @param  int  $status
+     * @param int $status
      * @return $this
      */
     public function assertMovedPermanently()
@@ -65,7 +65,7 @@ trait AssertsStatusCodes
     /**
      * Assert that the response has a 302 "Found" status code.
      *
-     * @param  int  $status
+     * @param int $status
      * @return $this
      */
     public function assertFound()

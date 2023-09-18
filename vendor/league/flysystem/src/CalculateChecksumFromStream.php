@@ -13,7 +13,7 @@ trait CalculateChecksumFromStream
     {
         try {
             $stream = $this->readStream($path);
-            $algo = (string) $config->get('checksum_algo', 'md5');
+            $algo = (string)$config->get('checksum_algo', 'md5');
             $context = hash_init($algo);
             hash_update_stream($context, $stream);
 

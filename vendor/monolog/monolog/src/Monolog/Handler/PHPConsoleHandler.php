@@ -71,8 +71,8 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     private $connector;
 
     /**
-     * @param  array<string, mixed> $options   See \Monolog\Handler\PHPConsoleHandler::$options for more details
-     * @param  Connector|null       $connector Instance of \PhpConsole\Connector class (optional)
+     * @param array<string, mixed> $options See \Monolog\Handler\PHPConsoleHandler::$options for more details
+     * @param Connector|null $connector Instance of \PhpConsole\Connector class (optional)
      * @throws \RuntimeException
      */
     public function __construct(array $options = [], ?Connector $connector = null, $level = Logger::DEBUG, bool $bubble = true)
@@ -236,7 +236,7 @@ class PHPConsoleHandler extends AbstractProcessingHandler
     {
         $tags = null;
         if (!empty($record['context'])) {
-            $context = & $record['context'];
+            $context = &$record['context'];
             foreach ($this->options['debugTagsKeysInContext'] as $key) {
                 if (!empty($context[$key])) {
                     $tags = $context[$key];

@@ -93,15 +93,16 @@ class SlackRecord
      * @param string[] $excludeFields
      */
     public function __construct(
-        ?string $channel = null,
-        ?string $username = null,
-        bool $useAttachment = true,
-        ?string $userIcon = null,
-        bool $useShortAttachment = false,
-        bool $includeContextAndExtra = false,
-        array $excludeFields = array(),
+        ?string            $channel = null,
+        ?string            $username = null,
+        bool               $useAttachment = true,
+        ?string            $userIcon = null,
+        bool               $useShortAttachment = false,
+        bool               $includeContextAndExtra = false,
+        array              $excludeFields = array(),
         FormatterInterface $formatter = null
-    ) {
+    )
+    {
         $this
             ->setChannel($channel)
             ->setUsername($username)
@@ -146,13 +147,13 @@ class SlackRecord
 
         if ($this->useAttachment) {
             $attachment = array(
-                'fallback'    => $message,
-                'text'        => $message,
-                'color'       => $this->getAttachmentColor($record['level']),
-                'fields'      => array(),
-                'mrkdwn_in'   => array('fields'),
-                'ts'          => $record['datetime']->getTimestamp(),
-                'footer'      => $this->username,
+                'fallback' => $message,
+                'text' => $message,
+                'color' => $this->getAttachmentColor($record['level']),
+                'fields' => array(),
+                'mrkdwn_in' => array('fields'),
+                'ts' => $record['datetime']->getTimestamp(),
+                'footer' => $this->username,
                 'footer_icon' => $this->userIcon,
             );
 
@@ -171,7 +172,7 @@ class SlackRecord
 
                     if ($this->useShortAttachment) {
                         $attachment['fields'][] = $this->generateAttachmentField(
-                            (string) $key,
+                            (string)$key,
                             $record[$key]
                         );
                     } else {
@@ -232,7 +233,7 @@ class SlackRecord
         $hasNonNumericKeys = !count(array_filter(array_keys($normalized), 'is_numeric'));
 
         return $hasSecondDimension || $hasNonNumericKeys
-            ? Utils::jsonEncode($normalized, JSON_PRETTY_PRINT|Utils::DEFAULT_JSON_FLAGS)
+            ? Utils::jsonEncode($normalized, JSON_PRETTY_PRINT | Utils::DEFAULT_JSON_FLAGS)
             : Utils::jsonEncode($normalized, Utils::DEFAULT_JSON_FLAGS);
     }
 
@@ -351,7 +352,7 @@ class SlackRecord
 
         $fields = array();
         foreach ($normalized as $key => $value) {
-            $fields[] = $this->generateAttachmentField((string) $key, $value);
+            $fields[] = $this->generateAttachmentField((string)$key, $value);
         }
 
         return $fields;

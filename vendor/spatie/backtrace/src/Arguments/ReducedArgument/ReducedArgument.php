@@ -16,7 +16,8 @@ class ReducedArgument implements ReducedArgumentContract
     public function __construct(
         $value,
         string $originalType
-    ) {
+    )
+    {
         $this->originalType = $originalType;
         $this->value = $value;
     }

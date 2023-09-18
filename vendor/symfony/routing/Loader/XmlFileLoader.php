@@ -228,7 +228,7 @@ class XmlFileLoader extends FileLoader
      */
     protected function loadFile(string $file): \DOMDocument
     {
-        return XmlUtils::loadFile($file, __DIR__.static::SCHEME_PATH);
+        return XmlUtils::loadFile($file, __DIR__ . static::SCHEME_PATH);
     }
 
     /**
@@ -288,7 +288,7 @@ class XmlFileLoader extends FileLoader
             if (isset($defaults['_controller'])) {
                 $name = $node->hasAttribute('id') ? sprintf('"%s".', $node->getAttribute('id')) : sprintf('the "%s" tag.', $node->tagName);
 
-                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "controller" attribute and the defaults key "_controller" for ', $path).$name);
+                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "controller" attribute and the defaults key "_controller" for ', $path) . $name);
             }
 
             $defaults['_controller'] = $controller;
@@ -306,7 +306,7 @@ class XmlFileLoader extends FileLoader
             if (isset($defaults['_stateless'])) {
                 $name = $node->hasAttribute('id') ? sprintf('"%s".', $node->getAttribute('id')) : sprintf('the "%s" tag.', $node->tagName);
 
-                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "stateless" attribute and the defaults key "_stateless" for ', $path).$name);
+                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "stateless" attribute and the defaults key "_stateless" for ', $path) . $name);
             }
 
             $defaults['_stateless'] = XmlUtils::phpize($stateless);
@@ -364,9 +364,9 @@ class XmlFileLoader extends FileLoader
             case 'bool':
                 return 'true' === trim($node->nodeValue) || '1' === trim($node->nodeValue);
             case 'int':
-                return (int) trim($node->nodeValue);
+                return (int)trim($node->nodeValue);
             case 'float':
-                return (float) trim($node->nodeValue);
+                return (float)trim($node->nodeValue);
             case 'string':
                 return trim($node->nodeValue);
             case 'list':

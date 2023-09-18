@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report\Xml;
 
 use DOMDocument;
@@ -82,7 +83,7 @@ abstract class Node
 
     protected function setContextNode(DOMElement $context): void
     {
-        $this->dom         = $context->ownerDocument;
+        $this->dom = $context->ownerDocument;
         $this->contextNode = $context;
     }
 

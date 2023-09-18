@@ -64,7 +64,7 @@ class BinaryUtil
                 }
             }
 
-            $digits = $alphabet[$remainder].$digits;
+            $digits = $alphabet[$remainder] . $digits;
             $bytes = $quotient;
         }
 
@@ -122,7 +122,7 @@ class BinaryUtil
     public static function hexToDateTime(string $time): \DateTimeImmutable
     {
         if (\PHP_INT_SIZE >= 8) {
-            $time = (string) (hexdec($time) - self::TIME_OFFSET_INT);
+            $time = (string)(hexdec($time) - self::TIME_OFFSET_INT);
         } else {
             $time = str_pad(hex2bin($time), 8, "\0", \STR_PAD_LEFT);
 
@@ -132,12 +132,12 @@ class BinaryUtil
                 $time = self::toBase($time, self::BASE10);
             } else {
                 $time = self::add($time, self::TIME_OFFSET_COM1);
-                $time = '-'.self::toBase($time ^ "\xff\xff\xff\xff\xff\xff\xff\xff", self::BASE10);
+                $time = '-' . self::toBase($time ^ "\xff\xff\xff\xff\xff\xff\xff\xff", self::BASE10);
             }
         }
 
         if (9 > \strlen($time)) {
-            $time = '-' === $time[0] ? '-'.str_pad(substr($time, 1), 8, '0', \STR_PAD_LEFT) : str_pad($time, 8, '0', \STR_PAD_LEFT);
+            $time = '-' === $time[0] ? '-' . str_pad(substr($time, 1), 8, '0', \STR_PAD_LEFT) : str_pad($time, 8, '0', \STR_PAD_LEFT);
         }
 
         return \DateTimeImmutable::createFromFormat('U.u?', substr_replace($time, '.', -7, 0));
@@ -149,7 +149,7 @@ class BinaryUtil
     public static function dateTimeToHex(\DateTimeInterface $time): string
     {
         if (\PHP_INT_SIZE >= 8) {
-            if (-self::TIME_OFFSET_INT > $time = (int) $time->format('Uu0')) {
+            if (-self::TIME_OFFSET_INT > $time = (int)$time->format('Uu0')) {
                 throw new \InvalidArgumentException('The given UUID date cannot be earlier than 1582-10-15.');
             }
 

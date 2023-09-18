@@ -60,11 +60,11 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Create a new view instance.
      *
-     * @param  \Illuminate\View\Factory  $factory
-     * @param  \Illuminate\Contracts\View\Engine  $engine
-     * @param  string  $view
-     * @param  string  $path
-     * @param  mixed  $data
+     * @param \Illuminate\View\Factory $factory
+     * @param \Illuminate\Contracts\View\Engine $engine
+     * @param string $view
+     * @param string $path
+     * @param mixed $data
      * @return void
      */
     public function __construct(Factory $factory, Engine $engine, $view, $path, $data = [])
@@ -74,13 +74,13 @@ class View implements ArrayAccess, Htmlable, ViewContract
         $this->engine = $engine;
         $this->factory = $factory;
 
-        $this->data = $data instanceof Arrayable ? $data->toArray() : (array) $data;
+        $this->data = $data instanceof Arrayable ? $data->toArray() : (array)$data;
     }
 
     /**
      * Get the evaluated contents of a given fragment.
      *
-     * @param  string  $fragment
+     * @param string $fragment
      * @return string
      */
     public function fragment($fragment)
@@ -93,19 +93,19 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Get the evaluated contents for a given array of fragments.
      *
-     * @param  array  $fragments
+     * @param array $fragments
      * @return string
      */
     public function fragments(array $fragments)
     {
-        return collect($fragments)->map(fn ($f) => $this->fragment($f))->implode('');
+        return collect($fragments)->map(fn($f) => $this->fragment($f))->implode('');
     }
 
     /**
      * Get the evaluated contents of a given fragment if the given condition is true.
      *
-     * @param  bool  $boolean
-     * @param  string  $fragment
+     * @param bool $boolean
+     * @param string $fragment
      * @return string
      */
     public function fragmentIf($boolean, $fragment)
@@ -120,8 +120,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Get the evaluated contents for a given array of fragments if the given condition is true.
      *
-     * @param  bool  $boolean
-     * @param  array  $fragments
+     * @param bool $boolean
+     * @param array $fragments
      * @return string
      */
     public function fragmentsIf($boolean, array $fragments)
@@ -136,7 +136,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Get the string contents of the view.
      *
-     * @param  callable|null  $callback
+     * @param callable|null $callback
      * @return string
      *
      * @throws \Throwable
@@ -153,7 +153,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
             // another view gets rendered in the future by the application developer.
             $this->factory->flushStateIfDoneRendering();
 
-            return ! is_null($response) ? $response : $contents;
+            return !is_null($response) ? $response : $contents;
         } catch (Throwable $e) {
             $this->factory->flushState();
 
@@ -230,8 +230,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Add a piece of data to the view.
      *
-     * @param  string|array  $key
-     * @param  mixed  $value
+     * @param string|array $key
+     * @param mixed $value
      * @return $this
      */
     public function with($key, $value = null)
@@ -248,9 +248,9 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Add a view instance to the view data.
      *
-     * @param  string  $key
-     * @param  string  $view
-     * @param  array  $data
+     * @param string $key
+     * @param string $view
+     * @param array $data
      * @return $this
      */
     public function nest($key, $view, array $data = [])
@@ -261,8 +261,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Add validation errors to the view.
      *
-     * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
-     * @param  string  $bag
+     * @param \Illuminate\Contracts\Support\MessageProvider|array $provider
+     * @param string $bag
      * @return $this
      */
     public function withErrors($provider, $bag = 'default')
@@ -275,14 +275,14 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Parse the given errors into an appropriate value.
      *
-     * @param  \Illuminate\Contracts\Support\MessageProvider|array|string  $provider
+     * @param \Illuminate\Contracts\Support\MessageProvider|array|string $provider
      * @return \Illuminate\Support\MessageBag
      */
     protected function formatErrors($provider)
     {
         return $provider instanceof MessageProvider
-                        ? $provider->getMessageBag()
-                        : new MessageBag((array) $provider);
+            ? $provider->getMessageBag()
+            : new MessageBag((array)$provider);
     }
 
     /**
@@ -328,7 +328,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Set the path to the view.
      *
-     * @param  string  $path
+     * @param string $path
      * @return void
      */
     public function setPath($path)
@@ -359,7 +359,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Determine if a piece of data is bound.
      *
-     * @param  string  $key
+     * @param string $key
      * @return bool
      */
     public function offsetExists($key): bool
@@ -370,7 +370,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Get a piece of bound data to the view.
      *
-     * @param  string  $key
+     * @param string $key
      * @return mixed
      */
     public function offsetGet($key): mixed
@@ -381,8 +381,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Set a piece of data on the view.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      * @return void
      */
     public function offsetSet($key, $value): void
@@ -393,7 +393,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Unset a piece of data from the view.
      *
-     * @param  string  $key
+     * @param string $key
      * @return void
      */
     public function offsetUnset($key): void
@@ -404,7 +404,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Get a piece of data from the view.
      *
-     * @param  string  $key
+     * @param string $key
      * @return mixed
      */
     public function &__get($key)
@@ -415,8 +415,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Set a piece of data on the view.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      * @return void
      */
     public function __set($key, $value)
@@ -427,7 +427,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Check if a piece of data is bound to the view.
      *
-     * @param  string  $key
+     * @param string $key
      * @return bool
      */
     public function __isset($key)
@@ -438,7 +438,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Remove a piece of bound data from the view.
      *
-     * @param  string  $key
+     * @param string $key
      * @return void
      */
     public function __unset($key)
@@ -449,8 +449,8 @@ class View implements ArrayAccess, Htmlable, ViewContract
     /**
      * Dynamically bind parameters to the view.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return \Illuminate\View\View
      *
      * @throws \BadMethodCallException
@@ -461,7 +461,7 @@ class View implements ArrayAccess, Htmlable, ViewContract
             return $this->macroCall($method, $parameters);
         }
 
-        if (! str_starts_with($method, 'with')) {
+        if (!str_starts_with($method, 'with')) {
             throw new BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));

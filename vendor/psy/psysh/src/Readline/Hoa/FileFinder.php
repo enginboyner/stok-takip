@@ -89,8 +89,8 @@ class FileFinder implements \IteratorAggregate
     public function __construct()
     {
         $this->_flags = IteratorFileSystem::KEY_AS_PATHNAME
-                        | IteratorFileSystem::CURRENT_AS_FILEINFO
-                        | IteratorFileSystem::SKIP_DOTS;
+            | IteratorFileSystem::CURRENT_AS_FILEINFO
+            | IteratorFileSystem::SKIP_DOTS;
         $this->_first = \RecursiveIteratorIterator::SELF_FIRST;
 
         return;
@@ -230,7 +230,7 @@ class FileFinder implements \IteratorAggregate
             return $this;
         }
 
-        $number = (float) ($matches[2]);
+        $number = (float)($matches[2]);
         $unit = $matches[3] ?? 'b';
         $operator = $matches[1];
 

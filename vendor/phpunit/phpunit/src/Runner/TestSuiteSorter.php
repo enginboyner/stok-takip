@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
 use function array_diff;
@@ -66,19 +67,19 @@ final class TestSuiteSorter
      * List of sorting weights for all test result codes. A higher number gives higher priority.
      */
     private const DEFECT_SORT_WEIGHT = [
-        BaseTestRunner::STATUS_ERROR      => 6,
-        BaseTestRunner::STATUS_FAILURE    => 5,
-        BaseTestRunner::STATUS_WARNING    => 4,
+        BaseTestRunner::STATUS_ERROR => 6,
+        BaseTestRunner::STATUS_FAILURE => 5,
+        BaseTestRunner::STATUS_WARNING => 4,
         BaseTestRunner::STATUS_INCOMPLETE => 3,
-        BaseTestRunner::STATUS_RISKY      => 2,
-        BaseTestRunner::STATUS_SKIPPED    => 1,
-        BaseTestRunner::STATUS_UNKNOWN    => 0,
+        BaseTestRunner::STATUS_RISKY => 2,
+        BaseTestRunner::STATUS_SKIPPED => 1,
+        BaseTestRunner::STATUS_UNKNOWN => 0,
     ];
 
     private const SIZE_SORT_WEIGHT = [
-        TestUtil::SMALL   => 1,
-        TestUtil::MEDIUM  => 2,
-        TestUtil::LARGE   => 3,
+        TestUtil::SMALL => 1,
+        TestUtil::MEDIUM => 2,
+        TestUtil::LARGE => 3,
         TestUtil::UNKNOWN => 4,
     ];
 
@@ -211,7 +212,7 @@ final class TestSuiteSorter
 
             if (!isset($this->defectSortOrder[$test->sortId()])) {
                 $this->defectSortOrder[$test->sortId()] = self::DEFECT_SORT_WEIGHT[$this->cache->getState($test->sortId())];
-                $max                                    = max($max, $this->defectSortOrder[$test->sortId()]);
+                $max = max($max, $this->defectSortOrder[$test->sortId()]);
             }
         }
 
@@ -237,8 +238,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpDefectPriorityAndTime($left, $right);
             },
         );
@@ -253,8 +253,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpDuration($left, $right);
             },
         );
@@ -269,8 +268,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpSize($left, $right);
             },
         );
@@ -356,14 +354,14 @@ final class TestSuiteSorter
     private function resolveDependencies(array $tests): array
     {
         $newTestOrder = [];
-        $i            = 0;
-        $provided     = [];
+        $i = 0;
+        $provided = [];
 
         do {
             if ([] === array_diff($tests[$i]->requires(), $provided)) {
-                $provided     = array_merge($provided, $tests[$i]->provides());
+                $provided = array_merge($provided, $tests[$i]->provides());
                 $newTestOrder = array_merge($newTestOrder, array_splice($tests, $i, 1));
-                $i            = 0;
+                $i = 0;
             } else {
                 $i++;
             }

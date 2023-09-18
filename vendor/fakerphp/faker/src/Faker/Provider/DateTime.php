@@ -16,7 +16,7 @@ class DateTime extends Base
     protected static function getMaxTimestamp($max = 'now')
     {
         if (is_numeric($max)) {
-            return (int) $max;
+            return (int)$max;
         }
 
         if ($max instanceof \DateTime) {
@@ -43,8 +43,8 @@ class DateTime extends Base
     /**
      * Get a datetime object for a date between January 1, 1970 and now
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string               $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      *
@@ -64,8 +64,8 @@ class DateTime extends Base
     /**
      * Get a datetime object for a date between January 1, 001 and now
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string|null          $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      *
@@ -101,8 +101,8 @@ class DateTime extends Base
     /**
      * Get a date string between January 1, 1970 and now
      *
-     * @param string               $format
-     * @param \DateTime|int|string $max    maximum timestamp used as random end limit, default to "now"
+     * @param string $format
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
      *
      * @return string
      *
@@ -116,8 +116,8 @@ class DateTime extends Base
     /**
      * Get a time string (24h format by default)
      *
-     * @param string               $format
-     * @param \DateTime|int|string $max    maximum timestamp used as random end limit, default to "now"
+     * @param string $format
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
      *
      * @return string
      *
@@ -133,8 +133,8 @@ class DateTime extends Base
      * Accepts date strings that can be recognized by strtotime().
      *
      * @param \DateTime|string $startDate Defaults to 30 years ago
-     * @param \DateTime|string $endDate   Defaults to "now"
-     * @param string|null      $timezone  time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|string $endDate Defaults to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      *
@@ -165,9 +165,9 @@ class DateTime extends Base
      * an interval
      * Accepts date string that can be recognized by strtotime().
      *
-     * @param \DateTime|string $date     Defaults to 30 years ago
-     * @param string           $interval Defaults to 5 days after
-     * @param string|null      $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|string $date Defaults to 30 years ago
+     * @param string $interval Defaults to 5 days after
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      *
@@ -196,8 +196,8 @@ class DateTime extends Base
     /**
      * Get a date time object somewhere within a century.
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string|null          $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      */
@@ -209,8 +209,8 @@ class DateTime extends Base
     /**
      * Get a date time object somewhere within a decade.
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string|null          $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      */
@@ -222,8 +222,8 @@ class DateTime extends Base
     /**
      * Get a date time object somewhere inside the current year.
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string|null          $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      */
@@ -235,8 +235,8 @@ class DateTime extends Base
     /**
      * Get a date time object somewhere within a month.
      *
-     * @param \DateTime|int|string $max      maximum timestamp used as random end limit, default to "now"
-     * @param string|null          $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
+     * @param \DateTime|int|string $max maximum timestamp used as random end limit, default to "now"
+     * @param string|null $timezone time zone in which the date time should be set, default to DateTime::$defaultTimezone, if set, otherwise the result of `date_default_timezone_get`
      *
      * @return \DateTime
      */

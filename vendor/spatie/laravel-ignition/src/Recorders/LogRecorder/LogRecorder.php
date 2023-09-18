@@ -63,11 +63,11 @@ class LogRecorder
 
     protected function shouldIgnore(mixed $event): bool
     {
-        if (! isset($event->context['exception'])) {
+        if (!isset($event->context['exception'])) {
             return false;
         }
 
-        if (! $event->context['exception'] instanceof Throwable) {
+        if (!$event->context['exception'] instanceof Throwable) {
             return false;
         }
 

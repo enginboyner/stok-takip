@@ -45,10 +45,10 @@ class ClassAliasAutoloader
     /**
      * Register a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
-     * @param  string  $classMapPath
-     * @param  array  $includedAliases
-     * @param  array  $excludedAliases
+     * @param \Psy\Shell $shell
+     * @param string $classMapPath
+     * @param array $includedAliases
+     * @param array $excludedAliases
      * @return static
      */
     public static function register(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
@@ -61,10 +61,10 @@ class ClassAliasAutoloader
     /**
      * Create a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
-     * @param  string  $classMapPath
-     * @param  array  $includedAliases
-     * @param  array  $excludedAliases
+     * @param \Psy\Shell $shell
+     * @param string $classMapPath
+     * @param array $includedAliases
+     * @param array $excludedAliases
      * @return void
      */
     public function __construct(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
@@ -77,13 +77,13 @@ class ClassAliasAutoloader
         $classes = require $classMapPath;
 
         foreach ($classes as $class => $path) {
-            if (! $this->isAliasable($class, $path)) {
+            if (!$this->isAliasable($class, $path)) {
                 continue;
             }
 
             $name = class_basename($class);
 
-            if (! isset($this->classes[$name])) {
+            if (!isset($this->classes[$name])) {
                 $this->classes[$name] = $class;
             }
         }
@@ -92,7 +92,7 @@ class ClassAliasAutoloader
     /**
      * Find the closest class by name.
      *
-     * @param  string  $class
+     * @param string $class
      * @return void
      */
     public function aliasClass($class)
@@ -133,16 +133,16 @@ class ClassAliasAutoloader
     /**
      * Whether a class may be aliased.
      *
-     * @param  string  $class
-     * @param  string  $path
+     * @param string $class
+     * @param string $path
      */
     public function isAliasable($class, $path)
     {
-        if (! Str::contains($class, '\\')) {
+        if (!Str::contains($class, '\\')) {
             return false;
         }
 
-        if (! $this->includedAliases->filter(function ($alias) use ($class) {
+        if (!$this->includedAliases->filter(function ($alias) use ($class) {
             return Str::startsWith($class, $alias);
         })->isEmpty()) {
             return true;
@@ -152,7 +152,7 @@ class ClassAliasAutoloader
             return false;
         }
 
-        if (! $this->excludedAliases->filter(function ($alias) use ($class) {
+        if (!$this->excludedAliases->filter(function ($alias) use ($class) {
             return Str::startsWith($class, $alias);
         })->isEmpty()) {
             return false;

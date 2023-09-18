@@ -85,8 +85,8 @@ class WorkCommand extends Command
     /**
      * Create a new queue work command.
      *
-     * @param  \Illuminate\Queue\Worker  $worker
-     * @param  \Illuminate\Contracts\Cache\Repository  $cache
+     * @param \Illuminate\Queue\Worker $worker
+     * @param \Illuminate\Contracts\Cache\Repository $cache
      * @return void
      */
     public function __construct(Worker $worker, Cache $cache)
@@ -114,7 +114,7 @@ class WorkCommand extends Command
         $this->listenForEvents();
 
         $connection = $this->argument('connection')
-                        ?: $this->laravel['config']['queue.default'];
+            ?: $this->laravel['config']['queue.default'];
 
         // We need to get the right queue for the connection which is set in the queue
         // configuration file for the application. We will pull it based on the set
@@ -135,8 +135,8 @@ class WorkCommand extends Command
     /**
      * Run the worker instance.
      *
-     * @param  string  $connection
-     * @param  string  $queue
+     * @param string $connection
+     * @param string $queue
      * @return int|null
      */
     protected function runWorker($connection, $queue)
@@ -200,8 +200,8 @@ class WorkCommand extends Command
     /**
      * Write the status output for the queue worker.
      *
-     * @param  \Illuminate\Contracts\Queue\Job  $job
-     * @param  string  $status
+     * @param \Illuminate\Contracts\Queue\Job $job
+     * @param string $status
      * @return void
      */
     protected function writeOutput(Job $job, $status)
@@ -220,20 +220,20 @@ class WorkCommand extends Command
 
             $dots = max(terminal()->width() - mb_strlen($job->resolveName()) - (
                 $this->output->isVerbose() ? (mb_strlen($job->getJobId()) + 1) : 0
-            ) - 33, 0);
+                ) - 33, 0);
 
-            $this->output->write(' '.str_repeat('<fg=gray>.</>', $dots));
+            $this->output->write(' ' . str_repeat('<fg=gray>.</>', $dots));
 
             return $this->output->writeln(' <fg=yellow;options=bold>RUNNING</>');
         }
 
-        $runTime = number_format((microtime(true) - $this->latestStartedAt) * 1000, 2).'ms';
+        $runTime = number_format((microtime(true) - $this->latestStartedAt) * 1000, 2) . 'ms';
 
         $dots = max(terminal()->width() - mb_strlen($job->resolveName()) - (
             $this->output->isVerbose() ? (mb_strlen($job->getJobId()) + 1) : 0
-        ) - mb_strlen($runTime) - 31, 0);
+            ) - mb_strlen($runTime) - 31, 0);
 
-        $this->output->write(' '.str_repeat('<fg=gray>.</>', $dots));
+        $this->output->write(' ' . str_repeat('<fg=gray>.</>', $dots));
         $this->output->write(" <fg=gray>$runTime</>");
 
         $this->output->writeln(match ($status) {
@@ -263,7 +263,7 @@ class WorkCommand extends Command
     /**
      * Store a failed job event.
      *
-     * @param  \Illuminate\Queue\Events\JobFailed  $event
+     * @param \Illuminate\Queue\Events\JobFailed $event
      * @return void
      */
     protected function logFailedJob(JobFailed $event)
@@ -279,7 +279,7 @@ class WorkCommand extends Command
     /**
      * Get the queue name for the worker.
      *
-     * @param  string  $connection
+     * @param string $connection
      * @return string
      */
     protected function getQueue($connection)

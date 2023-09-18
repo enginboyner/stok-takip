@@ -58,7 +58,7 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
     }
 
     /**
-     * @param array<string, mixed>  $parameters
+     * @param array<string, mixed> $parameters
      *
      * @return bool
      */
@@ -82,10 +82,10 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
 
     protected function isSafePath(string $path): bool
     {
-        if (! Str::startsWith($path, ['/', './'])) {
+        if (!Str::startsWith($path, ['/', './'])) {
             return false;
         }
-        if (! Str::endsWith($path, '.blade.php')) {
+        if (!Str::endsWith($path, '.blade.php')) {
             return false;
         }
 
@@ -99,12 +99,12 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
      */
     public function makeOptional(array $parameters = []): bool|string
     {
-        if (! $this->isSafePath($parameters['viewFile'])) {
+        if (!$this->isSafePath($parameters['viewFile'])) {
             return false;
         }
 
         $originalContents = (string)file_get_contents($parameters['viewFile']);
-        $newContents = str_replace('$'.$parameters['variableName'], '$'.$parameters['variableName']." ?? ''", $originalContents);
+        $newContents = str_replace('$' . $parameters['variableName'], '$' . $parameters['variableName'] . " ?? ''", $originalContents);
 
         $originalTokens = token_get_all(Blade::compileString($originalContents));
         $newTokens = token_get_all(Blade::compileString($newContents));
@@ -129,7 +129,7 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
         $expectedTokens = [];
         foreach ($originalTokens as $token) {
             $expectedTokens[] = $token;
-            if ($token[0] === T_VARIABLE && $token[1] === '$'.$variableName) {
+            if ($token[0] === T_VARIABLE && $token[1] === '$' . $variableName) {
                 $expectedTokens[] = [T_WHITESPACE, ' ', $token[2]];
                 $expectedTokens[] = [T_COALESCE, '??', $token[2]];
                 $expectedTokens[] = [T_WHITESPACE, ' ', $token[2]];

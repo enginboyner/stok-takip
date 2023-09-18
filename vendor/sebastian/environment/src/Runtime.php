@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Environment;
 
 use const PHP_BINARY;
@@ -266,7 +267,7 @@ final class Runtime
      */
     public function getCurrentSettings(array $values): array
     {
-        $diff  = [];
+        $diff = [];
         $files = [];
 
         if ($file = php_ini_loaded_file()) {

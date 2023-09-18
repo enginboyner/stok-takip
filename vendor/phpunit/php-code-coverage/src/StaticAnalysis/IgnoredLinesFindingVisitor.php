@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function array_merge;
@@ -45,7 +46,7 @@ final class IgnoredLinesFindingVisitor extends NodeVisitorAbstract
     public function __construct(bool $useAnnotationsForIgnoringCode, bool $ignoreDeprecated)
     {
         $this->useAnnotationsForIgnoringCode = $useAnnotationsForIgnoringCode;
-        $this->ignoreDeprecated              = $ignoreDeprecated;
+        $this->ignoreDeprecated = $ignoreDeprecated;
     }
 
     public function enterNode(Node $node): void

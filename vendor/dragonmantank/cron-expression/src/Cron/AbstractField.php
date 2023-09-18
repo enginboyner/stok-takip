@@ -50,11 +50,11 @@ abstract class AbstractField implements FieldInterface
     /**
      * Check to see if a field is satisfied by a value.
      *
-     * @internal
      * @param int $dateValue Date value to check
      * @param string $value Value to test
      *
      * @return bool
+     * @internal
      */
     public function isSatisfied(int $dateValue, string $value): bool
     {
@@ -66,16 +66,16 @@ abstract class AbstractField implements FieldInterface
             return $this->isInRange($dateValue, $value);
         }
 
-        return '*' === $value || $dateValue === (int) $value;
+        return '*' === $value || $dateValue === (int)$value;
     }
 
     /**
      * Check if a value is a range.
      *
-     * @internal
      * @param string $value Value to test
      *
      * @return bool
+     * @internal
      */
     public function isRange(string $value): bool
     {
@@ -85,10 +85,10 @@ abstract class AbstractField implements FieldInterface
     /**
      * Check if a value is an increments of ranges.
      *
-     * @internal
      * @param string $value Value to test
      *
      * @return bool
+     * @internal
      */
     public function isIncrementsOfRanges(string $value): bool
     {
@@ -98,11 +98,11 @@ abstract class AbstractField implements FieldInterface
     /**
      * Test if a value is within a range.
      *
-     * @internal
      * @param int $dateValue Set date value
      * @param string $value Value to test
      *
      * @return bool
+     * @internal
      */
     public function isInRange(int $dateValue, $value): bool
     {
@@ -121,11 +121,11 @@ abstract class AbstractField implements FieldInterface
     /**
      * Test if a value is within an increments of ranges (offset[-to]/step size).
      *
-     * @internal
      * @param int $dateValue Set date value
      * @param string $value Value to test
      *
      * @return bool
+     * @internal
      */
     public function isInIncrementsOfRanges(int $dateValue, string $value): bool
     {
@@ -146,9 +146,9 @@ abstract class AbstractField implements FieldInterface
 
         // Generate the requested small range
         $rangeChunks = explode('-', $range, 2);
-        $rangeStart = (int) $rangeChunks[0];
+        $rangeStart = (int)$rangeChunks[0];
         $rangeEnd = $rangeChunks[1] ?? $rangeStart;
-        $rangeEnd = (int) $rangeEnd;
+        $rangeEnd = (int)$rangeEnd;
 
         if ($rangeStart < $this->rangeStart || $rangeStart > $this->rangeEnd || $rangeStart > $rangeEnd) {
             throw new \OutOfRangeException('Invalid range start requested');
@@ -170,9 +170,9 @@ abstract class AbstractField implements FieldInterface
             $thisRange = [$this->fullRange[$step % \count($this->fullRange)]];
         } else {
             if ($step > ($rangeEnd - $rangeStart)) {
-                $thisRange[$rangeStart] = (int) $rangeStart;
+                $thisRange[$rangeStart] = (int)$rangeStart;
             } else {
-                $thisRange = range($rangeStart, $rangeEnd, (int) $step);
+                $thisRange = range($rangeStart, $rangeEnd, (int)$step);
             }
         }
 
@@ -222,7 +222,7 @@ abstract class AbstractField implements FieldInterface
                 $values = [$this->fullRange[$stepSize % \count($this->fullRange)]];
             } else {
                 for ($i = $offset; $i <= $to; $i += $stepSize) {
-                    $values[] = (int) $i;
+                    $values[] = (int)$i;
                 }
             }
             sort($values);
@@ -245,7 +245,7 @@ abstract class AbstractField implements FieldInterface
         if (\count($this->literals)) {
             $key = array_search(strtoupper($value), $this->literals, true);
             if (false !== $key) {
-                return (string) $key;
+                return (string)$key;
             }
         }
 
@@ -315,7 +315,7 @@ abstract class AbstractField implements FieldInterface
         }
 
         // We should have a numeric by now, so coerce this into an integer
-        $value = (int) $value;
+        $value = (int)$value;
 
         return \in_array($value, $this->fullRange, true);
     }
@@ -335,7 +335,7 @@ abstract class AbstractField implements FieldInterface
 
         // setTime caused the offset to change, moving time in the wrong direction
         $actualTimestamp = $date->format('U');
-        if ((! $invert) && ($actualTimestamp <= $originalTimestamp)) {
+        if ((!$invert) && ($actualTimestamp <= $originalTimestamp)) {
             $date = $this->timezoneSafeModify($date, "+1 hour");
         } elseif ($invert && ($actualTimestamp >= $originalTimestamp)) {
             $date = $this->timezoneSafeModify($date, "-1 hour");

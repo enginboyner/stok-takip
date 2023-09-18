@@ -52,8 +52,8 @@ interface UuidFactoryInterface
      */
     public function fromDateTime(
         DateTimeInterface $dateTime,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
+        ?Hexadecimal      $node = null,
+        ?int              $clockSeq = null
     ): UuidInterface;
 
     /**
@@ -123,10 +123,10 @@ interface UuidFactoryInterface
      *     version 2 UUID
      */
     public function uuid2(
-        int $localDomain,
+        int            $localDomain,
         ?IntegerObject $localIdentifier = null,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
+        ?Hexadecimal   $node = null,
+        ?int           $clockSeq = null
     ): UuidInterface;
 
     /**

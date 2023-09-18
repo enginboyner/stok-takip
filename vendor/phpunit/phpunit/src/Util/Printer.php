@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const ENT_COMPAT;
@@ -72,7 +73,7 @@ class Printer
                 );
             }
 
-            $this->stream = fsockopen($tmp[0], (int) $tmp[1]);
+            $this->stream = fsockopen($tmp[0], (int)$tmp[1]);
 
             return;
         }
@@ -86,7 +87,7 @@ class Printer
             );
         }
 
-        $this->stream      = fopen($out, 'wb');
+        $this->stream = fopen($out, 'wb');
         $this->isPhpStream = strncmp($out, 'php://', 6) !== 0;
     }
 

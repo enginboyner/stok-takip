@@ -31,7 +31,7 @@ use ReflectionMethod;
  *                                                                                                                                                                                         will be 0.
  * @method Carbon                                             createFromDate($year = null, $month = null, $day = null, $tz = null)                                                         Create a Carbon instance from just a date. The time portion is set to now.
  * @method Carbon|false                                       createFromFormat($format, $time, $tz = null)                                                                                 Create a Carbon instance from a specific format.
- * @method Carbon|false                                       createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)                                          Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
+ * @method Carbon|false                                       createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)                                          Create a Carbon instance from a specific ISO format (same replacements as->isoFormat()).
  * @method Carbon|false                                       createFromLocaleFormat($format, $locale, $time, $tz = null)                                                                  Create a Carbon instance from a specific format and a string in a given language.
  * @method Carbon|false                                       createFromLocaleIsoFormat($format, $locale, $time, $tz = null)                                                               Create a Carbon instance from a specific ISO format and a string in a given language.
  * @method Carbon                                             createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)                                                              Create a Carbon instance from just a time. The date portion is set to today.
@@ -72,7 +72,9 @@ use ReflectionMethod;
  * @method array                                              getFormatsToIsoReplacements()                                                                                                List of replacements from date() format to isoFormat().
  * @method int                                                getHumanDiffOptions()                                                                                                        Return default humanDiff() options (merged flags as integer).
  * @method array                                              getIsoUnits()                                                                                                                Returns list of locale units for ISO formatting.
- * @method array                                              getLastErrors()                                                                                                              {@inheritdoc}
+ * @method array                                              getLastErrors()                                                                                                              {
+@inheritdoc
+}
  * @method string                                             getLocale()                                                                                                                  Get the current translator locale.
  * @method callable|null                                      getMacro($name)                                                                                                              Get the raw callable macro registered globally for a given name.
  * @method int                                                getMidDayAt()                                                                                                                get midday/noon hour

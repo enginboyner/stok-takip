@@ -21,7 +21,7 @@ class CookieJar implements CookieJarInterface
     private $strictMode;
 
     /**
-     * @param bool  $strictMode  Set to true to throw exceptions when invalid
+     * @param bool $strictMode Set to true to throw exceptions when invalid
      *                           cookies are added to the cookie jar.
      * @param array $cookieArray Array of SetCookie objects or a hash of
      *                           arrays that can be used with the SetCookie
@@ -42,8 +42,8 @@ class CookieJar implements CookieJarInterface
     /**
      * Create a new Cookie jar from an associative array and domain.
      *
-     * @param array  $cookies Cookies to create the jar from
-     * @param string $domain  Domain to set the cookies to
+     * @param array $cookies Cookies to create the jar from
+     * @param string $domain Domain to set the cookies to
      */
     public static function fromArray(array $cookies, string $domain): self
     {
@@ -64,8 +64,8 @@ class CookieJar implements CookieJarInterface
      * Evaluate if this cookie should be persisted to storage
      * that survives between requests.
      *
-     * @param SetCookie $cookie              Being evaluated.
-     * @param bool      $allowSessionCookies If we should persist session cookies
+     * @param SetCookie $cookie Being evaluated.
+     * @param bool $allowSessionCookies If we should persist session cookies
      */
     public static function shouldPersist(SetCookie $cookie, bool $allowSessionCookies = false): bool
     {
@@ -171,7 +171,7 @@ class CookieJar implements CookieJarInterface
         $result = $cookie->validate();
         if ($result !== true) {
             if ($this->strictMode) {
-                throw new \RuntimeException('Invalid cookie: '.$result);
+                throw new \RuntimeException('Invalid cookie: ' . $result);
             }
             $this->removeCookieIfEmpty($cookie);
 
@@ -291,8 +291,8 @@ class CookieJar implements CookieJarInterface
                 !$cookie->isExpired() &&
                 (!$cookie->getSecure() || $scheme === 'https')
             ) {
-                $values[] = $cookie->getName().'='
-                    .$cookie->getValue();
+                $values[] = $cookie->getName() . '='
+                    . $cookie->getValue();
             }
         }
 

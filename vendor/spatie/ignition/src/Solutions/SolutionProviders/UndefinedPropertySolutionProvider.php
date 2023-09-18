@@ -17,7 +17,7 @@ class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $throwable instanceof ErrorException) {
+        if (!$throwable instanceof ErrorException) {
             return false;
         }
 
@@ -25,7 +25,7 @@ class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable
             return false;
         }
 
-        if (! $this->similarPropertyExists($throwable)) {
+        if (!$this->similarPropertyExists($throwable)) {
             return false;
         }
 
@@ -36,18 +36,18 @@ class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable
     {
         return [
             BaseSolution::create('Unknown Property')
-            ->setSolutionDescription($this->getSolutionDescription($throwable)),
+                ->setSolutionDescription($this->getSolutionDescription($throwable)),
         ];
     }
 
     public function getSolutionDescription(Throwable $throwable): string
     {
-        if (! $this->canSolve($throwable) || ! $this->similarPropertyExists($throwable)) {
+        if (!$this->canSolve($throwable) || !$this->similarPropertyExists($throwable)) {
             return '';
         }
 
         extract(
-            /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line */
             $this->getClassAndPropertyFromExceptionMessage($throwable->getMessage()),
             EXTR_OVERWRITE,
         );
@@ -61,7 +61,7 @@ class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable
 
     protected function similarPropertyExists(Throwable $throwable): bool
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         extract($this->getClassAndPropertyFromExceptionMessage($throwable->getMessage()), EXTR_OVERWRITE);
 
         $possibleProperty = $this->findPossibleProperty($class ?? '', $property ?? '');
@@ -76,7 +76,7 @@ class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable
      */
     protected function getClassAndPropertyFromExceptionMessage(string $message): ?array
     {
-        if (! preg_match(self::REGEX, $message, $matches)) {
+        if (!preg_match(self::REGEX, $message, $matches)) {
             return null;
         }
 

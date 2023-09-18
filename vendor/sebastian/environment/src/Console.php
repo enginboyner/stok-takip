@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Environment;
 
 use const DIRECTORY_SEPARATOR;
@@ -132,14 +133,14 @@ final class Console
     private function getNumberOfColumnsInteractive(): int
     {
         if (function_exists('shell_exec') && preg_match('#\d+ (\d+)#', shell_exec('stty size') ?: '', $match) === 1) {
-            if ((int) $match[1] > 0) {
-                return (int) $match[1];
+            if ((int)$match[1] > 0) {
+                return (int)$match[1];
             }
         }
 
         if (function_exists('shell_exec') && preg_match('#columns = (\d+);#', shell_exec('stty') ?: '', $match) === 1) {
-            if ((int) $match[1] > 0) {
-                return (int) $match[1];
+            if ((int)$match[1] > 0) {
+                return (int)$match[1];
             }
         }
 
@@ -155,7 +156,7 @@ final class Console
         $columns = 80;
 
         if (is_string($ansicon) && preg_match('/^(\d+)x\d+ \(\d+x(\d+)\)$/', trim($ansicon), $matches)) {
-            $columns = (int) $matches[1];
+            $columns = (int)$matches[1];
         } elseif (function_exists('proc_open')) {
             $process = proc_open(
                 'mode CON',
@@ -177,7 +178,7 @@ final class Console
                 proc_close($process);
 
                 if (preg_match('/--------+\r?\n.+?(\d+)\r?\n.+?(\d+)\r?\n/', $info, $matches)) {
-                    $columns = (int) $matches[2];
+                    $columns = (int)$matches[2];
                 }
             }
         }

@@ -5,7 +5,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/backtrace.svg?style=flat-square)](https://packagist.org/packages/spatie/backtrace)
 
 To get the backtrace in PHP you can use the `debug_backtrace` function. By default, it can be hard to work with. The
-reported function name for a frame is skewed: it belongs to the previous frame. Also, options need to be passed using a bitmask.
+reported function name for a frame is skewed: it belongs to the previous frame. Also, options need to be passed using a
+bitmask.
 
 This package provides a better way than `debug_backtrace` to work with a back trace. Here's an example:
 
@@ -82,7 +83,8 @@ For viewing purposes, arguments can be reduced to a string:
 $backtrace = Spatie\Backtrace\Backtrace::create()->withArguments()->reduceArguments();
 ```
 
-By default, some typical types will be reduced to a string. You can define your own reduction algorithm per type by implementing an `ArgumentReducer`:
+By default, some typical types will be reduced to a string. You can define your own reduction algorithm per type by
+implementing an `ArgumentReducer`:
 
 ```php
 class DateTimeWithOtherFormatArgumentReducer implements ArgumentReducer
@@ -101,7 +103,9 @@ class DateTimeWithOtherFormatArgumentReducer implements ArgumentReducer
 }
 ```
 
-This is a copy of the built-in argument reducer for `DateTimeInterface` where we've updated the format. An `UnReducedArgument` object is returned when the argument is not of the expected type. A `ReducedArgument` object is returned with the reduced value of the argument and the original type of the argument.
+This is a copy of the built-in argument reducer for `DateTimeInterface` where we've updated the format.
+An `UnReducedArgument` object is returned when the argument is not of the expected type. A `ReducedArgument` object is
+returned with the reduced value of the argument and the original type of the argument.
 
 The reducer can be used as such:
 
@@ -142,7 +146,8 @@ $frames = Backtrace::create()
 
 With this code, all frames before the frame that concerns `MyClass` will have been filtered out.
 
-Alternatively, you can use the `offset` method, which will skip the given number of frames. In this example the first 2 frames will not end up in `$frames`.
+Alternatively, you can use the `offset` method, which will skip the given number of frames. In this example the first 2
+frames will not end up in `$frames`.
 
 ```php
 $frames = Spatie\Backtrace\Backtrace::create()
@@ -160,7 +165,7 @@ $frames = Spatie\Backtrace\Backtrace::create()
     ->frames();
 ```
 
-###  Getting a backtrace for a throwable
+### Getting a backtrace for a throwable
 
 Here's how you can get a backtrace for a throwable.
 
@@ -168,7 +173,8 @@ Here's how you can get a backtrace for a throwable.
 $frames = Spatie\Backtrace\Backtrace::createForThrowable($throwable)
 ```
 
-Because we will use the backtrace that is already available the throwable, the frames will always contain the arguments used.
+Because we will use the backtrace that is already available the throwable, the frames will always contain the arguments
+used.
 
 ## Testing
 

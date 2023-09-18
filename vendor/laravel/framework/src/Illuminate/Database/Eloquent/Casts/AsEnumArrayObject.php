@@ -14,13 +14,12 @@ class AsEnumArrayObject implements Castable
      *
      * @template TEnum
      *
-     * @param  array{class-string<TEnum>}  $arguments
+     * @param array{class-string<TEnum>} $arguments
      * @return CastsAttributes<ArrayObject<array-key, TEnum>, iterable<TEnum>>
      */
     public static function castUsing(array $arguments)
     {
-        return new class($arguments) implements CastsAttributes
-        {
+        return new class($arguments) implements CastsAttributes {
             protected $arguments;
 
             public function __construct(array $arguments)
@@ -30,13 +29,13 @@ class AsEnumArrayObject implements Castable
 
             public function get($model, $key, $value, $attributes)
             {
-                if (! isset($attributes[$key]) || is_null($attributes[$key])) {
+                if (!isset($attributes[$key]) || is_null($attributes[$key])) {
                     return;
                 }
 
                 $data = json_decode($attributes[$key], true);
 
-                if (! is_array($data)) {
+                if (!is_array($data)) {
                     return;
                 }
 
@@ -45,7 +44,7 @@ class AsEnumArrayObject implements Castable
                 return new ArrayObject((new Collection($data))->map(function ($value) use ($enumClass) {
                     return is_subclass_of($enumClass, BackedEnum::class)
                         ? $enumClass::from($value)
-                        : constant($enumClass.'::'.$value);
+                        : constant($enumClass . '::' . $value);
                 })->toArray());
             }
 

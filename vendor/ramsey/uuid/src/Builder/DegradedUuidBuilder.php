@@ -40,8 +40,9 @@ class DegradedUuidBuilder implements UuidBuilderInterface
      */
     public function __construct(
         private NumberConverterInterface $numberConverter,
-        ?TimeConverterInterface $timeConverter = null
-    ) {
+        ?TimeConverterInterface          $timeConverter = null
+    )
+    {
         $this->timeConverter = $timeConverter ?: new DegradedTimeConverter();
     }
 

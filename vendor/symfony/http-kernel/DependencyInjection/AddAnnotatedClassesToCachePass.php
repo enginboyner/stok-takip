@@ -56,7 +56,7 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
      * Expands the given class patterns using a list of existing classes.
      *
      * @param array $patterns The class patterns to expand
-     * @param array $classes  The existing classes to match against the patterns
+     * @param array $classes The existing classes to match against the patterns
      */
     private function expandClasses(array $patterns, array $classes): array
     {
@@ -121,7 +121,7 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
                 $regex .= '$';
             }
 
-            $regexps[] = '{^\\\\'.$regex.'}';
+            $regexps[] = '{^\\\\' . $regex . '}';
         }
 
         return $regexps;
@@ -136,7 +136,7 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
                 continue;
             }
 
-            if (preg_match($regex, '\\'.$class)) {
+            if (preg_match($regex, '\\' . $class)) {
                 return true;
             }
         }

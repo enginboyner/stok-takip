@@ -91,7 +91,7 @@ trait CarbonTypeConverter
             throw ConversionException::conversionFailedFormat(
                 $value,
                 $this->getName(),
-                'Y-m-d H:i:s.u or any format supported by '.$class.'::parse()',
+                'Y-m-d H:i:s.u or any format supported by ' . $class . '::parse()',
                 $error
             );
         }

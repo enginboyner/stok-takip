@@ -69,9 +69,10 @@ class Flare
     protected bool $withStackFrameArguments = true;
 
     public static function make(
-        string $apiKey = null,
+        string                  $apiKey = null,
         ContextProviderDetector $contextDetector = null
-    ): self {
+    ): self
+    {
         $client = new Client($apiKey);
 
         return new self($client, $contextDetector);
@@ -155,7 +156,7 @@ class Flare
 
     public function version(): ?string
     {
-        if (! $this->determineVersionCallable) {
+        if (!$this->determineVersionCallable) {
             return null;
         }
 
@@ -168,10 +169,11 @@ class Flare
      * @param array<int, FlareMiddleware> $middleware
      */
     public function __construct(
-        Client $client,
+        Client                  $client,
         ContextProviderDetector $contextDetector = null,
-        array $middleware = [],
-    ) {
+        array                   $middleware = [],
+    )
+    {
         $this->client = $client;
         $this->recorder = new GlowRecorder();
         $this->contextDetector = $contextDetector ?? new BaseContextProviderDetector();
@@ -240,7 +242,7 @@ class Flare
      */
     public function registerMiddleware($middleware): self
     {
-        if (! is_array($middleware)) {
+        if (!is_array($middleware)) {
             $middleware = [$middleware];
         }
 
@@ -267,8 +269,9 @@ class Flare
     public function glow(
         string $name,
         string $messageLevel = MessageLevels::INFO,
-        array $metaData = []
-    ): self {
+        array  $metaData = []
+    ): self
+    {
         $this->recorder->record(new Glow($name, $messageLevel, $metaData));
 
         return $this;
@@ -312,13 +315,13 @@ class Flare
 
     public function report(Throwable $throwable, callable $callback = null, Report $report = null): ?Report
     {
-        if (! $this->shouldSendReport($throwable)) {
+        if (!$this->shouldSendReport($throwable)) {
             return null;
         }
 
         $report ??= $this->createReport($throwable);
 
-        if (! is_null($callback)) {
+        if (!is_null($callback)) {
             call_user_func($callback, $report);
         }
 
@@ -332,15 +335,15 @@ class Flare
     protected function shouldSendReport(Throwable $throwable): bool
     {
         if (isset($this->reportErrorLevels) && $throwable instanceof Error) {
-            return (bool) ($this->reportErrorLevels & $throwable->getCode());
+            return (bool)($this->reportErrorLevels & $throwable->getCode());
         }
 
         if (isset($this->reportErrorLevels) && $throwable instanceof ErrorException) {
-            return (bool) ($this->reportErrorLevels & $throwable->getSeverity());
+            return (bool)($this->reportErrorLevels & $throwable->getSeverity());
         }
 
         if ($this->filterExceptionsCallable && $throwable instanceof Exception) {
-            return (bool) (call_user_func($this->filterExceptionsCallable, $throwable));
+            return (bool)(call_user_func($this->filterExceptionsCallable, $throwable));
         }
 
         return true;
@@ -350,7 +353,7 @@ class Flare
     {
         $report = $this->createReportFromMessage($message, $logLevel);
 
-        if (! is_null($callback)) {
+        if (!is_null($callback)) {
             call_user_func($callback, $report);
         }
 
@@ -365,7 +368,7 @@ class Flare
     protected function sendReportToApi(Report $report): void
     {
         if ($this->filterReportsCallable) {
-            if (! call_user_func($this->filterReportsCallable, $report)) {
+            if (!call_user_func($this->filterReportsCallable, $report)) {
                 return;
             }
         }
@@ -453,7 +456,7 @@ class Flare
         $report = (new Pipeline())
             ->send($report)
             ->through($middleware)
-            ->then(fn ($report) => $report);
+            ->then(fn($report) => $report);
 
         return $report;
     }

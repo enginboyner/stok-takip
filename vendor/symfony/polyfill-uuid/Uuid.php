@@ -47,7 +47,7 @@ final class Uuid
             return null;
         }
 
-        switch ((int) $uuid_type) {
+        switch ((int)$uuid_type) {
             case self::UUID_TYPE_NAME:
             case self::UUID_TYPE_TIME:
                 return self::uuid_generate_time();
@@ -84,7 +84,7 @@ final class Uuid
             throw new \ValueError('uuid_generate_md5(): Argument #1 ($uuid_ns) UUID expected');
         }
 
-        $hash = md5(hex2bin(str_replace('-', '', $uuid_ns)).$name);
+        $hash = md5(hex2bin(str_replace('-', '', $uuid_ns)) . $name);
 
         return sprintf('%08s-%04s-3%03s-%04x-%012s',
             // 32 bits for "time_low"
@@ -125,7 +125,7 @@ final class Uuid
             throw new \ValueError('uuid_generate_sha1(): Argument #1 ($uuid_ns) UUID expected');
         }
 
-        $hash = sha1(hex2bin(str_replace('-', '', $uuid_ns)).$name);
+        $hash = sha1(hex2bin(str_replace('-', '', $uuid_ns)) . $name);
 
         return sprintf('%08s-%04s-5%03s-%04x-%012s',
             // 32 bits for "time_low"
@@ -286,7 +286,7 @@ final class Uuid
         $time = self::binaryAdd($time, self::TIME_OFFSET_COM);
         $time[0] = $time[0] & "\x7F";
 
-        return (int) substr(self::toDecimal($time), 0, -7);
+        return (int)substr(self::toDecimal($time), 0, -7);
     }
 
     public static function uuid_mac($uuid)
@@ -381,7 +381,7 @@ final class Uuid
     private static function uuid_generate_time()
     {
         $time = microtime(false);
-        $time = substr($time, 11).substr($time, 2, 7);
+        $time = substr($time, 11) . substr($time, 2, 7);
 
         if (\PHP_INT_SIZE >= 8) {
             $time = str_pad(dechex($time + self::TIME_OFFSET_INT), 16, '0', \STR_PAD_LEFT);
@@ -439,7 +439,7 @@ final class Uuid
 
     private static function isValid($uuid)
     {
-        return (bool) preg_match('{^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$}Di', $uuid);
+        return (bool)preg_match('{^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$}Di', $uuid);
     }
 
     private static function parse($uuid)
@@ -449,7 +449,7 @@ final class Uuid
         }
 
         return [
-            'time' => '0'.$matches['time_hi'].$matches['time_mid'].$matches['time_low'],
+            'time' => '0' . $matches['time_hi'] . $matches['time_mid'] . $matches['time_low'],
             'version' => hexdec($matches['version']),
             'clock_seq' => hexdec($matches['clock_seq']),
             'node' => $matches['node'],
@@ -459,7 +459,7 @@ final class Uuid
     private static function toString($v)
     {
         if (\is_string($v) || null === $v || (\is_object($v) ? method_exists($v, '__toString') : \is_scalar($v))) {
-            return (string) $v;
+            return (string)$v;
         }
 
         return $v;
@@ -484,7 +484,7 @@ final class Uuid
                 }
             }
 
-            $bytes = \chr($remainder).$bytes;
+            $bytes = \chr($remainder) . $bytes;
             $count = \count($digits = $quotient);
         }
 
@@ -502,7 +502,7 @@ final class Uuid
 
             for ($i = 0; $i !== $count; ++$i) {
                 $carry = $bytes[$i] + ($remainder << 8);
-                $digit = (int) ($carry / 10);
+                $digit = (int)($carry / 10);
                 $remainder = $carry % 10;
 
                 if ($digit || $quotient) {
@@ -510,7 +510,7 @@ final class Uuid
                 }
             }
 
-            $digits = $remainder.$digits;
+            $digits = $remainder . $digits;
             $bytes = $quotient;
         }
 

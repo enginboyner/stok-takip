@@ -54,8 +54,8 @@ class Bus extends Facade
     /**
      * Replace the bound instance with a fake.
      *
-     * @param  array|string  $jobsToFake
-     * @param  \Illuminate\Bus\BatchRepository|null  $batchRepository
+     * @param array|string $jobsToFake
+     * @param \Illuminate\Bus\BatchRepository|null $batchRepository
      * @return \Illuminate\Support\Testing\Fakes\BusFake
      */
     public static function fake($jobsToFake = [], BatchRepository $batchRepository = null)
@@ -68,7 +68,7 @@ class Bus extends Facade
     /**
      * Dispatch the given chain of jobs.
      *
-     * @param  array|mixed  $jobs
+     * @param array|mixed $jobs
      * @return \Illuminate\Foundation\Bus\PendingDispatch
      */
     public static function dispatchChain($jobs)
@@ -76,7 +76,7 @@ class Bus extends Facade
         $jobs = is_array($jobs) ? $jobs : func_get_args();
 
         return (new PendingChain(array_shift($jobs), $jobs))
-                    ->dispatch();
+            ->dispatch();
     }
 
     /**

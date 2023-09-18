@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function array_diff_key;
@@ -77,7 +78,7 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
         if ($node instanceof Node\Scalar\String_ ||
             $node instanceof Node\Scalar\EncapsedStringPart) {
             $startLine = $node->getStartLine() + 1;
-            $endLine   = $node->getEndLine() - 1;
+            $endLine = $node->getEndLine() - 1;
 
             if ($startLine <= $endLine) {
                 foreach (range($startLine, $endLine) as $line) {
@@ -233,7 +234,7 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
 
         if ($node instanceof Node\Stmt\For_) {
             $startLine = null;
-            $endLine   = null;
+            $endLine = null;
 
             if ([] !== $node->init) {
                 $startLine = $node->init[0]->getStartLine();

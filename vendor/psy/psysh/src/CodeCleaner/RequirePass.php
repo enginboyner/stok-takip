@@ -67,17 +67,17 @@ class RequirePass extends CodeCleanerPass
      * If $file collides with a path in the currently running PsySH phar, it will be resolved
      * relative to the include path, to prevent PHP from grabbing the phar version of the file.
      *
-     * @throws FatalErrorException when unable to resolve include path for $file
-     * @throws ErrorException      if $file is empty and E_WARNING is included in error_reporting level
-     *
      * @param string $file
-     * @param int    $lineNumber Line number of the original require expression
+     * @param int $lineNumber Line number of the original require expression
      *
      * @return string Exactly the same as $file, unless $file collides with a path in the currently running phar
+     * @throws ErrorException      if $file is empty and E_WARNING is included in error_reporting level
+     *
+     * @throws FatalErrorException when unable to resolve include path for $file
      */
     public static function resolve($file, $lineNumber = null): string
     {
-        $file = (string) $file;
+        $file = (string)$file;
 
         if ($file === '') {
             // @todo Shell::handleError would be better here, because we could
@@ -104,9 +104,9 @@ class RequirePass extends CodeCleanerPass
         // restriction and special case paths that would collide with any running phar?
         if ($resolvedPath !== $file && $file[0] !== '.') {
             $runningPhar = \Phar::running();
-            if (\strpos($runningPhar, 'psysh') !== false && \is_file($runningPhar.\DIRECTORY_SEPARATOR.$file)) {
+            if (\strpos($runningPhar, 'psysh') !== false && \is_file($runningPhar . \DIRECTORY_SEPARATOR . $file)) {
                 foreach (self::getIncludePath() as $prefix) {
-                    $resolvedPath = $prefix.\DIRECTORY_SEPARATOR.$file;
+                    $resolvedPath = $prefix . \DIRECTORY_SEPARATOR . $file;
                     if (\is_file($resolvedPath)) {
                         return $resolvedPath;
                     }

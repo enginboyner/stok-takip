@@ -16,8 +16,8 @@ class Timebox
      *
      * @template TCallReturnType
      *
-     * @param  (callable($this): TCallReturnType)  $callback
-     * @param  int  $microseconds
+     * @param (callable($this): TCallReturnType) $callback
+     * @param int $microseconds
      * @return TCallReturnType
      */
     public function call(callable $callback, int $microseconds)
@@ -28,7 +28,7 @@ class Timebox
 
         $remainder = intval($microseconds - ((microtime(true) - $start) * 1000000));
 
-        if (! $this->earlyReturn && $remainder > 0) {
+        if (!$this->earlyReturn && $remainder > 0) {
             $this->usleep($remainder);
         }
 
@@ -62,7 +62,7 @@ class Timebox
     /**
      * Sleep for the specified number of microseconds.
      *
-     * @param  int  $microseconds
+     * @param int $microseconds
      * @return void
      */
     protected function usleep(int $microseconds)

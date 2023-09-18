@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Template;
 
 use function array_merge;
@@ -45,7 +46,7 @@ final class Template
     {
         $this->setFile($file);
 
-        $this->openDelimiter  = $openDelimiter;
+        $this->openDelimiter = $openDelimiter;
         $this->closeDelimiter = $closeDelimiter;
     }
 

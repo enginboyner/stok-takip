@@ -57,7 +57,7 @@ class ClassConstantEnumerator extends Enumerator
      * Get defined constants for the given class or object Reflector.
      *
      * @param \ReflectionClass $reflector
-     * @param bool             $noInherit Exclude inherited constants
+     * @param bool $noInherit Exclude inherited constants
      *
      * @return array
      */
@@ -96,7 +96,7 @@ class ClassConstantEnumerator extends Enumerator
         foreach ($constants as $name => $constant) {
             if ($this->showItem($name)) {
                 $ret[$name] = [
-                    'name'  => $name,
+                    'name' => $name,
                     'style' => self::IS_CONSTANT,
                     'value' => $this->presentRef($constant->getValue()),
                 ];

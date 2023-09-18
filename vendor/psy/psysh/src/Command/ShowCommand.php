@@ -120,7 +120,7 @@ HELP
                 if ($file !== $this->context->get('__file')) {
                     $this->context->setCommandScopeVariables([
                         '__file' => $file,
-                        '__dir'  => \dirname($file),
+                        '__dir' => \dirname($file),
                     ]);
                 }
 
@@ -159,7 +159,7 @@ HELP
                 $index = 0;
             }
         } else {
-            $index = \max(0, (int) $input->getOption('ex') - 1);
+            $index = \max(0, (int)$input->getOption('ex') - 1);
         }
 
         $trace = $exception->getTrace();
@@ -200,13 +200,13 @@ HELP
     private function replaceCwd(string $file): string
     {
         if ($cwd = \getcwd()) {
-            $cwd = \rtrim($cwd, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
+            $cwd = \rtrim($cwd, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
         }
 
         if ($cwd === false) {
             return $file;
         } else {
-            return \preg_replace('/^'.\preg_quote($cwd, '/').'/', '', $file);
+            return \preg_replace('/^' . \preg_quote($cwd, '/') . '/', '', $file);
         }
     }
 

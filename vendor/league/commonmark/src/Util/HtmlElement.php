@@ -31,14 +31,14 @@ final class HtmlElement implements \Stringable
     private bool $selfClosing;
 
     /**
-     * @param string                                $tagName     Name of the HTML tag
-     * @param array<string, string|string[]|bool>   $attributes  Array of attributes (values should be unescaped)
-     * @param \Stringable|\Stringable[]|string|null $contents    Inner contents, pre-escaped if needed
-     * @param bool                                  $selfClosing Whether the tag is self-closing
+     * @param string $tagName Name of the HTML tag
+     * @param array<string, string|string[]|bool> $attributes Array of attributes (values should be unescaped)
+     * @param \Stringable|\Stringable[]|string|null $contents Inner contents, pre-escaped if needed
+     * @param bool $selfClosing Whether the tag is self-closing
      */
     public function __construct(string $tagName, array $attributes = [], $contents = '', bool $selfClosing = false)
     {
-        $this->tagName     = $tagName;
+        $this->tagName = $tagName;
         $this->selfClosing = $selfClosing;
 
         foreach ($attributes as $name => $value) {
@@ -95,7 +95,7 @@ final class HtmlElement implements \Stringable
      */
     public function getContents(bool $asString = true)
     {
-        if (! $asString) {
+        if (!$asString) {
             return $this->contents;
         }
 
@@ -155,6 +155,6 @@ final class HtmlElement implements \Stringable
             return \implode('', $this->contents);
         }
 
-        return (string) $this->contents;
+        return (string)$this->contents;
     }
 }

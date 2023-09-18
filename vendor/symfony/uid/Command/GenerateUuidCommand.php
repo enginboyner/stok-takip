@@ -83,8 +83,7 @@ To output a specific format:
 
     <info>php %command.full_name% --format=base58</info>
 EOF
-            )
-        ;
+            );
     }
 
     /**
@@ -177,14 +176,14 @@ EOF
         $formatOption = $input->getOption('format');
 
         if (\in_array($formatOption, $this->getAvailableFormatOptions())) {
-            $format = 'to'.ucfirst($formatOption);
+            $format = 'to' . ucfirst($formatOption);
         } else {
             $io->error(sprintf('Invalid format "%s", did you mean "base32", "base58" or "rfc4122"?', $formatOption));
 
             return 1;
         }
 
-        $count = (int) $input->getOption('count');
+        $count = (int)$input->getOption('count');
         try {
             for ($i = 0; $i < $count; ++$i) {
                 $output->writeln($create()->$format());

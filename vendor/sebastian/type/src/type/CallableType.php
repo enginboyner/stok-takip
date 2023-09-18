@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Type;
 
 use function assert;
@@ -111,7 +112,7 @@ final class CallableType extends Type
         } catch (ReflectionException $e) {
             throw new RuntimeException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
             // @codeCoverageIgnoreEnd
@@ -201,7 +202,7 @@ final class CallableType extends Type
         } catch (ReflectionException $e) {
             throw new RuntimeException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
             // @codeCoverageIgnoreEnd

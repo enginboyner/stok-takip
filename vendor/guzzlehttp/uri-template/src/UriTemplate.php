@@ -114,7 +114,7 @@ final class UriTemplate
      * Process an expansion
      *
      * @param array<string,mixed> $variables Variables to use in the template expansion
-     * @param string[]            $matches   Matches met in the preg_replace_callback
+     * @param string[] $matches Matches met in the preg_replace_callback
      *
      * @return string Returns the replacement string
      */
@@ -143,14 +143,14 @@ final class UriTemplate
                 /** @var mixed $var */
                 foreach ($variable as $key => $var) {
                     if ($isAssoc) {
-                        $key = \rawurlencode((string) $key);
+                        $key = \rawurlencode((string)$key);
                         $isNestedArray = \is_array($var);
                     } else {
                         $isNestedArray = false;
                     }
 
                     if (!$isNestedArray) {
-                        $var = \rawurlencode((string) $var);
+                        $var = \rawurlencode((string)$var);
                         if ($parsed['operator'] === '+' || $parsed['operator'] === '#') {
                             $var = self::decodeReserved($var);
                         }
@@ -162,10 +162,10 @@ final class UriTemplate
                                 // Nested arrays must allow for deeply nested structures.
                                 $var = \http_build_query([$key => $var], '', '&', \PHP_QUERY_RFC3986);
                             } else {
-                                $var = \sprintf('%s=%s', (string) $key, (string) $var);
+                                $var = \sprintf('%s=%s', (string)$key, (string)$var);
                             }
                         } elseif ($key > 0 && $actuallyUseQuery) {
-                            $var = \sprintf('%s=%s', $value['value'], (string) $var);
+                            $var = \sprintf('%s=%s', $value['value'], (string)$var);
                         }
                     }
 
@@ -198,9 +198,9 @@ final class UriTemplate
             } else {
                 $allUndefined = false;
                 if ($value['modifier'] === ':' && isset($value['position'])) {
-                    $variable = \substr((string) $variable, 0, $value['position']);
+                    $variable = \substr((string)$variable, 0, $value['position']);
                 }
-                $expanded = \rawurlencode((string) $variable);
+                $expanded = \rawurlencode((string)$variable);
                 if ($parsed['operator'] === '+' || $parsed['operator'] === '#') {
                     $expanded = self::decodeReserved($expanded);
                 }
@@ -257,12 +257,12 @@ final class UriTemplate
             $value = \trim($value);
             $varspec = [];
             if ($colonPos = \strpos($value, ':')) {
-                $varspec['value'] = (string) \substr($value, 0, $colonPos);
+                $varspec['value'] = (string)\substr($value, 0, $colonPos);
                 $varspec['modifier'] = ':';
-                $varspec['position'] = (int) \substr($value, $colonPos + 1);
+                $varspec['position'] = (int)\substr($value, $colonPos + 1);
             } elseif (\substr($value, -1) === '*') {
                 $varspec['modifier'] = '*';
-                $varspec['value'] = (string) \substr($value, 0, -1);
+                $varspec['value'] = (string)\substr($value, 0, -1);
             } else {
                 $varspec['value'] = $value;
                 $varspec['modifier'] = '';

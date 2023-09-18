@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\TestDox;
 
 use const PHP_EOL;
@@ -41,11 +42,11 @@ class CliTestDoxPrinter extends TestDoxPrinter
      */
     private const PREFIX_SIMPLE = [
         'default' => '│',
-        'start'   => '│',
+        'start' => '│',
         'message' => '│',
-        'diff'    => '│',
-        'trace'   => '│',
-        'last'    => '│',
+        'diff' => '│',
+        'trace' => '│',
+        'last' => '│',
     ];
 
     /**
@@ -53,11 +54,11 @@ class CliTestDoxPrinter extends TestDoxPrinter
      */
     private const PREFIX_DECORATED = [
         'default' => '│',
-        'start'   => '┐',
+        'start' => '┐',
         'message' => '├',
-        'diff'    => '┊',
-        'trace'   => '╵',
-        'last'    => '┴',
+        'diff' => '┊',
+        'trace' => '╵',
+        'last' => '┴',
     ];
 
     private const SPINNER_ICONS = [
@@ -69,41 +70,41 @@ class CliTestDoxPrinter extends TestDoxPrinter
     private const STATUS_STYLES = [
         BaseTestRunner::STATUS_PASSED => [
             'symbol' => '✔',
-            'color'  => 'fg-green',
+            'color' => 'fg-green',
         ],
         BaseTestRunner::STATUS_ERROR => [
-            'symbol'  => '✘',
-            'color'   => 'fg-yellow',
+            'symbol' => '✘',
+            'color' => 'fg-yellow',
             'message' => 'bg-yellow,fg-black',
         ],
         BaseTestRunner::STATUS_FAILURE => [
-            'symbol'  => '✘',
-            'color'   => 'fg-red',
+            'symbol' => '✘',
+            'color' => 'fg-red',
             'message' => 'bg-red,fg-white',
         ],
         BaseTestRunner::STATUS_SKIPPED => [
-            'symbol'  => '↩',
-            'color'   => 'fg-cyan',
+            'symbol' => '↩',
+            'color' => 'fg-cyan',
             'message' => 'fg-cyan',
         ],
         BaseTestRunner::STATUS_RISKY => [
-            'symbol'  => '☢',
-            'color'   => 'fg-yellow',
+            'symbol' => '☢',
+            'color' => 'fg-yellow',
             'message' => 'fg-yellow',
         ],
         BaseTestRunner::STATUS_INCOMPLETE => [
-            'symbol'  => '∅',
-            'color'   => 'fg-yellow',
+            'symbol' => '∅',
+            'color' => 'fg-yellow',
             'message' => 'fg-yellow',
         ],
         BaseTestRunner::STATUS_WARNING => [
-            'symbol'  => '⚠',
-            'color'   => 'fg-yellow',
+            'symbol' => '⚠',
+            'color' => 'fg-yellow',
             'message' => 'fg-yellow',
         ],
         BaseTestRunner::STATUS_UNKNOWN => [
-            'symbol'  => '?',
-            'color'   => 'fg-blue',
+            'symbol' => '?',
+            'color' => 'fg-blue',
             'message' => 'fg-white,bg-blue',
         ],
     ];
@@ -120,7 +121,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
 
     /**
      * @param null|resource|string $out
-     * @param int|string           $numberOfColumns
+     * @param int|string $numberOfColumns
      *
      * @throws \PHPUnit\Framework\Exception
      */
@@ -201,7 +202,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
         }
 
         $style = self::STATUS_STYLES[$result['status']];
-        $line  = sprintf(
+        $line = sprintf(
             ' %s %s%s' . PHP_EOL,
             $this->colorizeTextBox($style['color'], $style['symbol']),
             $testName,
@@ -221,9 +222,9 @@ class CliTestDoxPrinter extends TestDoxPrinter
 
     protected function colorizeMessageAndDiff(string $style, string $buffer): array
     {
-        $lines      = $buffer ? array_map('\rtrim', explode(PHP_EOL, $buffer)) : [];
-        $message    = [];
-        $diff       = [];
+        $lines = $buffer ? array_map('\rtrim', explode(PHP_EOL, $buffer)) : [];
+        $message = [];
+        $diff = [];
         $insideDiff = false;
 
         foreach ($lines as $line) {
@@ -261,7 +262,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
             return $trace;
         }
 
-        $lines    = [];
+        $lines = [];
         $prevPath = '';
 
         foreach (explode(PHP_EOL, $trace) as $line) {
@@ -272,7 +273,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
                     "\n";
                 $prevPath = $matches[1];
             } else {
-                $lines[]  = $line;
+                $lines[] = $line;
                 $prevPath = '';
             }
         }
@@ -283,14 +284,14 @@ class CliTestDoxPrinter extends TestDoxPrinter
     protected function formatTestResultMessage(Throwable $t, array $result, ?string $prefix = null): string
     {
         $message = $this->formatThrowable($t, $result['status']);
-        $diff    = '';
+        $diff = '';
 
         if (!($this->verbose || $result['verbose'])) {
             return '';
         }
 
         if ($message && $this->colors) {
-            $style            = self::STATUS_STYLES[$result['status']]['message'] ?? '';
+            $style = self::STATUS_STYLES[$result['status']]['message'] ?? '';
             [$message, $diff] = $this->colorizeMessageAndDiff($style, $message);
         }
 
@@ -299,15 +300,14 @@ class CliTestDoxPrinter extends TestDoxPrinter
         }
 
         if ($this->colors) {
-            $color  = self::STATUS_STYLES[$result['status']]['color'] ?? '';
-            $prefix = array_map(static function ($p) use ($color)
-            {
+            $color = self::STATUS_STYLES[$result['status']]['color'] ?? '';
+            $prefix = array_map(static function ($p) use ($color) {
                 return Color::colorize($color, $p);
             }, self::PREFIX_DECORATED);
         }
 
         $trace = $this->formatStacktrace($t);
-        $out   = $this->prefixLines($prefix['start'], PHP_EOL) . PHP_EOL;
+        $out = $this->prefixLines($prefix['start'], PHP_EOL) . PHP_EOL;
 
         if ($message) {
             $out .= $this->prefixLines($prefix['message'], $message . PHP_EOL) . PHP_EOL;
@@ -354,7 +354,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
             $color = 'fg-magenta';
         }
 
-        return Color::colorize($color, ' ' . (int) ceil($time * 1000) . ' ' . Color::dim('ms'));
+        return Color::colorize($color, ' ' . (int)ceil($time * 1000) . ' ' . Color::dim('ms'));
     }
 
     private function printNonSuccessfulTestsSummary(int $numberOfExecutedTests): void

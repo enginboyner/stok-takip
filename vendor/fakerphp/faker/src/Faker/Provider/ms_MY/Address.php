@@ -496,9 +496,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a building prefix
      *
+     * @return string
      * @example 'No.'
      *
-     * @return string
      */
     public static function buildingPrefix()
     {
@@ -508,9 +508,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a building number
      *
+     * @return string
      * @example '123'
      *
-     * @return string
      */
     public static function buildingNumber()
     {
@@ -532,9 +532,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a complete streename
      *
+     * @return string
      * @example 'Jalan Utama 7'
      *
-     * @return string
      */
     public function streetName()
     {
@@ -546,9 +546,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a randown township
      *
+     * @return string
      * @example Taman Bahagia
      *
-     * @return string
      */
     public function township()
     {
@@ -560,9 +560,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a township prefix abbreviation
      *
+     * @return string
      * @example 'USJ'
      *
-     * @return string
      */
     public function townshipPrefixAbbr()
     {
@@ -572,9 +572,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a township prefix
      *
+     * @return string
      * @example 'Taman'
      *
-     * @return string
      */
     public function townshipPrefix()
     {
@@ -594,13 +594,13 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a postcode based on state
      *
+     * @param string|null $state 'state' or null
+     *
+     * @return string
      * @example '55100'
      *
      * @see https://en.wikipedia.org/wiki/Postal_codes_in_Malaysia#States
      *
-     * @param string|null $state 'state' or null
-     *
-     * @return string
      */
     public static function postcode($state = null)
     {
@@ -660,15 +660,15 @@ class Address extends \Faker\Provider\Address
 
         $postcode = null === $state ? static::randomElement($format) : $format[$state];
 
-        return (string) static::randomElement($postcode);
+        return (string)static::randomElement($postcode);
     }
 
     /**
      * Return the complete town address with matching postcode and state
      *
+     * @return string
      * @example 55100 Bukit Bintang, Kuala Lumpur
      *
-     * @return string
      */
     public function townState()
     {
@@ -683,9 +683,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a random city (town)
      *
+     * @return string
      * @example 'Ampang'
      *
-     * @return string
      */
     public function city()
     {
@@ -697,9 +697,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Return a random state
      *
+     * @return string
      * @example 'Johor'
      *
-     * @return string
      */
     public function state()
     {

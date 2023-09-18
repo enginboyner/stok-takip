@@ -90,7 +90,7 @@ final class LinkParserHelper
     public static function parsePartialLinkTitle(Cursor $cursor, string $endDelimiter): ?string
     {
         $endDelimiter = \preg_quote($endDelimiter, '/');
-        $regex        = \sprintf('/(%s|[^%s\x00])*(?:%s)?/', RegexHelper::PARTIAL_ESCAPED_CHAR, $endDelimiter, $endDelimiter);
+        $regex = \sprintf('/(%s|[^%s\x00])*(?:%s)?/', RegexHelper::PARTIAL_ESCAPED_CHAR, $endDelimiter, $endDelimiter);
         if (($partialTitle = $cursor->match($regex)) === null) {
             return null;
         }
@@ -101,7 +101,7 @@ final class LinkParserHelper
     private static function manuallyParseLinkDestination(Cursor $cursor): ?string
     {
         $oldPosition = $cursor->getPosition();
-        $oldState    = $cursor->saveState();
+        $oldState = $cursor->saveState();
 
         $openParens = 0;
         while (($c = $cursor->getCurrentCharacter()) !== null) {
@@ -128,7 +128,7 @@ final class LinkParserHelper
             return null;
         }
 
-        if ($cursor->getPosition() === $oldPosition && (! isset($c) || $c !== ')')) {
+        if ($cursor->getPosition() === $oldPosition && (!isset($c) || $c !== ')')) {
             return null;
         }
 

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Extension;
 
 use function count;
@@ -31,7 +32,7 @@ final class PharLoader
      */
     public function loadPharExtensionsInDirectory(string $directory): array
     {
-        $loadedExtensions    = [];
+        $loadedExtensions = [];
         $notLoadedExtensions = [];
 
         foreach ((new FileIteratorFacade)->getFilesAsArray($directory, '.phar') as $file) {
@@ -43,8 +44,8 @@ final class PharLoader
 
             try {
                 $applicationName = new ApplicationName('phpunit/phpunit');
-                $version         = new PharIoVersion($this->phpunitVersion());
-                $manifest        = ManifestLoader::fromFile('phar://' . $file . '/manifest.xml');
+                $version = new PharIoVersion($this->phpunitVersion());
+                $manifest = ManifestLoader::fromFile('phar://' . $file . '/manifest.xml');
 
                 if (!$manifest->isExtensionFor($applicationName)) {
                     $notLoadedExtensions[] = $file . ' is not an extension for PHPUnit';
@@ -74,7 +75,7 @@ final class PharLoader
         }
 
         return [
-            'loadedExtensions'    => $loadedExtensions,
+            'loadedExtensions' => $loadedExtensions,
             'notLoadedExtensions' => $notLoadedExtensions,
         ];
     }

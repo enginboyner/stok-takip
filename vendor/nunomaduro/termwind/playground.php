@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use function Termwind\render;
 
@@ -11,4 +11,5 @@ render(<<<'HTML'
             <span class="text-green">DONE</span>
         </div>
     </div>
-HTML);
+HTML
+);

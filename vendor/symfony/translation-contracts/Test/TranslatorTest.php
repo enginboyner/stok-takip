@@ -143,7 +143,7 @@ class TranslatorTest extends TestCase
     {
         $translator = $this->getTranslator();
 
-        $this->assertEquals($expected, $translator->trans($interval.' foo|[1,Inf[ bar', ['%count%' => $number]));
+        $this->assertEquals($expected, $translator->trans($interval . ' foo|[1,Inf[ bar', ['%count%' => $number]));
     }
 
     public function getInternal()
@@ -349,7 +349,7 @@ class TranslatorTest extends TestCase
      * We validate only on the plural coverage. Thus the real rules is not tested.
      *
      * @param string $nplural Plural expected
-     * @param array  $matrix  Containing langcodes and their plural index values
+     * @param array $matrix Containing langcodes and their plural index values
      */
     protected function validateMatrix(string $nplural, array $matrix, bool $expectSuccess = true)
     {
@@ -358,7 +358,7 @@ class TranslatorTest extends TestCase
             if ($expectSuccess) {
                 $this->assertCount($nplural, $indexes, "Langcode '$langCode' has '$nplural' plural forms.");
             } else {
-                $this->assertNotEquals((int) $nplural, \count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
+                $this->assertNotEquals((int)$nplural, \count($indexes), "Langcode '$langCode' has '$nplural' plural forms.");
             }
         }
     }

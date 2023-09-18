@@ -27,8 +27,8 @@ trait InteractsWithContainer
     /**
      * Register an instance of an object in the container.
      *
-     * @param  string  $abstract
-     * @param  object  $instance
+     * @param string $abstract
+     * @param object $instance
      * @return object
      */
     protected function swap($abstract, $instance)
@@ -39,8 +39,8 @@ trait InteractsWithContainer
     /**
      * Register an instance of an object in the container.
      *
-     * @param  string  $abstract
-     * @param  object  $instance
+     * @param string $abstract
+     * @param object $instance
      * @return object
      */
     protected function instance($abstract, $instance)
@@ -53,8 +53,8 @@ trait InteractsWithContainer
     /**
      * Mock an instance of an object in the container.
      *
-     * @param  string  $abstract
-     * @param  \Closure|null  $mock
+     * @param string $abstract
+     * @param \Closure|null $mock
      * @return \Mockery\MockInterface
      */
     protected function mock($abstract, Closure $mock = null)
@@ -65,8 +65,8 @@ trait InteractsWithContainer
     /**
      * Mock a partial instance of an object in the container.
      *
-     * @param  string  $abstract
-     * @param  \Closure|null  $mock
+     * @param string $abstract
+     * @param \Closure|null $mock
      * @return \Mockery\MockInterface
      */
     protected function partialMock($abstract, Closure $mock = null)
@@ -77,8 +77,8 @@ trait InteractsWithContainer
     /**
      * Spy an instance of an object in the container.
      *
-     * @param  string  $abstract
-     * @param  \Closure|null  $mock
+     * @param string $abstract
+     * @param \Closure|null $mock
      * @return \Mockery\MockInterface
      */
     protected function spy($abstract, Closure $mock = null)
@@ -89,7 +89,7 @@ trait InteractsWithContainer
     /**
      * Instruct the container to forget a previously mocked / spied instance of an object.
      *
-     * @param  string  $abstract
+     * @param string $abstract
      * @return $this
      */
     protected function forgetMock($abstract)
@@ -110,8 +110,7 @@ trait InteractsWithContainer
             $this->originalVite = app(Vite::class);
         }
 
-        $this->swap(Vite::class, new class
-        {
+        $this->swap(Vite::class, new class {
             public function __invoke()
             {
                 return '';

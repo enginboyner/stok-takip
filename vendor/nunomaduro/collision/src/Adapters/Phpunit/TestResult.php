@@ -89,12 +89,12 @@ final class TestResult
         $this->throwable = $throwable;
 
         $asWarning = $this->type === TestResult::WARN
-             || $this->type === TestResult::RISKY
-             || $this->type === TestResult::SKIPPED
-             || $this->type === TestResult::INCOMPLETE;
+            || $this->type === TestResult::RISKY
+            || $this->type === TestResult::SKIPPED
+            || $this->type === TestResult::INCOMPLETE;
 
         if ($throwable instanceof Throwable && $asWarning) {
-            $this->warning = trim((string) preg_replace("/\r|\n/", ' ', $throwable->getMessage()));
+            $this->warning = trim((string)preg_replace("/\r|\n/", ' ', $throwable->getMessage()));
         }
     }
 
@@ -129,10 +129,10 @@ final class TestResult
         $name = str_replace('_', ' ', $name);
 
         // Then, replace upper cases by spaces.
-        $name = (string) preg_replace('/([A-Z])/', ' $1', $name);
+        $name = (string)preg_replace('/([A-Z])/', ' $1', $name);
 
         // Finally, if it starts with `test`, we remove it.
-        $name = (string) preg_replace('/^test/', '', $name);
+        $name = (string)preg_replace('/^test/', '', $name);
 
         // Removes spaces
         $name = trim($name);

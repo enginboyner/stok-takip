@@ -116,7 +116,7 @@ class Shell extends Application
     public static function isIncluded(array $trace): bool
     {
         $isIncluded = isset($trace[0]['function']) &&
-          \in_array($trace[0]['function'], ['require', 'include', 'require_once', 'include_once']);
+            \in_array($trace[0]['function'], ['require', 'include', 'require_once', 'include_once']);
 
         // Detect Composer PHP bin proxies.
         if ($isIncluded && \array_key_exists('_composer_autoload_path', $GLOBALS) && \preg_match('{[\\\\/]psysh$}', $trace[0]['file'])) {
@@ -140,13 +140,13 @@ class Shell extends Application
     /**
      * Invoke a Psy Shell from the current context.
      *
-     * @see Psy\debug
-     * @deprecated will be removed in 1.0. Use \Psy\debug instead
-     *
-     * @param array         $vars   Scope variables from the calling context (default: [])
+     * @param array $vars Scope variables from the calling context (default: [])
      * @param object|string $bindTo Bound object ($this) or class (self) value for the shell
      *
      * @return array Scope variables from the debugger session
+     * @deprecated will be removed in 1.0. Use \Psy\debug instead
+     *
+     * @see Psy\debug
      */
     public static function debug(array $vars = [], $bindTo = null): array
     {
@@ -297,9 +297,9 @@ class Shell extends Application
     }
 
     /**
+     * @param array $matchers
      * @deprecated Call `addMatchers` instead
      *
-     * @param array $matchers
      */
     public function addTabCompletionMatchers(array $matchers)
     {
@@ -320,7 +320,7 @@ class Shell extends Application
     /**
      * Runs PsySH.
      *
-     * @param InputInterface|null  $input  An Input instance
+     * @param InputInterface|null $input An Input instance
      * @param OutputInterface|null $output An Output instance
      *
      * @return int 0 if everything went fine, or an error code
@@ -349,12 +349,12 @@ class Shell extends Application
     /**
      * Runs PsySH.
      *
-     * @throws \Throwable if thrown via the `throw-up` command
-     *
-     * @param InputInterface  $input  An Input instance
+     * @param InputInterface $input An Input instance
      * @param OutputInterface $output An Output instance
      *
      * @return int 0 if everything went fine, or an error code
+     * @throws \Throwable if thrown via the `throw-up` command
+     *
      */
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
@@ -375,9 +375,9 @@ class Shell extends Application
      * Initializes tab completion and readline history, then spins up the
      * execution loop.
      *
+     * @return int 0 if everything went fine, or an error code
      * @throws \Throwable if thrown via the `throw-up` command
      *
-     * @return int 0 if everything went fine, or an error code
      */
     private function doInteractiveRun(): int
     {
@@ -494,9 +494,9 @@ class Shell extends Application
      * This will continue fetching user input until the code buffer contains
      * valid code.
      *
+     * @param bool $interactive
      * @throws BreakException if user hits Ctrl+D
      *
-     * @param bool $interactive
      */
     public function getInput(bool $interactive = true)
     {
@@ -563,7 +563,7 @@ class Shell extends Application
 
         $code = $this->codeBuffer;
         $code[] = $input;
-        $tokens = @\token_get_all('<?php '.\implode("\n", $code));
+        $tokens = @\token_get_all('<?php ' . \implode("\n", $code));
         $last = \array_pop($tokens);
 
         return $last === '"' || $last === '`' ||
@@ -843,7 +843,7 @@ class Shell extends Application
      * Add code to the code buffer.
      *
      * @param string $code
-     * @param bool   $silent
+     * @param bool $silent
      */
     public function addCode(string $code, bool $silent = false)
     {
@@ -876,7 +876,7 @@ class Shell extends Application
      * @throws \InvalidArgumentException if $code isn't a complete statement
      *
      * @param string $code
-     * @param bool   $silent
+     * @param bool $silent
      */
     private function setCode(string $code, bool $silent = false)
     {
@@ -915,18 +915,18 @@ class Shell extends Application
     /**
      * Run a Psy Shell command given the user input.
      *
-     * @throws \InvalidArgumentException if the input is not a valid command
-     *
      * @param string $input User input string
      *
      * @return mixed Who knows?
+     * @throws \InvalidArgumentException if the input is not a valid command
+     *
      */
     protected function runCommand(string $input)
     {
         $command = $this->getCommand($input);
 
         if (empty($command)) {
-            throw new \InvalidArgumentException('Command not found: '.$input);
+            throw new \InvalidArgumentException('Command not found: ' . $input);
         }
 
         $input = new ShellInput(\str_replace('\\', '\\\\', \rtrim($input, " \t\n\r\0\x0B;")));
@@ -962,11 +962,11 @@ class Shell extends Application
      * This is useful for commands which want to replay history.
      *
      * @param string|array $input
-     * @param bool         $silent
+     * @param bool $silent
      */
     public function addInput($input, bool $silent = false)
     {
-        foreach ((array) $input as $line) {
+        foreach ((array)$input as $line) {
             $this->inputBuffer[] = $silent ? new SilentInput($line) : $line;
         }
     }
@@ -1047,9 +1047,9 @@ class Shell extends Application
     /**
      * Get the current evaluation scope namespace.
      *
+     * @return string|null Current code namespace
      * @see CodeCleaner::getNamespace
      *
-     * @return string|null Current code namespace
      */
     public function getNamespace()
     {
@@ -1064,7 +1064,7 @@ class Shell extends Application
      * This is used by the shell loop for rendering output from evaluated code.
      *
      * @param string $out
-     * @param int    $phase Output buffering phase
+     * @param int $phase Output buffering phase
      */
     public function writeStdout(string $out, int $phase = \PHP_OUTPUT_HANDLER_END)
     {
@@ -1113,10 +1113,10 @@ class Shell extends Application
      * The return value is formatted or pretty-printed, and rendered in a
      * visibly distinct manner (in this case, as cyan).
      *
+     * @param mixed $ret
+     * @param bool $rawOutput Write raw var_export-style values
      * @see self::presentValue
      *
-     * @param mixed $ret
-     * @param bool  $rawOutput Write raw var_export-style values
      */
     public function writeReturnValue($ret, bool $rawOutput = false)
     {
@@ -1136,11 +1136,11 @@ class Shell extends Application
             $formatted = $this->presentValue($ret);
             $formattedRetValue = \sprintf('<whisper>%s</whisper>', $prompt);
 
-            $formatted = $formattedRetValue.\str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
+            $formatted = $formattedRetValue . \str_replace(\PHP_EOL, \PHP_EOL . $indent, $formatted);
         }
 
         if ($this->output instanceof ShellOutput) {
-            $this->output->page($formatted.\PHP_EOL);
+            $this->output->page($formatted . \PHP_EOL);
         } else {
             $this->output->writeln($formatted);
         }
@@ -1212,9 +1212,9 @@ class Shell extends Application
     /**
      * Helper for formatting an exception or error for writeException().
      *
+     * @param \Throwable $e
      * @todo extract this to somewhere it makes more sense
      *
-     * @param \Throwable $e
      */
     public function formatException(\Throwable $e): string
     {
@@ -1248,7 +1248,7 @@ class Shell extends Application
         }
 
         // Ensures the given message only contains relative paths...
-        $message = \str_replace(\getcwd().\DIRECTORY_SEPARATOR, '', $message);
+        $message = \str_replace(\getcwd() . \DIRECTORY_SEPARATOR, '', $message);
 
         $severity = ($e instanceof \ErrorException) ? $this->getSeverity($e) : 'error';
 
@@ -1334,7 +1334,7 @@ class Shell extends Application
      * Execute code in the shell execution context.
      *
      * @param string $code
-     * @param bool   $throwExceptions
+     * @param bool $throwExceptions
      *
      * @return mixed
      */
@@ -1369,15 +1369,15 @@ class Shell extends Application
      * If the error type matches the `errorLoggingLevel` config, it will be
      * logged as well, regardless of the `error_reporting` level.
      *
-     * @see \Psy\Exception\ErrorException::throwException
-     * @see \Psy\Shell::writeException
-     *
+     * @param int $errno Error type
+     * @param string $errstr Message
+     * @param string $errfile Filename
+     * @param int $errline Line number
      * @throws \Psy\Exception\ErrorException depending on the error level
      *
-     * @param int    $errno   Error type
-     * @param string $errstr  Message
-     * @param string $errfile Filename
-     * @param int    $errline Line number
+     * @see \Psy\Shell::writeException
+     *
+     * @see \Psy\Exception\ErrorException::throwException
      */
     public function handleError($errno, $errstr, $errfile, $errline)
     {
@@ -1402,11 +1402,11 @@ class Shell extends Application
     /**
      * Format a value for display.
      *
-     * @see Presenter::present
-     *
      * @param mixed $val
      *
      * @return string Formatted value
+     * @see Presenter::present
+     *
      */
     protected function presentValue($val): string
     {
@@ -1591,9 +1591,9 @@ class Shell extends Application
     }
 
     /**
+     * @return void|string
      * @todo Implement prompt to start update
      *
-     * @return void|string
      */
     protected function writeVersionInfo()
     {

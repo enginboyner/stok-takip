@@ -48,7 +48,8 @@ class ProvidedArgument
 
     public static function fromNonReflectableParameter(
         int $index
-    ): self {
+    ): self
+    {
         return new self(
             "arg{$index}",
             false,
@@ -56,16 +57,17 @@ class ProvidedArgument
     }
 
     public function __construct(
-        string $name,
-        bool $passedByReference = false,
-        bool $isVariadic = false,
-        bool $hasDefaultValue = false,
-        $defaultValue = null,
-        bool $defaultValueUsed = false,
-        bool $truncated = false,
-        $reducedValue = null,
+        string  $name,
+        bool    $passedByReference = false,
+        bool    $isVariadic = false,
+        bool    $hasDefaultValue = false,
+                $defaultValue = null,
+        bool    $defaultValueUsed = false,
+        bool    $truncated = false,
+                $reducedValue = null,
         ?string $originalType = null
-    ) {
+    )
+    {
         $this->originalType = $originalType;
         $this->reducedValue = $reducedValue;
         $this->truncated = $truncated;
@@ -83,7 +85,8 @@ class ProvidedArgument
 
     public function setReducedArgument(
         ReducedArgument $reducedArgument
-    ): self {
+    ): self
+    {
         $this->reducedValue = $reducedArgument->value;
         $this->originalType = $reducedArgument->originalType;
 

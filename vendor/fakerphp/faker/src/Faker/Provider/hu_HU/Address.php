@@ -70,9 +70,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Coordinates inside the border of Hungary
      *
+     * @return array | latitude, longitude
      * @example array('47.049242', '18.355119')
      *
-     * @return array | latitude, longitude
      */
     public static function localCoordinates()
     {

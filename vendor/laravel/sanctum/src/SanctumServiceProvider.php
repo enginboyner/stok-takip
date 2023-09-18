@@ -27,8 +27,8 @@ class SanctumServiceProvider extends ServiceProvider
             ], config('auth.guards.sanctum', [])),
         ]);
 
-        if (! app()->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__.'/../config/sanctum.php', 'sanctum');
+        if (!app()->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__ . '/../config/sanctum.php', 'sanctum');
         }
     }
 
@@ -43,11 +43,11 @@ class SanctumServiceProvider extends ServiceProvider
             $this->registerMigrations();
 
             $this->publishes([
-                __DIR__.'/../database/migrations' => database_path('migrations'),
+                __DIR__ . '/../database/migrations' => database_path('migrations'),
             ], 'sanctum-migrations');
 
             $this->publishes([
-                __DIR__.'/../config/sanctum.php' => config_path('sanctum.php'),
+                __DIR__ . '/../config/sanctum.php' => config_path('sanctum.php'),
             ], 'sanctum-config');
 
             $this->commands([
@@ -68,7 +68,7 @@ class SanctumServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Sanctum::shouldRunMigrations()) {
-            return $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            return $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 
@@ -86,7 +86,7 @@ class SanctumServiceProvider extends ServiceProvider
         Route::group(['prefix' => config('sanctum.prefix', 'sanctum')], function () {
             Route::get(
                 '/csrf-cookie',
-                CsrfCookieController::class.'@show'
+                CsrfCookieController::class . '@show'
             )->middleware('web')->name('sanctum.csrf-cookie');
         });
     }
@@ -110,8 +110,8 @@ class SanctumServiceProvider extends ServiceProvider
     /**
      * Register the guard.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @param  array  $config
+     * @param \Illuminate\Contracts\Auth\Factory $auth
+     * @param array $config
      * @return RequestGuard
      */
     protected function createGuard($auth, $config)

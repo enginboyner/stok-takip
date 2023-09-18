@@ -23,7 +23,7 @@ class FileConfigManager implements ConfigManager
     {
         $path = $this->retrievePath($path);
 
-        if (! $this->isValidWritablePath($path)) {
+        if (!$this->isValidWritablePath($path)) {
             return '';
         }
 
@@ -51,11 +51,11 @@ class FileConfigManager implements ConfigManager
 
     protected function initPathFromEnvironment(): string
     {
-        if (! empty($_SERVER['HOMEDRIVE']) && ! empty($_SERVER['HOMEPATH'])) {
+        if (!empty($_SERVER['HOMEDRIVE']) && !empty($_SERVER['HOMEPATH'])) {
             return $_SERVER['HOMEDRIVE'] . $_SERVER['HOMEPATH'];
         }
 
-        if (! empty(getenv('HOME'))) {
+        if (!empty(getenv('HOME'))) {
             return getenv('HOME');
         }
 
@@ -76,7 +76,7 @@ class FileConfigManager implements ConfigManager
     /** @return array<string, mixed> */
     protected function readFromFile(): array
     {
-        if (! $this->isValidFile()) {
+        if (!$this->isValidFile()) {
             return [];
         }
 
@@ -101,7 +101,7 @@ class FileConfigManager implements ConfigManager
     /** {@inheritDoc} */
     public function save(array $options): bool
     {
-        if (! $this->createFile()) {
+        if (!$this->createFile()) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class FileConfigManager implements ConfigManager
 
     protected function createFile(): bool
     {
-        if (! $this->isValidPath()) {
+        if (!$this->isValidPath()) {
             return false;
         }
 
@@ -139,7 +139,7 @@ class FileConfigManager implements ConfigManager
 
     protected function writeToFile(string $content): bool
     {
-        if (! $this->isValidFile()) {
+        if (!$this->isValidFile()) {
             return false;
         }
 

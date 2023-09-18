@@ -167,21 +167,21 @@ abstract class FileGeneric extends Stream implements StreamPathable, StreamStata
         }
 
         $out .=
-            (($p & 0x0100) ? 'r' : '-').
-            (($p & 0x0080) ? 'w' : '-').
+            (($p & 0x0100) ? 'r' : '-') .
+            (($p & 0x0080) ? 'w' : '-') .
             (($p & 0x0040) ?
-            (($p & 0x0800) ? 's' : 'x') :
-            (($p & 0x0800) ? 'S' : '-')).
-            (($p & 0x0020) ? 'r' : '-').
-            (($p & 0x0010) ? 'w' : '-').
+                (($p & 0x0800) ? 's' : 'x') :
+                (($p & 0x0800) ? 'S' : '-')) .
+            (($p & 0x0020) ? 'r' : '-') .
+            (($p & 0x0010) ? 'w' : '-') .
             (($p & 0x0008) ?
-            (($p & 0x0400) ? 's' : 'x') :
-            (($p & 0x0400) ? 'S' : '-')).
-            (($p & 0x0004) ? 'r' : '-').
-            (($p & 0x0002) ? 'w' : '-').
+                (($p & 0x0400) ? 's' : 'x') :
+                (($p & 0x0400) ? 'S' : '-')) .
+            (($p & 0x0004) ? 'r' : '-') .
+            (($p & 0x0002) ? 'w' : '-') .
             (($p & 0x0001) ?
-            (($p & 0x0200) ? 't' : 'x') :
-            (($p & 0x0200) ? 'T' : '-'));
+                (($p & 0x0200) ? 't' : 'x') :
+                (($p & 0x0200) ? 'T' : '-'));
 
         return $out;
     }
@@ -267,9 +267,10 @@ abstract class FileGeneric extends Stream implements StreamPathable, StreamStata
      */
     public function move(
         string $name,
-        bool $force = StreamTouchable::DO_NOT_OVERWRITE,
-        bool $mkdir = StreamTouchable::DO_NOT_MAKE_DIRECTORY
-    ): bool {
+        bool   $force = StreamTouchable::DO_NOT_OVERWRITE,
+        bool   $mkdir = StreamTouchable::DO_NOT_MAKE_DIRECTORY
+    ): bool
+    {
         $from = $this->getStreamName();
 
         if ($force === StreamTouchable::DO_NOT_OVERWRITE &&

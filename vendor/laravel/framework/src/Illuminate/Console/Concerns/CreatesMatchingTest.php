@@ -27,18 +27,18 @@ trait CreatesMatchingTest
     /**
      * Create the matching test case if requested.
      *
-     * @param  string  $path
+     * @param string $path
      * @return bool
      */
     protected function handleTestCreation($path)
     {
-        if (! $this->option('test') && ! $this->option('pest')) {
+        if (!$this->option('test') && !$this->option('pest')) {
             return false;
         }
 
         return $this->callSilent('make:test', [
-            'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
-            '--pest' => $this->option('pest'),
-        ]) == 0;
+                'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
+                '--pest' => $this->option('pest'),
+            ]) == 0;
     }
 }

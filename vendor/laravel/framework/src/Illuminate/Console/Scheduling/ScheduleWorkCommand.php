@@ -51,21 +51,21 @@ class ScheduleWorkCommand extends Command
 
         [$lastExecutionStartedAt, $executions] = [null, []];
 
-        $command = implode(' ', array_map(fn ($arg) => ProcessUtils::escapeArgument($arg), [
+        $command = implode(' ', array_map(fn($arg) => ProcessUtils::escapeArgument($arg), [
             PHP_BINARY,
             defined('ARTISAN_BINARY') ? ARTISAN_BINARY : 'artisan',
             'schedule:run',
         ]));
 
         if ($this->option('run-output-file')) {
-            $command .= ' >> '.ProcessUtils::escapeArgument($this->option('run-output-file')).' 2>&1';
+            $command .= ' >> ' . ProcessUtils::escapeArgument($this->option('run-output-file')) . ' 2>&1';
         }
 
         while (true) {
             usleep(100 * 1000);
 
             if (Carbon::now()->second === 0 &&
-                ! Carbon::now()->startOfMinute()->equalTo($lastExecutionStartedAt)) {
+                !Carbon::now()->startOfMinute()->equalTo($lastExecutionStartedAt)) {
                 $executions[] = $execution = Process::fromShellCommandline($command);
 
                 $execution->start();
@@ -74,12 +74,12 @@ class ScheduleWorkCommand extends Command
             }
 
             foreach ($executions as $key => $execution) {
-                $output = $execution->getIncrementalOutput().
+                $output = $execution->getIncrementalOutput() .
                     $execution->getIncrementalErrorOutput();
 
                 $this->output->write(ltrim($output, "\n"));
 
-                if (! $execution->isRunning()) {
+                if (!$execution->isRunning()) {
                     unset($executions[$key]);
                 }
             }

@@ -295,10 +295,10 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
                 }
 
                 if ($message) {
-                    $catalog->set($message, $this->prefix.$message, $domain);
+                    $catalog->set($message, $this->prefix . $message, $domain);
                     $metadata = $catalog->getMetadata($message, $domain) ?? [];
                     $normalizedFilename = preg_replace('{[\\\\/]+}', '/', $filename);
-                    $metadata['sources'][] = $normalizedFilename.':'.$tokens[$key][2];
+                    $metadata['sources'][] = $normalizedFilename . ':' . $tokens[$key][2];
                     $catalog->setMetadata($message, $metadata, $domain);
                     break;
                 }

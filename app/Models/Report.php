@@ -13,6 +13,7 @@ class Report extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
     public function stock()
     {
         return $this->hasMany(Stock::class);

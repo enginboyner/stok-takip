@@ -19,7 +19,8 @@ class ReduceArgumentsAction
 
     public function __construct(
         ArgumentReducers $argumentReducers
-    ) {
+    )
+    {
         $this->argumentReducers = $argumentReducers;
         $this->reduceArgumentPayloadAction = new ReduceArgumentPayloadAction($argumentReducers);
     }
@@ -27,8 +28,9 @@ class ReduceArgumentsAction
     public function execute(
         ?string $class,
         ?string $method,
-        ?array $frameArguments
-    ): ?array {
+        ?array  $frameArguments
+    ): ?array
+    {
         try {
             if ($frameArguments === null) {
                 return null;
@@ -90,7 +92,8 @@ class ReduceArgumentsAction
     protected function getParameters(
         ?string $class,
         ?string $method
-    ): ?array {
+    ): ?array
+    {
         try {
             $reflection = $class !== null
                 ? new ReflectionMethod($class, $method)
@@ -110,8 +113,9 @@ class ReduceArgumentsAction
     protected function moreArgumentsProvidedThanParameters(
         array $arguments,
         array $parameters,
-        bool $hasVariadicParameter
-    ): bool {
-        return count($arguments) > count($parameters) && ! $hasVariadicParameter;
+        bool  $hasVariadicParameter
+    ): bool
+    {
+        return count($arguments) > count($parameters) && !$hasVariadicParameter;
     }
 }

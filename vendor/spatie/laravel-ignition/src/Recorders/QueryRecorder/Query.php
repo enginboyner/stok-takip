@@ -22,7 +22,7 @@ class Query
         return new self(
             $queryExecuted->sql,
             $queryExecuted->time,
-            /** @phpstan-ignore-next-line  */
+            /** @phpstan-ignore-next-line */
             $queryExecuted->connectionName ?? '',
             $reportBindings ? $queryExecuted->bindings : null
         );
@@ -37,11 +37,12 @@ class Query
      */
     protected function __construct(
         string $sql,
-        float $time,
+        float  $time,
         string $connectionName,
         ?array $bindings = null,
         ?float $microtime = null
-    ) {
+    )
+    {
         $this->sql = $sql;
         $this->time = $time;
         $this->connectionName = $connectionName;

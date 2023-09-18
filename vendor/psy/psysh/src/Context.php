@@ -38,11 +38,11 @@ class Context
     /**
      * Get a context variable.
      *
-     * @throws \InvalidArgumentException If the variable is not found in the current context
-     *
      * @param string $name
      *
      * @return mixed
+     * @throws \InvalidArgumentException If the variable is not found in the current context
+     *
      */
     public function get(string $name)
     {
@@ -87,7 +87,7 @@ class Context
                 break;
         }
 
-        throw new \InvalidArgumentException('Unknown variable: $'.$name);
+        throw new \InvalidArgumentException('Unknown variable: $' . $name);
     }
 
     /**
@@ -176,9 +176,9 @@ class Context
     /**
      * Get the most recent Exception or Error.
      *
+     * @return \Throwable|null
      * @throws \InvalidArgumentException If no Exception has been caught
      *
-     * @return \Throwable|null
      */
     public function getLastException()
     {
@@ -202,9 +202,9 @@ class Context
     /**
      * Get the most recent output from evaluated code.
      *
+     * @return string|null
      * @throws \InvalidArgumentException If no output has happened yet
      *
-     * @return string|null
      */
     public function getLastStdout()
     {

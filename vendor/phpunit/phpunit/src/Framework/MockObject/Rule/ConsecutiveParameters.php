@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Rule;
 
 use function count;
@@ -74,7 +75,7 @@ final class ConsecutiveParameters implements ParametersRule
     public function apply(BaseInvocation $invocation): void
     {
         $this->invocations[] = $invocation;
-        $callIndex           = count($this->invocations) - 1;
+        $callIndex = count($this->invocations) - 1;
 
         $this->verifyInvocation($invocation, $callIndex);
     }

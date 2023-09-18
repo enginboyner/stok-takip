@@ -23,7 +23,7 @@ trait ProxyArrayAccessToProperties
      */
     public function offsetExists($offset): bool
     {
-        $property = $this->formatPropertyName((string) $offset);
+        $property = $this->formatPropertyName((string)$offset);
 
         return isset($this->{$property});
     }
@@ -36,7 +36,7 @@ trait ProxyArrayAccessToProperties
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        $property = $this->formatPropertyName((string) $offset);
+        $property = $this->formatPropertyName((string)$offset);
 
         return $this->{$property};
     }

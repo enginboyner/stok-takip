@@ -24,7 +24,7 @@ class CacheCommandMutex implements CommandMutex
     /**
      * Create a new command mutex.
      *
-     * @param  \Illuminate\Contracts\Cache\Factory  $cache
+     * @param \Illuminate\Contracts\Cache\Factory $cache
      */
     public function __construct(Cache $cache)
     {
@@ -34,7 +34,7 @@ class CacheCommandMutex implements CommandMutex
     /**
      * Attempt to obtain a command mutex for the given command.
      *
-     * @param  \Illuminate\Console\Command  $command
+     * @param \Illuminate\Console\Command $command
      * @return bool
      */
     public function create($command)
@@ -43,15 +43,15 @@ class CacheCommandMutex implements CommandMutex
             $this->commandMutexName($command),
             true,
             method_exists($command, 'isolationLockExpiresAt')
-                    ? $command->isolationLockExpiresAt()
-                    : CarbonInterval::hour(),
+                ? $command->isolationLockExpiresAt()
+                : CarbonInterval::hour(),
         );
     }
 
     /**
      * Determine if a command mutex exists for the given command.
      *
-     * @param  \Illuminate\Console\Command  $command
+     * @param \Illuminate\Console\Command $command
      * @return bool
      */
     public function exists($command)
@@ -64,7 +64,7 @@ class CacheCommandMutex implements CommandMutex
     /**
      * Release the mutex for the given command.
      *
-     * @param  \Illuminate\Console\Command  $command
+     * @param \Illuminate\Console\Command $command
      * @return bool
      */
     public function forget($command)
@@ -75,18 +75,18 @@ class CacheCommandMutex implements CommandMutex
     }
 
     /**
-     * @param  \Illuminate\Console\Command  $command
+     * @param \Illuminate\Console\Command $command
      * @return string
      */
     protected function commandMutexName($command)
     {
-        return 'framework'.DIRECTORY_SEPARATOR.'command-'.$command->getName();
+        return 'framework' . DIRECTORY_SEPARATOR . 'command-' . $command->getName();
     }
 
     /**
      * Specify the cache store that should be used.
      *
-     * @param  string|null  $store
+     * @param string|null $store
      * @return $this
      */
     public function useStore($store)

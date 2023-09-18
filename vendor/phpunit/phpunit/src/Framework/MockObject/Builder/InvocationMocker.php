@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Builder;
 
 use function array_map;
@@ -59,15 +60,15 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
 
     public function __construct(InvocationHandler $handler, Matcher $matcher, ConfigurableMethod ...$configurableMethods)
     {
-        $this->invocationHandler   = $handler;
-        $this->matcher             = $matcher;
+        $this->invocationHandler = $handler;
+        $this->matcher = $matcher;
         $this->configurableMethods = $configurableMethods;
     }
 
     /**
+     * @return $this
      * @throws MatcherAlreadyRegisteredException
      *
-     * @return $this
      */
     public function id($id): self
     {
@@ -87,7 +88,7 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
     }
 
     /**
-     * @param mixed   $value
+     * @param mixed $value
      * @param mixed[] $nextValues
      *
      * @throws IncompatibleReturnValueException
@@ -171,11 +172,11 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
     /**
      * @param mixed[] $arguments
      *
-     * @throws \PHPUnit\Framework\Exception
+     * @return $this
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      *
-     * @return $this
+     * @throws \PHPUnit\Framework\Exception
      */
     public function with(...$arguments): self
     {
@@ -189,12 +190,12 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
     /**
      * @param array ...$arguments
      *
-     * @throws \PHPUnit\Framework\Exception
+     * @return $this
+     *
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      *
-     * @return $this
-     *
+     * @throws \PHPUnit\Framework\Exception
      * @deprecated
      */
     public function withConsecutive(...$arguments): self
@@ -207,10 +208,10 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
     }
 
     /**
-     * @throws MethodNameNotConfiguredException
+     * @return $this
      * @throws MethodParametersAlreadyConfiguredException
      *
-     * @return $this
+     * @throws MethodNameNotConfiguredException
      */
     public function withAnyParameters(): self
     {
@@ -224,11 +225,11 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
     /**
      * @param Constraint|string $constraint
      *
-     * @throws \PHPUnit\Framework\InvalidArgumentException
+     * @return $this
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      *
-     * @return $this
+     * @throws \PHPUnit\Framework\InvalidArgumentException
      */
     public function method($constraint): self
     {
@@ -237,8 +238,7 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
         }
 
         $configurableMethodNames = array_map(
-            static function (ConfigurableMethod $configurable)
-            {
+            static function (ConfigurableMethod $configurable) {
                 return strtolower($configurable->getName());
             },
             $this->configurableMethods,

@@ -40,12 +40,13 @@ final class MacroExtension implements MethodsClassReflectionExtension
      * Extension constructor.
      *
      * @param PhpMethodReflectionFactory $methodReflectionFactory
-     * @param ReflectionProvider         $reflectionProvider
+     * @param ReflectionProvider $reflectionProvider
      */
     public function __construct(
         PhpMethodReflectionFactory $methodReflectionFactory,
-        ReflectionProvider $reflectionProvider
-    ) {
+        ReflectionProvider         $reflectionProvider
+    )
+    {
         $this->scanner = new MacroScanner($reflectionProvider);
         $this->methodReflectionFactory = $methodReflectionFactory;
     }

@@ -86,9 +86,9 @@ HELP
      * Optionally limit the number of rows to include with $count, and exclude
      * Psy from the trace.
      *
-     * @param \Throwable $e          The exception or error with a backtrace
-     * @param int        $count      (default: PHP_INT_MAX)
-     * @param bool       $includePsy (default: true)
+     * @param \Throwable $e The exception or error with a backtrace
+     * @param int $count (default: PHP_INT_MAX)
+     * @param bool $includePsy (default: true)
      *
      * @return array Formatted stacktrace lines
      */

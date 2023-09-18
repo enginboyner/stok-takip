@@ -186,7 +186,7 @@ HELP
      */
     private function parse(string $code): array
     {
-        $code = '<?php '.$code;
+        $code = '<?php ' . $code;
 
         try {
             return $this->parser->parse($code);
@@ -196,7 +196,7 @@ HELP
             }
 
             // If we got an unexpected EOF, let's try it again with a semicolon.
-            return $this->parser->parse($code.';');
+            return $this->parser->parse($code . ';');
         }
     }
 }

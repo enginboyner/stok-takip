@@ -75,9 +75,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a Nigerian state or county.
      *
+     * @return string
      * @example 'Lagos'
      *
-     * @return string
      */
     public static function county()
     {
@@ -87,9 +87,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a Nigerian region of a state.
      *
+     * @return string
      * @example 'Ikeja'
      *
-     * @return string
      */
     public static function region()
     {

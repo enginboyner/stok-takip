@@ -1,9 +1,11 @@
 <?php
+
 namespace Hamcrest;
 
 use PHPUnit\Framework\TestCase;
 
-class UnknownType {
+class UnknownType
+{
 }
 
 abstract class AbstractMatcherTest extends TestCase
@@ -28,7 +30,7 @@ abstract class AbstractMatcherTest extends TestCase
     {
         $description = new \Hamcrest\StringDescription();
         $description->appendDescriptionOf($matcher);
-        $this->assertEquals($expected, (string) $description, 'Expected description');
+        $this->assertEquals($expected, (string)$description, 'Expected description');
     }
 
     public function assertMismatchDescription($expected, \Hamcrest\Matcher $matcher, $arg)
@@ -41,7 +43,7 @@ abstract class AbstractMatcherTest extends TestCase
         $matcher->describeMismatch($arg, $description);
         $this->assertEquals(
             $expected,
-            (string) $description,
+            (string)$description,
             'Expected mismatch description'
         );
     }

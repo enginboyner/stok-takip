@@ -146,8 +146,9 @@ class Ignition
     public function glow(
         string $name,
         string $messageLevel = MessageLevels::INFO,
-        array $metaData = []
-    ): self {
+        array  $metaData = []
+    ): self
+    {
         $this->flare->glow($name, $messageLevel, $metaData);
 
         return $this;
@@ -212,7 +213,7 @@ class Ignition
      */
     public function registerMiddleware(array|FlareMiddleware $middleware): self
     {
-        if (! is_array($middleware)) {
+        if (!is_array($middleware)) {
             $middleware = [$middleware];
         }
 
@@ -241,10 +242,10 @@ class Ignition
     {
         error_reporting(-1);
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         set_error_handler([$this, 'renderError']);
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         set_exception_handler([$this, 'handleException']);
 
         return $this;
@@ -261,12 +262,13 @@ class Ignition
      * @throws \ErrorException
      */
     public function renderError(
-        int $level,
+        int    $level,
         string $message,
         string $file = '',
-        int $line = 0,
-        array $context = []
-    ): void {
+        int    $line = 0,
+        array  $context = []
+    ): void
+    {
         throw new ErrorException($message, 0, $level, $file, $line);
     }
 
@@ -341,7 +343,7 @@ class Ignition
 
     protected function setUpFlare(): self
     {
-        if (! $this->flare->apiTokenSet()) {
+        if (!$this->flare->apiTokenSet()) {
             $this->flare->setApiToken($this->flareApiKey ?? '');
         }
 

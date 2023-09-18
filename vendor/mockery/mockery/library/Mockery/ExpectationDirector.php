@@ -109,8 +109,8 @@ class ExpectationDirector
     /**
      * Verify all expectations of the director
      *
-     * @throws \Mockery\CountValidator\Exception
      * @return void
+     * @throws \Mockery\CountValidator\Exception
      */
     public function verify()
     {

@@ -49,7 +49,7 @@ trait TimeTrait
                 . str_pad($time->getMicroseconds()->toString(), 6, '0', STR_PAD_LEFT)
             );
         } catch (Throwable $e) {
-            throw new DateTimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new DateTimeException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 }

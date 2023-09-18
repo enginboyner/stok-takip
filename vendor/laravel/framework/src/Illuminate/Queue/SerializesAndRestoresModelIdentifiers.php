@@ -14,7 +14,7 @@ trait SerializesAndRestoresModelIdentifiers
     /**
      * Get the property value prepared for serialization.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      * @return mixed
      */
     protected function getSerializedPropertyValue($value)
@@ -47,30 +47,30 @@ trait SerializesAndRestoresModelIdentifiers
     /**
      * Get the restored property value after deserialization.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      * @return mixed
      */
     protected function getRestoredPropertyValue($value)
     {
-        if (! $value instanceof ModelIdentifier) {
+        if (!$value instanceof ModelIdentifier) {
             return $value;
         }
 
         return is_array($value->id)
-                ? $this->restoreCollection($value)
-                : $this->restoreModel($value);
+            ? $this->restoreCollection($value)
+            : $this->restoreModel($value);
     }
 
     /**
      * Restore a queueable collection instance.
      *
-     * @param  \Illuminate\Contracts\Database\ModelIdentifier  $value
+     * @param \Illuminate\Contracts\Database\ModelIdentifier $value
      * @return \Illuminate\Database\Eloquent\Collection
      */
     protected function restoreCollection($value)
     {
-        if (! $value->class || count($value->id) === 0) {
-            return ! is_null($value->collectionClass ?? null)
+        if (!$value->class || count($value->id) === 0) {
+            return !is_null($value->collectionClass ?? null)
                 ? new $value->collectionClass
                 : new EloquentCollection;
         }
@@ -98,7 +98,7 @@ trait SerializesAndRestoresModelIdentifiers
     /**
      * Restore the model from the model identifier instance.
      *
-     * @param  \Illuminate\Contracts\Database\ModelIdentifier  $value
+     * @param \Illuminate\Contracts\Database\ModelIdentifier $value
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function restoreModel($value)
@@ -111,8 +111,8 @@ trait SerializesAndRestoresModelIdentifiers
     /**
      * Get the query for model restoration.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  array|int  $ids
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param array|int $ids
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function getQueryForModelRestoration($model, $ids)

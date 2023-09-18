@@ -32,7 +32,7 @@ class Docblock
      */
     public static $vectors = [
         'throws' => ['type', 'desc'],
-        'param'  => ['type', 'var', 'desc'],
+        'param' => ['type', 'var', 'desc'],
         'return' => ['type', 'desc'],
     ];
 

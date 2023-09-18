@@ -37,7 +37,7 @@ class MarkdownConverter implements ConverterInterface, MarkdownConverterInterfac
         $this->environment = $environment;
 
         $this->markdownParser = new MarkdownParser($environment);
-        $this->htmlRenderer   = new HtmlRenderer($environment);
+        $this->htmlRenderer = new HtmlRenderer($environment);
     }
 
     public function getEnvironment(): EnvironmentInterface
@@ -64,13 +64,13 @@ class MarkdownConverter implements ConverterInterface, MarkdownConverterInterfac
     /**
      * Converts Markdown to HTML.
      *
-     * @deprecated since 2.2; use {@link convert()} instead
-     *
      * @param string $markdown The Markdown to convert
      *
      * @return RenderedContentInterface Rendered HTML
      *
      * @throws CommonMarkException
+     * @deprecated since 2.2; use {@link convert()} instead
+     *
      */
     public function convertToHtml(string $markdown): RenderedContentInterface
     {
@@ -82,9 +82,9 @@ class MarkdownConverter implements ConverterInterface, MarkdownConverterInterfac
     /**
      * Converts CommonMark to HTML.
      *
+     * @throws CommonMarkException
      * @see MarkdownConverter::convert()
      *
-     * @throws CommonMarkException
      */
     public function __invoke(string $markdown): RenderedContentInterface
     {

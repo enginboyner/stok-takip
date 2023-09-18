@@ -73,7 +73,7 @@ class CurlMultiHandler
             $this->selectTimeout = $options['select_timeout'];
         } elseif ($selectTimeout = Utils::getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
             @trigger_error('Since guzzlehttp/guzzle 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
-            $this->selectTimeout = (int) $selectTimeout;
+            $this->selectTimeout = (int)$selectTimeout;
         } else {
             $this->selectTimeout = 1;
         }
@@ -122,7 +122,7 @@ class CurlMultiHandler
     public function __invoke(RequestInterface $request, array $options): PromiseInterface
     {
         $easy = $this->factory->create($request, $options);
-        $id = (int) $easy->handle;
+        $id = (int)$easy->handle;
 
         $promise = new Promise(
             [$this, 'execute'],
@@ -189,7 +189,7 @@ class CurlMultiHandler
     private function addRequest(array $entry): void
     {
         $easy = $entry['easy'];
-        $id = (int) $easy->handle;
+        $id = (int)$easy->handle;
         $this->handles[$id] = $entry;
         if (empty($easy->options['delay'])) {
             \curl_multi_add_handle($this->_mh, $easy->handle);
@@ -231,7 +231,7 @@ class CurlMultiHandler
                 // if it's not done, then it would be premature to remove the handle. ref https://github.com/guzzle/guzzle/pull/2892#issuecomment-945150216
                 continue;
             }
-            $id = (int) $done['handle'];
+            $id = (int)$done['handle'];
             \curl_multi_remove_handle($this->_mh, $done['handle']);
 
             if (!isset($this->handles[$id])) {
@@ -258,6 +258,6 @@ class CurlMultiHandler
             }
         }
 
-        return ((int) \max(0, $nextTime - $currentTime)) * 1000000;
+        return ((int)\max(0, $nextTime - $currentTime)) * 1000000;
     }
 }

@@ -23,7 +23,7 @@ final class InlineParserMatch
 
     private function __construct(string $regex, bool $caseSensitive = false)
     {
-        $this->regex         = $regex;
+        $this->regex = $regex;
         $this->caseSensitive = $caseSensitive;
     }
 
@@ -55,7 +55,7 @@ final class InlineParserMatch
      */
     public static function oneOf(string ...$str): self
     {
-        return new self(\implode('|', \array_map(static fn (string $str): string => \preg_quote($str, '/'), $str)));
+        return new self(\implode('|', \array_map(static fn(string $str): string => \preg_quote($str, '/'), $str)));
     }
 
     /**
@@ -68,7 +68,7 @@ final class InlineParserMatch
 
     public static function join(self ...$definitions): self
     {
-        $regex         = '';
+        $regex = '';
         $caseSensitive = null;
         foreach ($definitions as $definition) {
             $regex .= '(' . $definition->regex . ')';

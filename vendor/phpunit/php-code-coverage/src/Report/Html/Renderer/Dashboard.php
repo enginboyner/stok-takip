@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use function array_values;
@@ -29,9 +30,9 @@ final class Dashboard extends Renderer
 {
     public function render(DirectoryNode $node, string $file): void
     {
-        $classes      = $node->classesAndTraits();
+        $classes = $node->classesAndTraits();
         $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'dashboard_branch.html' : 'dashboard.html');
-        $template     = new Template(
+        $template = new Template(
             $templateName,
             '{{',
             '}}'
@@ -39,22 +40,22 @@ final class Dashboard extends Renderer
 
         $this->setCommonTemplateVariables($template, $node);
 
-        $baseLink             = $node->id() . '/';
-        $complexity           = $this->complexity($classes, $baseLink);
+        $baseLink = $node->id() . '/';
+        $complexity = $this->complexity($classes, $baseLink);
         $coverageDistribution = $this->coverageDistribution($classes);
         $insufficientCoverage = $this->insufficientCoverage($classes, $baseLink);
-        $projectRisks         = $this->projectRisks($classes, $baseLink);
+        $projectRisks = $this->projectRisks($classes, $baseLink);
 
         $template->setVar(
             [
                 'insufficient_coverage_classes' => $insufficientCoverage['class'],
                 'insufficient_coverage_methods' => $insufficientCoverage['method'],
-                'project_risks_classes'         => $projectRisks['class'],
-                'project_risks_methods'         => $projectRisks['method'],
-                'complexity_class'              => $complexity['class'],
-                'complexity_method'             => $complexity['method'],
-                'class_coverage_distribution'   => $coverageDistribution['class'],
-                'method_coverage_distribution'  => $coverageDistribution['method'],
+                'project_risks_classes' => $projectRisks['class'],
+                'project_risks_methods' => $projectRisks['method'],
+                'complexity_class' => $complexity['class'],
+                'complexity_method' => $complexity['method'],
+                'class_coverage_distribution' => $coverageDistribution['class'],
+                'method_coverage_distribution' => $coverageDistribution['method'],
             ]
         );
 
@@ -106,7 +107,7 @@ final class Dashboard extends Renderer
         }
 
         return [
-            'class'  => json_encode($result['class']),
+            'class' => json_encode($result['class']),
             'method' => json_encode($result['method']),
         ];
     }
@@ -118,32 +119,32 @@ final class Dashboard extends Renderer
     {
         $result = [
             'class' => [
-                '0%'      => 0,
-                '0-10%'   => 0,
-                '10-20%'  => 0,
-                '20-30%'  => 0,
-                '30-40%'  => 0,
-                '40-50%'  => 0,
-                '50-60%'  => 0,
-                '60-70%'  => 0,
-                '70-80%'  => 0,
-                '80-90%'  => 0,
+                '0%' => 0,
+                '0-10%' => 0,
+                '10-20%' => 0,
+                '20-30%' => 0,
+                '30-40%' => 0,
+                '40-50%' => 0,
+                '50-60%' => 0,
+                '60-70%' => 0,
+                '70-80%' => 0,
+                '80-90%' => 0,
                 '90-100%' => 0,
-                '100%'    => 0,
+                '100%' => 0,
             ],
             'method' => [
-                '0%'      => 0,
-                '0-10%'   => 0,
-                '10-20%'  => 0,
-                '20-30%'  => 0,
-                '30-40%'  => 0,
-                '40-50%'  => 0,
-                '50-60%'  => 0,
-                '60-70%'  => 0,
-                '70-80%'  => 0,
-                '80-90%'  => 0,
+                '0%' => 0,
+                '0-10%' => 0,
+                '10-20%' => 0,
+                '20-30%' => 0,
+                '30-40%' => 0,
+                '40-50%' => 0,
+                '50-60%' => 0,
+                '60-70%' => 0,
+                '70-80%' => 0,
+                '80-90%' => 0,
                 '90-100%' => 0,
-                '100%'    => 0,
+                '100%' => 0,
             ],
         ];
 
@@ -172,7 +173,7 @@ final class Dashboard extends Renderer
         }
 
         return [
-            'class'  => json_encode(array_values($result['class'])),
+            'class' => json_encode(array_values($result['class'])),
             'method' => json_encode(array_values($result['method'])),
         ];
     }
@@ -184,7 +185,7 @@ final class Dashboard extends Renderer
     {
         $leastTestedClasses = [];
         $leastTestedMethods = [];
-        $result             = ['class' => '', 'method' => ''];
+        $result = ['class' => '', 'method' => ''];
 
         foreach ($classes as $className => $class) {
             foreach ($class['methods'] as $methodName => $method) {
@@ -236,9 +237,9 @@ final class Dashboard extends Renderer
      */
     private function projectRisks(array $classes, string $baseLink): array
     {
-        $classRisks  = [];
+        $classRisks = [];
         $methodRisks = [];
-        $result      = ['class' => '', 'method' => ''];
+        $result = ['class' => '', 'method' => ''];
 
         foreach ($classes as $className => $class) {
             foreach ($class['methods'] as $methodName => $method) {

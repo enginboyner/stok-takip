@@ -8,13 +8,15 @@ class Frame
 {
     public static function fromSpatieFrame(
         SpatieFrame $frame,
-    ): self {
+    ): self
+    {
         return new self($frame);
     }
 
     public function __construct(
         protected SpatieFrame $frame,
-    ) {
+    )
+    {
     }
 
     public function toArray(): array

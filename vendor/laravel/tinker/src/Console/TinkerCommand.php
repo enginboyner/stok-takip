@@ -60,7 +60,7 @@ class TinkerCommand extends Command
         $shell->addCommands($this->getCommands());
         $shell->setIncludes($this->argument('include'));
 
-        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath().DIRECTORY_SEPARATOR.'vendor');
+        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath() . DIRECTORY_SEPARATOR . 'vendor');
 
         $path .= '/composer/autoload_classmap.php';
 
@@ -141,7 +141,7 @@ class TinkerCommand extends Command
 
         $config = $this->getLaravel()->make('config');
 
-        return array_merge($casters, (array) $config->get('tinker.casters', []));
+        return array_merge($casters, (array)$config->get('tinker.casters', []));
     }
 
     /**

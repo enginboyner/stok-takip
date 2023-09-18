@@ -130,7 +130,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getInt(string $key, int $default = 0): int
     {
-        return (int) $this->get($key, $default);
+        return (int)$this->get($key, $default);
     }
 
     /**

@@ -36,7 +36,7 @@ abstract class AbstractDefaultParametersMatcher extends AbstractContextAwareMatc
             return [];
         }
 
-        return [\implode(', ', $parametersProcessed).')'];
+        return [\implode(', ', $parametersProcessed) . ')'];
     }
 
     /**
@@ -69,6 +69,6 @@ abstract class AbstractDefaultParametersMatcher extends AbstractContextAwareMatc
 
         $chunksToImplode = $allSequential ? $chunksSequential : $chunks;
 
-        return '['.\implode(', ', $chunksToImplode).']';
+        return '[' . \implode(', ', $chunksToImplode) . ']';
     }
 }

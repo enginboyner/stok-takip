@@ -41,7 +41,7 @@ class AmqpHandler extends AbstractProcessingHandler
     /**
      * Configure extra attributes to pass to the AMQPExchange (if you are using the amqp extension)
      *
-     * @param array<string, mixed> $extraAttributes  One of content_type, content_encoding,
+     * @param array<string, mixed> $extraAttributes One of content_type, content_encoding,
      *                                               message_id, user_id, app_id, delivery_mode,
      *                                               priority, timestamp, expiration, type
      *                                               or reply_to, headers.
@@ -59,13 +59,13 @@ class AmqpHandler extends AbstractProcessingHandler
     protected $exchangeName;
 
     /**
-     * @param AMQPExchange|AMQPChannel $exchange     AMQPExchange (php AMQP ext) or PHP AMQP lib channel, ready for use
-     * @param string|null              $exchangeName Optional exchange name, for AMQPChannel (PhpAmqpLib) only
+     * @param AMQPExchange|AMQPChannel $exchange AMQPExchange (php AMQP ext) or PHP AMQP lib channel, ready for use
+     * @param string|null $exchangeName Optional exchange name, for AMQPChannel (PhpAmqpLib) only
      */
     public function __construct($exchange, ?string $exchangeName = null, $level = Logger::DEBUG, bool $bubble = true)
     {
         if ($exchange instanceof AMQPChannel) {
-            $this->exchangeName = (string) $exchangeName;
+            $this->exchangeName = (string)$exchangeName;
         } elseif (!$exchange instanceof AMQPExchange) {
             throw new \InvalidArgumentException('PhpAmqpLib\Channel\AMQPChannel or AMQPExchange instance required');
         } elseif ($exchangeName) {
@@ -87,7 +87,7 @@ class AmqpHandler extends AbstractProcessingHandler
         if ($this->exchange instanceof AMQPExchange) {
             $attributes = [
                 'delivery_mode' => 2,
-                'content_type'  => 'application/json',
+                'content_type' => 'application/json',
             ];
             if ($this->extraAttributes) {
                 $attributes = array_merge($attributes, $this->extraAttributes);

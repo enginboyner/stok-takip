@@ -87,7 +87,7 @@ abstract class TestCase extends BaseTestCase
 
         Facade::clearResolvedInstances();
 
-        if (! $this->app) {
+        if (!$this->app) {
             $this->refreshApplication();
 
             ParallelTesting::callSetUpTestCaseCallbacks($this);
@@ -152,12 +152,12 @@ abstract class TestCase extends BaseTestCase
         }
 
         foreach ($uses as $trait) {
-            if (method_exists($this, $method = 'setUp'.class_basename($trait))) {
+            if (method_exists($this, $method = 'setUp' . class_basename($trait))) {
                 $this->{$method}();
             }
 
-            if (method_exists($this, $method = 'tearDown'.class_basename($trait))) {
-                $this->beforeApplicationDestroyed(fn () => $this->{$method}());
+            if (method_exists($this, $method = 'tearDown' . class_basename($trait))) {
+                $this->beforeApplicationDestroyed(fn() => $this->{$method}());
             }
         }
 
@@ -201,7 +201,7 @@ abstract class TestCase extends BaseTestCase
             try {
                 Mockery::close();
             } catch (InvalidCountException $e) {
-                if (! Str::contains($e->getMethodName(), ['doWrite', 'askQuestion'])) {
+                if (!Str::contains($e->getMethodName(), ['doWrite', 'askQuestion'])) {
                     throw $e;
                 }
             }
@@ -251,7 +251,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Register a callback to be run after the application is created.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     public function afterApplicationCreated(callable $callback)
@@ -266,7 +266,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Register a callback to be run before the application is destroyed.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      * @return void
      */
     protected function beforeApplicationDestroyed(callable $callback)
@@ -285,7 +285,7 @@ abstract class TestCase extends BaseTestCase
             try {
                 $callback();
             } catch (Throwable $e) {
-                if (! $this->callbackException) {
+                if (!$this->callbackException) {
                     $this->callbackException = $e;
                 }
             }
@@ -295,7 +295,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * This method is called when a test method did not execute successfully.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
      * @return void
      */
     protected function onNotSuccessfulTest(Throwable $exception): void

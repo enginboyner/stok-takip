@@ -87,12 +87,13 @@ class FeatureSet
      *     to generate version 1 UUIDs
      */
     public function __construct(
-        bool $useGuids = false,
+        bool         $useGuids = false,
         private bool $force32Bit = false,
-        bool $forceNoBigNumber = false,
+        bool         $forceNoBigNumber = false,
         private bool $ignoreSystemNode = false,
         private bool $enablePecl = false
-    ) {
+    )
+    {
         $this->randomGenerator = $this->buildRandomGenerator();
         $this->setCalculator(new BrickMathCalculator());
         $this->builder = $this->buildUuidBuilder($useGuids);
@@ -274,7 +275,8 @@ class FeatureSet
      */
     private function buildDceSecurityGenerator(
         DceSecurityProviderInterface $dceSecurityProvider
-    ): DceSecurityGeneratorInterface {
+    ): DceSecurityGeneratorInterface
+    {
         return new DceSecurityGenerator(
             $this->numberConverter,
             $this->timeGenerator,

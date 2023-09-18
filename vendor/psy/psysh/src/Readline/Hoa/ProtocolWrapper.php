@@ -207,7 +207,7 @@ class ProtocolWrapper
             $openedPath = \fopen(
                 $path,
                 $mode,
-                (bool) ($options & \STREAM_USE_PATH),
+                (bool)($options & \STREAM_USE_PATH),
                 $this->context
             );
         }
@@ -363,7 +363,7 @@ class ProtocolWrapper
         return \mkdir(
             static::realPath($path, false),
             $mode,
-            (bool) ($options | \STREAM_MKDIR_RECURSIVE),
+            (bool)($options | \STREAM_MKDIR_RECURSIVE),
             $this->context
         );
     }
@@ -437,7 +437,7 @@ class ProtocolWrapper
                 return 0;
             } else {
                 return \trigger_error(
-                    'Path '.$path.' cannot be resolved.',
+                    'Path ' . $path . ' cannot be resolved.',
                     \E_WARNING
                 );
             }

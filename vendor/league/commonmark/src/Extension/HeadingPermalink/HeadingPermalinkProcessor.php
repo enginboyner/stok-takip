@@ -30,8 +30,8 @@ use League\Config\Exception\InvalidConfigurationException;
 final class HeadingPermalinkProcessor implements EnvironmentAwareInterface
 {
     public const INSERT_BEFORE = 'before';
-    public const INSERT_AFTER  = 'after';
-    public const INSERT_NONE   = 'none';
+    public const INSERT_AFTER = 'after';
+    public const INSERT_NONE = 'none';
 
     /** @psalm-readonly-allow-private-mutation */
     private TextNormalizerInterface $slugNormalizer;
@@ -41,18 +41,18 @@ final class HeadingPermalinkProcessor implements EnvironmentAwareInterface
 
     public function setEnvironment(EnvironmentInterface $environment): void
     {
-        $this->config         = $environment->getConfiguration();
+        $this->config = $environment->getConfiguration();
         $this->slugNormalizer = $environment->getSlugNormalizer();
     }
 
     public function __invoke(DocumentParsedEvent $e): void
     {
-        $min            = (int) $this->config->get('heading_permalink/min_heading_level');
-        $max            = (int) $this->config->get('heading_permalink/max_heading_level');
-        $applyToHeading = (bool) $this->config->get('heading_permalink/apply_id_to_heading');
-        $idPrefix       = (string) $this->config->get('heading_permalink/id_prefix');
-        $slugLength     = (int) $this->config->get('slug_normalizer/max_length');
-        $headingClass   = (string) $this->config->get('heading_permalink/heading_class');
+        $min = (int)$this->config->get('heading_permalink/min_heading_level');
+        $max = (int)$this->config->get('heading_permalink/max_heading_level');
+        $applyToHeading = (bool)$this->config->get('heading_permalink/apply_id_to_heading');
+        $idPrefix = (string)$this->config->get('heading_permalink/id_prefix');
+        $slugLength = (int)$this->config->get('slug_normalizer/max_length');
+        $headingClass = (string)$this->config->get('heading_permalink/heading_class');
 
         if ($idPrefix !== '') {
             $idPrefix .= '-';

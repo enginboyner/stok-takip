@@ -131,10 +131,10 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that no class, interface or trait name collides with a new definition.
      *
+     * @param Stmt $stmt
+     * @param string $scopeType
      * @throws FatalErrorException
      *
-     * @param Stmt   $stmt
-     * @param string $scopeType
      */
     protected function ensureCanDefine(Stmt $stmt, string $scopeType = self::CLASS_TYPE)
     {
@@ -167,10 +167,10 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that a referenced class exists.
      *
+     * @param string $name
+     * @param Stmt $stmt
      * @throws FatalErrorException
      *
-     * @param string $name
-     * @param Stmt   $stmt
      */
     protected function ensureClassExists(string $name, Stmt $stmt)
     {
@@ -182,10 +182,10 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that a referenced class _or interface_ exists.
      *
+     * @param string $name
+     * @param Stmt $stmt
      * @throws FatalErrorException
      *
-     * @param string $name
-     * @param Stmt   $stmt
      */
     protected function ensureClassOrInterfaceExists(string $name, Stmt $stmt)
     {
@@ -197,10 +197,10 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that a referenced class _or trait_ exists.
      *
+     * @param string $name
+     * @param Stmt $stmt
      * @throws FatalErrorException
      *
-     * @param string $name
-     * @param Stmt   $stmt
      */
     protected function ensureClassOrTraitExists(string $name, Stmt $stmt)
     {
@@ -212,11 +212,11 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that a statically called method exists.
      *
-     * @throws FatalErrorException
-     *
      * @param string $class
      * @param string $name
-     * @param Stmt   $stmt
+     * @param Stmt $stmt
+     * @throws FatalErrorException
+     *
      */
     protected function ensureMethodExists(string $class, string $name, Stmt $stmt)
     {
@@ -245,10 +245,10 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Ensure that a referenced interface exists.
      *
+     * @param Interface_[] $interfaces
+     * @param Stmt $stmt
      * @throws FatalErrorException
      *
-     * @param Interface_[] $interfaces
-     * @param Stmt         $stmt
      */
     protected function ensureInterfacesExist(array $interfaces, Stmt $stmt)
     {
@@ -264,13 +264,13 @@ class ValidClassNamePass extends NamespaceAwarePass
     /**
      * Get a symbol type key for storing in the scope name cache.
      *
+     * @param Stmt $stmt
+     * @throws FatalErrorException
+     *
      * @deprecated No longer used. Scope type should be passed into ensureCanDefine directly.
      *
      * @codeCoverageIgnore
      *
-     * @throws FatalErrorException
-     *
-     * @param Stmt $stmt
      */
     protected function getScopeType(Stmt $stmt): string
     {
@@ -343,7 +343,7 @@ class ValidClassNamePass extends NamespaceAwarePass
      * Error creation factory.
      *
      * @param string $msg
-     * @param Stmt   $stmt
+     * @param Stmt $stmt
      */
     protected function createError(string $msg, Stmt $stmt): FatalErrorException
     {

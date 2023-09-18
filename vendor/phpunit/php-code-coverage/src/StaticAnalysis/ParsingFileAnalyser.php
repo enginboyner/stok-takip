@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function array_merge;
@@ -78,7 +79,7 @@ final class ParsingFileAnalyser implements FileAnalyser
     public function __construct(bool $useAnnotationsForIgnoringCode, bool $ignoreDeprecatedCode)
     {
         $this->useAnnotationsForIgnoringCode = $useAnnotationsForIgnoringCode;
-        $this->ignoreDeprecatedCode          = $ignoreDeprecatedCode;
+        $this->ignoreDeprecatedCode = $ignoreDeprecatedCode;
     }
 
     public function classesIn(string $filename): array
@@ -135,7 +136,7 @@ final class ParsingFileAnalyser implements FileAnalyser
             return;
         }
 
-        $source      = file_get_contents($filename);
+        $source = file_get_contents($filename);
         $linesOfCode = max(substr_count($source, "\n") + 1, substr_count($source, "\r") + 1);
 
         if ($linesOfCode === 0 && !empty($source)) {
@@ -152,10 +153,10 @@ final class ParsingFileAnalyser implements FileAnalyser
 
             assert($nodes !== null);
 
-            $traverser                     = new NodeTraverser;
-            $codeUnitFindingVisitor        = new CodeUnitFindingVisitor;
-            $lineCountingVisitor           = new LineCountingVisitor($linesOfCode);
-            $ignoredLinesFindingVisitor    = new IgnoredLinesFindingVisitor($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
+            $traverser = new NodeTraverser;
+            $codeUnitFindingVisitor = new CodeUnitFindingVisitor;
+            $lineCountingVisitor = new LineCountingVisitor($linesOfCode);
+            $ignoredLinesFindingVisitor = new IgnoredLinesFindingVisitor($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
             $executableLinesFindingVisitor = new ExecutableLinesFindingVisitor($source);
 
             $traverser->addVisitor(new NameResolver);
@@ -181,11 +182,11 @@ final class ParsingFileAnalyser implements FileAnalyser
         }
         // @codeCoverageIgnoreEnd
 
-        $this->classes[$filename]         = $codeUnitFindingVisitor->classes();
-        $this->traits[$filename]          = $codeUnitFindingVisitor->traits();
-        $this->functions[$filename]       = $codeUnitFindingVisitor->functions();
+        $this->classes[$filename] = $codeUnitFindingVisitor->classes();
+        $this->traits[$filename] = $codeUnitFindingVisitor->traits();
+        $this->functions[$filename] = $codeUnitFindingVisitor->functions();
         $this->executableLines[$filename] = $executableLinesFindingVisitor->executableLinesGroupedByBranch();
-        $this->ignoredLines[$filename]    = [];
+        $this->ignoredLines[$filename] = [];
 
         $this->findLinesIgnoredByLineBasedAnnotations($filename, $source, $this->useAnnotationsForIgnoringCode);
 
@@ -201,8 +202,8 @@ final class ParsingFileAnalyser implements FileAnalyser
         $result = $lineCountingVisitor->result();
 
         $this->linesOfCode[$filename] = [
-            'linesOfCode'           => $result->linesOfCode(),
-            'commentLinesOfCode'    => $result->commentLinesOfCode(),
+            'linesOfCode' => $result->linesOfCode(),
+            'commentLinesOfCode' => $result->commentLinesOfCode(),
             'nonCommentLinesOfCode' => $result->nonCommentLinesOfCode(),
         ];
     }

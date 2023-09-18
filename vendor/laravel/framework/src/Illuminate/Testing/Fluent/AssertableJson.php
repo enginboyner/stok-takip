@@ -36,8 +36,8 @@ class AssertableJson implements Arrayable
     /**
      * Create a new fluent, assertable JSON data instance.
      *
-     * @param  array  $props
-     * @param  string|null  $path
+     * @param array $props
+     * @param string|null $path
      * @return void
      */
     protected function __construct(array $props, string $path = null)
@@ -49,7 +49,7 @@ class AssertableJson implements Arrayable
     /**
      * Compose the absolute "dot" path to the given key.
      *
-     * @param  string  $key
+     * @param string $key
      * @return string
      */
     protected function dotPath(string $key = ''): string
@@ -64,7 +64,7 @@ class AssertableJson implements Arrayable
     /**
      * Retrieve a prop within the current scope using "dot" notation.
      *
-     * @param  string|null  $key
+     * @param string|null $key
      * @return mixed
      */
     protected function prop(string $key = null)
@@ -75,8 +75,8 @@ class AssertableJson implements Arrayable
     /**
      * Instantiate a new "scope" at the path of the given key.
      *
-     * @param  string  $key
-     * @param  \Closure  $callback
+     * @param string $key
+     * @param \Closure $callback
      * @return $this
      */
     protected function scope(string $key, Closure $callback): self
@@ -96,7 +96,7 @@ class AssertableJson implements Arrayable
     /**
      * Instantiate a new "scope" on the first child element.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
      * @return $this
      */
     public function first(Closure $callback): self
@@ -120,7 +120,7 @@ class AssertableJson implements Arrayable
     /**
      * Instantiate a new "scope" on each child element.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
      * @return $this
      */
     public function each(Closure $callback): self
@@ -146,7 +146,7 @@ class AssertableJson implements Arrayable
     /**
      * Create a new instance from an array.
      *
-     * @param  array  $data
+     * @param array $data
      * @return static
      */
     public static function fromArray(array $data): self
@@ -157,7 +157,7 @@ class AssertableJson implements Arrayable
     /**
      * Create a new instance from an AssertableJsonString.
      *
-     * @param  \Illuminate\Testing\AssertableJsonString  $json
+     * @param \Illuminate\Testing\AssertableJsonString $json
      * @return static
      */
     public static function fromAssertableJsonString(AssertableJsonString $json): self

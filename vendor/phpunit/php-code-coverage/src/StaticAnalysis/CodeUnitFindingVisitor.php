@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function assert;
@@ -140,7 +141,7 @@ final class CodeUnitFindingVisitor extends NodeVisitorAbstract
     {
         assert($node instanceof ClassMethod || $node instanceof Function_);
 
-        $signature  = ($node->returnsByRef() ? '&' : '') . $node->name->toString() . '(';
+        $signature = ($node->returnsByRef() ? '&' : '') . $node->name->toString() . '(';
         $parameters = [];
 
         foreach ($node->getParams() as $parameter) {
@@ -207,31 +208,31 @@ final class CodeUnitFindingVisitor extends NodeVisitorAbstract
 
     private function processClass(Class_ $node): void
     {
-        $name           = $node->name->toString();
+        $name = $node->name->toString();
         $namespacedName = $node->namespacedName->toString();
 
         $this->classes[$namespacedName] = [
-            'name'           => $name,
+            'name' => $name,
             'namespacedName' => $namespacedName,
-            'namespace'      => $this->namespace($namespacedName, $name),
-            'startLine'      => $node->getStartLine(),
-            'endLine'        => $node->getEndLine(),
-            'methods'        => [],
+            'namespace' => $this->namespace($namespacedName, $name),
+            'startLine' => $node->getStartLine(),
+            'endLine' => $node->getEndLine(),
+            'methods' => [],
         ];
     }
 
     private function processTrait(Trait_ $node): void
     {
-        $name           = $node->name->toString();
+        $name = $node->name->toString();
         $namespacedName = $node->namespacedName->toString();
 
         $this->traits[$namespacedName] = [
-            'name'           => $name,
+            'name' => $name,
             'namespacedName' => $namespacedName,
-            'namespace'      => $this->namespace($namespacedName, $name),
-            'startLine'      => $node->getStartLine(),
-            'endLine'        => $node->getEndLine(),
-            'methods'        => [],
+            'namespace' => $this->namespace($namespacedName, $name),
+            'startLine' => $node->getStartLine(),
+            'endLine' => $node->getEndLine(),
+            'methods' => [],
         ];
     }
 
@@ -248,7 +249,7 @@ final class CodeUnitFindingVisitor extends NodeVisitorAbstract
         assert(isset($parentNode->namespacedName));
         assert($parentNode->namespacedName instanceof Name);
 
-        $parentName           = $parentNode->name->toString();
+        $parentName = $parentNode->name->toString();
         $parentNamespacedName = $parentNode->namespacedName->toString();
 
         if ($parentNode instanceof Class_) {
@@ -259,22 +260,22 @@ final class CodeUnitFindingVisitor extends NodeVisitorAbstract
 
         if (!isset($storage[$parentNamespacedName])) {
             $storage[$parentNamespacedName] = [
-                'name'           => $parentName,
+                'name' => $parentName,
                 'namespacedName' => $parentNamespacedName,
-                'namespace'      => $this->namespace($parentNamespacedName, $parentName),
-                'startLine'      => $parentNode->getStartLine(),
-                'endLine'        => $parentNode->getEndLine(),
-                'methods'        => [],
+                'namespace' => $this->namespace($parentNamespacedName, $parentName),
+                'startLine' => $parentNode->getStartLine(),
+                'endLine' => $parentNode->getEndLine(),
+                'methods' => [],
             ];
         }
 
         $storage[$parentNamespacedName]['methods'][$node->name->toString()] = [
             'methodName' => $node->name->toString(),
-            'signature'  => $this->signature($node),
+            'signature' => $this->signature($node),
             'visibility' => $this->visibility($node),
-            'startLine'  => $node->getStartLine(),
-            'endLine'    => $node->getEndLine(),
-            'ccn'        => $this->cyclomaticComplexity($node),
+            'startLine' => $node->getStartLine(),
+            'endLine' => $node->getEndLine(),
+            'ccn' => $this->cyclomaticComplexity($node),
         ];
     }
 
@@ -284,17 +285,17 @@ final class CodeUnitFindingVisitor extends NodeVisitorAbstract
         assert(isset($node->namespacedName));
         assert($node->namespacedName instanceof Name);
 
-        $name           = $node->name->toString();
+        $name = $node->name->toString();
         $namespacedName = $node->namespacedName->toString();
 
         $this->functions[$namespacedName] = [
-            'name'           => $name,
+            'name' => $name,
             'namespacedName' => $namespacedName,
-            'namespace'      => $this->namespace($namespacedName, $name),
-            'signature'      => $this->signature($node),
-            'startLine'      => $node->getStartLine(),
-            'endLine'        => $node->getEndLine(),
-            'ccn'            => $this->cyclomaticComplexity($node),
+            'namespace' => $this->namespace($namespacedName, $name),
+            'signature' => $this->signature($node),
+            'startLine' => $node->getStartLine(),
+            'endLine' => $node->getEndLine(),
+            'ccn' => $this->cyclomaticComplexity($node),
         ];
     }
 

@@ -138,11 +138,11 @@ class Container
                         $builder->setInstanceMock(true);
                         $builder->addTarget('stdClass');
                         $builder->setName($type);
-                    } elseif (substr($type, strlen($type)-1, 1) == ']') {
+                    } elseif (substr($type, strlen($type) - 1, 1) == ']') {
                         $parts = explode('[', $type);
                         if (!class_exists($parts[0], true) && !interface_exists($parts[0], true)) {
                             throw new \Mockery\Exception('Can only create a partial mock from'
-                            . ' an existing class or interface');
+                                . ' an existing class or interface');
                         }
                         $class = $parts[0];
                         $parts[1] = str_replace(' ', '', $parts[1]);
@@ -275,8 +275,8 @@ class Container
     /**
      *  Tear down tasks for this container
      *
-     * @throws \Exception
      * @return void
+     * @throws \Exception
      */
     public function mockery_teardown()
     {
@@ -388,8 +388,8 @@ class Container
      *
      * @param string $method
      * @param int $order
-     * @throws \Mockery\Exception
      * @return void
+     * @throws \Mockery\Exception
      */
     public function mockery_validateOrder($method, $order, \Mockery\LegacyMockInterface $mock)
     {
@@ -484,7 +484,7 @@ class Container
 
             if (!class_exists($internalMockName)) {
                 eval("class $internalMockName extends $mockName {" .
-                        'public function __construct() {}' .
+                    'public function __construct() {}' .
                     '}');
             }
 

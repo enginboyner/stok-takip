@@ -22,7 +22,7 @@ class XmlResponseHandler extends Handler
     private $returnFrames = false;
 
     /**
-     * @param  bool|null  $returnFrames
+     * @param bool|null $returnFrames
      * @return bool|static
      */
     public function addTraceToOutput($returnFrames = null)
@@ -31,7 +31,7 @@ class XmlResponseHandler extends Handler
             return $this->returnFrames;
         }
 
-        $this->returnFrames = (bool) $returnFrames;
+        $this->returnFrames = (bool)$returnFrames;
         return $this;
     }
 
@@ -62,8 +62,8 @@ class XmlResponseHandler extends Handler
     }
 
     /**
-     * @param  SimpleXMLElement  $node Node to append data to, will be modified in place
-     * @param  array|\Traversable $data
+     * @param SimpleXMLElement $node Node to append data to, will be modified in place
+     * @param array|\Traversable $data
      * @return SimpleXMLElement  The modified node, for chaining
      */
     private static function addDataToNode(\SimpleXMLElement $node, $data)
@@ -73,7 +73,7 @@ class XmlResponseHandler extends Handler
         foreach ($data as $key => $value) {
             if (is_numeric($key)) {
                 // Convert the key to a valid string
-                $key = "unknownNode_". (string) $key;
+                $key = "unknownNode_" . (string)$key;
             }
 
             // Delete any char not allowed in XML element names
@@ -94,7 +94,7 @@ class XmlResponseHandler extends Handler
     /**
      * The main function for converting to an XML document.
      *
-     * @param  array|\Traversable $data
+     * @param array|\Traversable $data
      * @return string            XML
      */
     private static function toXml($data)

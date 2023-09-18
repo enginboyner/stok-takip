@@ -72,7 +72,7 @@ class VendorPublishCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param \Illuminate\Filesystem\Filesystem $files
      * @return void
      */
     public function __construct(Filesystem $files)
@@ -108,10 +108,10 @@ class VendorPublishCommand extends Command
         }
 
         [$this->provider, $this->tags] = [
-            $this->option('provider'), (array) $this->option('tag'),
+            $this->option('provider'), (array)$this->option('tag'),
         ];
 
-        if (! $this->provider && ! $this->tags) {
+        if (!$this->provider && !$this->tags) {
             $this->promptForProviderOrTag();
         }
     }
@@ -152,7 +152,7 @@ class VendorPublishCommand extends Command
     /**
      * Parse the answer that was given via the prompt.
      *
-     * @param  string  $choice
+     * @param string $choice
      * @return void
      */
     protected function parseChoice($choice)
@@ -169,7 +169,7 @@ class VendorPublishCommand extends Command
     /**
      * Publishes the assets for a tag.
      *
-     * @param  string  $tag
+     * @param string $tag
      * @return mixed
      */
     protected function publishTag($tag)
@@ -190,7 +190,7 @@ class VendorPublishCommand extends Command
         }
 
         if ($publishing === false) {
-            $this->components->info('No publishable resources for tag ['.$tag.'].');
+            $this->components->info('No publishable resources for tag [' . $tag . '].');
         } else {
             $this->laravel['events']->dispatch(new VendorTagPublished($tag, $pathsToPublish));
 
@@ -201,7 +201,7 @@ class VendorPublishCommand extends Command
     /**
      * Get all of the paths to publish.
      *
-     * @param  string  $tag
+     * @param string $tag
      * @return array
      */
     protected function pathsToPublish($tag)
@@ -214,8 +214,8 @@ class VendorPublishCommand extends Command
     /**
      * Publish the given item from and to the given location.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
      * @return void
      */
     protected function publishItem($from, $to)
@@ -232,13 +232,13 @@ class VendorPublishCommand extends Command
     /**
      * Publish the file to the given path.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
      * @return void
      */
     protected function publishFile($from, $to)
     {
-        if ((! $this->option('existing') && (! $this->files->exists($to) || $this->option('force')))
+        if ((!$this->option('existing') && (!$this->files->exists($to) || $this->option('force')))
             || ($this->option('existing') && $this->files->exists($to))) {
             $this->createParentDirectory(dirname($to));
 
@@ -249,12 +249,12 @@ class VendorPublishCommand extends Command
             if ($this->option('existing')) {
                 $this->components->twoColumnDetail(sprintf(
                     'File [%s] does not exist',
-                    str_replace(base_path().'/', '', $to),
+                    str_replace(base_path() . '/', '', $to),
                 ), '<fg=yellow;options=bold>SKIPPED</>');
             } else {
                 $this->components->twoColumnDetail(sprintf(
                     'File [%s] already exists',
-                    str_replace(base_path().'/', '', realpath($to)),
+                    str_replace(base_path() . '/', '', realpath($to)),
                 ), '<fg=yellow;options=bold>SKIPPED</>');
             }
         }
@@ -263,8 +263,8 @@ class VendorPublishCommand extends Command
     /**
      * Publish the directory to the given directory.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
      * @return void
      */
     protected function publishDirectory($from, $to)
@@ -282,7 +282,7 @@ class VendorPublishCommand extends Command
     /**
      * Move all the files in the given MountManager.
      *
-     * @param  \League\Flysystem\MountManager  $manager
+     * @param \League\Flysystem\MountManager $manager
      * @return void
      */
     protected function moveManagedFiles($manager)
@@ -293,11 +293,11 @@ class VendorPublishCommand extends Command
             if (
                 $file['type'] === 'file'
                 && (
-                    (! $this->option('existing') && (! $manager->fileExists('to://'.$path) || $this->option('force')))
-                    || ($this->option('existing') && $manager->fileExists('to://'.$path))
+                    (!$this->option('existing') && (!$manager->fileExists('to://' . $path) || $this->option('force')))
+                    || ($this->option('existing') && $manager->fileExists('to://' . $path))
                 )
             ) {
-                $manager->write('to://'.$path, $manager->read($file['path']));
+                $manager->write('to://' . $path, $manager->read($file['path']));
             }
         }
     }
@@ -305,12 +305,12 @@ class VendorPublishCommand extends Command
     /**
      * Create the directory to house the published files if needed.
      *
-     * @param  string  $directory
+     * @param string $directory
      * @return void
      */
     protected function createParentDirectory($directory)
     {
-        if (! $this->files->isDirectory($directory)) {
+        if (!$this->files->isDirectory($directory)) {
             $this->files->makeDirectory($directory, 0755, true);
         }
     }
@@ -318,16 +318,16 @@ class VendorPublishCommand extends Command
     /**
      * Write a status message to the console.
      *
-     * @param  string  $from
-     * @param  string  $to
-     * @param  string  $type
+     * @param string $from
+     * @param string $to
+     * @param string $type
      * @return void
      */
     protected function status($from, $to, $type)
     {
-        $from = str_replace(base_path().'/', '', realpath($from));
+        $from = str_replace(base_path() . '/', '', realpath($from));
 
-        $to = str_replace(base_path().'/', '', realpath($to));
+        $to = str_replace(base_path() . '/', '', realpath($to));
 
         $this->components->task(sprintf(
             'Copying %s [%s] to [%s]',

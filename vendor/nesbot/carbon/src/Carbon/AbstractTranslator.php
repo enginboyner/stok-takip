@@ -69,7 +69,7 @@ abstract class AbstractTranslator extends Translation\Translator
     public static function get($locale = null)
     {
         $locale = $locale ?: 'en';
-        $key = static::class === Translator::class ? $locale : static::class.'|'.$locale;
+        $key = static::class === Translator::class ? $locale : static::class . '|' . $locale;
 
         if (!isset(static::$singletons[$key])) {
             static::$singletons[$key] = new static($locale);
@@ -82,7 +82,7 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         parent::setLocale($locale);
         $this->initializing = true;
-        $this->directories = [__DIR__.'/Lang'];
+        $this->directories = [__DIR__ . '/Lang'];
         $this->addLoader('array', new ArrayLoader());
         parent::__construct($locale, new MessageFormatterMapper($formatter), $cacheDir, $debug);
         $this->initializing = false;
@@ -221,8 +221,8 @@ abstract class AbstractTranslator extends Translation\Translator
 
         $catalogue = $this->getCatalogue($locale);
         $format = $this instanceof TranslatorStrongTypeInterface
-            ? $this->getFromCatalogue($catalogue, (string) $id, $domain)
-            : $this->getCatalogue($locale)->get((string) $id, $domain); // @codeCoverageIgnore
+            ? $this->getFromCatalogue($catalogue, (string)$id, $domain)
+            : $this->getCatalogue($locale)->get((string)$id, $domain); // @codeCoverageIgnore
 
         if ($format instanceof Closure) {
             // @codeCoverageIgnoreStart
@@ -258,7 +258,7 @@ abstract class AbstractTranslator extends Translation\Translator
      * Set messages of a locale and take file first if present.
      *
      * @param string $locale
-     * @param array  $messages
+     * @param array $messages
      *
      * @return $this
      */
@@ -316,7 +316,7 @@ abstract class AbstractTranslator extends Translation\Translator
                 return "_$upper";
             }
 
-            return '_'.ucfirst($matches[1]);
+            return '_' . ucfirst($matches[1]);
         }, strtolower($locale));
 
         $previousLocale = $this->getLocale();

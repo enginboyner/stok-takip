@@ -65,7 +65,6 @@ use Symfony\Component\Routing\RouteCollection;
  *         {
  *         }
  *     }
-
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Alexander M. Turek <me@derrabus.de>
@@ -154,7 +153,7 @@ abstract class AnnotationClassLoader implements LoaderInterface
         if (null === $name) {
             $name = $this->getDefaultRouteName($class, $method);
         }
-        $name = $globals['name'].$name;
+        $name = $globals['name'] . $name;
 
         $requirements = $annot->getRequirements();
 
@@ -185,25 +184,25 @@ abstract class AnnotationClassLoader implements LoaderInterface
         if (\is_array($path)) {
             if (!\is_array($prefix)) {
                 foreach ($path as $locale => $localePath) {
-                    $paths[$locale] = $prefix.$localePath;
+                    $paths[$locale] = $prefix . $localePath;
                 }
             } elseif ($missing = array_diff_key($prefix, $path)) {
-                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name.'::'.$method->name, implode('", "', array_keys($missing))));
+                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name . '::' . $method->name, implode('", "', array_keys($missing))));
             } else {
                 foreach ($path as $locale => $localePath) {
                     if (!isset($prefix[$locale])) {
                         throw new \LogicException(sprintf('Route to "%s" with locale "%s" is missing a corresponding prefix in class "%s".', $method->name, $locale, $class->name));
                     }
 
-                    $paths[$locale] = $prefix[$locale].$localePath;
+                    $paths[$locale] = $prefix[$locale] . $localePath;
                 }
             }
         } elseif (\is_array($prefix)) {
             foreach ($prefix as $locale => $localePrefix) {
-                $paths[$locale] = $localePrefix.$path;
+                $paths[$locale] = $localePrefix . $path;
             }
         } else {
-            $paths[] = $prefix.$path;
+            $paths[] = $prefix . $path;
         }
 
         foreach ($method->getParameters() as $param) {
@@ -225,7 +224,7 @@ abstract class AnnotationClassLoader implements LoaderInterface
                 $route->setDefault('_locale', $locale);
                 $route->setRequirement('_locale', preg_quote($locale));
                 $route->setDefault('_canonical_route', $name);
-                $collection->add($name.'.'.$locale, $route, $priority);
+                $collection->add($name . '.' . $locale, $route, $priority);
             } else {
                 $collection->add($name, $route, $priority);
             }
@@ -261,10 +260,10 @@ abstract class AnnotationClassLoader implements LoaderInterface
      */
     protected function getDefaultRouteName(\ReflectionClass $class, \ReflectionMethod $method)
     {
-        $name = str_replace('\\', '_', $class->name).'_'.$method->name;
+        $name = str_replace('\\', '_', $class->name) . '_' . $method->name;
         $name = \function_exists('mb_strtolower') && preg_match('//u', $name) ? mb_strtolower($name, 'UTF-8') : strtolower($name);
         if ($this->defaultRouteIndex > 0) {
-            $name .= '_'.$this->defaultRouteIndex;
+            $name .= '_' . $this->defaultRouteIndex;
         }
         ++$this->defaultRouteIndex;
 

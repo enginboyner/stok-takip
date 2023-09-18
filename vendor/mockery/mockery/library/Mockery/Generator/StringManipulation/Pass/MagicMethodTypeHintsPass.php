@@ -78,7 +78,8 @@ class MagicMethodTypeHintsPass implements Pass
      */
     public function getMagicMethods(
         TargetClassInterface $class = null
-    ) {
+    )
+    {
         if (is_null($class)) {
             return array();
         }
@@ -121,9 +122,9 @@ class MagicMethodTypeHintsPass implements Pass
     private function isMethodWithinCode($code, Method $method)
     {
         return preg_match(
-            $this->getDeclarationRegex($method->getName()),
-            $code
-        ) == 1;
+                $this->getDeclarationRegex($method->getName()),
+                $code
+            ) == 1;
     }
 
     /**
@@ -163,13 +164,14 @@ class MagicMethodTypeHintsPass implements Pass
      * Gets the declaration code, as a string, for the passed method.
      *
      * @param Method $method
-     * @param array  $namedParameters
+     * @param array $namedParameters
      * @return string
      */
     private function getMethodDeclaration(
         Method $method,
-        array $namedParameters
-    ) {
+        array  $namedParameters
+    )
+    {
         $declaration = 'public';
         $declaration .= $method->isStatic() ? ' static' : '';
         $declaration .= ' function ' . $method->getName() . '(';

@@ -54,7 +54,7 @@ trait ValueExtractorTrait
         }
 
         throw new ValueExtractionException(
-            // phpcs:ignore SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall
+        // phpcs:ignore SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall
             sprintf('Method or property "%s" not defined in %s', $propertyOrMethod, get_class($object)),
         );
     }

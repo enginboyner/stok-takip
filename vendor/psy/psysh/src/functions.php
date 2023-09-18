@@ -85,7 +85,7 @@ if (!\function_exists('Psy\\debug')) {
      *         }
      *     }
      *
-     * @param array         $vars   Scope variables from the calling context (default: [])
+     * @param array $vars Scope variables from the calling context (default: [])
      * @param object|string $bindTo Bound object ($this) or class (self) value for the shell
      *
      * @return array Scope variables from the debugger session
@@ -143,7 +143,7 @@ if (!\function_exists('Psy\\info')) {
 
         $homeDir = (new ConfigPaths())->homeDir();
         if ($homeDir && $homeDir = \rtrim($homeDir, '/')) {
-            $homePattern = '#^'.\preg_quote($homeDir, '#').'/#';
+            $homePattern = '#^' . \preg_quote($homeDir, '#') . '/#';
             $prettyPath = function ($path) use ($homePattern) {
                 if (\is_string($path)) {
                     return \preg_replace($homePattern, '~/', $path);
@@ -164,15 +164,15 @@ if (!\function_exists('Psy\\info')) {
         ];
 
         $core = [
-            'PHP version'         => \PHP_VERSION,
-            'OS'                  => \PHP_OS,
-            'default includes'    => $config->getDefaultIncludes(),
-            'require semicolons'  => $config->requireSemicolons(),
+            'PHP version' => \PHP_VERSION,
+            'OS' => \PHP_OS,
+            'default includes' => $config->getDefaultIncludes(),
+            'require semicolons' => $config->requireSemicolons(),
             'error logging level' => $config->errorLoggingLevel(),
-            'config file'         => [
+            'config file' => [
                 'default config file' => $prettyPath($config->getConfigFile()),
-                'local config file'   => $prettyPath($config->getLocalConfigFile()),
-                'PSYSH_CONFIG env'    => $prettyPath($configEnv),
+                'local config file' => $prettyPath($config->getLocalConfigFile()),
+                'PSYSH_CONFIG env' => $prettyPath($configEnv),
             ],
             // 'config dir'  => $config->getConfigDir(),
             // 'data dir'    => $config->getDataDir(),
@@ -190,16 +190,16 @@ if (!\function_exists('Psy\\info')) {
         }
 
         $updates = [
-            'update available'       => $updateAvailable,
+            'update available' => $updateAvailable,
             'latest release version' => $latest,
-            'update check interval'  => $config->getUpdateCheck(),
-            'update cache file'      => $prettyPath($config->getUpdateCheckCacheFile()),
+            'update check interval' => $config->getUpdateCheck(),
+            'update cache file' => $prettyPath($config->getUpdateCheckCacheFile()),
         ];
 
         $input = [
-            'interactive mode'  => $config->interactiveMode(),
+            'interactive mode' => $config->interactiveMode(),
             'input interactive' => $config->getInputInteractive(),
-            'yolo'              => $config->yolo(),
+            'yolo' => $config->yolo(),
         ];
 
         if ($config->hasReadline()) {
@@ -207,8 +207,8 @@ if (!\function_exists('Psy\\info')) {
 
             $readline = [
                 'readline available' => true,
-                'readline enabled'   => $config->useReadline(),
-                'readline service'   => \get_class($config->getReadline()),
+                'readline enabled' => $config->useReadline(),
+                'readline service' => \get_class($config->getReadline()),
             ];
 
             if (isset($info['library_version'])) {
@@ -225,20 +225,20 @@ if (!\function_exists('Psy\\info')) {
         }
 
         $output = [
-            'color mode'       => $config->colorMode(),
+            'color mode' => $config->colorMode(),
             'output decorated' => $config->getOutputDecorated(),
             'output verbosity' => $config->verbosity(),
-            'output pager'     => $config->getPager(),
+            'output pager' => $config->getPager(),
         ];
 
         $theme = $config->theme();
         // TODO: show styles (but only if they're different than default?)
         $output['theme'] = [
-            'compact'      => $theme->compact(),
-            'prompt'       => $theme->prompt(),
+            'compact' => $theme->compact(),
+            'prompt' => $theme->prompt(),
             'bufferPrompt' => $theme->bufferPrompt(),
             'replayPrompt' => $theme->replayPrompt(),
-            'returnValue'  => $theme->returnValue(),
+            'returnValue' => $theme->returnValue(),
         ];
 
         $pcntl = [
@@ -257,13 +257,13 @@ if (!\function_exists('Psy\\info')) {
         $pcntl['use pcntl'] = $config->usePcntl();
 
         $history = [
-            'history file'     => $prettyPath($config->getHistoryFile()),
-            'history size'     => $config->getHistorySize(),
+            'history file' => $prettyPath($config->getHistoryFile()),
+            'history size' => $config->getHistorySize(),
             'erase duplicates' => $config->getEraseDuplicates(),
         ];
 
         $docs = [
-            'manual db file'   => $prettyPath($config->getManualDbFile()),
+            'manual db file' => $prettyPath($config->getManualDbFile()),
             'sqlite available' => true,
         ];
 
@@ -276,11 +276,11 @@ if (!\function_exists('Psy\\info')) {
                     foreach ($meta as $key => $val) {
                         switch ($key) {
                             case 'built_at':
-                                $d = new \DateTime('@'.$val);
+                                $d = new \DateTime('@' . $val);
                                 $val = $d->format(\DateTime::RFC2822);
                                 break;
                         }
-                        $key = 'db '.\str_replace('_', ' ', $key);
+                        $key = 'db ' . \str_replace('_', ' ', $key);
                         $docs[$key] = $val;
                     }
                 } else {
@@ -297,7 +297,7 @@ if (!\function_exists('Psy\\info')) {
 
         $autocomplete = [
             'tab completion enabled' => $config->useTabCompletion(),
-            'bracketed paste'        => $config->useBracketedPaste(),
+            'bracketed paste' => $config->useBracketedPaste(),
         ];
 
         // Shenanigans, but totally justified.
@@ -307,7 +307,7 @@ if (!\function_exists('Psy\\info')) {
                 if ($shellClass !== 'Psy\\Shell') {
                     $shellInfo = [
                         'PsySH version' => $shell::VERSION,
-                        'Shell class'   => $shellClass,
+                        'Shell class' => $shellClass,
                     ];
                 }
 
@@ -346,27 +346,27 @@ if (!\function_exists('Psy\\bin')) {
         return function () {
             if (!isset($_SERVER['PSYSH_IGNORE_ENV']) || !$_SERVER['PSYSH_IGNORE_ENV']) {
                 if (\defined('HHVM_VERSION_ID')) {
-                    \fwrite(\STDERR, 'PsySH v0.11 and higher does not support HHVM. Install an older version, or set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'PsySH v0.11 and higher does not support HHVM. Install an older version, or set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.' . \PHP_EOL);
                     exit(1);
                 }
 
                 if (\PHP_VERSION_ID < 70000) {
-                    \fwrite(\STDERR, 'PHP 7.0.0 or higher is required. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'PHP 7.0.0 or higher is required. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.' . \PHP_EOL);
                     exit(1);
                 }
 
                 if (\PHP_VERSION_ID > 89999) {
-                    \fwrite(\STDERR, 'PHP 9 or higher is not supported. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'PHP 9 or higher is not supported. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.' . \PHP_EOL);
                     exit(1);
                 }
 
                 if (!\function_exists('json_encode')) {
-                    \fwrite(\STDERR, 'The JSON extension is required. Please install it. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'The JSON extension is required. Please install it. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.' . \PHP_EOL);
                     exit(1);
                 }
 
                 if (!\function_exists('token_get_all')) {
-                    \fwrite(\STDERR, 'The Tokenizer extension is required. Please install it. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'The Tokenizer extension is required. Please install it. You can set the environment variable PSYSH_IGNORE_ENV=1 to override this restriction and proceed anyway.' . \PHP_EOL);
                     exit(1);
                 }
             }
@@ -396,7 +396,7 @@ if (!\function_exists('Psy\\bin')) {
             // Handle --help
             if ($usageException !== null || $input->getOption('help')) {
                 if ($usageException !== null) {
-                    echo $usageException->getMessage().\PHP_EOL.\PHP_EOL;
+                    echo $usageException->getMessage() . \PHP_EOL . \PHP_EOL;
                 }
 
                 $version = Shell::getVersionHeader(false);
@@ -440,14 +440,14 @@ EOL;
 
             // Handle --version
             if ($input->getOption('version')) {
-                echo Shell::getVersionHeader($config->useUnicode()).\PHP_EOL;
+                echo Shell::getVersionHeader($config->useUnicode()) . \PHP_EOL;
                 exit(0);
             }
 
             // Handle --self-update
             if ($input->getOption('self-update')) {
                 if (!$shellIsPhar) {
-                    \fwrite(\STDERR, 'The --self-update option can only be used with with a phar based install.'.\PHP_EOL);
+                    \fwrite(\STDERR, 'The --self-update option can only be used with with a phar based install.' . \PHP_EOL);
                     exit(1);
                 }
                 $selfUpdate = new SelfUpdate(new GitHubChecker(), new Installer());
@@ -464,7 +464,7 @@ EOL;
                 // And go!
                 $shell->run();
             } catch (\Throwable $e) {
-                \fwrite(\STDERR, $e->getMessage().\PHP_EOL);
+                \fwrite(\STDERR, $e->getMessage() . \PHP_EOL);
 
                 // @todo this triggers the "exited unexpectedly" logic in the
                 // ForkingLoop, so we can't exit(1) after starting the shell...

@@ -10,16 +10,16 @@ class CheckForAnyAbility
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  mixed  ...$abilities
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param mixed ...$abilities
      * @return \Illuminate\Http\Response
      *
      * @throws \Illuminate\Auth\AuthenticationException|\Laravel\Sanctum\Exceptions\MissingAbilityException
      */
     public function handle($request, $next, ...$abilities)
     {
-        if (! $request->user() || ! $request->user()->currentAccessToken()) {
+        if (!$request->user() || !$request->user()->currentAccessToken()) {
             throw new AuthenticationException;
         }
 

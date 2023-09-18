@@ -48,9 +48,9 @@ class ThrowUpCommand extends Command implements ContextAware
     }
 
     /**
+     * @param Context $context
      * @deprecated throwUp no longer needs to be ContextAware
      *
-     * @param Context $context
      */
     public function setContext(Context $context)
     {
@@ -107,11 +107,11 @@ HELP
      *
      * If no argument was given, this falls back to `$_e`
      *
-     * @throws \InvalidArgumentException if there is no exception to throw
-     *
      * @param string $code
      *
      * @return Arg[]
+     * @throws \InvalidArgumentException if there is no exception to throw
+     *
      */
     private function prepareArgs(string $code = null): array
     {
@@ -121,7 +121,7 @@ HELP
         }
 
         if (\strpos($code, '<?') === false) {
-            $code = '<?php '.$code;
+            $code = '<?php ' . $code;
         }
 
         $nodes = $this->parse($code);
@@ -161,7 +161,7 @@ HELP
             }
 
             // If we got an unexpected EOF, let's try it again with a semicolon.
-            return $this->parser->parse($code.';');
+            return $this->parser->parse($code . ';');
         }
     }
 }

@@ -18,7 +18,7 @@ trait ValidatesWhenResolvedTrait
     {
         $this->prepareForValidation();
 
-        if (! $this->passesAuthorization()) {
+        if (!$this->passesAuthorization()) {
             $this->failedAuthorization();
         }
 
@@ -68,7 +68,7 @@ trait ValidatesWhenResolvedTrait
     /**
      * Handle a failed validation attempt.
      *
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param \Illuminate\Validation\Validator $validator
      * @return void
      *
      * @throws \Illuminate\Validation\ValidationException

@@ -2,7 +2,7 @@
 
 You are a very skilled PHP programmer.
 
-<?php if($viewModel->applicationType()) { ?>
+<?php if ($viewModel->applicationType()) { ?>
     You are working on a <?php echo $viewModel->applicationType() ?> application.
 <?php } ?>
 

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use const PHP_MAJOR_VERSION;
@@ -54,70 +55,70 @@ final class GlobalState
      */
     private const DEPRECATED_INI_SETTINGS = [
         '7.3' => [
-            'iconv.input_encoding'       => true,
-            'iconv.output_encoding'      => true,
-            'iconv.internal_encoding'    => true,
-            'mbstring.func_overload'     => true,
-            'mbstring.http_input'        => true,
-            'mbstring.http_output'       => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.func_overload' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
             'mbstring.internal_encoding' => true,
-            'string.strip_tags'          => true,
+            'string.strip_tags' => true,
         ],
 
         '7.4' => [
-            'iconv.input_encoding'       => true,
-            'iconv.output_encoding'      => true,
-            'iconv.internal_encoding'    => true,
-            'mbstring.func_overload'     => true,
-            'mbstring.http_input'        => true,
-            'mbstring.http_output'       => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.func_overload' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
             'mbstring.internal_encoding' => true,
             'pdo_odbc.db2_instance_name' => true,
-            'string.strip_tags'          => true,
+            'string.strip_tags' => true,
         ],
 
         '8.0' => [
-            'iconv.input_encoding'       => true,
-            'iconv.output_encoding'      => true,
-            'iconv.internal_encoding'    => true,
-            'mbstring.http_input'        => true,
-            'mbstring.http_output'       => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
             'mbstring.internal_encoding' => true,
         ],
 
         '8.1' => [
-            'auto_detect_line_endings'     => true,
-            'filter.default'               => true,
-            'iconv.input_encoding'         => true,
-            'iconv.output_encoding'        => true,
-            'iconv.internal_encoding'      => true,
-            'mbstring.http_input'          => true,
-            'mbstring.http_output'         => true,
-            'mbstring.internal_encoding'   => true,
+            'auto_detect_line_endings' => true,
+            'filter.default' => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
+            'mbstring.internal_encoding' => true,
             'oci8.old_oci_close_semantics' => true,
         ],
 
         '8.2' => [
-            'auto_detect_line_endings'     => true,
-            'filter.default'               => true,
-            'iconv.input_encoding'         => true,
-            'iconv.output_encoding'        => true,
-            'iconv.internal_encoding'      => true,
-            'mbstring.http_input'          => true,
-            'mbstring.http_output'         => true,
-            'mbstring.internal_encoding'   => true,
+            'auto_detect_line_endings' => true,
+            'filter.default' => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
+            'mbstring.internal_encoding' => true,
             'oci8.old_oci_close_semantics' => true,
         ],
 
         '8.3' => [
-            'auto_detect_line_endings'     => true,
-            'filter.default'               => true,
-            'iconv.input_encoding'         => true,
-            'iconv.output_encoding'        => true,
-            'iconv.internal_encoding'      => true,
-            'mbstring.http_input'          => true,
-            'mbstring.http_output'         => true,
-            'mbstring.internal_encoding'   => true,
+            'auto_detect_line_endings' => true,
+            'filter.default' => true,
+            'iconv.input_encoding' => true,
+            'iconv.output_encoding' => true,
+            'iconv.internal_encoding' => true,
+            'mbstring.http_input' => true,
+            'mbstring.http_output' => true,
+            'mbstring.internal_encoding' => true,
             'oci8.old_oci_close_semantics' => true,
         ],
     ];
@@ -138,8 +139,8 @@ final class GlobalState
     public static function processIncludedFilesAsString(array $files): string
     {
         $excludeList = new ExcludeList;
-        $prefix      = false;
-        $result      = '';
+        $prefix = false;
+        $result = '';
 
         if (defined('__PHPUNIT_PHAR__')) {
             $prefix = 'phar://' . __PHPUNIT_PHAR__ . '/';
@@ -188,7 +189,7 @@ final class GlobalState
             $result .= sprintf(
                 '@ini_set(%s, %s);' . "\n",
                 self::exportVariable($key),
-                self::exportVariable((string) $value),
+                self::exportVariable((string)$value),
             );
         }
 
@@ -198,7 +199,7 @@ final class GlobalState
     public static function getConstantsAsString(): string
     {
         $constants = get_defined_constants(true);
-        $result    = '';
+        $result = '';
 
         if (isset($constants['user'])) {
             foreach ($constants['user'] as $name => $value) {
@@ -235,7 +236,7 @@ final class GlobalState
             }
         }
 
-        $excludeList   = self::SUPER_GLOBAL_ARRAYS;
+        $excludeList = self::SUPER_GLOBAL_ARRAYS;
         $excludeList[] = 'GLOBALS';
 
         foreach (array_keys($GLOBALS) as $key) {

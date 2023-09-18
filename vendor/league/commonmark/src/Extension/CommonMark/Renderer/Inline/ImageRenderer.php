@@ -47,7 +47,7 @@ final class ImageRenderer implements NodeRendererInterface, XmlNodeRendererInter
 
         $attrs = $node->data->get('attributes');
 
-        $forbidUnsafeLinks = ! $this->config->get('allow_unsafe_links');
+        $forbidUnsafeLinks = !$this->config->get('allow_unsafe_links');
         if ($forbidUnsafeLinks && RegexHelper::isLinkPotentiallyUnsafe($node->getUrl())) {
             $attrs['src'] = '';
         } else {

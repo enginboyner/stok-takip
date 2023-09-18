@@ -37,9 +37,10 @@ final class Time implements TypeInterface
     private IntegerObject $microseconds;
 
     public function __construct(
-        float | int | string | IntegerObject $seconds,
-        float | int | string | IntegerObject $microseconds = 0,
-    ) {
+        float|int|string|IntegerObject $seconds,
+        float|int|string|IntegerObject $microseconds = 0,
+    )
+    {
         $this->seconds = new IntegerObject($seconds);
         $this->microseconds = new IntegerObject($microseconds);
     }
@@ -77,7 +78,7 @@ final class Time implements TypeInterface
 
     public function serialize(): string
     {
-        return (string) json_encode($this);
+        return (string)json_encode($this);
     }
 
     /**

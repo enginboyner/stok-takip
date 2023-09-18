@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\Annotation;
 
 use const JSON_ERROR_NONE;
@@ -67,12 +68,12 @@ final class DocBlock
      */
     public const REGEX_DATA_PROVIDER = '/@dataProvider\s+([a-zA-Z0-9._:-\\\\x7f-\xff]+)/';
 
-    private const REGEX_REQUIRES_VERSION            = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+(dev|(RC|alpha|beta)[\d\.])?)[ \t]*\r?$/m';
+    private const REGEX_REQUIRES_VERSION = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+(dev|(RC|alpha|beta)[\d\.])?)[ \t]*\r?$/m';
     private const REGEX_REQUIRES_VERSION_CONSTRAINT = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<constraint>[\d\t \-.|~^]+)[ \t]*\r?$/m';
-    private const REGEX_REQUIRES_OS                 = '/@requires\s+(?P<name>OS(?:FAMILY)?)\s+(?P<value>.+?)[ \t]*\r?$/m';
-    private const REGEX_REQUIRES_SETTING            = '/@requires\s+(?P<name>setting)\s+(?P<setting>([^ ]+?))\s*(?P<value>[\w\.-]+[\w\.]?)?[ \t]*\r?$/m';
-    private const REGEX_REQUIRES                    = '/@requires\s+(?P<name>function|extension)\s+(?P<value>([^\s<>=!]+))\s*(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+[\d\.]?)?[ \t]*\r?$/m';
-    private const REGEX_TEST_WITH                   = '/@testWith\s+/';
+    private const REGEX_REQUIRES_OS = '/@requires\s+(?P<name>OS(?:FAMILY)?)\s+(?P<value>.+?)[ \t]*\r?$/m';
+    private const REGEX_REQUIRES_SETTING = '/@requires\s+(?P<name>setting)\s+(?P<setting>([^ ]+?))\s*(?P<value>[\w\.-]+[\w\.]?)?[ \t]*\r?$/m';
+    private const REGEX_REQUIRES = '/@requires\s+(?P<name>function|extension)\s+(?P<value>([^\s<>=!]+))\s*(?P<operator>[<>=!]{0,2})\s*(?P<version>[\d\.-]+[\d\.]?)?[ \t]*\r?$/m';
+    private const REGEX_TEST_WITH = '/@testWith\s+/';
 
     /** @var string */
     private $docComment;
@@ -121,7 +122,7 @@ final class DocBlock
         $className = $class->getName();
 
         return new self(
-            (string) $class->getDocComment(),
+            (string)$class->getDocComment(),
             false,
             self::extractAnnotationsFromReflector($class),
             $class->getStartLine(),
@@ -138,7 +139,7 @@ final class DocBlock
     public static function ofMethod(ReflectionMethod $method, string $classNameInHierarchy): self
     {
         return new self(
-            (string) $method->getDocComment(),
+            (string)$method->getDocComment(),
             true,
             self::extractAnnotationsFromReflector($method),
             $method->getStartLine(),
@@ -158,14 +159,14 @@ final class DocBlock
      */
     private function __construct(string $docComment, bool $isMethod, array $symbolAnnotations, int $startLine, int $endLine, string $fileName, string $name, string $className)
     {
-        $this->docComment        = $docComment;
-        $this->isMethod          = $isMethod;
+        $this->docComment = $docComment;
+        $this->isMethod = $isMethod;
         $this->symbolAnnotations = $symbolAnnotations;
-        $this->startLine         = $startLine;
-        $this->endLine           = $endLine;
-        $this->fileName          = $fileName;
-        $this->name              = $name;
-        $this->className         = $className;
+        $this->startLine = $startLine;
+        $this->endLine = $endLine;
+        $this->fileName = $fileName;
+        $this->name = $name;
+        $this->className = $className;
     }
 
     /**
@@ -186,11 +187,11 @@ final class DocBlock
             return $this->parsedRequirements;
         }
 
-        $offset            = $this->startLine;
-        $requires          = [];
-        $recordedSettings  = [];
+        $offset = $this->startLine;
+        $requires = [];
+        $recordedSettings = [];
         $extensionVersions = [];
-        $recordedOffsets   = [
+        $recordedOffsets = [
             '__FILE' => realpath($this->fileName),
         ];
 
@@ -200,13 +201,13 @@ final class DocBlock
 
         foreach ($lines as $line) {
             if (preg_match(self::REGEX_REQUIRES_OS, $line, $matches)) {
-                $requires[$matches['name']]        = $matches['value'];
+                $requires[$matches['name']] = $matches['value'];
                 $recordedOffsets[$matches['name']] = $offset;
             }
 
             if (preg_match(self::REGEX_REQUIRES_VERSION, $line, $matches)) {
                 $requires[$matches['name']] = [
-                    'version'  => $matches['version'],
+                    'version' => $matches['version'],
                     'operator' => $matches['operator'],
                 ];
                 $recordedOffsets[$matches['name']] = $offset;
@@ -232,7 +233,7 @@ final class DocBlock
             }
 
             if (preg_match(self::REGEX_REQUIRES_SETTING, $line, $matches)) {
-                $recordedSettings[$matches['setting']]               = $matches['value'];
+                $recordedSettings[$matches['setting']] = $matches['value'];
                 $recordedOffsets['__SETTING_' . $matches['setting']] = $offset;
             }
 
@@ -243,12 +244,12 @@ final class DocBlock
                     $requires[$name] = [];
                 }
 
-                $requires[$name][]                                           = $matches['value'];
+                $requires[$name][] = $matches['value'];
                 $recordedOffsets[$matches['name'] . '_' . $matches['value']] = $offset;
 
                 if ($name === 'extensions' && !empty($matches['version'])) {
                     $extensionVersions[$matches['value']] = [
-                        'version'  => $matches['version'],
+                        'version' => $matches['version'],
                         'operator' => $matches['operator'],
                     ];
                 }
@@ -261,7 +262,7 @@ final class DocBlock
             $requires,
             ['__OFFSET' => $recordedOffsets],
             array_filter([
-                'setting'            => $recordedSettings,
+                'setting' => $recordedSettings,
                 'extension_versions' => $extensionVersions,
             ]),
         );
@@ -304,17 +305,17 @@ final class DocBlock
      */
     public function getInlineAnnotations(): array
     {
-        $code        = file($this->fileName);
-        $lineNumber  = $this->startLine;
-        $startLine   = $this->startLine - 1;
-        $endLine     = $this->endLine - 1;
-        $codeLines   = array_slice($code, $startLine, $endLine - $startLine + 1);
+        $code = file($this->fileName);
+        $lineNumber = $this->startLine;
+        $startLine = $this->startLine - 1;
+        $endLine = $this->endLine - 1;
+        $codeLines = array_slice($code, $startLine, $endLine - $startLine + 1);
         $annotations = [];
 
         foreach ($codeLines as $line) {
             if (preg_match('#/\*\*?\s*@(?P<name>[A-Za-z_-]+)(?:[ \t]+(?P<value>.*?))?[ \t]*\r?\*/$#m', $line, $matches)) {
                 $annotations[strtolower($matches['name'])] = [
-                    'line'  => $lineNumber,
+                    'line' => $lineNumber,
                     'value' => $matches['value'],
                 ];
             }
@@ -365,7 +366,7 @@ final class DocBlock
     private function getDataFromDataProviderAnnotation(string $docComment): ?array
     {
         $methodName = null;
-        $className  = $this->className;
+        $className = $this->className;
 
         if ($this->isMethod) {
             $methodName = $this->name;
@@ -379,8 +380,8 @@ final class DocBlock
 
         foreach ($matches[1] as $match) {
             $dataProviderMethodNameNamespace = explode('\\', $match);
-            $leaf                            = explode('::', array_pop($dataProviderMethodNameNamespace));
-            $dataProviderMethodName          = array_pop($leaf);
+            $leaf = explode('::', array_pop($dataProviderMethodNameNamespace));
+            $dataProviderMethodName = array_pop($leaf);
 
             if (empty($dataProviderMethodNameNamespace)) {
                 $dataProviderMethodNameNamespace = '';
@@ -425,7 +426,7 @@ final class DocBlock
 
             if ($data instanceof Traversable) {
                 $origData = $data;
-                $data     = [];
+                $data = [];
 
                 foreach ($origData as $key => $value) {
                     if (is_int($key)) {
@@ -463,9 +464,9 @@ final class DocBlock
             return null;
         }
 
-        $offset            = strlen($matches[0][0]) + $matches[0][1];
+        $offset = strlen($matches[0][0]) + $matches[0][1];
         $annotationContent = substr($docComment, $offset);
-        $data              = [];
+        $data = [];
 
         foreach (explode("\n", $annotationContent) as $candidateRow) {
             $candidateRow = trim($candidateRow);
@@ -497,7 +498,7 @@ final class DocBlock
         // removing initial '   * ' for docComment
         $docComment = str_replace("\r\n", "\n", $docComment);
         $docComment = preg_replace('/\n\s*\*\s?/', "\n", $docComment);
-        $docComment = (string) substr($docComment, 0, -1);
+        $docComment = (string)substr($docComment, 0, -1);
 
         return rtrim($docComment, "\n");
     }
@@ -506,14 +507,14 @@ final class DocBlock
     private static function parseDocBlock(string $docBlock): array
     {
         // Strip away the docblock header and footer to ease parsing of one line annotations
-        $docBlock    = (string) substr($docBlock, 3, -2);
+        $docBlock = (string)substr($docBlock, 3, -2);
         $annotations = [];
 
         if (preg_match_all('/@(?P<name>[A-Za-z_-]+)(?:[ \t]+(?P<value>.*?))?[ \t]*\r?$/m', $docBlock, $matches)) {
             $numMatches = count($matches[0]);
 
             for ($i = 0; $i < $numMatches; $i++) {
-                $annotations[$matches['name'][$i]][] = (string) $matches['value'][$i];
+                $annotations[$matches['name'][$i]][] = (string)$matches['value'][$i];
             }
         }
 
@@ -529,18 +530,17 @@ final class DocBlock
             $annotations = array_merge(
                 $annotations,
                 ...array_map(
-                    static function (ReflectionClass $trait): array
-                    {
-                        return self::parseDocBlock((string) $trait->getDocComment());
-                    },
-                    array_values($reflector->getTraits()),
-                ),
+                static function (ReflectionClass $trait): array {
+                    return self::parseDocBlock((string)$trait->getDocComment());
+                },
+                array_values($reflector->getTraits()),
+            ),
             );
         }
 
         return array_merge(
             $annotations,
-            self::parseDocBlock((string) $reflector->getDocComment()),
+            self::parseDocBlock((string)$reflector->getDocComment()),
         );
     }
 }

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use function sprintf;
@@ -49,7 +50,7 @@ final class Migrator
             $migration->migrate($configurationDocument);
         }
 
-        $configurationDocument->formatOutput       = true;
+        $configurationDocument->formatOutput = true;
         $configurationDocument->preserveWhiteSpace = false;
 
         return $configurationDocument->saveXML();

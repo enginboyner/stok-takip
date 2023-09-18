@@ -40,9 +40,9 @@ class Company extends \Faker\Provider\Company
     ];
 
     /**
+     * @return string
      * @example 'مؤسسة'
      *
-     * @return string
      */
     public function companyPrefix()
     {

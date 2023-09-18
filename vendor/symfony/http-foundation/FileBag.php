@@ -84,7 +84,9 @@ class FileBag extends ParameterBag
                 $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], false);
             }
         } else {
-            $file = array_map(function ($v) { return $v instanceof UploadedFile || \is_array($v) ? $this->convertFileInformation($v) : $v; }, $file);
+            $file = array_map(function ($v) {
+                return $v instanceof UploadedFile || \is_array($v) ? $this->convertFileInformation($v) : $v;
+            }, $file);
             if (array_keys($keys) === $keys) {
                 $file = array_filter($file);
             }

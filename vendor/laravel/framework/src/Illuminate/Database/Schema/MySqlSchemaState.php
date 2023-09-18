@@ -12,14 +12,14 @@ class MySqlSchemaState extends SchemaState
     /**
      * Dump the database's schema into a file.
      *
-     * @param  \Illuminate\Database\Connection  $connection
-     * @param  string  $path
+     * @param \Illuminate\Database\Connection $connection
+     * @param string $path
      * @return void
      */
     public function dump(Connection $connection, $path)
     {
         $this->executeDumpProcess($this->makeProcess(
-            $this->baseDumpCommand().' --routines --result-file="${:LARAVEL_LOAD_PATH}" --no-data'
+            $this->baseDumpCommand() . ' --routines --result-file="${:LARAVEL_LOAD_PATH}" --no-data'
         ), $this->output, array_merge($this->baseVariables($this->connection->getConfig()), [
             'LARAVEL_LOAD_PATH' => $path,
         ]));
@@ -32,7 +32,7 @@ class MySqlSchemaState extends SchemaState
     /**
      * Remove the auto-incrementing state from the given schema dump.
      *
-     * @param  string  $path
+     * @param string $path
      * @return void
      */
     protected function removeAutoIncrementingState(string $path)
@@ -47,13 +47,13 @@ class MySqlSchemaState extends SchemaState
     /**
      * Append the migration data to the schema dump.
      *
-     * @param  string  $path
+     * @param string $path
      * @return void
      */
     protected function appendMigrationData(string $path)
     {
         $process = $this->executeDumpProcess($this->makeProcess(
-            $this->baseDumpCommand().' '.$this->migrationTable.' --no-create-info --skip-extended-insert --skip-routines --compact'
+            $this->baseDumpCommand() . ' ' . $this->migrationTable . ' --no-create-info --skip-extended-insert --skip-routines --compact'
         ), null, array_merge($this->baseVariables($this->connection->getConfig()), [
             //
         ]));
@@ -64,12 +64,12 @@ class MySqlSchemaState extends SchemaState
     /**
      * Load the given schema file into the database.
      *
-     * @param  string  $path
+     * @param string $path
      * @return void
      */
     public function load($path)
     {
-        $command = 'mysql '.$this->connectionString().' --database="${:LARAVEL_LOAD_DATABASE}" < "${:LARAVEL_LOAD_PATH}"';
+        $command = 'mysql ' . $this->connectionString() . ' --database="${:LARAVEL_LOAD_DATABASE}" < "${:LARAVEL_LOAD_PATH}"';
 
         $process = $this->makeProcess($command)->setTimeout(null);
 
@@ -85,13 +85,13 @@ class MySqlSchemaState extends SchemaState
      */
     protected function baseDumpCommand()
     {
-        $command = 'mysqldump '.$this->connectionString().' --no-tablespaces --skip-add-locks --skip-comments --skip-set-charset --tz-utc --column-statistics=0';
+        $command = 'mysqldump ' . $this->connectionString() . ' --no-tablespaces --skip-add-locks --skip-comments --skip-set-charset --tz-utc --column-statistics=0';
 
-        if (! $this->connection->isMaria()) {
+        if (!$this->connection->isMaria()) {
             $command .= ' --set-gtid-purged=OFF';
         }
 
-        return $command.' "${:LARAVEL_LOAD_DATABASE}"';
+        return $command . ' "${:LARAVEL_LOAD_DATABASE}"';
     }
 
     /**
@@ -106,8 +106,8 @@ class MySqlSchemaState extends SchemaState
         $config = $this->connection->getConfig();
 
         $value .= $config['unix_socket'] ?? false
-                        ? ' --socket="${:LARAVEL_LOAD_SOCKET}"'
-                        : ' --host="${:LARAVEL_LOAD_HOST}" --port="${:LARAVEL_LOAD_PORT}"';
+            ? ' --socket="${:LARAVEL_LOAD_SOCKET}"'
+            : ' --host="${:LARAVEL_LOAD_HOST}" --port="${:LARAVEL_LOAD_PORT}"';
 
         if (isset($config['options'][\PDO::MYSQL_ATTR_SSL_CA])) {
             $value .= ' --ssl-ca="${:LARAVEL_LOAD_SSL_CA}"';
@@ -119,7 +119,7 @@ class MySqlSchemaState extends SchemaState
     /**
      * Get the base variables for a dump / load command.
      *
-     * @param  array  $config
+     * @param array $config
      * @return array
      */
     protected function baseVariables(array $config)
@@ -140,9 +140,9 @@ class MySqlSchemaState extends SchemaState
     /**
      * Execute the given dump process.
      *
-     * @param  \Symfony\Component\Process\Process  $process
-     * @param  callable  $output
-     * @param  array  $variables
+     * @param \Symfony\Component\Process\Process $process
+     * @param callable $output
+     * @param array $variables
      * @return \Symfony\Component\Process\Process
      */
     protected function executeDumpProcess(Process $process, $output, array $variables)

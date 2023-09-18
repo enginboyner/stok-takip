@@ -49,17 +49,18 @@ class FileLinkRead extends FileLink implements StreamIn
      * Open a file.
      *
      * @param string $streamName stream name
-     * @param string $mode       open mode, see the parent::MODE_* constants
-     * @param string $context    context ID (please, see the
+     * @param string $mode open mode, see the parent::MODE_* constants
+     * @param string $context context ID (please, see the
      *                           \Hoa\Stream\Context class)
-     * @param bool   $wait       differ opening or not
+     * @param bool $wait differ opening or not
      */
     public function __construct(
         string $streamName,
         string $mode = parent::MODE_READ,
         string $context = null,
-        bool $wait = false
-    ) {
+        bool   $wait = false
+    )
+    {
         parent::__construct($streamName, $mode, $context, $wait);
 
         return;
@@ -68,8 +69,8 @@ class FileLinkRead extends FileLink implements StreamIn
     /**
      * Open the stream and return the associated resource.
      *
-     * @param string              $streamName Stream name (e.g. path or URL).
-     * @param \Hoa\Stream\Context $context    context
+     * @param string $streamName Stream name (e.g. path or URL).
+     * @param \Hoa\Stream\Context $context context
      *
      * @return resource
      *
@@ -155,7 +156,7 @@ class FileLinkRead extends FileLink implements StreamIn
      */
     public function readBoolean()
     {
-        return (bool) $this->read(1);
+        return (bool)$this->read(1);
     }
 
     /**
@@ -167,7 +168,7 @@ class FileLinkRead extends FileLink implements StreamIn
      */
     public function readInteger(int $length = 1)
     {
-        return (int) $this->read($length);
+        return (int)$this->read($length);
     }
 
     /**
@@ -179,7 +180,7 @@ class FileLinkRead extends FileLink implements StreamIn
      */
     public function readFloat(int $length = 1)
     {
-        return (float) $this->read($length);
+        return (float)$this->read($length);
     }
 
     /**

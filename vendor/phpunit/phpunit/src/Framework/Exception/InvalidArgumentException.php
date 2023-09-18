@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function debug_backtrace;
@@ -21,7 +22,7 @@ final class InvalidArgumentException extends Exception
 {
     public static function create(int $argument, string $type): self
     {
-        $stack    = debug_backtrace();
+        $stack = debug_backtrace();
         $function = $stack[1]['function'];
 
         if (isset($stack[1]['class'])) {

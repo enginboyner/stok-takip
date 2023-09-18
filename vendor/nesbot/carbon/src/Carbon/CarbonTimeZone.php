@@ -30,7 +30,7 @@ class CarbonTimeZone extends DateTimeZone
             throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than 100.');
         }
 
-        return ($timezone >= 0 ? '+' : '').ltrim($timezone, '+').':00';
+        return ($timezone >= 0 ? '+' : '') . ltrim($timezone, '+') . ':00';
     }
 
     protected static function getDateTimeZoneNameFromMixed($timezone)
@@ -52,7 +52,7 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function getDateTimeZoneFromName(&$name)
     {
-        return @timezone_open($name = (string) static::getDateTimeZoneNameFromMixed($name));
+        return @timezone_open($name = (string)static::getDateTimeZoneNameFromMixed($name));
     }
 
     /**
@@ -78,12 +78,12 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Create a CarbonTimeZone from mixed input.
      *
-     * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
+     * @param DateTimeZone|string|int|null $object original value to get CarbonTimeZone from it.
      * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
+     * @return false|static
      * @throws InvalidTimeZoneException
      *
-     * @return false|static
      */
     public static function instance($object = null, $objectDump = null)
     {
@@ -106,7 +106,7 @@ class CarbonTimeZone extends DateTimeZone
         }
 
         if (Carbon::isStrictModeEnabled()) {
-            throw new InvalidTimeZoneException('Unknown or bad timezone ('.($objectDump ?: $object).')');
+            throw new InvalidTimeZoneException('Unknown or bad timezone (' . ($objectDump ?: $object) . ')');
         }
 
         return false;
@@ -178,12 +178,12 @@ class CarbonTimeZone extends DateTimeZone
      * Returns the first region string (such as "America/Toronto") that matches the current timezone or
      * false if no match is found.
      *
-     * @see timezone_name_from_abbr native PHP function.
-     *
      * @param DateTimeInterface|null $date
-     * @param int                    $isDst
+     * @param int $isDst
      *
      * @return string|false
+     * @see timezone_name_from_abbr native PHP function.
+     *
      */
     public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
     {
@@ -236,7 +236,7 @@ class CarbonTimeZone extends DateTimeZone
         }
 
         if (Carbon::isStrictModeEnabled()) {
-            throw new InvalidTimeZoneException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
+            throw new InvalidTimeZoneException('Unknown timezone for offset ' . $this->getOffset($date ?: Carbon::now($this)) . ' seconds.');
         }
 
         return false;
@@ -261,7 +261,7 @@ class CarbonTimeZone extends DateTimeZone
      */
     public function getType(): int
     {
-        return preg_match('/"timezone_type";i:(\d)/', serialize($this), $match) ? (int) $match[1] : 3;
+        return preg_match('/"timezone_type";i:(\d)/', serialize($this), $match) ? (int)$match[1] : 3;
     }
 
     /**
@@ -312,9 +312,9 @@ class CarbonTimeZone extends DateTimeZone
         $minutes = round($minutes);
         $unsignedMinutes = abs($minutes);
 
-        return ($minutes < 0 ? '-' : '+').
-            str_pad((string) floor($unsignedMinutes / 60), 2, '0', STR_PAD_LEFT).
-            ':'.
-            str_pad((string) ($unsignedMinutes % 60), 2, '0', STR_PAD_LEFT);
+        return ($minutes < 0 ? '-' : '+') .
+            str_pad((string)floor($unsignedMinutes / 60), 2, '0', STR_PAD_LEFT) .
+            ':' .
+            str_pad((string)($unsignedMinutes % 60), 2, '0', STR_PAD_LEFT);
     }
 }

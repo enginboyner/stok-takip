@@ -29,8 +29,10 @@ class NameBasedUuidFactory
     public function create(string $name): UuidV5|UuidV3
     {
         switch ($class = $this->class) {
-            case UuidV5::class: return Uuid::v5($this->namespace, $name);
-            case UuidV3::class: return Uuid::v3($this->namespace, $name);
+            case UuidV5::class:
+                return Uuid::v5($this->namespace, $name);
+            case UuidV3::class:
+                return Uuid::v3($this->namespace, $name);
         }
 
         if (is_subclass_of($class, UuidV5::class)) {

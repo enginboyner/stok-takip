@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::pluck('name', 'id')->toArray();
-        return view('user.index', ["users" => $users, "roles"=>$roles]);
+        return view('user.index', ["users" => $users, "roles" => $roles]);
     }
 
     public function add()
@@ -22,20 +22,22 @@ class UserController extends Controller
         $roles = Role::all();
         return view("user.add", ["roles" => $roles]);
     }
+
     public function edit($userID)
     {
         $roles = Role::all();
         $userEdit = User::find($userID);
-        return view('user.edit',["roles" => $roles,"userEdit"=>$userEdit]);
+        return view('user.edit', ["roles" => $roles, "userEdit" => $userEdit]);
     }
 
     public function delete($id)
     {
-        $userDelete= User::find($id);
-        $userDelete->status=false;
+        $userDelete = User::find($id);
+        $userDelete->status = false;
         $userDelete->update();
 
     }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -57,13 +59,14 @@ class UserController extends Controller
         $user->update();
 
 
-        return $this->responseMessage("İşlem Başarılı","success",200,'/user');
+        return $this->responseMessage("İşlem Başarılı", "success", 200, '/user');
 
 
     }
+
     public function show($UserID)
     {
-        $user=User::with("role")->find($UserID);
+        $user = User::with("role")->find($UserID);
 
         return view('user.show', ["user" => $user]);
     }

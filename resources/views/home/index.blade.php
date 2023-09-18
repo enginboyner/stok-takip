@@ -2,7 +2,7 @@
 
 
 @section('pageName')
-Ana Sayfa
+    Ana Sayfa
 @endsection
 
 

@@ -19,8 +19,8 @@ trait RefreshDatabase
         $this->beforeRefreshingDatabase();
 
         $this->usingInMemoryDatabase()
-                        ? $this->refreshInMemoryDatabase()
-                        : $this->refreshTestDatabase();
+            ? $this->refreshInMemoryDatabase()
+            : $this->refreshTestDatabase();
 
         $this->afterRefreshingDatabase();
     }
@@ -69,7 +69,7 @@ trait RefreshDatabase
      */
     protected function refreshTestDatabase()
     {
-        if (! RefreshDatabaseState::$migrated) {
+        if (!RefreshDatabaseState::$migrated) {
             $this->artisan('migrate:fresh', $this->migrateFreshUsing());
 
             $this->app[Kernel::class]->setArtisan(null);
@@ -125,7 +125,7 @@ trait RefreshDatabase
     protected function connectionsToTransact()
     {
         return property_exists($this, 'connectionsToTransact')
-                            ? $this->connectionsToTransact : [null];
+            ? $this->connectionsToTransact : [null];
     }
 
     /**

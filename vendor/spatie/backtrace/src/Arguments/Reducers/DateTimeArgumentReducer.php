@@ -11,7 +11,7 @@ class DateTimeArgumentReducer implements ArgumentReducer
 {
     public function execute($argument): ReducedArgumentContract
     {
-        if (! $argument instanceof DateTimeInterface) {
+        if (!$argument instanceof DateTimeInterface) {
             return UnReducedArgument::create();
         }
 

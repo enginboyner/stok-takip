@@ -58,10 +58,10 @@ class CodeCleaner
     /**
      * CodeCleaner constructor.
      *
-     * @param Parser|null        $parser    A PhpParser Parser instance. One will be created if not explicitly supplied
-     * @param Printer|null       $printer   A PhpParser Printer instance. One will be created if not explicitly supplied
+     * @param Parser|null $parser A PhpParser Parser instance. One will be created if not explicitly supplied
+     * @param Printer|null $printer A PhpParser Printer instance. One will be created if not explicitly supplied
      * @param NodeTraverser|null $traverser A PhpParser NodeTraverser instance. One will be created if not explicitly supplied
-     * @param bool               $yolo      run without input validation
+     * @param bool $yolo run without input validation
      */
     public function __construct(Parser $parser = null, Printer $printer = null, NodeTraverser $traverser = null, bool $yolo = false)
     {
@@ -252,16 +252,16 @@ class CodeCleaner
     /**
      * Clean the given array of code.
      *
-     * @throws ParseErrorException if the code is invalid PHP, and cannot be coerced into valid PHP
-     *
      * @param array $codeLines
-     * @param bool  $requireSemicolons
+     * @param bool $requireSemicolons
      *
      * @return string|false Cleaned PHP code, False if the input is incomplete
+     * @throws ParseErrorException if the code is invalid PHP, and cannot be coerced into valid PHP
+     *
      */
     public function clean(array $codeLines, bool $requireSemicolons = false)
     {
-        $stmts = $this->parse('<?php '.\implode(\PHP_EOL, $codeLines).\PHP_EOL, $requireSemicolons);
+        $stmts = $this->parse('<?php ' . \implode(\PHP_EOL, $codeLines) . \PHP_EOL, $requireSemicolons);
         if ($stmts === false) {
             return false;
         }
@@ -304,15 +304,15 @@ class CodeCleaner
     /**
      * Lex and parse a block of code.
      *
-     * @see Parser::parse
+     * @param string $code
+     * @param bool $requireSemicolons
      *
+     * @return array|false A set of statements, or false if incomplete
      * @throws ParseErrorException for parse errors that can't be resolved by
      *                             waiting a line to see what comes next
      *
-     * @param string $code
-     * @param bool   $requireSemicolons
+     * @see Parser::parse
      *
-     * @return array|false A set of statements, or false if incomplete
      */
     protected function parse(string $code, bool $requireSemicolons = false)
     {
@@ -341,7 +341,7 @@ class CodeCleaner
 
             try {
                 // Unexpected EOF, try again with an implicit semicolon
-                return $this->parser->parse($code.';');
+                return $this->parser->parse($code . ';');
             } catch (\PhpParser\Error $e) {
                 return false;
             }
@@ -363,7 +363,7 @@ class CodeCleaner
      * themselves.
      *
      * @param \PhpParser\Error $e
-     * @param string           $code
+     * @param string $code
      */
     private function parseErrorIsUnclosedString(\PhpParser\Error $e, string $code): bool
     {
@@ -372,7 +372,7 @@ class CodeCleaner
         }
 
         try {
-            $this->parser->parse($code."';");
+            $this->parser->parse($code . "';");
         } catch (\Throwable $e) {
             return false;
         }

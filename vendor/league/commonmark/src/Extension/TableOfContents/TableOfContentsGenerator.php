@@ -32,12 +32,12 @@ use League\Config\Exception\InvalidConfigurationException;
 
 final class TableOfContentsGenerator implements TableOfContentsGeneratorInterface
 {
-    public const STYLE_BULLET  = ListBlock::TYPE_BULLET;
+    public const STYLE_BULLET = ListBlock::TYPE_BULLET;
     public const STYLE_ORDERED = ListBlock::TYPE_ORDERED;
 
     public const NORMALIZE_DISABLED = 'as-is';
     public const NORMALIZE_RELATIVE = 'relative';
-    public const NORMALIZE_FLAT     = 'flat';
+    public const NORMALIZE_FLAT = 'flat';
 
     /** @psalm-readonly */
     private string $style;
@@ -56,11 +56,11 @@ final class TableOfContentsGenerator implements TableOfContentsGeneratorInterfac
 
     public function __construct(string $style, string $normalizationStrategy, int $minHeadingLevel, int $maxHeadingLevel, string $fragmentPrefix)
     {
-        $this->style                 = $style;
+        $this->style = $style;
         $this->normalizationStrategy = $normalizationStrategy;
-        $this->minHeadingLevel       = $minHeadingLevel;
-        $this->maxHeadingLevel       = $maxHeadingLevel;
-        $this->fragmentPrefix        = $fragmentPrefix;
+        $this->minHeadingLevel = $minHeadingLevel;
+        $this->maxHeadingLevel = $maxHeadingLevel;
+        $this->fragmentPrefix = $fragmentPrefix;
 
         if ($fragmentPrefix !== '') {
             $this->fragmentPrefix .= '-';
@@ -78,7 +78,7 @@ final class TableOfContentsGenerator implements TableOfContentsGeneratorInterfac
         foreach ($this->getHeadingLinks($document) as $headingLink) {
             $heading = $headingLink->parent();
             // Make sure this is actually tied to a heading
-            if (! $heading instanceof Heading) {
+            if (!$heading instanceof Heading) {
                 continue;
             }
 
@@ -107,7 +107,7 @@ final class TableOfContentsGenerator implements TableOfContentsGeneratorInterfac
         }
 
         // Don't add the TOC if no headings were present
-        if (! $toc->hasChildren() || $firstHeading === null) {
+        if (!$toc->hasChildren() || $firstHeading === null) {
             return null;
         }
 
@@ -140,7 +140,7 @@ final class TableOfContentsGenerator implements TableOfContentsGeneratorInterfac
     private function getHeadingLinks(Document $document): iterable
     {
         foreach ($document->iterator(NodeIterator::FLAG_BLOCKS_ONLY) as $node) {
-            if (! $node instanceof Heading) {
+            if (!$node instanceof Heading) {
                 continue;
             }
 

@@ -37,7 +37,7 @@ class Sudo
      *
      * @param object $object
      * @param string $property property name
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return mixed Value of $object->property
      */
@@ -53,8 +53,8 @@ class Sudo
      * Call a method on an object, bypassing visibility restrictions.
      *
      * @param object $object
-     * @param string $method  method name
-     * @param mixed  $args...
+     * @param string $method method name
+     * @param mixed $args ...
      *
      * @return mixed
      */
@@ -70,8 +70,8 @@ class Sudo
     /**
      * Fetch a property of a class, bypassing visibility restrictions.
      *
-     * @param string|object $class    class name or instance
-     * @param string        $property property name
+     * @param string|object $class class name or instance
+     * @param string $property property name
      *
      * @return mixed Value of $class::$property
      */
@@ -86,9 +86,9 @@ class Sudo
     /**
      * Assign the value of a static property of a class, bypassing visibility restrictions.
      *
-     * @param string|object $class    class name or instance
-     * @param string        $property property name
-     * @param mixed         $value
+     * @param string|object $class class name or instance
+     * @param string $property property name
+     * @param mixed $value
      *
      * @return mixed Value of $class::$property
      */
@@ -103,9 +103,9 @@ class Sudo
     /**
      * Call a static method on a class, bypassing visibility restrictions.
      *
-     * @param string|object $class   class name or instance
-     * @param string        $method  method name
-     * @param mixed         $args...
+     * @param string|object $class class name or instance
+     * @param string $method method name
+     * @param mixed $args ...
      *
      * @return mixed
      */
@@ -122,7 +122,7 @@ class Sudo
      * Fetch a class constant, bypassing visibility restrictions.
      *
      * @param string|object $class class name or instance
-     * @param string        $const constant name
+     * @param string $const constant name
      *
      * @return mixed
      */
@@ -144,8 +144,8 @@ class Sudo
     /**
      * Construct an instance of a class, bypassing private constructors.
      *
-     * @param string $class   class name
-     * @param mixed  $args...
+     * @param string $class class name
+     * @param mixed $args ...
      */
     public static function newInstance(string $class, ...$args)
     {
@@ -162,12 +162,12 @@ class Sudo
     /**
      * Get a ReflectionProperty from an object (or its parent classes).
      *
-     * @throws \ReflectionException if neither the object nor any of its parents has this property
-     *
      * @param \ReflectionClass $refl
-     * @param string           $property property name
+     * @param string $property property name
      *
      * @return \ReflectionProperty
+     * @throws \ReflectionException if neither the object nor any of its parents has this property
+     *
      */
     private static function getProperty(\ReflectionClass $refl, string $property): \ReflectionProperty
     {

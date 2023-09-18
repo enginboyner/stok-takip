@@ -17,8 +17,8 @@ class MissingAbilityException extends AuthorizationException
     /**
      * Create a new missing scope exception.
      *
-     * @param  array|string  $abilities
-     * @param  string  $message
+     * @param array|string $abilities
+     * @param string $message
      * @return void
      */
     public function __construct($abilities = [], $message = 'Invalid ability provided.')

@@ -83,7 +83,7 @@ abstract class ProviderFactoryTestCase extends TestCase
         $factory = $this->createFactory();
         $provider = $factory->create(new Dsn($dsn));
 
-        $this->assertSame($expected, (string) $provider);
+        $this->assertSame($expected, (string)$provider);
     }
 
     /**

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeUnit;
 
 use function range;
@@ -202,9 +203,9 @@ abstract class CodeUnit
      */
     private function __construct(string $name, string $sourceFileName, array $sourceLines)
     {
-        $this->name           = $name;
+        $this->name = $name;
         $this->sourceFileName = $sourceFileName;
-        $this->sourceLines    = $sourceLines;
+        $this->sourceLines = $sourceLines;
     }
 
     public function name(): string
@@ -300,7 +301,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -338,7 +339,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -376,7 +377,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -396,7 +397,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -416,7 +417,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }
@@ -436,7 +437,7 @@ abstract class CodeUnit
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                (int)$e->getCode(),
                 $e
             );
         }

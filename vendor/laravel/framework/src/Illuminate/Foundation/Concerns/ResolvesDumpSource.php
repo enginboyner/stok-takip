@@ -66,7 +66,7 @@ trait ResolvesDumpSource
         $sourceKey = null;
 
         foreach ($trace as $traceKey => $traceFile) {
-            if (! isset($traceFile['file'])) {
+            if (!isset($traceFile['file'])) {
                 continue;
             }
 
@@ -80,7 +80,7 @@ trait ResolvesDumpSource
                 }
             }
 
-            if (! is_null($sourceKey)) {
+            if (!is_null($sourceKey)) {
                 break;
             }
         }
@@ -113,7 +113,7 @@ trait ResolvesDumpSource
     /**
      * Determine if the given file is a view compiled.
      *
-     * @param  string  $file
+     * @param string $file
      * @return bool
      */
     protected function isCompiledViewFile($file)
@@ -124,7 +124,7 @@ trait ResolvesDumpSource
     /**
      * Get the original view compiled file by the given compiled file.
      *
-     * @param  string  $file
+     * @param string $file
      * @return string
      */
     protected function getOriginalFileForCompiledView($file)
@@ -141,8 +141,8 @@ trait ResolvesDumpSource
     /**
      * Resolve the source href, if possible.
      *
-     * @param  string  $file
-     * @param  int|null  $line
+     * @param string $file
+     * @param int|null $line
      * @return string|null
      */
     protected function resolveSourceHref($file, $line)
@@ -153,7 +153,7 @@ trait ResolvesDumpSource
             // ..
         }
 
-        if (! isset($editor)) {
+        if (!isset($editor)) {
             return;
         }
 
@@ -177,7 +177,7 @@ trait ResolvesDumpSource
     /**
      * Set the resolver that resolves the source of the dump call.
      *
-     * @param  (callable(): (array{0: string, 1: string, 2: int|null}|null))|null  $callable
+     * @param (callable(): (array{0: string, 1: string, 2: int|null}|null))|null $callable
      * @return void
      */
     public static function resolveDumpSourceUsing($callable)

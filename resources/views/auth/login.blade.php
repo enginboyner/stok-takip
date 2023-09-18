@@ -1,7 +1,7 @@
 @extends("layout.auth")
 
 @section('pageName')
-Giriş
+    Giriş
 @endsection
 
 
@@ -48,8 +48,19 @@ Giriş
                 <!-- /.social-auth-links -->
                 <div class="row">
                     <div class="col-12 text-center"> <!-- Add text-center class to center align the content -->
-                        <p class="mb-0">
-                            <a href="forget" class="text-center">Şifremi Unuttum</a>
+                        <p>
+                            Admin yetkili kullanıcı girişi için <b>.env</b> dosyası üzerinden veritabanı bağlantısı
+                            kurup '<b>php artisan migrate</b>' ve '<b>php artisan db:seed</b>'
+                            komutlarını kullanmanız gerekmektedir.
+                        </p>
+                        <p>
+
+                        </p>
+                        <p>
+                            <b>Mail</b>:test@example.com
+                        </p>
+                        <p>
+                            <b>Şifre</b>:asd123
                         </p>
                         <div id="response"></div>
                     </div>

@@ -48,14 +48,14 @@ class DayOfMonthField extends AbstractField
      */
     private static function getNearestWeekday(int $currentYear, int $currentMonth, int $targetDay): ?DateTime
     {
-        $tday = str_pad((string) $targetDay, 2, '0', STR_PAD_LEFT);
+        $tday = str_pad((string)$targetDay, 2, '0', STR_PAD_LEFT);
         $target = DateTime::createFromFormat('Y-m-d', "{$currentYear}-{$currentMonth}-{$tday}");
 
         if ($target === false) {
             return null;
         }
 
-        $currentWeekday = (int) $target->format('N');
+        $currentWeekday = (int)$target->format('N');
 
         if ($currentWeekday < 6) {
             return $target;
@@ -67,7 +67,7 @@ class DayOfMonthField extends AbstractField
             if ($adjusted > 0 && $adjusted <= $lastDayOfMonth) {
                 $target->setDate($currentYear, $currentMonth, $adjusted);
 
-                if ((int) $target->format('N') < 6 && (int) $target->format('m') === $currentMonth) {
+                if ((int)$target->format('N') < 6 && (int)$target->format('m') === $currentMonth) {
                     return $target;
                 }
             }
@@ -96,11 +96,11 @@ class DayOfMonthField extends AbstractField
         // Check to see if this is the nearest weekday to a particular value
         if ($wPosition = strpos($value, 'W')) {
             // Parse the target day
-            $targetDay = (int) substr($value, 0, $wPosition);
+            $targetDay = (int)substr($value, 0, $wPosition);
             // Find out if the current day is the nearest day of the week
             $nearest = self::getNearestWeekday(
-                (int) $date->format('Y'),
-                (int) $date->format('m'),
+                (int)$date->format('Y'),
+                (int)$date->format('m'),
                 $targetDay
             );
             if ($nearest) {
@@ -110,7 +110,7 @@ class DayOfMonthField extends AbstractField
             throw new \RuntimeException('Unable to return nearest weekday');
         }
 
-        return $this->isSatisfied((int) $date->format('d'), $value);
+        return $this->isSatisfied((int)$date->format('d'), $value);
     }
 
     /**
@@ -120,7 +120,7 @@ class DayOfMonthField extends AbstractField
      */
     public function increment(DateTimeInterface &$date, $invert = false, $parts = null): FieldInterface
     {
-        if (! $invert) {
+        if (!$invert) {
             $date = $date->add(new \DateInterval('P1D'));
             $date = $date->setTime(0, 0);
         } else {

@@ -33,7 +33,7 @@ final class FootnoteRef extends AbstractInline implements ReferenceableInterface
         parent::__construct();
 
         $this->reference = $reference;
-        $this->content   = $content;
+        $this->content = $content;
 
         if (\count($data) > 0) {
             $this->data->import($data);

@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Type;
 
 final class TrueType extends Type
@@ -18,8 +19,8 @@ final class TrueType extends Type
         }
 
         return $other instanceof SimpleType &&
-              $other->name() === 'bool' &&
-              $other->value() === true;
+            $other->name() === 'bool' &&
+            $other->value() === true;
     }
 
     public function name(): string

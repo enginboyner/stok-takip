@@ -12,11 +12,11 @@ class MissingLivewireComponentSolutionProvider implements HasSolutionsForThrowab
 {
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $this->livewireIsInstalled()) {
+        if (!$this->livewireIsInstalled()) {
             return false;
         }
 
-        if (! $throwable instanceof ComponentNotFoundException) {
+        if (!$throwable instanceof ComponentNotFoundException) {
             return false;
         }
 
@@ -30,10 +30,10 @@ class MissingLivewireComponentSolutionProvider implements HasSolutionsForThrowab
 
     public function livewireIsInstalled(): bool
     {
-        if (! class_exists(ComponentNotFoundException::class)) {
+        if (!class_exists(ComponentNotFoundException::class)) {
             return false;
         }
-        if (! class_exists(LivewireComponentsFinder::class)) {
+        if (!class_exists(LivewireComponentsFinder::class)) {
             return false;
         }
 

@@ -83,7 +83,7 @@ class UnixTimeConverter implements TimeConverterInterface
             new IntegerObject(self::MILLISECONDS)
         );
 
-        $split = explode('.', (string) $unixTimestamp, 2);
+        $split = explode('.', (string)$unixTimestamp, 2);
 
         return new Time($split[0], $split[1] ?? '0');
     }

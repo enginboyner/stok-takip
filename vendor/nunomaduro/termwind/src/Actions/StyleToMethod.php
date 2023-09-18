@@ -36,7 +36,8 @@ final class StyleToMethod
     public function __construct(
         private Styles $styles,
         private string $style,
-    ) {
+    )
+    {
         // ..
     }
 
@@ -47,7 +48,7 @@ final class StyleToMethod
     {
         $stylesString = self::sortStyles(array_merge(
             $styles->defaultStyles(),
-            array_filter((array) preg_split('/(?![^\[]*\])\s/', $stylesString))
+            array_filter((array)preg_split('/(?![^\[]*\])\s/', $stylesString))
         ));
 
         foreach ($stylesString as $style) {
@@ -75,8 +76,8 @@ final class StyleToMethod
         }
 
         $method = array_filter(
-            (array) preg_split('/(?![^\[]*\])-/', $method),
-            fn ($item) => $item !== false
+            (array)preg_split('/(?![^\[]*\])-/', $method),
+            fn($item) => $item !== false
         );
 
         $method = array_slice($method, 0, count($method) - count($arguments));
@@ -90,10 +91,10 @@ final class StyleToMethod
             throw StyleNotFound::fromStyle($this->style);
         }
 
-        if (! method_exists($this->styles, $methodName)) {
+        if (!method_exists($this->styles, $methodName)) {
             $argument = array_pop($method);
 
-            $arguments[] = is_numeric($argument) ? (int) $argument : (string) $argument;
+            $arguments[] = is_numeric($argument) ? (int)$argument : (string)$argument;
 
             return $this->__invoke(...$arguments);
         }
@@ -106,7 +107,7 @@ final class StyleToMethod
     /**
      * Sorts all the styles based on the correct render order.
      *
-     * @param  string[]  $styles
+     * @param string[] $styles
      * @return string[]
      */
     private static function sortStyles(array $styles): array
@@ -114,10 +115,10 @@ final class StyleToMethod
         $keys = array_keys(self::MEDIA_QUERY_BREAKPOINTS);
 
         usort($styles, function ($a, $b) use ($keys) {
-            $existsA = (bool) preg_match(self::MEDIA_QUERIES_REGEX, $a, $matchesA);
-            $existsB = (bool) preg_match(self::MEDIA_QUERIES_REGEX, $b, $matchesB);
+            $existsA = (bool)preg_match(self::MEDIA_QUERIES_REGEX, $a, $matchesA);
+            $existsB = (bool)preg_match(self::MEDIA_QUERIES_REGEX, $b, $matchesB);
 
-            if ($existsA && ! $existsB) {
+            if ($existsA && !$existsB) {
                 return 1;
             }
 

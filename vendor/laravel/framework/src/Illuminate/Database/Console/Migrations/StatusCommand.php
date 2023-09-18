@@ -32,7 +32,7 @@ class StatusCommand extends BaseCommand
     /**
      * Create a new migration rollback command instance.
      *
-     * @param  \Illuminate\Database\Migrations\Migrator  $migrator
+     * @param \Illuminate\Database\Migrations\Migrator $migrator
      * @return void
      */
     public function __construct(Migrator $migrator)
@@ -50,7 +50,7 @@ class StatusCommand extends BaseCommand
     public function handle()
     {
         return $this->migrator->usingConnection($this->option('database'), function () {
-            if (! $this->migrator->repositoryExists()) {
+            if (!$this->migrator->repositoryExists()) {
                 $this->components->error('Migration table not found.');
 
                 return 1;
@@ -66,11 +66,11 @@ class StatusCommand extends BaseCommand
                 $this->components->twoColumnDetail('<fg=gray>Migration name</>', '<fg=gray>Batch / Status</>');
 
                 $migrations
-                    ->when($this->option('pending'), fn ($collection) => $collection->filter(function ($migration) {
+                    ->when($this->option('pending'), fn($collection) => $collection->filter(function ($migration) {
                         return str($migration[1])->contains('Pending');
                     }))
                     ->each(
-                        fn ($migration) => $this->components->twoColumnDetail($migration[0], $migration[1])
+                        fn($migration) => $this->components->twoColumnDetail($migration[0], $migration[1])
                     );
 
                 $this->newLine();
@@ -83,26 +83,26 @@ class StatusCommand extends BaseCommand
     /**
      * Get the status for the given run migrations.
      *
-     * @param  array  $ran
-     * @param  array  $batches
+     * @param array $ran
+     * @param array $batches
      * @return \Illuminate\Support\Collection
      */
     protected function getStatusFor(array $ran, array $batches)
     {
         return Collection::make($this->getAllMigrationFiles())
-                    ->map(function ($migration) use ($ran, $batches) {
-                        $migrationName = $this->migrator->getMigrationName($migration);
+            ->map(function ($migration) use ($ran, $batches) {
+                $migrationName = $this->migrator->getMigrationName($migration);
 
-                        $status = in_array($migrationName, $ran)
-                            ? '<fg=green;options=bold>Ran</>'
-                            : '<fg=yellow;options=bold>Pending</>';
+                $status = in_array($migrationName, $ran)
+                    ? '<fg=green;options=bold>Ran</>'
+                    : '<fg=yellow;options=bold>Pending</>';
 
-                        if (in_array($migrationName, $ran)) {
-                            $status = '['.$batches[$migrationName].'] '.$status;
-                        }
+                if (in_array($migrationName, $ran)) {
+                    $status = '[' . $batches[$migrationName] . '] ' . $status;
+                }
 
-                        return [$migrationName, $status];
-                    });
+                return [$migrationName, $status];
+            });
     }
 
     /**

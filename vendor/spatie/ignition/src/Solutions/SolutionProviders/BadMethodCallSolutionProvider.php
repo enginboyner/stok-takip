@@ -16,7 +16,7 @@ class BadMethodCallSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $throwable instanceof BadMethodCallException) {
+        if (!$throwable instanceof BadMethodCallException) {
             return false;
         }
 
@@ -31,17 +31,17 @@ class BadMethodCallSolutionProvider implements HasSolutionsForThrowable
     {
         return [
             BaseSolution::create('Bad Method Call')
-            ->setSolutionDescription($this->getSolutionDescription($throwable)),
+                ->setSolutionDescription($this->getSolutionDescription($throwable)),
         ];
     }
 
     public function getSolutionDescription(Throwable $throwable): string
     {
-        if (! $this->canSolve($throwable)) {
+        if (!$this->canSolve($throwable)) {
             return '';
         }
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         extract($this->getClassAndMethodFromExceptionMessage($throwable->getMessage()), EXTR_OVERWRITE);
 
         $possibleMethod = $this->findPossibleMethod($class ?? '', $method ?? '');
@@ -58,7 +58,7 @@ class BadMethodCallSolutionProvider implements HasSolutionsForThrowable
      */
     protected function getClassAndMethodFromExceptionMessage(string $message): ?array
     {
-        if (! preg_match(self::REGEX, $message, $matches)) {
+        if (!preg_match(self::REGEX, $message, $matches)) {
             return null;
         }
 

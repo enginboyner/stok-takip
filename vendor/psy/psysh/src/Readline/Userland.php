@@ -134,9 +134,9 @@ class Userland implements Readline
     /**
      * {@inheritdoc}
      *
+     * @return string
      * @throws BreakException if user hits Ctrl+D
      *
-     * @return string
      */
     public function readline(string $prompt = null)
     {

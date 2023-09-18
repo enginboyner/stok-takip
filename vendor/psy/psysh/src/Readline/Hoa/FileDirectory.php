@@ -67,8 +67,9 @@ class FileDirectory extends FileGeneric
         string $streamName,
         string $mode = self::MODE_READ,
         string $context = null,
-        bool $wait = false
-    ) {
+        bool   $wait = false
+    )
+    {
         $this->setMode($mode);
         parent::__construct($streamName, $context, $wait);
 
@@ -125,7 +126,7 @@ class FileDirectory extends FileGeneric
 
         foreach ($finder as $file) {
             $relative = \substr($file->getPathname(), $fromLength);
-            $_to = $to.\DIRECTORY_SEPARATOR.$relative;
+            $_to = $to . \DIRECTORY_SEPARATOR . $relative;
 
             if (true === $file->isDir()) {
                 self::create($_to, self::MODE_CREATE);
@@ -165,7 +166,7 @@ class FileDirectory extends FileGeneric
         $from = $this->getStreamName();
         $finder = new FileFinder();
         $finder->in($from)
-               ->childFirst();
+            ->childFirst();
 
         foreach ($finder as $file) {
             $file->open()->delete();
@@ -186,7 +187,8 @@ class FileDirectory extends FileGeneric
         string $name,
         string $mode = self::MODE_CREATE_RECURSIVE,
         string $context = null
-    ): bool {
+    ): bool
+    {
         if (true === \is_dir($name)) {
             return true;
         }
@@ -197,7 +199,7 @@ class FileDirectory extends FileGeneric
 
         if (null !== $context) {
             if (false === StreamContext::contextExists($context)) {
-                throw new FileException('Context %s was not previously declared, cannot retrieve '.'this context.', 2, $context);
+                throw new FileException('Context %s was not previously declared, cannot retrieve ' . 'this context.', 2, $context);
             } else {
                 $context = StreamContext::getInstance($context);
             }

@@ -55,9 +55,9 @@ class MethodEnumerator extends Enumerator
     /**
      * Get defined methods for the given class or object Reflector.
      *
-     * @param bool             $showAll   Include private and protected methods
+     * @param bool $showAll Include private and protected methods
      * @param \ReflectionClass $reflector
-     * @param bool             $noInherit Exclude inherited methods
+     * @param bool $noInherit Exclude inherited methods
      *
      * @return array
      */
@@ -98,7 +98,7 @@ class MethodEnumerator extends Enumerator
         foreach ($methods as $name => $method) {
             if ($this->showItem($name)) {
                 $ret[$name] = [
-                    'name'  => $name,
+                    'name' => $name,
                     'style' => $this->getVisibilityStyle($method),
                     'value' => $this->presentSignature($method),
                 ];

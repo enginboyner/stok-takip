@@ -232,7 +232,7 @@ class ProtocolNode implements \ArrayAccess, \IteratorAggregate
                 }
             } else {
                 foreach ($ref as $entry) {
-                    $accumulator[] = $entry.$choice;
+                    $accumulator[] = $entry . $choice;
                 }
             }
         }
@@ -310,7 +310,7 @@ class ProtocolNode implements \ArrayAccess, \IteratorAggregate
     {
         static $i = 0;
 
-        $out = \str_repeat('  ', $i).$this->getName()."\n";
+        $out = \str_repeat('  ', $i) . $this->getName() . "\n";
 
         foreach ($this as $node) {
             ++$i;

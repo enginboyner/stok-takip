@@ -94,7 +94,7 @@ class Subset extends MatcherAbstract
     {
         $elements = [];
         foreach ($array as $k => $v) {
-            $elements[] = $k . '=' . (is_array($v) ? $this->formatArray($v) : (string) $v);
+            $elements[] = $k . '=' . (is_array($v) ? $this->formatArray($v) : (string)$v);
         }
         return "[" . implode(", ", $elements) . "]";
     }

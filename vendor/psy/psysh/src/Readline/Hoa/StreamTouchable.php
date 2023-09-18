@@ -79,8 +79,8 @@ interface StreamTouchable extends IStream
      */
     public function move(
         string $name,
-        bool $force = self::DO_NOT_OVERWRITE,
-        bool $mkdir = self::DO_NOT_MAKE_DIRECTORY
+        bool   $force = self::DO_NOT_OVERWRITE,
+        bool   $mkdir = self::DO_NOT_MAKE_DIRECTORY
     ): bool;
 
     /**

@@ -20,7 +20,7 @@ class TrimContextItemsStrategy extends AbstractTruncationStrategy
     public function execute(array $payload): array
     {
         foreach (static::thresholds() as $threshold) {
-            if (! $this->reportTrimmer->needsToBeTrimmed($payload)) {
+            if (!$this->reportTrimmer->needsToBeTrimmed($payload)) {
                 break;
             }
 

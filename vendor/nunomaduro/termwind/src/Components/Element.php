@@ -35,13 +35,14 @@ abstract class Element
     /**
      * Creates an element instance.
      *
-     * @param  array<int, Element|string>|string  $content
+     * @param array<int, Element|string>|string $content
      */
     final public function __construct(
         protected OutputInterface $output,
-        protected array|string $content,
-        Styles|null $styles = null
-    ) {
+        protected array|string    $content,
+        Styles|null               $styles = null
+    )
+    {
         $this->styles = $styles ?? new Styles(defaultStyles: static::$defaultStyles);
         $this->styles->setElement($this);
     }
@@ -49,8 +50,8 @@ abstract class Element
     /**
      * Creates an element instance with the given styles.
      *
-     * @param  array<int, Element|string>|string  $content
-     * @param  array<string, mixed>  $properties
+     * @param array<int, Element|string>|string $content
+     * @param array<string, mixed> $properties
      */
     final public static function fromStyles(OutputInterface $output, array|string $content, string $styles = '', array $properties = []): static
     {
@@ -78,7 +79,7 @@ abstract class Element
     }
 
     /**
-     * @param  array<int, mixed>  $arguments
+     * @param array<int, mixed> $arguments
      */
     public function __call(string $name, array $arguments): mixed
     {
@@ -96,7 +97,7 @@ abstract class Element
     /**
      * Sets the content of the element.
      *
-     * @param  array<int, Element|string>|string  $content
+     * @param array<int, Element|string>|string $content
      */
     final public function setContent(array|string $content): static
     {

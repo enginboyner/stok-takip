@@ -99,7 +99,7 @@ final class Fields implements FieldsInterface
             )
         );
 
-        return new Hexadecimal((string) ($hex[1] ?? ''));
+        return new Hexadecimal((string)($hex[1] ?? ''));
     }
 
     public function getTimeMid(): Hexadecimal
@@ -114,7 +114,7 @@ final class Fields implements FieldsInterface
             )
         );
 
-        return new Hexadecimal((string) ($hex[1] ?? ''));
+        return new Hexadecimal((string)($hex[1] ?? ''));
     }
 
     public function getTimeHiAndVersion(): Hexadecimal
@@ -129,7 +129,7 @@ final class Fields implements FieldsInterface
             )
         );
 
-        return new Hexadecimal((string) ($hex[1] ?? ''));
+        return new Hexadecimal((string)($hex[1] ?? ''));
     }
 
     public function getTimestamp(): Hexadecimal
@@ -179,7 +179,7 @@ final class Fields implements FieldsInterface
         /** @var array $parts */
         $parts = unpack('n*', $this->bytes);
 
-        return ((int) $parts[4] >> 4) & 0x00f;
+        return ((int)$parts[4] >> 4) & 0x00f;
     }
 
     private function isCorrectVariant(): bool

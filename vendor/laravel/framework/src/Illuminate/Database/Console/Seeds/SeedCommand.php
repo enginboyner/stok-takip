@@ -50,7 +50,7 @@ class SeedCommand extends Command
     /**
      * Create a new database seed command instance.
      *
-     * @param  \Illuminate\Database\ConnectionResolverInterface  $resolver
+     * @param \Illuminate\Database\ConnectionResolverInterface $resolver
      * @return void
      */
     public function __construct(Resolver $resolver)
@@ -67,7 +67,7 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
@@ -97,18 +97,18 @@ class SeedCommand extends Command
     {
         $class = $this->input->getArgument('class') ?? $this->input->getOption('class');
 
-        if (! str_contains($class, '\\')) {
-            $class = 'Database\\Seeders\\'.$class;
+        if (!str_contains($class, '\\')) {
+            $class = 'Database\\Seeders\\' . $class;
         }
 
         if ($class === 'Database\\Seeders\\DatabaseSeeder' &&
-            ! class_exists($class)) {
+            !class_exists($class)) {
             $class = 'DatabaseSeeder';
         }
 
         return $this->laravel->make($class)
-                        ->setContainer($this->laravel)
-                        ->setCommand($this);
+            ->setContainer($this->laravel)
+            ->setCommand($this);
     }
 
     /**

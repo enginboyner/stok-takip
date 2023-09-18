@@ -261,11 +261,12 @@ class Uuid implements UuidInterface
      *     for converting timestamps extracted from a UUID to unix timestamps
      */
     public function __construct(
-        Rfc4122FieldsInterface $fields,
+        Rfc4122FieldsInterface   $fields,
         NumberConverterInterface $numberConverter,
-        CodecInterface $codec,
-        TimeConverterInterface $timeConverter
-    ) {
+        CodecInterface           $codec,
+        TimeConverterInterface   $timeConverter
+    )
+    {
         $this->fields = $fields;
         $this->codec = $codec;
         $this->numberConverter = $numberConverter;
@@ -452,14 +453,14 @@ class Uuid implements UuidInterface
             // Note: we are calling `fromString` internally because we don't know if the given `$bytes` is a valid UUID
             return self::fromString(
                 substr($base16Uuid, 0, 8)
-                    . '-'
-                    . substr($base16Uuid, 8, 4)
-                    . '-'
-                    . substr($base16Uuid, 12, 4)
-                    . '-'
-                    . substr($base16Uuid, 16, 4)
-                    . '-'
-                    . substr($base16Uuid, 20, 12)
+                . '-'
+                . substr($base16Uuid, 8, 4)
+                . '-'
+                . substr($base16Uuid, 12, 4)
+                . '-'
+                . substr($base16Uuid, 16, 4)
+                . '-'
+                . substr($base16Uuid, 20, 12)
             );
         }
 
@@ -509,9 +510,10 @@ class Uuid implements UuidInterface
      */
     public static function fromDateTime(
         DateTimeInterface $dateTime,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface {
+        ?Hexadecimal      $node = null,
+        ?int              $clockSeq = null
+    ): UuidInterface
+    {
         return self::getFactory()->fromDateTime($dateTime, $node, $clockSeq);
     }
 
@@ -617,11 +619,12 @@ class Uuid implements UuidInterface
      *     version 2 UUID
      */
     public static function uuid2(
-        int $localDomain,
+        int            $localDomain,
         ?IntegerObject $localIdentifier = null,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface {
+        ?Hexadecimal   $node = null,
+        ?int           $clockSeq = null
+    ): UuidInterface
+    {
         return self::getFactory()->uuid2($localDomain, $localIdentifier, $node, $clockSeq);
     }
 
@@ -697,8 +700,9 @@ class Uuid implements UuidInterface
      */
     public static function uuid6(
         ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): UuidInterface {
+        ?int         $clockSeq = null
+    ): UuidInterface
+    {
         return self::getFactory()->uuid6($node, $clockSeq);
     }
 

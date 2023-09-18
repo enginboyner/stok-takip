@@ -96,9 +96,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a french region.
      *
+     * @return string
      * @example 'Guadeloupe'
      *
-     * @return string
      */
     public static function region()
     {
@@ -108,9 +108,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a french department ('departmentNumber' => 'departmentName').
      *
+     * @return array
      * @example array('2B' => 'Haute-Corse')
      *
-     * @return array
      */
     public static function department()
     {
@@ -120,9 +120,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a french department name.
      *
+     * @return string
      * @example 'Ardèche'
      *
-     * @return string
      */
     public static function departmentName()
     {
@@ -134,9 +134,9 @@ class Address extends \Faker\Provider\Address
     /**
      * Randomly returns a french department number.
      *
+     * @return string
      * @example '59'
      *
-     * @return string
      */
     public static function departmentNumber()
     {

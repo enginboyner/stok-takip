@@ -24,7 +24,7 @@
                         <select class="form-control" id="category_id" name="category_id">
                             @foreach($categories as $category)
                                 @if($category->status==true)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -55,12 +55,3 @@
     </div>
 @endsection
 
-@section("script")
-    <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-
-@endsection

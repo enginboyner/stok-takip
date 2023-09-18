@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function array_map;
@@ -37,8 +38,7 @@ abstract class BinaryOperator extends Operator
      */
     public function setConstraints(array $constraints): void
     {
-        $this->constraints = array_map(function ($constraint): Constraint
-        {
+        $this->constraints = array_map(function ($constraint): Constraint {
             return $this->checkConstraint($constraint);
         }, array_values($constraints));
     }
@@ -123,7 +123,7 @@ abstract class BinaryOperator extends Operator
      * Returns string representation of given operand in context of this operator.
      *
      * @param Constraint $constraint operand constraint
-     * @param int        $position   position of $constraint in this expression
+     * @param int $position position of $constraint in this expression
      */
     private function constraintToString(Constraint $constraint, int $position): string
     {

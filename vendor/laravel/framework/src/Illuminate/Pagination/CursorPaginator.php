@@ -23,10 +23,10 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     /**
      * Create a new paginator instance.
      *
-     * @param  mixed  $items
-     * @param  int  $perPage
-     * @param  \Illuminate\Pagination\Cursor|null  $cursor
-     * @param  array  $options  (path, query, fragment, pageName)
+     * @param mixed $items
+     * @param int $perPage
+     * @param \Illuminate\Pagination\Cursor|null $cursor
+     * @param array $options (path, query, fragment, pageName)
      * @return void
      */
     public function __construct($items, $perPage, $cursor = null, array $options = [])
@@ -37,7 +37,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
             $this->{$key} = $value;
         }
 
-        $this->perPage = (int) $perPage;
+        $this->perPage = (int)$perPage;
         $this->cursor = $cursor;
         $this->path = $this->path !== '/' ? rtrim($this->path, '/') : $this->path;
 
@@ -47,7 +47,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     /**
      * Set the items for the paginator.
      *
-     * @param  mixed  $items
+     * @param mixed $items
      * @return void
      */
     protected function setItems($items)
@@ -58,7 +58,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
 
         $this->items = $this->items->slice(0, $this->perPage);
 
-        if (! is_null($this->cursor) && $this->cursor->pointsToPreviousItems()) {
+        if (!is_null($this->cursor) && $this->cursor->pointsToPreviousItems()) {
             $this->items = $this->items->reverse()->values();
         }
     }
@@ -66,8 +66,8 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     /**
      * Render the paginator using the given view.
      *
-     * @param  string|null  $view
-     * @param  array  $data
+     * @param string|null $view
+     * @param array $data
      * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function links($view = null, $data = [])
@@ -78,8 +78,8 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     /**
      * Render the paginator using the given view.
      *
-     * @param  string|null  $view
-     * @param  array  $data
+     * @param string|null $view
+     * @param array $data
      * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function render($view = null, $data = [])
@@ -97,8 +97,8 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     public function hasMorePages()
     {
         return (is_null($this->cursor) && $this->hasMore) ||
-            (! is_null($this->cursor) && $this->cursor->pointsToNextItems() && $this->hasMore) ||
-            (! is_null($this->cursor) && $this->cursor->pointsToPreviousItems());
+            (!is_null($this->cursor) && $this->cursor->pointsToNextItems() && $this->hasMore) ||
+            (!is_null($this->cursor) && $this->cursor->pointsToPreviousItems());
     }
 
     /**
@@ -108,7 +108,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
      */
     public function hasPages()
     {
-        return ! $this->onFirstPage() || $this->hasMorePages();
+        return !$this->onFirstPage() || $this->hasMorePages();
     }
 
     /**
@@ -118,7 +118,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
      */
     public function onFirstPage()
     {
-        return is_null($this->cursor) || ($this->cursor->pointsToPreviousItems() && ! $this->hasMore);
+        return is_null($this->cursor) || ($this->cursor->pointsToPreviousItems() && !$this->hasMore);
     }
 
     /**
@@ -128,7 +128,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
      */
     public function onLastPage()
     {
-        return ! $this->hasMorePages();
+        return !$this->hasMorePages();
     }
 
     /**
@@ -162,7 +162,7 @@ class CursorPaginator extends AbstractCursorPaginator implements Arrayable, Arra
     /**
      * Convert the object to its JSON representation.
      *
-     * @param  int  $options
+     * @param int $options
      * @return string
      */
     public function toJson($options = 0)

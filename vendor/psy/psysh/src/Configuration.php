@@ -153,7 +153,7 @@ class Configuration
 
         // legacy baseDir option
         if (isset($config['baseDir'])) {
-            $msg = "The 'baseDir' configuration option is deprecated; ".
+            $msg = "The 'baseDir' configuration option is deprecated; " .
                 "please specify 'configDir' and 'dataDir' options instead";
             throw new DeprecatedException($msg);
         }
@@ -175,11 +175,11 @@ class Configuration
      * if you want to build your own) before calling this method. It's not required, but things work
      * a lot better if we do.
      *
-     * @see self::getInputOptions
-     *
+     * @param InputInterface $input
      * @throws \InvalidArgumentException
      *
-     * @param InputInterface $input
+     * @see self::getInputOptions
+     *
      */
     public static function fromInput(InputInterface $input): self
     {
@@ -259,7 +259,7 @@ class Configuration
         }
 
         foreach ($names as $name) {
-            $otherParams[] = '--'.$name;
+            $otherParams[] = '--' . $name;
         }
 
         foreach ($otherParams as $name) {
@@ -340,9 +340,9 @@ class Configuration
     /**
      * Get a list of input options expected when initializing Configuration via input.
      *
+     * @return InputOption[]
      * @see self::fromInput
      *
-     * @return InputOption[]
      */
     public static function getInputOptions(): array
     {
@@ -397,8 +397,8 @@ class Configuration
         }
 
         $this->configPaths->overrideDirs([
-            'configDir'  => $this->configDir,
-            'dataDir'    => $this->dataDir,
+            'configDir' => $this->configDir,
+            'dataDir' => $this->dataDir,
             'runtimeDir' => $this->runtimeDir,
         ]);
     }
@@ -445,7 +445,7 @@ class Configuration
      */
     public function getLocalConfigFile()
     {
-        $localConfig = \getcwd().'/.psysh.php';
+        $localConfig = \getcwd() . '/.psysh.php';
 
         if (@\is_file($localConfig)) {
             return $localConfig;
@@ -461,7 +461,7 @@ class Configuration
     {
         foreach (self::$AVAILABLE_OPTIONS as $option) {
             if (isset($options[$option])) {
-                $method = 'set'.\ucfirst($option);
+                $method = 'set' . \ucfirst($option);
                 $this->$method($options[$option]);
             }
         }
@@ -476,7 +476,7 @@ class Configuration
 
         foreach (['commands', 'matchers', 'casters'] as $option) {
             if (isset($options[$option])) {
-                $method = 'add'.\ucfirst($option);
+                $method = 'add' . \ucfirst($option);
                 $this->$method($options[$option]);
             }
         }
@@ -497,9 +497,9 @@ class Configuration
      * The config file may directly manipulate the configuration, or may return
      * an array of options which will be merged with the current configuration.
      *
+     * @param string $file
      * @throws \InvalidArgumentException if the config file does not exist or returns a non-array result
      *
-     * @param string $file
      */
     public function loadConfigFile(string $file)
     {
@@ -552,11 +552,11 @@ class Configuration
      */
     public function setConfigDir(string $dir)
     {
-        $this->configDir = (string) $dir;
+        $this->configDir = (string)$dir;
 
         $this->configPaths->overrideDirs([
-            'configDir'  => $this->configDir,
-            'dataDir'    => $this->dataDir,
+            'configDir' => $this->configDir,
+            'dataDir' => $this->dataDir,
             'runtimeDir' => $this->runtimeDir,
         ]);
     }
@@ -578,11 +578,11 @@ class Configuration
      */
     public function setDataDir(string $dir)
     {
-        $this->dataDir = (string) $dir;
+        $this->dataDir = (string)$dir;
 
         $this->configPaths->overrideDirs([
-            'configDir'  => $this->configDir,
-            'dataDir'    => $this->dataDir,
+            'configDir' => $this->configDir,
+            'dataDir' => $this->dataDir,
             'runtimeDir' => $this->runtimeDir,
         ]);
     }
@@ -604,11 +604,11 @@ class Configuration
      */
     public function setRuntimeDir(string $dir)
     {
-        $this->runtimeDir = (string) $dir;
+        $this->runtimeDir = (string)$dir;
 
         $this->configPaths->overrideDirs([
-            'configDir'  => $this->configDir,
-            'dataDir'    => $this->dataDir,
+            'configDir' => $this->configDir,
+            'dataDir' => $this->dataDir,
             'runtimeDir' => $this->runtimeDir,
         ]);
     }
@@ -667,7 +667,7 @@ class Configuration
             $this->setHistoryFile($files[0]);
         } else {
             // fallback: create our own history file
-            $this->setHistoryFile($this->configPaths->currentConfigDir().'/psysh_history');
+            $this->setHistoryFile($this->configPaths->currentConfigDir() . '/psysh_history');
         }
 
         return $this->historyFile;
@@ -680,7 +680,7 @@ class Configuration
      */
     public function setHistorySize(int $value)
     {
-        $this->historySize = (int) $value;
+        $this->historySize = (int)$value;
     }
 
     /**
@@ -700,7 +700,7 @@ class Configuration
      */
     public function setEraseDuplicates(bool $value)
     {
-        $this->eraseDuplicates = (bool) $value;
+        $this->eraseDuplicates = (bool)$value;
     }
 
     /**
@@ -718,16 +718,16 @@ class Configuration
      *
      * The file will be created inside the current temporary directory.
      *
-     * @see self::getRuntimeDir
-     *
      * @param string $type
-     * @param int    $pid
+     * @param int $pid
      *
      * @return string Temporary file name
+     * @see self::getRuntimeDir
+     *
      */
     public function getTempFile(string $type, int $pid): string
     {
-        return \tempnam($this->getRuntimeDir(), $type.'_'.$pid.'_');
+        return \tempnam($this->getRuntimeDir(), $type . '_' . $pid . '_');
     }
 
     /**
@@ -736,7 +736,7 @@ class Configuration
      * The pipe will be created inside the current temporary directory.
      *
      * @param string $type
-     * @param int    $pid
+     * @param int $pid
      *
      * @return string Pipe name
      */
@@ -762,7 +762,7 @@ class Configuration
      */
     public function setUseReadline(bool $useReadline)
     {
-        $this->useReadline = (bool) $useReadline;
+        $this->useReadline = (bool)$useReadline;
     }
 
     /**
@@ -844,7 +844,7 @@ class Configuration
      */
     public function setUseBracketedPaste(bool $useBracketedPaste)
     {
-        $this->useBracketedPaste = (bool) $useBracketedPaste;
+        $this->useBracketedPaste = (bool)$useBracketedPaste;
     }
 
     /**
@@ -889,7 +889,7 @@ class Configuration
      */
     public function setUsePcntl(bool $usePcntl)
     {
-        $this->usePcntl = (bool) $usePcntl;
+        $this->usePcntl = (bool)$usePcntl;
     }
 
     /**
@@ -935,19 +935,19 @@ class Configuration
      */
     public function setRawOutput(bool $rawOutput)
     {
-        $this->rawOutput = (bool) $rawOutput;
+        $this->rawOutput = (bool)$rawOutput;
     }
 
     /**
      * Enable or disable strict requirement of semicolons.
      *
+     * @param bool $requireSemicolons
      * @see self::requireSemicolons()
      *
-     * @param bool $requireSemicolons
      */
     public function setRequireSemicolons(bool $requireSemicolons)
     {
-        $this->requireSemicolons = (bool) $requireSemicolons;
+        $this->requireSemicolons = (bool)$requireSemicolons;
     }
 
     /**
@@ -972,7 +972,7 @@ class Configuration
      */
     public function setUseUnicode(bool $useUnicode)
     {
-        $this->useUnicode = (bool) $useUnicode;
+        $this->useUnicode = (bool)$useUnicode;
     }
 
     /**
@@ -994,9 +994,9 @@ class Configuration
     /**
      * Set the error logging level.
      *
+     * @param int $errorLoggingLevel
      * @see self::errorLoggingLevel
      *
-     * @param int $errorLoggingLevel
      */
     public function setErrorLoggingLevel($errorLoggingLevel)
     {
@@ -1051,7 +1051,7 @@ class Configuration
      */
     public function setYolo($yolo)
     {
-        $this->yolo = (bool) $yolo;
+        $this->yolo = (bool)$yolo;
     }
 
     /**
@@ -1069,13 +1069,13 @@ class Configuration
      */
     public function setUseTabCompletion(bool $useTabCompletion)
     {
-        $this->useTabCompletion = (bool) $useTabCompletion;
+        $this->useTabCompletion = (bool)$useTabCompletion;
     }
 
     /**
+     * @param bool $useTabCompletion
      * @deprecated Call `setUseTabCompletion` instead
      *
-     * @param bool $useTabCompletion
      */
     public function setTabCompletion(bool $useTabCompletion)
     {
@@ -1194,9 +1194,9 @@ class Configuration
      *
      * `cat` is special-cased to use the PassthruPager directly.
      *
+     * @param string|OutputPager|false $pager
      * @throws \InvalidArgumentException if $pager is not a string or OutputPager instance
      *
-     * @param string|OutputPager|false $pager
      */
     public function setPager($pager)
     {
@@ -1231,7 +1231,7 @@ class Configuration
                 $this->pager = $pager;
             } elseif ($less = $this->configPaths->which('less')) {
                 // check for the presence of less...
-                $this->pager = $less.' -R -F -X';
+                $this->pager = $less . ' -R -F -X';
             }
         }
 
@@ -1299,9 +1299,9 @@ class Configuration
     }
 
     /**
+     * @param array $matchers
      * @deprecated Use `addMatchers` instead
      *
-     * @param array $matchers
      */
     public function addTabCompletionMatchers(array $matchers)
     {
@@ -1360,7 +1360,7 @@ class Configuration
      */
     public function setManualDbFile(string $filename)
     {
-        $this->manualDbFile = (string) $filename;
+        $this->manualDbFile = (string)$filename;
     }
 
     /**
@@ -1396,7 +1396,7 @@ class Configuration
             $dbFile = $this->getManualDbFile();
             if ($dbFile !== null && \is_file($dbFile)) {
                 try {
-                    $this->manualDb = new \PDO('sqlite:'.$dbFile);
+                    $this->manualDb = new \PDO('sqlite:' . $dbFile);
                 } catch (\PDOException $e) {
                     if ($e->getMessage() === 'could not find driver') {
                         throw new RuntimeException('SQLite PDO driver not found', 0, $e);
@@ -1435,13 +1435,13 @@ class Configuration
     /**
      * Enable or disable warnings on multiple configuration or data files.
      *
+     * @param bool $warnOnMultipleConfigs
      * @see self::warnOnMultipleConfigs()
      *
-     * @param bool $warnOnMultipleConfigs
      */
     public function setWarnOnMultipleConfigs(bool $warnOnMultipleConfigs)
     {
-        $this->warnOnMultipleConfigs = (bool) $warnOnMultipleConfigs;
+        $this->warnOnMultipleConfigs = (bool)$warnOnMultipleConfigs;
     }
 
     /**
@@ -1475,7 +1475,7 @@ class Configuration
         ];
 
         if (!\in_array($colorMode, $validColorModes)) {
-            throw new \InvalidArgumentException('Invalid color mode: '.$colorMode);
+            throw new \InvalidArgumentException('Invalid color mode: ' . $colorMode);
         }
 
         $this->colorMode = $colorMode;
@@ -1505,7 +1505,7 @@ class Configuration
         ];
 
         if (!\in_array($interactiveMode, $validInteractiveModes)) {
-            throw new \InvalidArgumentException('Invalid interactive mode: '.$interactiveMode);
+            throw new \InvalidArgumentException('Invalid interactive mode: ' . $interactiveMode);
         }
 
         $this->interactiveMode = $interactiveMode;
@@ -1577,9 +1577,9 @@ class Configuration
     /**
      * Set the update check interval.
      *
+     * @param string $interval
      * @throws \InvalidArgumentException if the update check interval is unknown
      *
-     * @param string $interval
      */
     public function setUpdateCheck(string $interval)
     {
@@ -1592,7 +1592,7 @@ class Configuration
         ];
 
         if (!\in_array($interval, $validIntervals)) {
-            throw new \InvalidArgumentException('Invalid update check interval: '.$interval);
+            throw new \InvalidArgumentException('Invalid update check interval: ' . $interval);
         }
 
         $this->updateCheck = $interval;
@@ -1605,7 +1605,7 @@ class Configuration
      */
     public function getUpdateCheckCacheFile()
     {
-        return ConfigPaths::touchFileWithMkdir($this->configPaths->currentConfigDir().'/update_check.json');
+        return ConfigPaths::touchFileWithMkdir($this->configPaths->currentConfigDir() . '/update_check.json');
     }
 
     /**
@@ -1779,9 +1779,9 @@ class Configuration
      *
      * Accepts OutputInterface verbosity constants.
      *
+     * @param string $verbosity
      * @throws \InvalidArgumentException if verbosity level is invalid
      *
-     * @param string $verbosity
      */
     public function setVerbosity(string $verbosity)
     {
@@ -1794,7 +1794,7 @@ class Configuration
         ];
 
         if (!\in_array($verbosity, $validVerbosityLevels)) {
-            throw new \InvalidArgumentException('Invalid verbosity level: '.$verbosity);
+            throw new \InvalidArgumentException('Invalid verbosity level: ' . $verbosity);
         }
 
         $this->verbosity = $verbosity;

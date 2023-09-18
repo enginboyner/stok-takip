@@ -58,7 +58,7 @@ class YamlFileLoader extends FileLoader
         try {
             $parsedConfig = $this->yamlParser->parseFile($path, Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
-            throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML: ', $path).$e->getMessage(), 0, $e);
+            throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML: ', $path) . $e->getMessage(), 0, $e);
         }
 
         $collection = new RouteCollection();
@@ -76,12 +76,12 @@ class YamlFileLoader extends FileLoader
 
         foreach ($parsedConfig as $name => $config) {
             if (0 === strpos($name, 'when@')) {
-                if (!$this->env || 'when@'.$this->env !== $name) {
+                if (!$this->env || 'when@' . $this->env !== $name) {
                     continue;
                 }
 
                 foreach ($config as $name => $config) {
-                    $this->validate($config, $name.'" when "@'.$this->env, $path);
+                    $this->validate($config, $name . '" when "@' . $this->env, $path);
 
                     if (isset($config['resource'])) {
                         $this->parseImport($collection, $config, $path, $file);

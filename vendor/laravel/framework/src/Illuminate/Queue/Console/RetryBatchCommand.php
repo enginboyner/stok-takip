@@ -43,7 +43,7 @@ class RetryBatchCommand extends Command
     {
         $batch = $this->laravel[BatchRepository::class]->find($id = $this->argument('id'));
 
-        if (! $batch) {
+        if (!$batch) {
             $this->components->error("Unable to find a batch with ID [{$id}].");
 
             return 1;
@@ -56,7 +56,7 @@ class RetryBatchCommand extends Command
         $this->components->info("Pushing failed queue jobs of the batch [$id] back onto the queue.");
 
         foreach ($batch->failedJobIds as $failedJobId) {
-            $this->components->task($failedJobId, fn () => $this->callSilent('queue:retry', ['id' => $failedJobId]) == 0);
+            $this->components->task($failedJobId, fn() => $this->callSilent('queue:retry', ['id' => $failedJobId]) == 0);
         }
 
         $this->newLine();

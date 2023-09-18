@@ -21,13 +21,14 @@ class Promise implements PromiseInterface
     private $handlers = [];
 
     /**
-     * @param callable $waitFn   Fn that when invoked resolves the promise.
+     * @param callable $waitFn Fn that when invoked resolves the promise.
      * @param callable $cancelFn Fn that when invoked cancels the promise.
      */
     public function __construct(
         callable $waitFn = null,
         callable $cancelFn = null
-    ) {
+    )
+    {
         $this->waitFn = $waitFn;
         $this->cancelFn = $cancelFn;
     }
@@ -35,7 +36,8 @@ class Promise implements PromiseInterface
     public function then(
         callable $onFulfilled = null,
         callable $onRejected = null
-    ): PromiseInterface {
+    ): PromiseInterface
+    {
         if ($this->state === self::PENDING) {
             $p = new Promise(null, [$this, 'cancel']);
             $this->handlers[] = [$p, $onFulfilled, $onRejected];
@@ -181,8 +183,8 @@ class Promise implements PromiseInterface
     /**
      * Call a stack of handlers using a specific callback index and value.
      *
-     * @param int   $index   1 (resolve) or 2 (reject).
-     * @param mixed $value   Value to pass to the callback.
+     * @param int $index 1 (resolve) or 2 (reject).
+     * @param mixed $value Value to pass to the callback.
      * @param array $handler Array of handler data (promise and callbacks).
      */
     private static function callHandler(int $index, $value, array $handler): void
@@ -230,9 +232,9 @@ class Promise implements PromiseInterface
         } else {
             // If there's no wait function, then reject the promise.
             $this->reject('Cannot wait on a promise that has '
-                .'no internal wait function. You must provide a wait '
-                .'function when constructing the promise to be able to '
-                .'wait on a promise.');
+                . 'no internal wait function. You must provide a wait '
+                . 'function when constructing the promise to be able to '
+                . 'wait on a promise.');
         }
 
         Utils::queue()->run();

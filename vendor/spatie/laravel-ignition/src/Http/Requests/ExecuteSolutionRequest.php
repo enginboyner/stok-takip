@@ -31,7 +31,7 @@ class ExecuteSolutionRequest extends FormRequest
     {
         $solution = $this->getSolution();
 
-        if (! $solution instanceof RunnableSolution) {
+        if (!$solution instanceof RunnableSolution) {
             abort(404, 'Runnable solution could not be found');
         }
 

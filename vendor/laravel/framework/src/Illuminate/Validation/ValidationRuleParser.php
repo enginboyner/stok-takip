@@ -29,7 +29,7 @@ class ValidationRuleParser
     /**
      * Create a new validation rule parser.
      *
-     * @param  array  $data
+     * @param array $data
      * @return void
      */
     public function __construct(array $data)
@@ -40,7 +40,7 @@ class ValidationRuleParser
     /**
      * Parse the human-friendly rules into a full rules array for the validator.
      *
-     * @param  array  $rules
+     * @param array $rules
      * @return \stdClass
      */
     public function explode($rules)
@@ -49,7 +49,7 @@ class ValidationRuleParser
 
         $rules = $this->explodeRules($rules);
 
-        return (object) [
+        return (object)[
             'rules' => $rules,
             'implicitAttributes' => $this->implicitAttributes,
         ];
@@ -58,7 +58,7 @@ class ValidationRuleParser
     /**
      * Explode the rules into an array of explicit rules.
      *
-     * @param  array  $rules
+     * @param array $rules
      * @return array
      */
     protected function explodeRules($rules)
@@ -79,8 +79,8 @@ class ValidationRuleParser
     /**
      * Explode the explicit rule into an array if necessary.
      *
-     * @param  mixed  $rule
-     * @param  string  $attribute
+     * @param mixed $rule
+     * @param string $attribute
      * @return array
      */
     protected function explodeExplicitRule($rule, $attribute)
@@ -96,15 +96,15 @@ class ValidationRuleParser
         return array_map(
             [$this, 'prepareRule'],
             $rule,
-            array_fill((int) array_key_first($rule), count($rule), $attribute)
+            array_fill((int)array_key_first($rule), count($rule), $attribute)
         );
     }
 
     /**
      * Prepare the given rule for the Validator.
      *
-     * @param  mixed  $rule
-     * @param  string  $attribute
+     * @param mixed $rule
+     * @param string $attribute
      * @return mixed
      */
     protected function prepareRule($rule, $attribute)
@@ -117,7 +117,7 @@ class ValidationRuleParser
             $rule = InvokableValidationRule::make($rule);
         }
 
-        if (! is_object($rule) ||
+        if (!is_object($rule) ||
             $rule instanceof RuleContract ||
             ($rule instanceof Exists && $rule->queryCallbacks()) ||
             ($rule instanceof Unique && $rule->queryCallbacks())) {
@@ -130,15 +130,15 @@ class ValidationRuleParser
             )->rules[$attribute];
         }
 
-        return (string) $rule;
+        return (string)$rule;
     }
 
     /**
      * Define a set of rules that apply to each element in an array attribute.
      *
-     * @param  array  $results
-     * @param  string  $attribute
-     * @param  string|array  $rules
+     * @param array $results
+     * @param string $attribute
+     * @param string|array $rules
      * @return array
      */
     protected function explodeWildcardRules($results, $attribute, $rules)
@@ -148,8 +148,8 @@ class ValidationRuleParser
         $data = ValidationData::initializeAndGatherData($attribute, $this->data);
 
         foreach ($data as $key => $value) {
-            if (Str::startsWith($key, $attribute) || (bool) preg_match('/^'.$pattern.'\z/', $key)) {
-                foreach ((array) $rules as $rule) {
+            if (Str::startsWith($key, $attribute) || (bool)preg_match('/^' . $pattern . '\z/', $key)) {
+                foreach ((array)$rules as $rule) {
                     if ($rule instanceof NestedRules) {
                         $compiled = $rule->compile($key, $value, $data);
 
@@ -175,15 +175,15 @@ class ValidationRuleParser
     /**
      * Merge additional rules into a given attribute(s).
      *
-     * @param  array  $results
-     * @param  string|array  $attribute
-     * @param  string|array  $rules
+     * @param array $results
+     * @param string|array $attribute
+     * @param string|array $rules
      * @return array
      */
     public function mergeRules($results, $attribute, $rules = [])
     {
         if (is_array($attribute)) {
-            foreach ((array) $attribute as $innerAttribute => $innerRules) {
+            foreach ((array)$attribute as $innerAttribute => $innerRules) {
                 $results = $this->mergeRulesForAttribute($results, $innerAttribute, $innerRules);
             }
 
@@ -198,9 +198,9 @@ class ValidationRuleParser
     /**
      * Merge additional rules into a given attribute.
      *
-     * @param  array  $results
-     * @param  string  $attribute
-     * @param  string|array  $rules
+     * @param array $results
+     * @param string $attribute
+     * @param string|array $rules
      * @return array
      */
     protected function mergeRulesForAttribute($results, $attribute, $rules)
@@ -217,7 +217,7 @@ class ValidationRuleParser
     /**
      * Extract the rule name and parameters from a rule.
      *
-     * @param  array|string  $rule
+     * @param array|string $rule
      * @return array
      */
     public static function parse($rule)
@@ -240,7 +240,7 @@ class ValidationRuleParser
     /**
      * Parse an array based rule.
      *
-     * @param  array  $rule
+     * @param array $rule
      * @return array
      */
     protected static function parseArrayRule(array $rule)
@@ -251,7 +251,7 @@ class ValidationRuleParser
     /**
      * Parse a string based rule.
      *
-     * @param  string  $rule
+     * @param string $rule
      * @return array
      */
     protected static function parseStringRule($rule)
@@ -273,8 +273,8 @@ class ValidationRuleParser
     /**
      * Parse a parameter list.
      *
-     * @param  string  $rule
-     * @param  string  $parameter
+     * @param string $rule
+     * @param string $parameter
      * @return array
      */
     protected static function parseParameters($rule, $parameter)
@@ -285,7 +285,7 @@ class ValidationRuleParser
     /**
      * Determine if the rule is a regular expression.
      *
-     * @param  string  $rule
+     * @param string $rule
      * @return bool
      */
     protected static function ruleIsRegex($rule)
@@ -296,7 +296,7 @@ class ValidationRuleParser
     /**
      * Normalizes a rule so that we can accept short types.
      *
-     * @param  string  $rule
+     * @param string $rule
      * @return string
      */
     protected static function normalizeRule($rule)
@@ -311,26 +311,26 @@ class ValidationRuleParser
     /**
      * Expand and conditional rules in the given array of rules.
      *
-     * @param  array  $rules
-     * @param  array  $data
+     * @param array $rules
+     * @param array $data
      * @return array
      */
     public static function filterConditionalRules($rules, array $data = [])
     {
         return collect($rules)->mapWithKeys(function ($attributeRules, $attribute) use ($data) {
-            if (! is_array($attributeRules) &&
-                ! $attributeRules instanceof ConditionalRules) {
+            if (!is_array($attributeRules) &&
+                !$attributeRules instanceof ConditionalRules) {
                 return [$attribute => $attributeRules];
             }
 
             if ($attributeRules instanceof ConditionalRules) {
                 return [$attribute => $attributeRules->passes($data)
-                                ? array_filter($attributeRules->rules($data))
-                                : array_filter($attributeRules->defaultRules($data)), ];
+                    ? array_filter($attributeRules->rules($data))
+                    : array_filter($attributeRules->defaultRules($data)),];
             }
 
             return [$attribute => collect($attributeRules)->map(function ($rule) use ($data) {
-                if (! $rule instanceof ConditionalRules) {
+                if (!$rule instanceof ConditionalRules) {
                     return [$rule];
                 }
 

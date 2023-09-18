@@ -52,7 +52,7 @@ class TemplateHelper
     /**
      * Escapes a string for output in an HTML document
      *
-     * @param  string $raw
+     * @param string $raw
      * @return string
      */
     public function escape($raw)
@@ -80,7 +80,7 @@ class TemplateHelper
      * Escapes a string for output in an HTML document, but preserves
      * URIs within it, and converts them to clickable anchor elements.
      *
-     * @param  string $raw
+     * @param string $raw
      * @return string
      */
     public function escapeButPreserveUris($raw)
@@ -96,8 +96,8 @@ class TemplateHelper
     /**
      * Makes sure that the given string breaks on the delimiter.
      *
-     * @param  string $delimiter
-     * @param  string $s
+     * @param string $delimiter
+     * @param string $s
      * @return string
      */
     public function breakOnDelimiter($delimiter, $s)
@@ -113,7 +113,7 @@ class TemplateHelper
     /**
      * Replace the part of the path that all files have in common.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     public function shorten($path)
@@ -155,7 +155,7 @@ class TemplateHelper
     /**
      * Format the given value into a human readable string.
      *
-     * @param  mixed $value
+     * @param mixed $value
      * @return string
      */
     public function dump($value)
@@ -189,7 +189,7 @@ class TemplateHelper
     /**
      * Format the args of the given Frame as a human readable html string
      *
-     * @param  Frame $frame
+     * @param Frame $frame
      * @return string the rendered html
      */
     public function dumpArgs(Frame $frame)
@@ -205,7 +205,7 @@ class TemplateHelper
         if ($numFrames > 0) {
             $html = '<ol class="linenums">';
             foreach ($frame->getArgs() as $j => $frameArg) {
-                $html .= '<li>'. $this->dump($frameArg) .'</li>';
+                $html .= '<li>' . $this->dump($frameArg) . '</li>';
             }
             $html .= '</ol>';
         }
@@ -216,7 +216,7 @@ class TemplateHelper
     /**
      * Convert a string to a slug version of itself
      *
-     * @param  string $original
+     * @param string $original
      * @return string
      */
     public function slug($original)
@@ -263,7 +263,7 @@ class TemplateHelper
      * Sets a single template variable, by its name:
      *
      * @param string $variableName
-     * @param mixed  $variableValue
+     * @param mixed $variableValue
      */
     public function setVariable($variableName, $variableValue)
     {
@@ -274,8 +274,8 @@ class TemplateHelper
      * Gets a single template variable, by its name, or
      * $defaultValue if the variable does not exist
      *
-     * @param  string $variableName
-     * @param  mixed  $defaultValue
+     * @param string $variableName
+     * @param mixed $defaultValue
      * @return mixed
      */
     public function getVariable($variableName, $defaultValue = null)

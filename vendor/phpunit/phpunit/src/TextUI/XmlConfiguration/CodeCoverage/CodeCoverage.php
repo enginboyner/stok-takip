@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration\CodeCoverage;
 
 use function count;
@@ -116,23 +117,23 @@ final class CodeCoverage
 
     public function __construct(?Directory $cacheDirectory, DirectoryCollection $directories, FileCollection $files, DirectoryCollection $excludeDirectories, FileCollection $excludeFiles, bool $pathCoverage, bool $includeUncoveredFiles, bool $processUncoveredFiles, bool $ignoreDeprecatedCodeUnits, bool $disableCodeCoverageIgnore, ?Clover $clover, ?Cobertura $cobertura, ?Crap4j $crap4j, ?Html $html, ?Php $php, ?Text $text, ?Xml $xml)
     {
-        $this->cacheDirectory            = $cacheDirectory;
-        $this->directories               = $directories;
-        $this->files                     = $files;
-        $this->excludeDirectories        = $excludeDirectories;
-        $this->excludeFiles              = $excludeFiles;
-        $this->pathCoverage              = $pathCoverage;
-        $this->includeUncoveredFiles     = $includeUncoveredFiles;
-        $this->processUncoveredFiles     = $processUncoveredFiles;
+        $this->cacheDirectory = $cacheDirectory;
+        $this->directories = $directories;
+        $this->files = $files;
+        $this->excludeDirectories = $excludeDirectories;
+        $this->excludeFiles = $excludeFiles;
+        $this->pathCoverage = $pathCoverage;
+        $this->includeUncoveredFiles = $includeUncoveredFiles;
+        $this->processUncoveredFiles = $processUncoveredFiles;
         $this->ignoreDeprecatedCodeUnits = $ignoreDeprecatedCodeUnits;
         $this->disableCodeCoverageIgnore = $disableCodeCoverageIgnore;
-        $this->clover                    = $clover;
-        $this->cobertura                 = $cobertura;
-        $this->crap4j                    = $crap4j;
-        $this->html                      = $html;
-        $this->php                       = $php;
-        $this->text                      = $text;
-        $this->xml                       = $xml;
+        $this->clover = $clover;
+        $this->cobertura = $cobertura;
+        $this->crap4j = $crap4j;
+        $this->html = $html;
+        $this->php = $php;
+        $this->text = $text;
+        $this->xml = $xml;
     }
 
     /**

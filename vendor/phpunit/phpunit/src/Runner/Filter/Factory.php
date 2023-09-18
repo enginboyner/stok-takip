@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Filter;
 
 use function assert;
@@ -51,7 +52,7 @@ final class Factory
     {
         foreach ($this->filters as $filter) {
             [$class, $args] = $filter;
-            $iterator       = $class->newInstance($iterator, $args, $suite);
+            $iterator = $class->newInstance($iterator, $args, $suite);
         }
 
         assert($iterator instanceof FilterIterator);

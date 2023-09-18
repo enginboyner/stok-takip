@@ -18,7 +18,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $throwable instanceof ViewException) {
+        if (!$throwable instanceof ViewException) {
             return false;
         }
 
@@ -29,15 +29,15 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
     {
         $solutions = [];
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         extract($this->getNameAndView($throwable));
 
-        if (! isset($variableName)) {
+        if (!isset($variableName)) {
             return [];
         }
 
         if (isset($viewFile)) {
-            /** @phpstan-ignore-next-line  */
+            /** @phpstan-ignore-next-line */
             $solutions = $this->findCorrectVariableSolutions($throwable, $variableName, $viewFile);
             $solutions[] = $this->findOptionalVariableSolution($variableName, $viewFile);
         }
@@ -55,9 +55,10 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
      */
     protected function findCorrectVariableSolutions(
         ViewException $throwable,
-        string $variableName,
-        string $viewFile
-    ): array {
+        string        $variableName,
+        string        $viewFile
+    ): array
+    {
         return collect($throwable->getViewData())
             ->map(function ($value, $key) use ($variableName) {
                 similar_text($variableName, $key, $percentage);
@@ -65,9 +66,9 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
                 return ['match' => $percentage, 'value' => $value];
             })
             ->sortByDesc('match')
-            ->filter(fn ($var) => $var['match'] > 40)
+            ->filter(fn($var) => $var['match'] > 40)
             ->keys()
-            ->map(fn ($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
+            ->map(fn($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
             ->map(function ($solution) {
                 return $solution->isRunnable()
                     ? $solution

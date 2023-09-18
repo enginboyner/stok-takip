@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function assert;
@@ -142,12 +143,13 @@ final class TestBuilder
     private function buildDataProviderTestSuite(
         string $methodName,
         string $className,
-        $data,
-        bool $runTestInSeparateProcess,
-        ?bool $preserveGlobalState,
-        bool $runClassInSeparateProcess,
-        array $backupSettings
-    ): DataProviderTestSuite {
+               $data,
+        bool   $runTestInSeparateProcess,
+        ?bool  $preserveGlobalState,
+        bool   $runClassInSeparateProcess,
+        array  $backupSettings
+    ): DataProviderTestSuite
+    {
         $dataProviderTestSuite = new DataProviderTestSuite(
             $className . '::' . $methodName,
         );
@@ -181,11 +183,12 @@ final class TestBuilder
 
     private function configureTestCase(
         TestCase $test,
-        bool $runTestInSeparateProcess,
-        ?bool $preserveGlobalState,
-        bool $runClassInSeparateProcess,
-        array $backupSettings
-    ): void {
+        bool     $runTestInSeparateProcess,
+        ?bool    $preserveGlobalState,
+        bool     $runClassInSeparateProcess,
+        array    $backupSettings
+    ): void
+    {
         if ($runTestInSeparateProcess) {
             $test->setRunTestInSeparateProcess(true);
 

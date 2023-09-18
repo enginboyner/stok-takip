@@ -243,9 +243,9 @@ class Miscellaneous extends Base
     }
 
     /**
+     * @return string
      * @example 'cfcd208495d565ef66e7dff9f98764da'
      *
-     * @return string
      */
     public static function md5()
     {
@@ -253,9 +253,9 @@ class Miscellaneous extends Base
     }
 
     /**
+     * @return string
      * @example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
      *
-     * @return string
      */
     public static function sha1()
     {
@@ -263,9 +263,9 @@ class Miscellaneous extends Base
     }
 
     /**
+     * @return string
      * @example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
      *
-     * @return string
      */
     public static function sha256()
     {
@@ -273,9 +273,9 @@ class Miscellaneous extends Base
     }
 
     /**
+     * @return string
      * @example 'fr_FR'
      *
-     * @return string
      */
     public static function locale()
     {
@@ -283,11 +283,11 @@ class Miscellaneous extends Base
     }
 
     /**
-     * @example 'FR'
-     *
+     * @return string
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      *
-     * @return string
+     * @example 'FR'
+     *
      */
     public static function countryCode()
     {
@@ -295,11 +295,11 @@ class Miscellaneous extends Base
     }
 
     /**
-     * @example 'FRA'
-     *
+     * @return string
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
      *
-     * @return string
+     * @example 'FRA'
+     *
      */
     public static function countryISOAlpha3()
     {
@@ -307,9 +307,9 @@ class Miscellaneous extends Base
     }
 
     /**
+     * @return string
      * @example 'fr'
      *
-     * @return string
      */
     public static function languageCode()
     {
@@ -317,11 +317,11 @@ class Miscellaneous extends Base
     }
 
     /**
-     * @example 'EUR'
-     *
+     * @return string
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      *
-     * @return string
+     * @example 'EUR'
+     *
      */
     public static function currencyCode()
     {

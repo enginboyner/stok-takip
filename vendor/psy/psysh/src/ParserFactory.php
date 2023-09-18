@@ -59,7 +59,7 @@ class ParserFactory
             throw new \InvalidArgumentException('Unknown parser kind');
         }
 
-        $parser = $originalFactory->create(\constant(OriginalParserFactory::class.'::'.$kind));
+        $parser = $originalFactory->create(\constant(OriginalParserFactory::class . '::' . $kind));
 
         return $parser;
     }

@@ -50,8 +50,9 @@ class FileLink extends File
         string $streamName,
         string $mode,
         string $context = null,
-        bool $wait = false
-    ) {
+        bool   $wait = false
+    )
+    {
         if (!\is_link($streamName)) {
             throw new FileException('File %s is not a link.', 0, $streamName);
         }
@@ -98,11 +99,11 @@ class FileLink extends File
      */
     public function getTarget(): FileGeneric
     {
-        $target = \dirname($this->getStreamName()).\DIRECTORY_SEPARATOR.
-                   $this->getTargetName();
+        $target = \dirname($this->getStreamName()) . \DIRECTORY_SEPARATOR .
+            $this->getTargetName();
         $context = null !== $this->getStreamContext()
-                       ? $this->getStreamContext()->getCurrentId()
-                       : null;
+            ? $this->getStreamContext()->getCurrentId()
+            : null;
 
         if (true === \is_link($target)) {
             return new FileLinkReadWrite(
@@ -124,7 +125,7 @@ class FileLink extends File
             );
         }
 
-        throw new FileException('Cannot find an appropriated object that matches with '.'path %s when defining it.', 1, $target);
+        throw new FileException('Cannot find an appropriated object that matches with ' . 'path %s when defining it.', 1, $target);
     }
 
     /**

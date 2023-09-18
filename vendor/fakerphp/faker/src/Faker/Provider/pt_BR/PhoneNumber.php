@@ -89,8 +89,8 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
     /**
      * Generates a complete phone number.
      *
-     * @param string $type      [def: landline] One of "landline" or "cellphone". Defaults to "landline" on invalid values.
-     * @param bool   $formatted [def: true] If the number should be formatted or not.
+     * @param string $type [def: landline] One of "landline" or "cellphone". Defaults to "landline" on invalid values.
+     * @param bool $formatted [def: true] If the number should be formatted or not.
      *
      * @return string
      */

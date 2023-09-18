@@ -39,8 +39,9 @@ class GuidBuilder implements UuidBuilderInterface
      */
     public function __construct(
         private NumberConverterInterface $numberConverter,
-        private TimeConverterInterface $timeConverter
-    ) {
+        private TimeConverterInterface   $timeConverter
+    )
+    {
     }
 
     /**
@@ -63,7 +64,7 @@ class GuidBuilder implements UuidBuilderInterface
                 $this->timeConverter
             );
         } catch (Throwable $e) {
-            throw new UnableToBuildUuidException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new UnableToBuildUuidException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 

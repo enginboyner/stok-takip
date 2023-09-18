@@ -24,7 +24,7 @@ class ArrayArgumentReducer implements ReducedArgumentContract
 
     public function execute($argument): ReducedArgumentContract
     {
-        if (! is_array($argument)) {
+        if (!is_array($argument)) {
             return UnReducedArgument::create();
         }
 

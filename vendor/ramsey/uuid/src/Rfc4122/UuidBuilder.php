@@ -50,9 +50,10 @@ class UuidBuilder implements UuidBuilderInterface
      */
     public function __construct(
         private NumberConverterInterface $numberConverter,
-        private TimeConverterInterface $timeConverter,
-        ?TimeConverterInterface $unixTimeConverter = null
-    ) {
+        private TimeConverterInterface   $timeConverter,
+        ?TimeConverterInterface          $unixTimeConverter = null
+    )
+    {
         $this->unixTimeConverter = $unixTimeConverter ?? new UnixTimeConverter(new BrickMathCalculator());
     }
 
@@ -104,7 +105,7 @@ class UuidBuilder implements UuidBuilderInterface
                 . 'by this UUID builder'
             );
         } catch (Throwable $e) {
-            throw new UnableToBuildUuidException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new UnableToBuildUuidException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 

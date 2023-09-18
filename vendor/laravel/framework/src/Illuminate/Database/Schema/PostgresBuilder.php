@@ -13,7 +13,7 @@ class PostgresBuilder extends Builder
     /**
      * Create a database in the schema.
      *
-     * @param  string  $name
+     * @param string $name
      * @return bool
      */
     public function createDatabase($name)
@@ -26,7 +26,7 @@ class PostgresBuilder extends Builder
     /**
      * Drop a database from the schema if the database exists.
      *
-     * @param  string  $name
+     * @param string $name
      * @return bool
      */
     public function dropDatabaseIfExists($name)
@@ -39,18 +39,18 @@ class PostgresBuilder extends Builder
     /**
      * Determine if the given table exists.
      *
-     * @param  string  $table
+     * @param string $table
      * @return bool
      */
     public function hasTable($table)
     {
         [$database, $schema, $table] = $this->parseSchemaAndTable($table);
 
-        $table = $this->connection->getTablePrefix().$table;
+        $table = $this->connection->getTablePrefix() . $table;
 
         return count($this->connection->selectFromWriteConnection(
-            $this->grammar->compileTableExists(), [$database, $schema, $table]
-        )) > 0;
+                $this->grammar->compileTableExists(), [$database, $schema, $table]
+            )) > 0;
     }
 
     /**
@@ -67,7 +67,7 @@ class PostgresBuilder extends Builder
         );
 
         foreach ($this->getAllTables() as $row) {
-            $row = (array) $row;
+            $row = (array)$row;
 
             if (empty(array_intersect($this->grammar->escapeNames($row), $excludedTables))) {
                 $tables[] = $row['qualifiedname'] ?? reset($row);
@@ -93,7 +93,7 @@ class PostgresBuilder extends Builder
         $views = [];
 
         foreach ($this->getAllViews() as $row) {
-            $row = (array) $row;
+            $row = (array)$row;
 
             $views[] = $row['qualifiedname'] ?? reset($row);
         }
@@ -117,7 +117,7 @@ class PostgresBuilder extends Builder
         $types = [];
 
         foreach ($this->getAllTypes() as $row) {
-            $row = (array) $row;
+            $row = (array)$row;
 
             $types[] = reset($row);
         }
@@ -178,14 +178,14 @@ class PostgresBuilder extends Builder
     /**
      * Get the column listing for a given table.
      *
-     * @param  string  $table
+     * @param string $table
      * @return array
      */
     public function getColumnListing($table)
     {
         [$database, $schema, $table] = $this->parseSchemaAndTable($table);
 
-        $table = $this->connection->getTablePrefix().$table;
+        $table = $this->connection->getTablePrefix() . $table;
 
         $results = $this->connection->selectFromWriteConnection(
             $this->grammar->compileColumnListing(), [$database, $schema, $table]
@@ -197,7 +197,7 @@ class PostgresBuilder extends Builder
     /**
      * Parse the database object reference and extract the database, schema, and table.
      *
-     * @param  string  $reference
+     * @param string $reference
      * @return array
      */
     protected function parseSchemaAndTable($reference)
@@ -234,7 +234,7 @@ class PostgresBuilder extends Builder
     /**
      * Parse the "search_path" configuration value into an array.
      *
-     * @param  string|array|null  $searchPath
+     * @param string|array|null $searchPath
      * @return array
      */
     protected function parseSearchPath($searchPath)

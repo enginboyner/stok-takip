@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Diff;
 
 use function array_reverse;
@@ -21,11 +22,11 @@ final class TimeEfficientLongestCommonSubsequenceCalculator implements LongestCo
      */
     public function calculate(array $from, array $to): array
     {
-        $common     = [];
+        $common = [];
         $fromLength = count($from);
-        $toLength   = count($to);
-        $width      = $fromLength + 1;
-        $matrix     = new SplFixedArray($width * ($toLength + 1));
+        $toLength = count($to);
+        $width = $fromLength + 1;
+        $matrix = new SplFixedArray($width * ($toLength + 1));
 
         for ($i = 0; $i <= $fromLength; ++$i) {
             $matrix[$i] = 0;

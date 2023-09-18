@@ -33,9 +33,9 @@ class Guard
     /**
      * Create a new guard instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @param  int  $expiration
-     * @param  string  $provider
+     * @param \Illuminate\Contracts\Auth\Factory $auth
+     * @param int $expiration
+     * @param string $provider
      * @return void
      */
     public function __construct(AuthFactory $auth, $expiration = null, $provider = null)
@@ -48,7 +48,7 @@ class Guard
     /**
      * Retrieve the authenticated user for the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return mixed
      */
     public function __invoke(Request $request)
@@ -66,8 +66,8 @@ class Guard
 
             $accessToken = $model::findToken($token);
 
-            if (! $this->isValidAccessToken($accessToken) ||
-                ! $this->supportsTokens($accessToken->tokenable)) {
+            if (!$this->isValidAccessToken($accessToken) ||
+                !$this->supportsTokens($accessToken->tokenable)) {
                 return;
             }
 
@@ -95,26 +95,26 @@ class Guard
     /**
      * Determine if the tokenable model supports API tokens.
      *
-     * @param  mixed  $tokenable
+     * @param mixed $tokenable
      * @return bool
      */
     protected function supportsTokens($tokenable = null)
     {
         return $tokenable && in_array(HasApiTokens::class, class_uses_recursive(
-            get_class($tokenable)
-        ));
+                get_class($tokenable)
+            ));
     }
 
     /**
      * Get the token from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return string|null
      */
     protected function getTokenFromRequest(Request $request)
     {
         if (is_callable(Sanctum::$accessTokenRetrievalCallback)) {
-            return (string) (Sanctum::$accessTokenRetrievalCallback)($request);
+            return (string)(Sanctum::$accessTokenRetrievalCallback)($request);
         }
 
         $token = $request->bearerToken();
@@ -125,43 +125,43 @@ class Guard
     /**
      * Determine if the bearer token is in the correct format.
      *
-     * @param  string|null  $token
+     * @param string|null $token
      * @return bool
      */
     protected function isValidBearerToken(string $token = null)
     {
-        if (! is_null($token) && str_contains($token, '|')) {
+        if (!is_null($token) && str_contains($token, '|')) {
             $model = new Sanctum::$personalAccessTokenModel;
 
             if ($model->getKeyType() === 'int') {
                 [$id, $token] = explode('|', $token, 2);
 
-                return ctype_digit($id) && ! empty($token);
+                return ctype_digit($id) && !empty($token);
             }
         }
 
-        return ! empty($token);
+        return !empty($token);
     }
 
     /**
      * Determine if the provided access token is valid.
      *
-     * @param  mixed  $accessToken
+     * @param mixed $accessToken
      * @return bool
      */
     protected function isValidAccessToken($accessToken): bool
     {
-        if (! $accessToken) {
+        if (!$accessToken) {
             return false;
         }
 
         $isValid =
-            (! $this->expiration || $accessToken->created_at->gt(now()->subMinutes($this->expiration)))
-            && (! $accessToken->expires_at || ! $accessToken->expires_at->isPast())
+            (!$this->expiration || $accessToken->created_at->gt(now()->subMinutes($this->expiration)))
+            && (!$accessToken->expires_at || !$accessToken->expires_at->isPast())
             && $this->hasValidProvider($accessToken->tokenable);
 
         if (is_callable(Sanctum::$accessTokenAuthenticationCallback)) {
-            $isValid = (bool) (Sanctum::$accessTokenAuthenticationCallback)($accessToken, $isValid);
+            $isValid = (bool)(Sanctum::$accessTokenAuthenticationCallback)($accessToken, $isValid);
         }
 
         return $isValid;
@@ -170,7 +170,7 @@ class Guard
     /**
      * Determine if the tokenable model matches the provider's model type.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $tokenable
+     * @param \Illuminate\Database\Eloquent\Model $tokenable
      * @return bool
      */
     protected function hasValidProvider($tokenable)

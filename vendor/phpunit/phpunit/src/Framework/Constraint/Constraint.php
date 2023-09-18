@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function sprintf;
@@ -93,8 +94,8 @@ abstract class Constraint implements Countable, SelfDescribing
     /**
      * Throws an exception for the given compared value and test description.
      *
-     * @param mixed             $other             evaluated value or object
-     * @param string            $description       Additional information about the test
+     * @param mixed $other evaluated value or object
+     * @param string $description Additional information about the test
      * @param ComparisonFailure $comparisonFailure
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -169,7 +170,7 @@ abstract class Constraint implements Countable, SelfDescribing
      * customization by itself.
      *
      * @param Operator $operator the $operator of the expression
-     * @param mixed    $role     role of $this constraint in the $operator expression
+     * @param mixed $role role of $this constraint in the $operator expression
      */
     protected function toStringInContext(Operator $operator, $role): string
     {
@@ -189,8 +190,8 @@ abstract class Constraint implements Countable, SelfDescribing
      * customization by itself.
      *
      * @param Operator $operator the $operator of the expression
-     * @param mixed    $role     role of $this constraint in the $operator expression
-     * @param mixed    $other    evaluated value or object
+     * @param mixed $role role of $this constraint in the $operator expression
+     * @param mixed $other evaluated value or object
      */
     protected function failureDescriptionInContext(Operator $operator, $role, $other): string
     {

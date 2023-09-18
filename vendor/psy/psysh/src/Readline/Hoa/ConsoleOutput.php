@@ -86,8 +86,8 @@ class ConsoleOutput implements StreamOut
         if (true === $this->isMultiplexerConsidered()) {
             if (true === Console::isTmuxRunning()) {
                 $out =
-                    "\033Ptmux;".
-                    \str_replace("\033", "\033\033", $out).
+                    "\033Ptmux;" .
+                    \str_replace("\033", "\033\033", $out) .
                     "\033\\";
             }
 
@@ -106,7 +106,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeString(string $string)
     {
-        $string = (string) $string;
+        $string = (string)$string;
 
         return $this->write($string, \strlen($string));
     }
@@ -116,7 +116,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeCharacter(string $character)
     {
-        return $this->write((string) $character[0], 1);
+        return $this->write((string)$character[0], 1);
     }
 
     /**
@@ -124,7 +124,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeBoolean(bool $boolean)
     {
-        return $this->write(((bool) $boolean) ? '1' : '0', 1);
+        return $this->write(((bool)$boolean) ? '1' : '0', 1);
     }
 
     /**
@@ -132,7 +132,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeInteger(int $integer)
     {
-        $integer = (string) (int) $integer;
+        $integer = (string)(int)$integer;
 
         return $this->write($integer, \strlen($integer));
     }
@@ -142,7 +142,7 @@ class ConsoleOutput implements StreamOut
      */
     public function writeFloat(float $float)
     {
-        $float = (string) (float) $float;
+        $float = (string)(float)$float;
 
         return $this->write($float, \strlen($float));
     }
@@ -163,7 +163,7 @@ class ConsoleOutput implements StreamOut
     public function writeLine(string $line)
     {
         if (false === $n = \strpos($line, "\n")) {
-            return $this->write($line."\n", \strlen($line) + 1);
+            return $this->write($line . "\n", \strlen($line) + 1);
         }
 
         ++$n;

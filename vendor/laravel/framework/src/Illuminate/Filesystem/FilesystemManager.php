@@ -51,7 +51,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Create a new filesystem manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
      * @return void
      */
     public function __construct($app)
@@ -62,7 +62,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Get a filesystem instance.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function drive($name = null)
@@ -73,7 +73,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Get a filesystem instance.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function disk($name = null)
@@ -98,7 +98,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Build an on-demand disk.
      *
-     * @param  string|array  $config
+     * @param string|array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function build($config)
@@ -112,7 +112,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Attempt to get the disk from the local cache.
      *
-     * @param  string  $name
+     * @param string $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     protected function get($name)
@@ -123,8 +123,8 @@ class FilesystemManager implements FactoryContract
     /**
      * Resolve the given disk.
      *
-     * @param  string  $name
-     * @param  array|null  $config
+     * @param string $name
+     * @param array|null $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      *
      * @throws \InvalidArgumentException
@@ -143,9 +143,9 @@ class FilesystemManager implements FactoryContract
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create'.ucfirst($name).'Driver';
+        $driverMethod = 'create' . ucfirst($name) . 'Driver';
 
-        if (! method_exists($this, $driverMethod)) {
+        if (!method_exists($this, $driverMethod)) {
             throw new InvalidArgumentException("Driver [{$name}] is not supported.");
         }
 
@@ -155,7 +155,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Call a custom driver creator.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     protected function callCustomCreator(array $config)
@@ -166,7 +166,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Create an instance of the local driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function createLocalDriver(array $config)
@@ -190,12 +190,12 @@ class FilesystemManager implements FactoryContract
     /**
      * Create an instance of the ftp driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function createFtpDriver(array $config)
     {
-        if (! isset($config['root'])) {
+        if (!isset($config['root'])) {
             $config['root'] = '';
         }
 
@@ -207,7 +207,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Create an instance of the sftp driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function createSftpDriver(array $config)
@@ -228,14 +228,14 @@ class FilesystemManager implements FactoryContract
     /**
      * Create an instance of the Amazon S3 driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Cloud
      */
     public function createS3Driver(array $config)
     {
         $s3Config = $this->formatS3Config($config);
 
-        $root = (string) ($s3Config['root'] ?? '');
+        $root = (string)($s3Config['root'] ?? '');
 
         $visibility = new AwsS3PortableVisibilityConverter(
             $config['visibility'] ?? Visibility::PUBLIC
@@ -255,14 +255,14 @@ class FilesystemManager implements FactoryContract
     /**
      * Format the given S3 configuration with the default options.
      *
-     * @param  array  $config
+     * @param array $config
      * @return array
      */
     protected function formatS3Config(array $config)
     {
         $config += ['version' => 'latest'];
 
-        if (! empty($config['key']) && ! empty($config['secret'])) {
+        if (!empty($config['key']) && !empty($config['secret'])) {
             $config['credentials'] = Arr::only($config, ['key', 'secret', 'token']);
         }
 
@@ -272,7 +272,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Create a scoped driver.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function createScopedDriver(array $config)
@@ -285,15 +285,15 @@ class FilesystemManager implements FactoryContract
 
         return $this->build(tap(
             $this->getConfig($config['disk']),
-            fn (&$parent) => $parent['prefix'] = $config['prefix']
+            fn(&$parent) => $parent['prefix'] = $config['prefix']
         ));
     }
 
     /**
      * Create a Flysystem instance with the given adapter.
      *
-     * @param  \League\Flysystem\FilesystemAdapter  $adapter
-     * @param  array  $config
+     * @param \League\Flysystem\FilesystemAdapter $adapter
+     * @param array $config
      * @return \League\Flysystem\FilesystemOperator
      */
     protected function createFlysystem(FlysystemAdapter $adapter, array $config)
@@ -302,7 +302,7 @@ class FilesystemManager implements FactoryContract
             $adapter = new ReadOnlyFilesystemAdapter($adapter);
         }
 
-        if (! empty($config['prefix'])) {
+        if (!empty($config['prefix'])) {
             $adapter = new PathPrefixedAdapter($adapter, $config['prefix']);
         }
 
@@ -318,8 +318,8 @@ class FilesystemManager implements FactoryContract
     /**
      * Set the given disk instance.
      *
-     * @param  string  $name
-     * @param  mixed  $disk
+     * @param string $name
+     * @param mixed $disk
      * @return $this
      */
     public function set($name, $disk)
@@ -332,7 +332,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Get the filesystem connection configuration.
      *
-     * @param  string  $name
+     * @param string $name
      * @return array
      */
     protected function getConfig($name)
@@ -363,12 +363,12 @@ class FilesystemManager implements FactoryContract
     /**
      * Unset the given disk instances.
      *
-     * @param  array|string  $disk
+     * @param array|string $disk
      * @return $this
      */
     public function forgetDisk($disk)
     {
-        foreach ((array) $disk as $diskName) {
+        foreach ((array)$disk as $diskName) {
             unset($this->disks[$diskName]);
         }
 
@@ -378,7 +378,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Disconnect the given disk and remove from local cache.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return void
      */
     public function purge($name = null)
@@ -391,8 +391,8 @@ class FilesystemManager implements FactoryContract
     /**
      * Register a custom driver creator Closure.
      *
-     * @param  string  $driver
-     * @param  \Closure  $callback
+     * @param string $driver
+     * @param \Closure $callback
      * @return $this
      */
     public function extend($driver, Closure $callback)
@@ -405,7 +405,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Set the application instance used by the manager.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
      * @return $this
      */
     public function setApplication($app)
@@ -418,8 +418,8 @@ class FilesystemManager implements FactoryContract
     /**
      * Dynamically call the default driver instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

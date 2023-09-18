@@ -57,8 +57,9 @@ class UnixTimeGenerator implements TimeGeneratorInterface
 
     public function __construct(
         private RandomGeneratorInterface $randomGenerator,
-        private int $intSize = PHP_INT_SIZE
-    ) {
+        private int                      $intSize = PHP_INT_SIZE
+    )
+    {
     }
 
     /**
@@ -80,7 +81,7 @@ class UnixTimeGenerator implements TimeGeneratorInterface
         }
 
         if ($this->intSize >= 8) {
-            $time = substr(pack('J', (int) $time), -6);
+            $time = substr(pack('J', (int)$time), -6);
         } else {
             $time = str_pad(BigInteger::of($time)->toBytes(false), 6, "\x00", STR_PAD_LEFT);
         }
@@ -150,15 +151,15 @@ class UnixTimeGenerator implements TimeGeneratorInterface
 
         if (0xfc00 & self::$rand[1]) {
             $time = self::$time;
-            $mtime = (int) substr($time, -9);
+            $mtime = (int)substr($time, -9);
 
             if ($this->intSize >= 8 || strlen($time) < 10) {
-                $time = (string) ((int) $time + 1);
+                $time = (string)((int)$time + 1);
             } elseif ($mtime === 999999999) {
-                $time = (1 + (int) substr($time, 0, -9)) . '000000000';
+                $time = (1 + (int)substr($time, 0, -9)) . '000000000';
             } else {
                 $mtime++;
-                $time = substr_replace($time, str_pad((string) $mtime, 9, '0', STR_PAD_LEFT), -9);
+                $time = substr_replace($time, str_pad((string)$mtime, 9, '0', STR_PAD_LEFT), -9);
             }
 
             $this->randomize($time);

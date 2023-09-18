@@ -51,7 +51,7 @@ final class Question
     /**
      * Renders a prompt to the user.
      *
-     * @param  iterable<array-key, string>|null  $autocomplete
+     * @param iterable<array-key, string>|null $autocomplete
      */
     public function ask(string $question, iterable $autocomplete = null): mixed
     {

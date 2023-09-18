@@ -19,11 +19,11 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $throwable instanceof BadMethodCallException) {
+        if (!$throwable instanceof BadMethodCallException) {
             return false;
         }
 
-        return ! is_null($this->getMethodFromExceptionMessage($throwable->getMessage()));
+        return !is_null($this->getMethodFromExceptionMessage($throwable->getMessage()));
     }
 
     public function getSolutions(Throwable $throwable): array
@@ -55,7 +55,7 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
 
     protected function getMethodFromExceptionMessage(string $message): ?string
     {
-        if (! preg_match(self::REGEX, $message, $matches)) {
+        if (!preg_match(self::REGEX, $message, $matches)) {
             return null;
         }
 
@@ -68,11 +68,11 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
 
         $extensions = Collection::make((app('validator')->make([], []))->extensions)
             ->keys()
-            ->map(fn (string $extension) => 'validate'.Str::studly($extension));
+            ->map(fn(string $extension) => 'validate' . Str::studly($extension));
 
         return Collection::make($class->getMethods())
-            ->filter(fn (ReflectionMethod $method) => preg_match('/(validate(?!(Attribute|UsingCustomRule))[A-Z][a-zA-Z]+)/', $method->name))
-            ->map(fn (ReflectionMethod $method) => $method->name)
+            ->filter(fn(ReflectionMethod $method) => preg_match('/(validate(?!(Attribute|UsingCustomRule))[A-Z][a-zA-Z]+)/', $method->name))
+            ->map(fn(ReflectionMethod $method) => $method->name)
             ->merge($extensions);
     }
 }

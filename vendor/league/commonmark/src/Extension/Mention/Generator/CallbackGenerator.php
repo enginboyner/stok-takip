@@ -41,7 +41,7 @@ final class CallbackGenerator implements MentionGeneratorInterface
             return null;
         }
 
-        if ($result instanceof AbstractInline && ! ($result instanceof Mention)) {
+        if ($result instanceof AbstractInline && !($result instanceof Mention)) {
             return $result;
         }
 

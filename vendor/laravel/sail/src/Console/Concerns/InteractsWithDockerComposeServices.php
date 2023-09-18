@@ -45,7 +45,7 @@ trait InteractsWithDockerComposeServices
     /**
      * Build the Docker Compose file.
      *
-     * @param  array  $services
+     * @param array $services
      * @return void
      */
     protected function buildDockerCompose(array $services)
@@ -57,8 +57,8 @@ trait InteractsWithDockerComposeServices
             : Yaml::parse(file_get_contents(__DIR__ . '/../../../stubs/docker-compose.stub'));
 
         // Adds the new services as dependencies of the laravel.test service...
-        if (! array_key_exists('laravel.test', $compose['services'])) {
-            $this->warn('Couldn\'t find the laravel.test service. Make sure you add ['.implode(',', $services).'] to the depends_on config.');
+        if (!array_key_exists('laravel.test', $compose['services'])) {
+            $this->warn('Couldn\'t find the laravel.test service. Make sure you add [' . implode(',', $services) . '] to the depends_on config.');
         } else {
             $compose['services']['laravel.test']['depends_on'] = collect($compose['services']['laravel.test']['depends_on'] ?? [])
                 ->merge($services)
@@ -70,7 +70,7 @@ trait InteractsWithDockerComposeServices
         // Add the services to the docker-compose.yml...
         collect($services)
             ->filter(function ($service) use ($compose) {
-                return ! array_key_exists($service, $compose['services'] ?? []);
+                return !array_key_exists($service, $compose['services'] ?? []);
             })->each(function ($service) use (&$compose) {
                 $compose['services'][$service] = Yaml::parseFile(__DIR__ . "/../../../stubs/{$service}.stub")[$service];
             });
@@ -80,7 +80,7 @@ trait InteractsWithDockerComposeServices
             ->filter(function ($service) {
                 return in_array($service, ['mysql', 'pgsql', 'mariadb', 'redis', 'meilisearch', 'minio']);
             })->filter(function ($service) use ($compose) {
-                return ! array_key_exists($service, $compose['volumes'] ?? []);
+                return !array_key_exists($service, $compose['volumes'] ?? []);
             })->each(function ($service) use (&$compose) {
                 $compose['volumes']["sail-{$service}"] = ['driver' => 'local'];
             });
@@ -101,7 +101,7 @@ trait InteractsWithDockerComposeServices
     /**
      * Replace the Host environment variables in the app's .env file.
      *
-     * @param  array  $services
+     * @param array $services
      * @return void
      */
     protected function replaceEnvVariables(array $services)
@@ -159,7 +159,7 @@ trait InteractsWithDockerComposeServices
      */
     protected function configurePhpUnit()
     {
-        if (! file_exists($path = $this->laravel->basePath('phpunit.xml'))) {
+        if (!file_exists($path = $this->laravel->basePath('phpunit.xml'))) {
             $path = $this->laravel->basePath('phpunit.xml.dist');
         }
 
@@ -178,13 +178,13 @@ trait InteractsWithDockerComposeServices
      */
     protected function installDevContainer()
     {
-        if (! is_dir($this->laravel->basePath('.devcontainer'))) {
+        if (!is_dir($this->laravel->basePath('.devcontainer'))) {
             mkdir($this->laravel->basePath('.devcontainer'), 0755, true);
         }
 
         file_put_contents(
             $this->laravel->basePath('.devcontainer/devcontainer.json'),
-            file_get_contents(__DIR__.'/../../../stubs/devcontainer.stub')
+            file_get_contents(__DIR__ . '/../../../stubs/devcontainer.stub')
         );
 
         $environment = file_get_contents($this->laravel->basePath('.env'));
@@ -198,7 +198,7 @@ trait InteractsWithDockerComposeServices
     /**
      * Prepare the installation by pulling and building any necessary images.
      *
-     * @param  array  $services
+     * @param array $services
      * @return void
      */
     protected function prepareInstallation($services)
@@ -210,7 +210,7 @@ trait InteractsWithDockerComposeServices
 
         if (count($services) > 0) {
             $status = $this->runCommands([
-                './vendor/bin/sail pull '.implode(' ', $services),
+                './vendor/bin/sail pull ' . implode(' ', $services),
             ]);
 
             if ($status === 0) {
@@ -230,7 +230,7 @@ trait InteractsWithDockerComposeServices
     /**
      * Run the given commands.
      *
-     * @param  array  $commands
+     * @param array $commands
      * @return int
      */
     protected function runCommands($commands)
@@ -241,12 +241,12 @@ trait InteractsWithDockerComposeServices
             try {
                 $process->setTty(true);
             } catch (\RuntimeException $e) {
-                $this->output->writeln('  <bg=yellow;fg=black> WARN </> '.$e->getMessage().PHP_EOL);
+                $this->output->writeln('  <bg=yellow;fg=black> WARN </> ' . $e->getMessage() . PHP_EOL);
             }
         }
 
         return $process->run(function ($type, $line) {
-            $this->output->write('    '.$line);
+            $this->output->write('    ' . $line);
         });
     }
 }

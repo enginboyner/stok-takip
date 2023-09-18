@@ -46,7 +46,7 @@ abstract class ProviderTestCase extends TestCase
      */
     public function testToString(ProviderInterface $provider, string $expected)
     {
-        $this->assertSame($expected, (string) $provider);
+        $this->assertSame($expected, (string)$provider);
     }
 
     protected function getClient(): MockHttpClient

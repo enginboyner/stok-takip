@@ -39,6 +39,9 @@ trait Modifiers
     }
 
     /**
+     * @param int $hour midday hour
+     *
+     * @return void
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
      *             hour, test it explicitly:
@@ -48,9 +51,6 @@ trait Modifiers
      *
      * Set midday/noon hour
      *
-     * @param int $hour midday hour
-     *
-     * @return void
      */
     public static function setMidDayAt($hour)
     {
@@ -84,7 +84,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'next '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
+            'next ' . (\is_string($modifier) ? $modifier : static::$days[$modifier])
         );
     }
 
@@ -166,7 +166,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'last '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
+            'last ' . (\is_string($modifier) ? $modifier : static::$days[$modifier])
         );
     }
 
@@ -188,7 +188,7 @@ trait Modifiers
             return $date->day(1);
         }
 
-        return $date->modify('first '.static::$days[$dayOfWeek].' of '.$date->rawFormat('F').' '.$date->year);
+        return $date->modify('first ' . static::$days[$dayOfWeek] . ' of ' . $date->rawFormat('F') . ' ' . $date->year);
     }
 
     /**
@@ -209,7 +209,7 @@ trait Modifiers
             return $date->day($date->daysInMonth);
         }
 
-        return $date->modify('last '.static::$days[$dayOfWeek].' of '.$date->rawFormat('F').' '.$date->year);
+        return $date->modify('last ' . static::$days[$dayOfWeek] . ' of ' . $date->rawFormat('F') . ' ' . $date->year);
     }
 
     /**
@@ -227,9 +227,9 @@ trait Modifiers
     {
         $date = $this->avoidMutation()->firstOfMonth();
         $check = $date->rawFormat('Y-m');
-        $date = $date->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $date->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
 
-        return $date->rawFormat('Y-m') === $check ? $this->modify((string) $date) : false;
+        return $date->rawFormat('Y-m') === $check ? $this->modify((string)$date) : false;
     }
 
     /**
@@ -278,9 +278,9 @@ trait Modifiers
         $date = $this->avoidMutation()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
         $lastMonth = $date->month;
         $year = $date->year;
-        $date = $date->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $date->firstOfQuarter()->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify((string) $date);
+        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify((string)$date);
     }
 
     /**
@@ -326,9 +326,9 @@ trait Modifiers
      */
     public function nthOfYear($nth, $dayOfWeek)
     {
-        $date = $this->avoidMutation()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $this->avoidMutation()->firstOfYear()->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
 
-        return $this->year === $date->year ? $this->modify((string) $date) : false;
+        return $this->year === $date->year ? $this->modify((string)$date) : false;
     }
 
     /**
@@ -341,7 +341,7 @@ trait Modifiers
      */
     public function average($date = null)
     {
-        return $this->addRealMicroseconds((int) ($this->diffInRealMicroseconds($this->resolveCarbon($date), false) / 2));
+        return $this->addRealMicroseconds((int)($this->diffInRealMicroseconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**
@@ -389,9 +389,9 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
+     * @return static
      * @see min()
      *
-     * @return static
      */
     public function minimum($date = null)
     {
@@ -417,9 +417,9 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
+     * @return static
      * @see max()
      *
-     * @return static
      */
     public function maximum($date = null)
     {
@@ -436,12 +436,15 @@ trait Modifiers
     #[ReturnTypeWillChange]
     public function modify($modify)
     {
-        return parent::modify((string) $modify);
+        return parent::modify((string)$modify);
     }
 
     /**
      * Similar to native modify() method of DateTime but can handle more grammars.
      *
+     * @param string $modifier
+     *
+     * @return static|false
      * @example
      * ```
      * echo Carbon::now()->change('next 2pm');
@@ -449,9 +452,6 @@ trait Modifiers
      *
      * @link https://php.net/manual/en/datetime.modify.php
      *
-     * @param string $modifier
-     *
-     * @return static|false
      */
     public function change($modifier)
     {
@@ -459,9 +459,9 @@ trait Modifiers
             $match[2] = str_replace('h', ':00', $match[2]);
             $test = $this->avoidMutation()->modify($match[2]);
             $method = $match[1] === 'next' ? 'lt' : 'gt';
-            $match[1] = $test->$method($this) ? $match[1].' day' : 'today';
+            $match[1] = $test->$method($this) ? $match[1] . ' day' : 'today';
 
-            return $match[1].' '.$match[2];
+            return $match[1] . ' ' . $match[2];
         }, strtr(trim($modifier), [
             ' at ' => ' ',
             'just now' => 'now',

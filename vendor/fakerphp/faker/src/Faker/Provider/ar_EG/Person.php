@@ -88,7 +88,7 @@ class Person extends \Faker\Provider\Person
     {
         $randomBirthDateTimestamp = mt_rand(strtotime('1950-Jan-10'), strtotime('2005-Dec-25'));
 
-        $centuryId = ((int) date('Y', $randomBirthDateTimestamp)) >= 2000 ? 3 : 2;
+        $centuryId = ((int)date('Y', $randomBirthDateTimestamp)) >= 2000 ? 3 : 2;
         $fullBirthDate = date('ymd', $randomBirthDateTimestamp);
         $governorateId = Address::governorateId();
         $birthRegistrationSequence = mt_rand(1, 500);
@@ -99,7 +99,7 @@ class Person extends \Faker\Provider\Person
             $birthRegistrationSequence = $birthRegistrationSequence & ~1; // Convert to the nearest even number
         }
 
-        $birthRegistrationSequence = str_pad((string) $birthRegistrationSequence, 4, '0', STR_PAD_LEFT);
+        $birthRegistrationSequence = str_pad((string)$birthRegistrationSequence, 4, '0', STR_PAD_LEFT);
         $randomCheckDigit = mt_rand(1, 9);
 
         return $centuryId . $fullBirthDate . $governorateId . $birthRegistrationSequence . $randomCheckDigit;

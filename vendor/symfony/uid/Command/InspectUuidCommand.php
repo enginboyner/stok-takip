@@ -42,8 +42,7 @@ The <info>%command.name%</info> displays information about a UUID.
     <info>php %command.full_name% MfnmaUvvQ1h8B14vTwt6dX</info>
     <info>php %command.full_name% 57C4Z0MPC627NTGR9BY1DFD7JJ</info>
 EOF
-            )
-        ;
+            );
     }
 
     /**
@@ -70,7 +69,7 @@ EOF
 
         $rows = [
             ['Version', $version],
-            ['toRfc4122 (canonical)', (string) $uuid],
+            ['toRfc4122 (canonical)', (string)$uuid],
             ['toBase58', $uuid->toBase58()],
             ['toBase32', $uuid->toBase32()],
         ];

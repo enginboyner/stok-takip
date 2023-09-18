@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\LinesOfCode;
 
 /**
@@ -60,10 +61,10 @@ final class LinesOfCode
             throw new IllogicalValuesException('$linesOfCode !== $commentLinesOfCode + $nonCommentLinesOfCode');
         }
 
-        $this->linesOfCode           = $linesOfCode;
-        $this->commentLinesOfCode    = $commentLinesOfCode;
+        $this->linesOfCode = $linesOfCode;
+        $this->commentLinesOfCode = $commentLinesOfCode;
         $this->nonCommentLinesOfCode = $nonCommentLinesOfCode;
-        $this->logicalLinesOfCode    = $logicalLinesOfCode;
+        $this->logicalLinesOfCode = $logicalLinesOfCode;
     }
 
     public function linesOfCode(): int

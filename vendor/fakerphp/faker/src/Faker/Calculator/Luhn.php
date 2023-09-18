@@ -19,7 +19,7 @@ class Luhn
      */
     private static function checksum($number)
     {
-        $number = (string) $number;
+        $number = (string)$number;
         $length = strlen($number);
         $sum = 0;
 
@@ -47,7 +47,7 @@ class Luhn
             return 0;
         }
 
-        return (string) (10 - $checkDigit);
+        return (string)(10 - $checkDigit);
     }
 
     /**

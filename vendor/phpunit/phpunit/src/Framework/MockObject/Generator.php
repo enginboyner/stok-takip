@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use const DIRECTORY_SEPARATOR;
@@ -114,15 +115,15 @@ EOT;
      * @var array
      */
     private const EXCLUDED_METHOD_NAMES = [
-        '__CLASS__'       => true,
-        '__DIR__'         => true,
-        '__FILE__'        => true,
-        '__FUNCTION__'    => true,
-        '__LINE__'        => true,
-        '__METHOD__'      => true,
-        '__NAMESPACE__'   => true,
-        '__TRAIT__'       => true,
-        '__clone'         => true,
+        '__CLASS__' => true,
+        '__DIR__' => true,
+        '__FILE__' => true,
+        '__FUNCTION__' => true,
+        '__LINE__' => true,
+        '__METHOD__' => true,
+        '__NAMESPACE__' => true,
+        '__TRAIT__' => true,
+        '__clone' => true,
         '__halt_compiler' => true,
     ];
 
@@ -168,8 +169,8 @@ EOT;
 
         if (null !== $methods) {
             foreach ($methods as $method) {
-                if (!preg_match('~[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*~', (string) $method)) {
-                    throw new InvalidMethodNameException((string) $method);
+                if (!preg_match('~[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*~', (string)$method)) {
+                    throw new InvalidMethodNameException((string)$method);
                 }
             }
 
@@ -255,7 +256,7 @@ EOT;
         $unqualifiedNames = [];
 
         foreach ($interfaces as $interface) {
-            $parts              = explode('\\', $interface);
+            $parts = explode('\\', $interface);
             $unqualifiedNames[] = array_pop($parts);
         }
 
@@ -265,7 +266,7 @@ EOT;
             $intersectionName = sprintf(
                 'Intersection_%s_%s',
                 implode('_', $unqualifiedNames),
-                substr(md5((string) mt_rand()), 0, 8),
+                substr(md5((string)mt_rand()), 0, 8),
             );
         } while (interface_exists($intersectionName, false));
 
@@ -274,7 +275,7 @@ EOT;
         $template->setVar(
             [
                 'intersection' => $intersectionName,
-                'interfaces'   => implode(', ', $interfaces),
+                'interfaces' => implode(', ', $interfaces),
             ],
         );
 
@@ -386,7 +387,7 @@ EOT;
 
         $classTemplate->setVar(
             [
-                'prologue'   => 'abstract ',
+                'prologue' => 'abstract ',
                 'class_name' => $className['className'],
                 'trait_name' => $traitName,
             ],
@@ -423,7 +424,7 @@ EOT;
 
         $classTemplate->setVar(
             [
-                'prologue'   => '',
+                'prologue' => '',
                 'class_name' => $className['className'],
                 'trait_name' => $traitName,
             ],
@@ -497,7 +498,7 @@ EOT;
         $options = array_merge($options, ['cache_wsdl' => WSDL_CACHE_NONE]);
 
         try {
-            $client   = new SoapClient($wsdlFile, $options);
+            $client = new SoapClient($wsdlFile, $options);
             $_methods = array_unique($client->__getFunctions());
             unset($client);
         } catch (SoapFault $e) {
@@ -511,14 +512,14 @@ EOT;
         sort($_methods);
 
         $methodTemplate = $this->getTemplate('wsdl_method.tpl');
-        $methodsBuffer  = '';
+        $methodsBuffer = '';
 
         foreach ($_methods as $method) {
             preg_match_all('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\(/', $method, $matches, PREG_OFFSET_CAPTURE);
             $lastFunction = array_pop($matches[0]);
-            $nameStart    = $lastFunction[1];
-            $nameEnd      = $nameStart + strlen($lastFunction[0]) - 1;
-            $name         = str_replace('(', '', $lastFunction[0]);
+            $nameStart = $lastFunction[1];
+            $nameEnd = $nameStart + strlen($lastFunction[0]) - 1;
+            $name = str_replace('(', '', $lastFunction[0]);
 
             if (empty($methods) || in_array($name, $methods, true)) {
                 $args = explode(
@@ -539,7 +540,7 @@ EOT;
                 $methodTemplate->setVar(
                     [
                         'method_name' => $name,
-                        'arguments'   => implode(', ', $args),
+                        'arguments' => implode(', ', $args),
                     ],
                 );
 
@@ -556,21 +557,21 @@ EOT;
         $optionsBuffer .= ']';
 
         $classTemplate = $this->getTemplate('wsdl_class.tpl');
-        $namespace     = '';
+        $namespace = '';
 
         if (strpos($className, '\\') !== false) {
-            $parts     = explode('\\', $className);
+            $parts = explode('\\', $className);
             $className = array_pop($parts);
             $namespace = 'namespace ' . implode('\\', $parts) . ';' . "\n\n";
         }
 
         $classTemplate->setVar(
             [
-                'namespace'  => $namespace,
+                'namespace' => $namespace,
                 'class_name' => $className,
-                'wsdl'       => $wsdlFile,
-                'options'    => $optionsBuffer,
-                'methods'    => $methodsBuffer,
+                'wsdl' => $wsdlFile,
+                'options' => $optionsBuffer,
+                'methods' => $methodsBuffer,
             ],
         );
 
@@ -578,9 +579,9 @@ EOT;
     }
 
     /**
+     * @return string[]
      * @throws ReflectionException
      *
-     * @return string[]
      */
     public function getClassMethods(string $className): array
     {
@@ -608,9 +609,9 @@ EOT;
     }
 
     /**
+     * @return MockMethod[]
      * @throws ReflectionException
      *
-     * @return MockMethod[]
      */
     public function mockClassMethods(string $className, bool $callOriginalMethods, bool $cloneArguments): array
     {
@@ -638,9 +639,9 @@ EOT;
     }
 
     /**
+     * @return MockMethod[]
      * @throws ReflectionException
      *
-     * @return MockMethod[]
      */
     public function mockInterfaceMethods(string $interfaceName, bool $cloneArguments): array
     {
@@ -668,9 +669,9 @@ EOT;
     /**
      * @psalm-param class-string $interfaceName
      *
+     * @return ReflectionMethod[]
      * @throws ReflectionException
      *
-     * @return ReflectionMethod[]
      */
     private function userDefinedInterfaceMethods(string $interfaceName): array
     {
@@ -772,14 +773,14 @@ EOT;
      */
     private function generateMock(string $type, ?array $explicitMethods, string $mockClassName, bool $callOriginalClone, bool $callAutoload, bool $cloneArguments, bool $callOriginalMethods): MockClass
     {
-        $classTemplate        = $this->getTemplate('mocked_class.tpl');
+        $classTemplate = $this->getTemplate('mocked_class.tpl');
         $additionalInterfaces = [];
-        $mockedCloneMethod    = false;
-        $unmockedCloneMethod  = false;
-        $isClass              = false;
-        $isInterface          = false;
-        $class                = null;
-        $mockMethods          = new MockMethodSet;
+        $mockedCloneMethod = false;
+        $unmockedCloneMethod = false;
+        $isClass = false;
+        $isInterface = false;
+        $class = null;
+        $mockMethods = new MockMethodSet;
 
         $_mockClassName = $this->generateClassName(
             $type,
@@ -798,8 +799,8 @@ EOT;
 
             if (!empty($_mockClassName['namespaceName'])) {
                 $prologue = 'namespace ' . $_mockClassName['namespaceName'] .
-                            " {\n\n" . $prologue . "}\n\n" .
-                            "namespace {\n\n";
+                    " {\n\n" . $prologue . "}\n\n" .
+                    "namespace {\n\n";
 
                 $epilogue = "\n\n}";
             }
@@ -828,9 +829,9 @@ EOT;
 
             // @see https://github.com/sebastianbergmann/phpunit/issues/2995
             if ($isInterface && $class->implementsInterface(Throwable::class)) {
-                $actualClassName        = Exception::class;
+                $actualClassName = Exception::class;
                 $additionalInterfaces[] = $class->getName();
-                $isInterface            = false;
+                $isInterface = false;
 
                 try {
                     $class = new ReflectionClass($actualClassName);
@@ -958,7 +959,7 @@ EOT;
         }
 
         $mockedMethods = '';
-        $configurable  = [];
+        $configurable = [];
 
         foreach ($mockMethods->asArray() as $mockMethod) {
             $mockedMethods .= $mockMethod->generateCode();
@@ -983,17 +984,17 @@ EOT;
 
         $classTemplate->setVar(
             [
-                'prologue'          => $prologue ?? '',
-                'epilogue'          => $epilogue ?? '',
+                'prologue' => $prologue ?? '',
+                'epilogue' => $epilogue ?? '',
                 'class_declaration' => $this->generateMockClassDeclaration(
                     $_mockClassName,
                     $isInterface,
                     $additionalInterfaces,
                 ),
-                'clone'           => $cloneTrait,
+                'clone' => $cloneTrait,
                 'mock_class_name' => $_mockClassName['className'],
-                'mocked_methods'  => $mockedMethods,
-                'method'          => $method,
+                'mocked_methods' => $mockedMethods,
+                'method' => $method,
             ],
         );
 
@@ -1013,7 +1014,7 @@ EOT;
         $classNameParts = explode('\\', $type);
 
         if (count($classNameParts) > 1) {
-            $type          = array_pop($classNameParts);
+            $type = array_pop($classNameParts);
             $namespaceName = implode('\\', $classNameParts);
             $fullClassName = $namespaceName . '\\' . $type;
         } else {
@@ -1024,15 +1025,15 @@ EOT;
         if ($className === '') {
             do {
                 $className = $prefix . $type . '_' .
-                             substr(md5((string) mt_rand()), 0, 8);
+                    substr(md5((string)mt_rand()), 0, 8);
             } while (class_exists($className, false));
         }
 
         return [
-            'className'         => $className,
+            'className' => $className,
             'originalClassName' => $type,
-            'fullClassName'     => $fullClassName,
-            'namespaceName'     => $namespaceName,
+            'fullClassName' => $fullClassName,
+            'namespaceName' => $namespaceName,
         ];
     }
 
@@ -1041,7 +1042,7 @@ EOT;
         $buffer = 'class ';
 
         $additionalInterfaces[] = MockObject::class;
-        $interfaces             = implode(', ', $additionalInterfaces);
+        $interfaces = implode(', ', $additionalInterfaces);
 
         if ($isInterface) {
             $buffer .= sprintf(

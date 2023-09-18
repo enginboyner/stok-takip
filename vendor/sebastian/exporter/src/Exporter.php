@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\Exporter;
 
 use function bin2hex;
@@ -73,13 +74,13 @@ class Exporter
 
     /**
      * @param array<mixed> $data
-     * @param Context      $context
+     * @param Context $context
      *
      * @return string
      */
     public function shortenedRecursiveExport(&$data, Context $context = null)
     {
-        $result   = [];
+        $result = [];
         $exporter = new self();
 
         if (!$context) {
@@ -165,12 +166,12 @@ class Exporter
     public function toArray($value)
     {
         if (!is_object($value)) {
-            return (array) $value;
+            return (array)$value;
         }
 
         $array = [];
 
-        foreach ((array) $value as $key => $val) {
+        foreach ((array)$value as $key => $val) {
             // Exception traces commonly reference hundreds to thousands of
             // objects currently loaded in memory. Including them in the result
             // has a severe negative performance impact.
@@ -182,7 +183,7 @@ class Exporter
             // private   $property => "\0Classname\0property"
             // protected $property => "\0*\0property"
             // public    $property => "property"
-            if (preg_match('/^\0.+\0(.+)$/', (string) $key, $matches)) {
+            if (preg_match('/^\0.+\0(.+)$/', (string)$key, $matches)) {
                 $key = $matches[1];
             }
 
@@ -212,9 +213,9 @@ class Exporter
     /**
      * Recursive implementation of export.
      *
-     * @param mixed                                       $value       The value to export
-     * @param int                                         $indentation The indentation level of the 2nd+ line
-     * @param \SebastianBergmann\RecursionContext\Context $processed   Previously processed objects
+     * @param mixed $value The value to export
+     * @param int $indentation The indentation level of the 2nd+ line
+     * @param \SebastianBergmann\RecursionContext\Context $processed Previously processed objects
      *
      * @return string
      *
@@ -240,9 +241,9 @@ class Exporter
             ini_set('precision', '-1');
 
             try {
-                $valueStr = (string) $value;
+                $valueStr = (string)$value;
 
-                if ((string) (int) $value === $valueStr) {
+                if ((string)(int)$value === $valueStr) {
                     return $valueStr . '.0';
                 }
 
@@ -271,16 +272,16 @@ class Exporter
             }
 
             return "'" .
-            str_replace(
-                '<lf>',
-                "\n",
                 str_replace(
-                    ["\r\n", "\n\r", "\r", "\n"],
-                    ['\r\n<lf>', '\n\r<lf>', '\r<lf>', '\n<lf>'],
-                    $value
-                )
-            ) .
-            "'";
+                    '<lf>',
+                    "\n",
+                    str_replace(
+                        ["\r\n", "\n\r", "\r", "\n"],
+                        ['\r\n<lf>', '\n\r<lf>', '\r<lf>', '\n<lf>'],
+                        $value
+                    )
+                ) .
+                "'";
         }
 
         $whitespace = str_repeat(' ', 4 * $indentation);
@@ -294,8 +295,8 @@ class Exporter
                 return 'Array &' . $key;
             }
 
-            $array  = $value;
-            $key    = $processed->add($value);
+            $array = $value;
+            $key = $processed->add($value);
             $values = '';
 
             if (count($array) > 0) {
@@ -321,9 +322,9 @@ class Exporter
                 return sprintf('%s Object &%s', $class, $hash);
             }
 
-            $hash   = $processed->add($value);
+            $hash = $processed->add($value);
             $values = '';
-            $array  = $this->toArray($value);
+            $array = $this->toArray($value);
 
             if (count($array) > 0) {
                 foreach ($array as $k => $v) {

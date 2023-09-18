@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\LinesOfCode;
 
 use function substr_count;
@@ -49,7 +50,7 @@ final class Counter
         } catch (Error $error) {
             throw new RuntimeException(
                 $error->getMessage(),
-                (int) $error->getCode(),
+                (int)$error->getCode(),
                 $error
             );
         }
@@ -64,7 +65,7 @@ final class Counter
     public function countInAbstractSyntaxTree(int $linesOfCode, array $nodes): LinesOfCode
     {
         $traverser = new NodeTraverser;
-        $visitor   = new LineCountingVisitor($linesOfCode);
+        $visitor = new LineCountingVisitor($linesOfCode);
 
         $traverser->addVisitor($visitor);
 
@@ -75,7 +76,7 @@ final class Counter
         } catch (Error $error) {
             throw new RuntimeException(
                 $error->getMessage(),
-                (int) $error->getCode(),
+                (int)$error->getCode(),
                 $error
             );
         }

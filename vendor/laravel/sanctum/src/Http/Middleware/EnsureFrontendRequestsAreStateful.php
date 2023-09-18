@@ -11,8 +11,8 @@ class EnsureFrontendRequestsAreStateful
     /**
      * Handle the incoming requests.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  callable  $next
+     * @param \Illuminate\Http\Request $request
+     * @param callable $next
      * @return \Illuminate\Http\Response
      */
     public function handle($request, $next)
@@ -66,7 +66,7 @@ class EnsureFrontendRequestsAreStateful
     /**
      * Determine if the given request is from the first-party application frontend.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return bool
      */
     public static function fromFrontend($request)
@@ -84,7 +84,7 @@ class EnsureFrontendRequestsAreStateful
         $stateful = array_filter(config('sanctum.stateful', []));
 
         return Str::is(Collection::make($stateful)->map(function ($uri) {
-            return trim($uri).'/*';
+            return trim($uri) . '/*';
         })->all(), $domain);
     }
 }

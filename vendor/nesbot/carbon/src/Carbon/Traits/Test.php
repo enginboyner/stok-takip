@@ -121,8 +121,8 @@ trait Test
      *
      * @template T
      *
-     * @param DateTimeInterface|Closure|static|string|false|null $testNow  real or mock Carbon instance
-     * @param Closure(): T                                       $callback
+     * @param DateTimeInterface|Closure|static|string|false|null $testNow real or mock Carbon instance
+     * @param Closure(): T $callback
      *
      * @return mixed
      * @phpstan-return T
@@ -216,10 +216,10 @@ trait Test
             $suggestion = @CarbonTimeZone::create($timezone)->toRegionName($date);
 
             throw new InvalidArgumentException(
-                "Timezone ID '$timezone' is invalid".
-                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.')."\n".
-                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n".
-                'For the record, hours/minutes offset are relevant only for a particular moment, '.
+                "Timezone ID '$timezone' is invalid" .
+                ($suggestion && $suggestion !== $timezone ? ", did you mean '$suggestion'?" : '.') . "\n" .
+                "It must be one of the IDs from DateTimeZone::listIdentifiers(),\n" .
+                'For the record, hours/minutes offset are relevant only for a particular moment, ' .
                 'but not as a default timezone.',
                 0,
                 $previous

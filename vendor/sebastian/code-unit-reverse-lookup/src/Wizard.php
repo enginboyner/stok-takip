@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeUnitReverseLookup;
 
 use function array_merge;
@@ -43,7 +44,7 @@ class Wizard
 
     /**
      * @param string $filename
-     * @param int    $lineNumber
+     * @param int $lineNumber
      *
      * @return string
      */
@@ -69,7 +70,7 @@ class Wizard
     private function processClassesAndTraits(): void
     {
         $classes = get_declared_classes();
-        $traits  = get_declared_traits();
+        $traits = get_declared_traits();
 
         assert(is_array($classes));
         assert(is_array($traits));

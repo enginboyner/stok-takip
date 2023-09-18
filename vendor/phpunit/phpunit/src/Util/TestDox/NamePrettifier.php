@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\TestDox;
 
 use function array_key_exists;
@@ -84,7 +85,7 @@ final class NamePrettifier
             // ignore, determine className by parsing the provided name
         }
 
-        $parts     = explode('\\', $className);
+        $parts = explode('\\', $className);
         $className = array_pop($parts);
 
         if (substr($className, -1 * strlen('Test')) === 'Test') {
@@ -102,7 +103,7 @@ final class NamePrettifier
         }
 
         if (!empty($parts)) {
-            $parts[]            = $className;
+            $parts[] = $className;
             $fullyQualifiedName = implode('\\', $parts);
         } else {
             $fullyQualifiedName = $className;
@@ -129,8 +130,7 @@ final class NamePrettifier
 
         $annotationWithPlaceholders = false;
 
-        $callback = static function (string $variable): string
-        {
+        $callback = static function (string $variable): string {
             return sprintf('/%s(?=\b)/', preg_quote($variable, '/'));
         };
 
@@ -138,9 +138,9 @@ final class NamePrettifier
             $result = $annotations['method']['testdox'][0];
 
             if (strpos($result, '$') !== false) {
-                $annotation   = $annotations['method']['testdox'][0];
+                $annotation = $annotations['method']['testdox'][0];
                 $providedData = $this->mapTestMethodParameterNamesToProvidedDataValues($test);
-                $variables    = array_map($callback, array_keys($providedData));
+                $variables = array_map($callback, array_keys($providedData));
 
                 $result = trim(preg_replace($variables, $providedData, $annotation));
 
@@ -164,9 +164,9 @@ final class NamePrettifier
         }
 
         if (is_int($test->dataName())) {
-            $data = Color::dim(' with data set ') . Color::colorize('fg-cyan', (string) $test->dataName());
+            $data = Color::dim(' with data set ') . Color::colorize('fg-cyan', (string)$test->dataName());
         } else {
-            $data = Color::dim(' with ') . Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $test->dataName()));
+            $data = Color::dim(' with ') . Color::colorize('fg-cyan', Color::visualizeWhitespace((string)$test->dataName()));
         }
 
         return $data;
@@ -183,7 +183,7 @@ final class NamePrettifier
             return $buffer;
         }
 
-        $string = (string) preg_replace('#\d+$#', '', $name, -1, $count);
+        $string = (string)preg_replace('#\d+$#', '', $name, -1, $count);
 
         if (in_array($string, $this->strings, true)) {
             $name = $string;
@@ -248,9 +248,9 @@ final class NamePrettifier
         }
         // @codeCoverageIgnoreEnd
 
-        $providedData       = [];
+        $providedData = [];
         $providedDataValues = array_values($test->getProvidedData());
-        $i                  = 0;
+        $i = 0;
 
         $providedData['$_dataName'] = $test->dataName();
 
@@ -275,7 +275,7 @@ final class NamePrettifier
                 $reflector = new ReflectionObject($value);
 
                 if ($reflector->hasMethod('__toString')) {
-                    $value = (string) $value;
+                    $value = (string)$value;
                 } else {
                     $value = get_class($value);
                 }
@@ -301,9 +301,8 @@ final class NamePrettifier
         }
 
         if ($this->useColor) {
-            $providedData = array_map(static function ($value)
-            {
-                return Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $value, true));
+            $providedData = array_map(static function ($value) {
+                return Color::colorize('fg-cyan', Color::visualizeWhitespace((string)$value, true));
             }, $providedData);
         }
 

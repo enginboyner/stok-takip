@@ -87,7 +87,7 @@ class Installer
 
         $pharArchive->extractTo($outputDirectory, ['psysh'], true);
 
-        $renamed = \rename($outputDirectory.'/psysh', $this->installLocation);
+        $renamed = \rename($outputDirectory . '/psysh', $this->installLocation);
 
         // Remove the sub-directory created to extract the psysh binary/phar
         \rmdir($outputDirectory);

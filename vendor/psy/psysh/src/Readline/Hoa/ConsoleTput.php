@@ -597,13 +597,13 @@ class ConsoleTput
         $out = ['file' => $terminfo];
 
         $headers = [
-            'data_size'         => $length,
-            'header_size'       => 12,
-            'magic_number'      => (\ord($data[1]) << 8) | \ord($data[0]),
-            'names_size'        => (\ord($data[3]) << 8) | \ord($data[2]),
-            'bool_count'        => (\ord($data[5]) << 8) | \ord($data[4]),
-            'number_count'      => (\ord($data[7]) << 8) | \ord($data[6]),
-            'string_count'      => (\ord($data[9]) << 8) | \ord($data[8]),
+            'data_size' => $length,
+            'header_size' => 12,
+            'magic_number' => (\ord($data[1]) << 8) | \ord($data[0]),
+            'names_size' => (\ord($data[3]) << 8) | \ord($data[2]),
+            'bool_count' => (\ord($data[5]) << 8) | \ord($data[4]),
+            'number_count' => (\ord($data[7]) << 8) | \ord($data[6]),
+            'string_count' => (\ord($data[9]) << 8) | \ord($data[8]),
             'string_table_size' => (\ord($data[11]) << 8) | \ord($data[10]),
         ];
         $out['headers'] = $headers;
@@ -763,7 +763,7 @@ class ConsoleTput
         }
 
         if (isset($_SERVER['HOME'])) {
-            $paths[] = $_SERVER['HOME'].\DIRECTORY_SEPARATOR.'.terminfo';
+            $paths[] = $_SERVER['HOME'] . \DIRECTORY_SEPARATOR . '.terminfo';
         }
 
         if (isset($_SERVER['TERMINFO_DIRS'])) {
@@ -783,13 +783,13 @@ class ConsoleTput
         $paths[] = 'hoa://Library/Terminfo';
 
         $term = $term ?: static::getTerm();
-        $fileHexa = \dechex(\ord($term[0])).\DIRECTORY_SEPARATOR.$term;
-        $fileAlpha = $term[0].\DIRECTORY_SEPARATOR.$term;
+        $fileHexa = \dechex(\ord($term[0])) . \DIRECTORY_SEPARATOR . $term;
+        $fileAlpha = $term[0] . \DIRECTORY_SEPARATOR . $term;
         $pathname = null;
 
         foreach ($paths as $path) {
-            if (\file_exists($_ = $path.\DIRECTORY_SEPARATOR.$fileHexa) ||
-                \file_exists($_ = $path.\DIRECTORY_SEPARATOR.$fileAlpha)) {
+            if (\file_exists($_ = $path . \DIRECTORY_SEPARATOR . $fileHexa) ||
+                \file_exists($_ = $path . \DIRECTORY_SEPARATOR . $fileAlpha)) {
                 $pathname = $_;
 
                 break;

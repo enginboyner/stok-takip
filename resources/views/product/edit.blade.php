@@ -1,7 +1,7 @@
 @extends('layout.cms')
 
 @section('pageName')
-Ürün Düzenle
+    Ürün Düzenle
 @endsection
 
 @section("content")
@@ -10,7 +10,8 @@
             <div class="card-header">
                 <h3 class="card-title">Ürün Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ route('product.update', $productEdit->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('product.update', $productEdit->id) }}" method="POST"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -22,13 +23,15 @@
                         <label for="category_id">Kategori:</label>
                         <select class="form-control" id="category_id" name="category_id">
                             @foreach($categories as $categoryEdit)
-                                <option value="{{ $categoryEdit->id }}" @if($categoryEdit->id == $productEdit->category_id) selected @endif>{{ $categoryEdit->name }}</option>
+                                <option value="{{ $categoryEdit->id }}"
+                                        @if($categoryEdit->id == $productEdit->category_id) selected @endif>{{ $categoryEdit->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="description">Açıklama:</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="" value="{{$productEdit->description}}">
+                        <input type="text" class="form-control" id="description" name="description" placeholder=""
+                               value="{{$productEdit->description}}">
                     </div>
 
                     <div class="form-group">
@@ -46,7 +49,7 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <div class="col-5 text-center mx-auto">
-                                <img src="{{url('storage/'.$productEdit->image)}}" alt="" title="" width="250" />
+                                <img src="{{url('storage/'.$productEdit->image)}}" alt="" title="" width="250"/>
                             </div>
                         </div>
                     </div>
@@ -63,21 +66,16 @@
 @endsection
 
 @section("script")
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
     <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var input = document.querySelector('.custom-file-input');
             var label = input.nextElementSibling;
-            input.addEventListener('change', function(event) {
+            input.addEventListener('change', function (event) {
                 var fileName = event.target.files[0].name;
                 label.innerText = fileName;
             });
-            input.addEventListener('click', function() {
+            input.addEventListener('click', function () {
                 this.value = null;
                 label.innerText = 'Seç';
             });

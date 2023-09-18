@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage;
 
 use function array_diff;
@@ -118,7 +119,7 @@ final class CodeCoverage
     {
         $this->driver = $driver;
         $this->filter = $filter;
-        $this->data   = new ProcessedCodeCoverageData;
+        $this->data = new ProcessedCodeCoverageData;
         $this->wizard = new Wizard;
     }
 
@@ -136,8 +137,8 @@ final class CodeCoverage
     public function clear(): void
     {
         $this->currentId = null;
-        $this->data      = new ProcessedCodeCoverageData;
-        $this->tests     = [];
+        $this->data = new ProcessedCodeCoverageData;
+        $this->tests = [];
     }
 
     /**
@@ -229,7 +230,7 @@ final class CodeCoverage
      * Appends code coverage data.
      *
      * @param PhptTestCase|string|TestCase $id
-     * @param array|false                  $linesToBeCovered
+     * @param array|false $linesToBeCovered
      *
      * @throws ReflectionException
      * @throws TestIdMissingException
@@ -270,13 +271,13 @@ final class CodeCoverage
                 return;
             }
 
-            $size         = 'unknown';
-            $status       = -1;
+            $size = 'unknown';
+            $status = -1;
             $fromTestcase = false;
 
             if ($id instanceof TestCase) {
                 $fromTestcase = true;
-                $_size        = $id->getSize();
+                $_size = $id->getSize();
 
                 if ($_size === Test::SMALL) {
                     $size = 'small';
@@ -287,11 +288,11 @@ final class CodeCoverage
                 }
 
                 $status = $id->getStatus();
-                $id     = get_class($id) . '::' . $id->getName();
+                $id = get_class($id) . '::' . $id->getName();
             } elseif ($id instanceof PhptTestCase) {
                 $fromTestcase = true;
-                $size         = 'large';
-                $id           = $id->getName();
+                $size = 'large';
+                $id = $id->getName();
             }
 
             $this->tests[$id] = ['size' => $size, 'status' => $status, 'fromTestcase' => $fromTestcase];
@@ -446,11 +447,11 @@ final class CodeCoverage
 
         if ($this->checkForUnintentionallyCoveredCode &&
             (!$this->currentId instanceof TestCase ||
-            (!$this->currentId->isMedium() && !$this->currentId->isLarge()))) {
+                (!$this->currentId->isMedium() && !$this->currentId->isLarge()))) {
             $this->performUnintentionallyCoveredCodeCheck($rawData, $linesToBeCovered, $linesToBeUsed);
         }
 
-        $rawLineData         = $rawData->lineCoverage();
+        $rawLineData = $rawData->lineCoverage();
         $filesWithNoCoverage = array_diff_key($rawLineData, $linesToBeCovered);
 
         foreach (array_keys($filesWithNoCoverage) as $fileWithNoCoverage) {

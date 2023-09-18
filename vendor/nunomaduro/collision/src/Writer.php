@@ -89,11 +89,12 @@ final class Writer implements WriterContract
      * Creates an instance of the writer.
      */
     public function __construct(
-        SolutionsRepository $solutionsRepository = null,
-        OutputInterface $output = null,
+        SolutionsRepository       $solutionsRepository = null,
+        OutputInterface           $output = null,
         ArgumentFormatterContract $argumentFormatter = null,
-        HighlighterContract $highlighter = null
-    ) {
+        HighlighterContract       $highlighter = null
+    )
+    {
         $this->solutionsRepository = $solutionsRepository ?: new NullSolutionsRepository();
         $this->output = $output ?: new ConsoleOutput();
         $this->argumentFormatter = $argumentFormatter ?: new ArgumentFormatter();
@@ -115,16 +116,16 @@ final class Writer implements WriterContract
 
         if ($this->showEditor
             && $editorFrame !== null
-            && ! $exception instanceof RenderlessEditor
+            && !$exception instanceof RenderlessEditor
         ) {
             $this->renderEditor($editorFrame);
         }
 
         $this->renderSolution($inspector);
 
-        if ($this->showTrace && ! empty($frames) && ! $exception instanceof RenderlessTrace) {
+        if ($this->showTrace && !empty($frames) && !$exception instanceof RenderlessTrace) {
             $this->renderTrace($frames);
-        } elseif (! $exception instanceof RenderlessEditor) {
+        } elseif (!$exception instanceof RenderlessEditor) {
             $this->output->writeln('');
         }
     }
@@ -204,7 +205,7 @@ final class Writer implements WriterContract
                     foreach ($this->ignore as $ignore) {
                         // Ensure paths are linux-style (like the ones on $this->ignore)
                         // @phpstan-ignore-next-line
-                        $sanitizedPath = (string) str_replace('\\', '/', $frame->getFile());
+                        $sanitizedPath = (string)str_replace('\\', '/', $frame->getFile());
                         if (preg_match($ignore, $sanitizedPath)) {
                             return false;
                         }
@@ -249,7 +250,7 @@ final class Writer implements WriterContract
             $description = $solution->getSolutionDescription();
             $links = $solution->getDocumentationLinks();
 
-            $description = trim((string) preg_replace("/\n/", "\n    ", $description));
+            $description = trim((string)preg_replace("/\n/", "\n    ", $description));
 
             $this->render(sprintf(
                 '<fg=cyan;options=bold>i</>   <fg=default;options=bold>%s</>: %s %s',
@@ -271,13 +272,13 @@ final class Writer implements WriterContract
     protected function renderEditor(Frame $frame): WriterContract
     {
         if ($frame->getFile() !== 'Unknown') {
-            $file = $this->getFileRelativePath((string) $frame->getFile());
+            $file = $this->getFileRelativePath((string)$frame->getFile());
 
             // getLine() might return null so cast to int to get 0 instead
-            $line = (int) $frame->getLine();
-            $this->render('at <fg=green>'.$file.'</>'.':<fg=green>'.$line.'</>');
+            $line = (int)$frame->getLine();
+            $this->render('at <fg=green>' . $file . '</>' . ':<fg=green>' . $line . '</>');
 
-            $content = $this->highlighter->highlight((string) $frame->getFileContents(), (int) $frame->getLine());
+            $content = $this->highlighter->highlight((string)$frame->getFileContents(), (int)$frame->getLine());
 
             $this->output->writeln($content);
         }
@@ -307,10 +308,10 @@ final class Writer implements WriterContract
 
             $file = $this->getFileRelativePath($frame->getFile());
             $line = $frame->getLine();
-            $class = empty($frame->getClass()) ? '' : $frame->getClass().'::';
+            $class = empty($frame->getClass()) ? '' : $frame->getClass() . '::';
             $function = $frame->getFunction();
             $args = $this->argumentFormatter->format($frame->getArgs());
-            $pos = str_pad((string) ((int) $i + 1), 4, ' ');
+            $pos = str_pad((string)((int)$i + 1), 4, ' ');
 
             if ($vendorFrames > 0) {
                 $this->output->write(
@@ -347,9 +348,9 @@ final class Writer implements WriterContract
      */
     protected function getFileRelativePath(string $filePath): string
     {
-        $cwd = (string) getcwd();
+        $cwd = (string)getcwd();
 
-        if (! empty($cwd)) {
+        if (!empty($cwd)) {
             return str_replace("$cwd/", '', $filePath);
         }
 

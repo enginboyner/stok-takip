@@ -39,11 +39,11 @@ class ListPass extends CodeCleanerPass
     /**
      * Validate use of list assignment.
      *
-     * @throws ParseErrorException if the user used empty with anything but a variable
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws ParseErrorException if the user used empty with anything but a variable
+     *
      */
     public function enterNode(Node $node)
     {

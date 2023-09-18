@@ -53,18 +53,20 @@ class DceSecurityGenerator implements DceSecurityGeneratorInterface
     private const CLOCK_SEQ_LOW = 0;
 
     public function __construct(
-        private NumberConverterInterface $numberConverter,
-        private TimeGeneratorInterface $timeGenerator,
+        private NumberConverterInterface     $numberConverter,
+        private TimeGeneratorInterface       $timeGenerator,
         private DceSecurityProviderInterface $dceSecurityProvider
-    ) {
+    )
+    {
     }
 
     public function generate(
-        int $localDomain,
+        int            $localDomain,
         ?IntegerObject $localIdentifier = null,
-        ?Hexadecimal $node = null,
-        ?int $clockSeq = null
-    ): string {
+        ?Hexadecimal   $node = null,
+        ?int           $clockSeq = null
+    ): string
+    {
         if (!in_array($localDomain, self::DOMAINS)) {
             throw new DceSecurityException(
                 'Local domain must be a valid DCE Security domain'
@@ -120,7 +122,7 @@ class DceSecurityGenerator implements DceSecurityGeneratorInterface
         }
 
         $domainByte = pack('n', $localDomain)[1];
-        $identifierBytes = (string) hex2bin(str_pad($identifierHex, 8, '0', STR_PAD_LEFT));
+        $identifierBytes = (string)hex2bin(str_pad($identifierHex, 8, '0', STR_PAD_LEFT));
 
         if ($node instanceof Hexadecimal) {
             $node = $node->toString();

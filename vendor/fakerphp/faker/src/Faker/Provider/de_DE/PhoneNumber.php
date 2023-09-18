@@ -99,9 +99,9 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
     /**
      * Generate a code for a mobile number.
      *
+     * @return string
      * @internal Used to generate mobile numbers.
      *
-     * @return string
      */
     public static function mobileCode()
     {
@@ -111,12 +111,12 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
     /**
      * Generate a mobile number.
      *
-     * @example A mobile number: '015111234567'
+     * @return string
      * @example A mobile number with spaces: '01511 123 4567'
      * @example A mobile number with international code prefix: '+4915111234567'
      * @example A mobile number with international code prefix and spaces: '+49 1511 123 4567'
      *
-     * @return string
+     * @example A mobile number: '015111234567'
      */
     public function mobileNumber()
     {

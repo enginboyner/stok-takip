@@ -37,8 +37,8 @@ final class Instantiator
      */
     public function instantiate($className)
     {
-        $factory    = $this->buildFactory($className);
-        $instance   = $factory();
+        $factory = $this->buildFactory($className);
+        $instance = $factory();
 
         return $instance;
     }
@@ -83,7 +83,7 @@ final class Instantiator
      */
     private function getReflectionClass($className)
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             throw new InvalidArgumentException("Class:$className does not exist");
         }
 
@@ -98,11 +98,11 @@ final class Instantiator
 
     /**
      * @param ReflectionClass $reflectionClass
-     * @param string          $serializedString
-     *
-     * @throws UnexpectedValueException
+     * @param string $serializedString
      *
      * @return void
+     * @throws UnexpectedValueException
+     *
      */
     private function attemptInstantiationViaUnSerialization(ReflectionClass $reflectionClass, $serializedString)
     {
@@ -139,7 +139,7 @@ final class Instantiator
      */
     private function isInstantiableViaReflection(ReflectionClass $reflectionClass)
     {
-        return ! ($reflectionClass->isInternal() && $reflectionClass->isFinal());
+        return !($reflectionClass->isInternal() && $reflectionClass->isFinal());
     }
 
     /**

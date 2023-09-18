@@ -52,7 +52,7 @@ final class BrickMathCalculator implements CalculatorInterface
             $sum = $sum->plus($addend->toString());
         }
 
-        return new IntegerObject((string) $sum);
+        return new IntegerObject((string)$sum);
     }
 
     public function subtract(NumberInterface $minuend, NumberInterface ...$subtrahends): NumberInterface
@@ -63,7 +63,7 @@ final class BrickMathCalculator implements CalculatorInterface
             $difference = $difference->minus($subtrahend->toString());
         }
 
-        return new IntegerObject((string) $difference);
+        return new IntegerObject((string)$difference);
     }
 
     public function multiply(NumberInterface $multiplicand, NumberInterface ...$multipliers): NumberInterface
@@ -74,15 +74,16 @@ final class BrickMathCalculator implements CalculatorInterface
             $product = $product->multipliedBy($multiplier->toString());
         }
 
-        return new IntegerObject((string) $product);
+        return new IntegerObject((string)$product);
     }
 
     public function divide(
-        int $roundingMode,
-        int $scale,
+        int             $roundingMode,
+        int             $scale,
         NumberInterface $dividend,
         NumberInterface ...$divisors
-    ): NumberInterface {
+    ): NumberInterface
+    {
         $brickRounding = $this->getBrickRoundingMode($roundingMode);
 
         $quotient = BigDecimal::of($dividend->toString());
@@ -92,20 +93,20 @@ final class BrickMathCalculator implements CalculatorInterface
         }
 
         if ($scale === 0) {
-            return new IntegerObject((string) $quotient->toBigInteger());
+            return new IntegerObject((string)$quotient->toBigInteger());
         }
 
-        return new Decimal((string) $quotient);
+        return new Decimal((string)$quotient);
     }
 
     public function fromBase(string $value, int $base): IntegerObject
     {
         try {
-            return new IntegerObject((string) BigInteger::fromBase($value, $base));
-        } catch (MathException | \InvalidArgumentException $exception) {
+            return new IntegerObject((string)BigInteger::fromBase($value, $base));
+        } catch (MathException|\InvalidArgumentException $exception) {
             throw new InvalidArgumentException(
                 $exception->getMessage(),
-                (int) $exception->getCode(),
+                (int)$exception->getCode(),
                 $exception
             );
         }
@@ -115,10 +116,10 @@ final class BrickMathCalculator implements CalculatorInterface
     {
         try {
             return BigInteger::of($value->toString())->toBase($base);
-        } catch (MathException | \InvalidArgumentException $exception) {
+        } catch (MathException|\InvalidArgumentException $exception) {
             throw new InvalidArgumentException(
                 $exception->getMessage(),
-                (int) $exception->getCode(),
+                (int)$exception->getCode(),
                 $exception
             );
         }

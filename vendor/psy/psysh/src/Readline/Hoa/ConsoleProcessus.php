@@ -245,12 +245,13 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function __construct(
         string $command,
-        array $options = null,
-        array $descriptors = null,
+        array  $options = null,
+        array  $descriptors = null,
         string $cwd = null,
-        array $environment = null,
-        int $timeout = 30
-    ) {
+        array  $environment = null,
+        int    $timeout = 30
+    )
+    {
         $this->setCommand($command);
 
         if (null !== $options) {
@@ -262,7 +263,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
 
             foreach ($descriptors as $descriptor => $nature) {
                 if (isset($this->_descriptors[$descriptor])) {
-                    throw new ConsoleException('Pipe descriptor %d already exists, cannot '.'redefine it.', 0, $descriptor);
+                    throw new ConsoleException('Pipe descriptor %d already exists, cannot ' . 'redefine it.', 0, $descriptor);
                 }
 
                 $this->_descriptors[$descriptor] = $nature;
@@ -311,7 +312,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
             @\fclose($pipe);
         }
 
-        return (bool) @\proc_close($this->getStream());
+        return (bool)@\proc_close($this->getStream());
     }
 
     /**
@@ -504,7 +505,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function readBoolean(int $pipe = 1)
     {
-        return (bool) $this->read(1, $pipe);
+        return (bool)$this->read(1, $pipe);
     }
 
     /**
@@ -512,7 +513,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function readInteger(int $length = 1, int $pipe = 1)
     {
-        return (int) $this->read($length, $pipe);
+        return (int)$this->read($length, $pipe);
     }
 
     /**
@@ -520,7 +521,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function readFloat(int $length = 1, int $pipe = 1)
     {
-        return (float) $this->read($length, $pipe);
+        return (float)$this->read($length, $pipe);
     }
 
     /**
@@ -581,7 +582,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function writeString(string $string, int $pipe = 0)
     {
-        $string = (string) $string;
+        $string = (string)$string;
 
         return $this->write($string, \strlen($string), $pipe);
     }
@@ -591,7 +592,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function writeCharacter(string $char, int $pipe = 0)
     {
-        return $this->write((string) $char[0], 1, $pipe);
+        return $this->write((string)$char[0], 1, $pipe);
     }
 
     /**
@@ -599,7 +600,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function writeBoolean(bool $boolean, int $pipe = 0)
     {
-        return $this->write((string) (bool) $boolean, 1, $pipe);
+        return $this->write((string)(bool)$boolean, 1, $pipe);
     }
 
     /**
@@ -607,7 +608,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function writeInteger(int $integer, int $pipe = 0)
     {
-        $integer = (string) (int) $integer;
+        $integer = (string)(int)$integer;
 
         return $this->write($integer, \strlen($integer), $pipe);
     }
@@ -617,7 +618,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
      */
     public function writeFloat(float $float, int $pipe = 0)
     {
-        $float = (string) (float) $float;
+        $float = (string)(float)$float;
 
         return $this->write($float, \strlen($float), $pipe);
     }
@@ -638,7 +639,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
     public function writeLine(string $line, int $pipe = 0)
     {
         if (false === $n = \strpos($line, "\n")) {
-            return $this->write($line."\n", \strlen($line) + 1, $pipe);
+            return $this->write($line . "\n", \strlen($line) + 1, $pipe);
         }
 
         ++$n;
@@ -768,9 +769,9 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
 
         foreach ($this->getOptions() as $key => $value) {
             if (!\is_int($key)) {
-                $out .= ' '.$key.'='.$value;
+                $out .= ' ' . $key . '=' . $value;
             } else {
-                $out .= ' '.$value;
+                $out .= ' ' . $value;
             }
         }
 
@@ -869,7 +870,7 @@ class ConsoleProcessus extends Stream implements StreamIn, StreamOut, StreamPath
         }
 
         foreach (\explode($separator, $path) as $directory) {
-            if (true === \file_exists($out = $directory.\DIRECTORY_SEPARATOR.$binary)) {
+            if (true === \file_exists($out = $directory . \DIRECTORY_SEPARATOR . $binary)) {
                 return $out;
             }
         }

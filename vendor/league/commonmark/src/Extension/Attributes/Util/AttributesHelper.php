@@ -24,7 +24,7 @@ use League\CommonMark\Util\RegexHelper;
 final class AttributesHelper
 {
     private const SINGLE_ATTRIBUTE = '\s*([.#][_a-z0-9-]+|' . RegexHelper::PARTIAL_ATTRIBUTENAME . RegexHelper::PARTIAL_ATTRIBUTEVALUESPEC . ')\s*';
-    private const ATTRIBUTE_LIST   = '/^{:?(' . self::SINGLE_ATTRIBUTE . ')+}/i';
+    private const ATTRIBUTE_LIST = '/^{:?(' . self::SINGLE_ATTRIBUTE . ')+}/i';
 
     /**
      * @return array<string, mixed>
@@ -55,11 +55,11 @@ final class AttributesHelper
 
         // Trim the leading '{' or '{:' and the trailing '}'
         $attributeExpression = \ltrim(\substr($attributeExpression, 1, -1), ':');
-        $attributeCursor     = new Cursor($attributeExpression);
+        $attributeCursor = new Cursor($attributeExpression);
 
         /** @var array<string, mixed> $attributes */
         $attributes = [];
-        while ($attribute = \trim((string) $attributeCursor->match('/^' . self::SINGLE_ATTRIBUTE . '/i'))) {
+        while ($attribute = \trim((string)$attributeCursor->match('/^' . self::SINGLE_ATTRIBUTE . '/i'))) {
             if ($attribute[0] === '#') {
                 $attributes['id'] = \substr($attribute, 1);
 
@@ -76,7 +76,7 @@ final class AttributesHelper
             [$name, $value] = \explode('=', $attribute, 2);
 
             $first = $value[0];
-            $last  = \substr($value, -1);
+            $last = \substr($value, -1);
             if (($first === '"' && $last === '"') || ($first === "'" && $last === "'") && \strlen($value) > 1) {
                 $value = \substr($value, 1, -1);
             }
@@ -91,7 +91,7 @@ final class AttributesHelper
         }
 
         if (isset($attributes['class'])) {
-            $attributes['class'] = \implode(' ', (array) $attributes['class']);
+            $attributes['class'] = \implode(' ', (array)$attributes['class']);
         }
 
         return $attributes;
@@ -112,7 +112,7 @@ final class AttributesHelper
             }
 
             /** @var array<string, mixed> $arg */
-            $arg = (array) $arg;
+            $arg = (array)$arg;
             if (isset($arg['class'])) {
                 if (\is_string($arg['class'])) {
                     $arg['class'] = \array_filter(\explode(' ', \trim($arg['class'])));

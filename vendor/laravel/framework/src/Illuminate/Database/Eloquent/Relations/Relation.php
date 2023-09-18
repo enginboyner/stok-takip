@@ -72,8 +72,8 @@ abstract class Relation implements BuilderContract
     /**
      * Create a new relation instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Model $parent
      * @return void
      */
     public function __construct(Builder $query, Model $parent)
@@ -88,7 +88,7 @@ abstract class Relation implements BuilderContract
     /**
      * Run a callback with constraints disabled on the relation.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
      * @return mixed
      */
     public static function noConstraints(Closure $callback)
@@ -117,7 +117,7 @@ abstract class Relation implements BuilderContract
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
+     * @param array $models
      * @return void
      */
     abstract public function addEagerConstraints(array $models);
@@ -125,8 +125,8 @@ abstract class Relation implements BuilderContract
     /**
      * Initialize the relation on a set of models.
      *
-     * @param  array  $models
-     * @param  string  $relation
+     * @param array $models
+     * @param string $relation
      * @return array
      */
     abstract public function initRelation(array $models, $relation);
@@ -134,9 +134,9 @@ abstract class Relation implements BuilderContract
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array  $models
-     * @param  \Illuminate\Database\Eloquent\Collection  $results
-     * @param  string  $relation
+     * @param array $models
+     * @param \Illuminate\Database\Eloquent\Collection $results
+     * @param string $relation
      * @return array
      */
     abstract public function match(array $models, Collection $results, $relation);
@@ -161,7 +161,7 @@ abstract class Relation implements BuilderContract
     /**
      * Execute the query and get the first result if it's the sole matching record.
      *
-     * @param  array|string  $columns
+     * @param array|string $columns
      * @return \Illuminate\Database\Eloquent\Model
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
@@ -187,7 +187,7 @@ abstract class Relation implements BuilderContract
     /**
      * Execute the query as a "select" statement.
      *
-     * @param  array  $columns
+     * @param array $columns
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function get($columns = ['*'])
@@ -204,7 +204,7 @@ abstract class Relation implements BuilderContract
     {
         $model = $this->getRelated();
 
-        if (! $model::isIgnoringTouch()) {
+        if (!$model::isIgnoringTouch()) {
             $this->rawUpdate([
                 $model->getUpdatedAtColumn() => $model->freshTimestampString(),
             ]);
@@ -214,7 +214,7 @@ abstract class Relation implements BuilderContract
     /**
      * Run a raw update against the base query.
      *
-     * @param  array  $attributes
+     * @param array $attributes
      * @return int
      */
     public function rawUpdate(array $attributes = [])
@@ -225,8 +225,8 @@ abstract class Relation implements BuilderContract
     /**
      * Add the constraints for a relationship count query.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $parentQuery
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function getRelationExistenceCountQuery(Builder $query, Builder $parentQuery)
@@ -241,9 +241,9 @@ abstract class Relation implements BuilderContract
      *
      * Essentially, these queries compare on column names like whereColumn.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  \Illuminate\Database\Eloquent\Builder  $parentQuery
-     * @param  array|mixed  $columns
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $parentQuery
+     * @param array|mixed $columns
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
@@ -256,19 +256,19 @@ abstract class Relation implements BuilderContract
     /**
      * Get a relationship join table hash.
      *
-     * @param  bool  $incrementJoinCount
+     * @param bool $incrementJoinCount
      * @return string
      */
     public function getRelationCountHash($incrementJoinCount = true)
     {
-        return 'laravel_reserved_'.($incrementJoinCount ? static::$selfJoinCount++ : static::$selfJoinCount);
+        return 'laravel_reserved_' . ($incrementJoinCount ? static::$selfJoinCount++ : static::$selfJoinCount);
     }
 
     /**
      * Get all of the primary keys for an array of models.
      *
-     * @param  array  $models
-     * @param  string|null  $key
+     * @param array $models
+     * @param string|null $key
      * @return array
      */
     protected function getKeys(array $models, $key = null)
@@ -381,22 +381,22 @@ abstract class Relation implements BuilderContract
     /**
      * Get the name of the "where in" method for eager loading.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string $key
      * @return string
      */
     protected function whereInMethod(Model $model, $key)
     {
         return $model->getKeyName() === last(explode('.', $key))
-                    && in_array($model->getKeyType(), ['int', 'integer'])
-                        ? 'whereIntegerInRaw'
-                        : 'whereIn';
+        && in_array($model->getKeyType(), ['int', 'integer'])
+            ? 'whereIntegerInRaw'
+            : 'whereIn';
     }
 
     /**
      * Prevent polymorphic relationships from being used without model mappings.
      *
-     * @param  bool  $requireMorphMap
+     * @param bool $requireMorphMap
      * @return void
      */
     public static function requireMorphMap($requireMorphMap = true)
@@ -417,8 +417,8 @@ abstract class Relation implements BuilderContract
     /**
      * Define the morph map for polymorphic relations and require all morphed models to be explicitly mapped.
      *
-     * @param  array  $map
-     * @param  bool  $merge
+     * @param array $map
+     * @param bool $merge
      * @return array
      */
     public static function enforceMorphMap(array $map, $merge = true)
@@ -431,8 +431,8 @@ abstract class Relation implements BuilderContract
     /**
      * Set or get the morph map for polymorphic relations.
      *
-     * @param  array|null  $map
-     * @param  bool  $merge
+     * @param array|null $map
+     * @param bool $merge
      * @return array
      */
     public static function morphMap(array $map = null, $merge = true)
@@ -441,7 +441,7 @@ abstract class Relation implements BuilderContract
 
         if (is_array($map)) {
             static::$morphMap = $merge && static::$morphMap
-                            ? $map + static::$morphMap : $map;
+                ? $map + static::$morphMap : $map;
         }
 
         return static::$morphMap;
@@ -450,7 +450,7 @@ abstract class Relation implements BuilderContract
     /**
      * Builds a table-keyed array from model class names.
      *
-     * @param  string[]|null  $models
+     * @param string[]|null $models
      * @return array|null
      */
     protected static function buildMorphMapFromModels(array $models = null)
@@ -467,7 +467,7 @@ abstract class Relation implements BuilderContract
     /**
      * Get the model associated with a custom polymorphic type.
      *
-     * @param  string  $alias
+     * @param string $alias
      * @return string|null
      */
     public static function getMorphedModel($alias)
@@ -478,8 +478,8 @@ abstract class Relation implements BuilderContract
     /**
      * Handle dynamic method calls to the relationship.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

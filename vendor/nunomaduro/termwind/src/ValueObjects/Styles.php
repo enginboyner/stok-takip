@@ -35,10 +35,10 @@ final class Styles
     /**
      * Creates a Style formatter instance.
      *
-     * @param  array<string, mixed>  $properties
-     * @param  array<string, Closure(string, array<string, string|int>, array<string, int[]>): string>  $textModifiers
-     * @param  array<string, Closure(string, array<string, string|int>): string>  $styleModifiers
-     * @param  string[]  $defaultStyles
+     * @param array<string, mixed> $properties
+     * @param array<string, Closure(string, array<string, string|int>, array<string, int[]>): string> $textModifiers
+     * @param array<string, Closure(string, array<string, string|int>): string> $styleModifiers
+     * @param string[] $defaultStyles
      */
     final public function __construct(
         private array $properties = [
@@ -49,11 +49,12 @@ final class Styles
         private array $textModifiers = [],
         private array $styleModifiers = [],
         private array $defaultStyles = []
-    ) {
+    )
+    {
     }
 
     /**
-     * @param  Element  $element
+     * @param Element $element
      * @return $this
      */
     public function setElement(Element $element): self
@@ -86,7 +87,7 @@ final class Styles
     /**
      * Sets the element's style properties.
      *
-     * @param  array<string, mixed>  $properties
+     * @param array<string, mixed> $properties
      */
     public function setProperties(array $properties): self
     {
@@ -138,16 +139,16 @@ final class Styles
         $this->properties['parentStyles']['justifyContent'] = $styles->properties['styles']['justifyContent'] ?? false;
 
         foreach (['bg', 'fg'] as $colorType) {
-            $value = (array) ($this->properties['colors'][$colorType] ?? []);
-            $parentValue = (array) ($styles->properties['colors'][$colorType] ?? []);
+            $value = (array)($this->properties['colors'][$colorType] ?? []);
+            $parentValue = (array)($styles->properties['colors'][$colorType] ?? []);
 
             if ($value === [] && $parentValue !== []) {
                 $this->properties['colors'][$colorType] = $styles->properties['colors'][$colorType];
             }
         }
 
-        if (! is_null($this->properties['options']['bold'] ?? null) ||
-            ! is_null($styles->properties['options']['bold'] ?? null)) {
+        if (!is_null($this->properties['options']['bold'] ?? null) ||
+            !is_null($styles->properties['options']['bold'] ?? null)) {
             $this->properties['options']['bold'] = $this->properties['options']['bold']
                 ?? $styles->properties['options']['bold']
                 ?? false;
@@ -191,7 +192,7 @@ final class Styles
      */
     final public function strong(): self
     {
-        $this->styleModifiers[__METHOD__] = static fn ($text): string => sprintf("\e[1m%s\e[0m", $text);
+        $this->styleModifiers[__METHOD__] = static fn($text): string => sprintf("\e[1m%s\e[0m", $text);
 
         return $this;
     }
@@ -201,7 +202,7 @@ final class Styles
      */
     final public function italic(): self
     {
-        $this->styleModifiers[__METHOD__] = static fn ($text): string => sprintf("\e[3m%s\e[0m", $text);
+        $this->styleModifiers[__METHOD__] = static fn($text): string => sprintf("\e[3m%s\e[0m", $text);
 
         return $this;
     }
@@ -211,7 +212,7 @@ final class Styles
      */
     final public function underline(): self
     {
-        $this->styleModifiers[__METHOD__] = static fn ($text): string => sprintf("\e[4m%s\e[0m", $text);
+        $this->styleModifiers[__METHOD__] = static fn($text): string => sprintf("\e[4m%s\e[0m", $text);
 
         return $this;
     }
@@ -375,14 +376,14 @@ final class Styles
      */
     final public function borderT(int $width = 1): self
     {
-        if (! $this->element instanceof Hr) {
+        if (!$this->element instanceof Hr) {
             throw new InvalidStyle('`border-t` can only be used on an "hr" element.');
         }
 
         $this->styleModifiers[__METHOD__] = function ($text, $styles): string {
             $length = $this->getLength($text);
             if ($length < 1) {
-                $margins = (int) ($styles['ml'] ?? 0) + ($styles['mr'] ?? 0);
+                $margins = (int)($styles['ml'] ?? 0) + ($styles['mr'] ?? 0);
 
                 return str_repeat('─', self::getParentWidth($this->properties['parentStyles'] ?? []) - $margins);
             }
@@ -439,7 +440,7 @@ final class Styles
                 return $text;
             }
 
-            return rtrim(self::trimText($text, $limit).$end);
+            return rtrim(self::trimText($text, $limit) . $end);
         };
 
         return $this;
@@ -498,7 +499,7 @@ final class Styles
      */
     final public function uppercase(): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => mb_strtoupper($text, 'UTF-8');
+        $this->textModifiers[__METHOD__] = static fn($text): string => mb_strtoupper($text, 'UTF-8');
 
         return $this;
     }
@@ -508,7 +509,7 @@ final class Styles
      */
     final public function lowercase(): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => mb_strtolower($text, 'UTF-8');
+        $this->textModifiers[__METHOD__] = static fn($text): string => mb_strtolower($text, 'UTF-8');
 
         return $this;
     }
@@ -518,7 +519,7 @@ final class Styles
      */
     final public function capitalize(): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => mb_convert_case($text, MB_CASE_TITLE, 'UTF-8');
+        $this->textModifiers[__METHOD__] = static fn($text): string => mb_convert_case($text, MB_CASE_TITLE, 'UTF-8');
 
         return $this;
     }
@@ -528,8 +529,8 @@ final class Styles
      */
     final public function snakecase(): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => mb_strtolower(
-            (string) preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $text),
+        $this->textModifiers[__METHOD__] = static fn($text): string => mb_strtolower(
+            (string)preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $text),
             'UTF-8'
         );
 
@@ -541,7 +542,7 @@ final class Styles
      */
     final public function lineThrough(): self
     {
-        $this->styleModifiers[__METHOD__] = static fn ($text): string => sprintf("\e[9m%s\e[0m", $text);
+        $this->styleModifiers[__METHOD__] = static fn($text): string => sprintf("\e[9m%s\e[0m", $text);
 
         return $this;
     }
@@ -551,7 +552,7 @@ final class Styles
      */
     final public function invisible(): self
     {
-        $this->styleModifiers[__METHOD__] = static fn ($text): string => sprintf("\e[8m%s\e[0m", $text);
+        $this->styleModifiers[__METHOD__] = static fn($text): string => sprintf("\e[8m%s\e[0m", $text);
 
         return $this;
     }
@@ -644,7 +645,7 @@ final class Styles
     {
         $string = preg_replace("/\[?'?([^'|\]]+)'?\]?/", '$1', $string) ?? '';
 
-        $this->textModifiers[__METHOD__] = static fn (): string => str_repeat($string, (int) floor(terminal()->width() / mb_strlen($string, 'UTF-8')));
+        $this->textModifiers[__METHOD__] = static fn(): string => str_repeat($string, (int)floor(terminal()->width() / mb_strlen($string, 'UTF-8')));
 
         return $this->with(['styles' => [
             'contentRepeat' => true,
@@ -656,7 +657,7 @@ final class Styles
      */
     final public function prepend(string $string): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => $string.$text;
+        $this->textModifiers[__METHOD__] = static fn($text): string => $string . $text;
 
         return $this;
     }
@@ -666,7 +667,7 @@ final class Styles
      */
     final public function append(string $string): self
     {
-        $this->textModifiers[__METHOD__] = static fn ($text): string => $text.$string;
+        $this->textModifiers[__METHOD__] = static fn($text): string => $text . $string;
 
         return $this;
     }
@@ -676,14 +677,14 @@ final class Styles
      */
     final public function list(string $type, int $index = 0): self
     {
-        if (! $this->element instanceof Ul && ! $this->element instanceof Ol && ! $this->element instanceof Li) {
+        if (!$this->element instanceof Ul && !$this->element instanceof Ol && !$this->element instanceof Li) {
             throw new InvalidStyle(sprintf(
                 'Style list-none cannot be used with %s',
                 $this->element !== null ? $this->element::class : 'unknown element'
             ));
         }
 
-        if (! $this->element instanceof Li) {
+        if (!$this->element instanceof Li) {
             return $this;
         }
 
@@ -698,7 +699,7 @@ final class Styles
     /**
      * Adds the given properties to the element.
      *
-     * @param  array<string, mixed>  $properties
+     * @param array<string, mixed> $properties
      */
     public function with(array $properties): self
     {
@@ -766,10 +767,10 @@ final class Styles
 
         if ($options !== []) {
             $options = array_keys(array_filter(
-                $options, fn ($option) => $option === true
+                $options, fn($option) => $option === true
             ));
             $styles[] = count($options) > 0
-                ? 'options='.implode(',', $options)
+                ? 'options=' . implode(',', $options)
                 : 'options=,';
         }
 
@@ -778,7 +779,7 @@ final class Styles
             return '%s%s%s%s%s';
         }
 
-        return '%s<'.implode(';', $styles).'>%s%s%s</>%s';
+        return '%s<' . implode(';', $styles) . '>%s%s%s</>%s';
     }
 
     /**
@@ -788,13 +789,13 @@ final class Styles
      */
     private function getMargins(): array
     {
-        $isFirstChild = (bool) $this->properties['isFirstChild'];
+        $isFirstChild = (bool)$this->properties['isFirstChild'];
 
         $spaceY = $this->properties['parentStyles']['spaceY'] ?? [];
-        $spaceY = ! $isFirstChild ? end($spaceY) : 0;
+        $spaceY = !$isFirstChild ? end($spaceY) : 0;
 
         $spaceX = $this->properties['parentStyles']['spaceX'] ?? [];
-        $spaceX = ! $isFirstChild ? end($spaceX) : 0;
+        $spaceX = !$isFirstChild ? end($spaceX) : 0;
 
         return [
             $spaceY > 0 ? $spaceY : $this->properties['styles']['mt'] ?? 0,
@@ -861,9 +862,9 @@ final class Styles
             $space = $width - $length;
 
             return match ($styles['text-align'] ?? '') {
-                'right' => str_repeat(' ', $space).$content,
-                'center' => str_repeat(' ', (int) floor($space / 2)).$content.str_repeat(' ', (int) ceil($space / 2)),
-                default => $content.str_repeat(' ', $space),
+                'right' => str_repeat(' ', $space) . $content,
+                'center' => str_repeat(' ', (int)floor($space / 2)) . $content . str_repeat(' ', (int)ceil($space / 2)),
+                default => $content . str_repeat(' ', $space),
             };
         }
 
@@ -881,16 +882,16 @@ final class Styles
             return '';
         }
 
-        $isFirstChild = (bool) $this->properties['isFirstChild'];
+        $isFirstChild = (bool)$this->properties['isFirstChild'];
 
         [$marginTop, $marginRight, $marginBottom, $marginLeft] = $this->getMargins();
         [$paddingTop, $paddingRight, $paddingBottom, $paddingLeft] = $this->getPaddings();
 
-        $content = (string) preg_replace('/\r[ \t]?/', "\n",
-            (string) preg_replace(
+        $content = (string)preg_replace('/\r[ \t]?/', "\n",
+            (string)preg_replace(
                 '/\n/',
                 str_repeat(' ', $marginRight + $paddingRight)
-                ."\n".
+                . "\n" .
                 str_repeat(' ', $marginLeft + $paddingLeft),
                 $content)
         );
@@ -912,7 +913,7 @@ final class Styles
 
         $items = [];
 
-        if (in_array($display, ['block', 'flex'], true) && ! $isFirstChild) {
+        if (in_array($display, ['block', 'flex'], true) && !$isFirstChild) {
             $items[] = "\n";
         }
 
@@ -921,13 +922,13 @@ final class Styles
         }
 
         if ($paddingTop > 0) {
-            $items[] = $empty."\n";
+            $items[] = $empty . "\n";
         }
 
         $items[] = $formatted;
 
         if ($paddingBottom > 0) {
-            $items[] = "\n".$empty;
+            $items[] = "\n" . $empty;
         }
 
         if ($marginBottom > 0) {
@@ -966,7 +967,7 @@ final class Styles
     private function getColorVariant(string $color, int $variant): string
     {
         if ($variant > 0) {
-            $color .= '-'.$variant;
+            $color .= '-' . $variant;
         }
 
         if (StyleRepository::has($color)) {
@@ -975,18 +976,18 @@ final class Styles
 
         $colorConstant = mb_strtoupper(str_replace('-', '_', $color), 'UTF-8');
 
-        if (! defined(Color::class."::$colorConstant")) {
+        if (!defined(Color::class . "::$colorConstant")) {
             throw new ColorNotFound($colorConstant);
         }
 
-        return constant(Color::class."::$colorConstant");
+        return constant(Color::class . "::$colorConstant");
     }
 
     /**
      * Calculates the width based on the fraction provided.
      *
-     * @param  array<string, int>  $styles
-     * @param  array<string, array<int, int|string>>  $parentStyles
+     * @param array<string, int> $styles
+     * @param array<string, array<int, int|string>> $parentStyles
      */
     private static function calcWidthFromFraction(string $fraction, array $styles, array $parentStyles): int
     {
@@ -998,8 +999,8 @@ final class Styles
             throw new InvalidStyle(sprintf('Style [%s] is invalid.', "w-$fraction"));
         }
 
-        /** @@phpstan-ignore-next-line  */
-        $width = (int) floor($width * $matches[1] / $matches[2]);
+        /** @@phpstan-ignore-next-line */
+        $width = (int)floor($width * $matches[1] / $matches[2]);
         $width -= ($styles['ml'] ?? 0) + ($styles['mr'] ?? 0);
 
         return $width;
@@ -1008,15 +1009,15 @@ final class Styles
     /**
      * Gets the width of the parent element.
      *
-     * @param  array<string, array<int|string>>  $styles
+     * @param array<string, array<int|string>> $styles
      */
     public static function getParentWidth(array $styles): int
     {
         $width = terminal()->width();
         foreach ($styles['width'] ?? [] as $index => $parentWidth) {
-            $minWidth = (int) $styles['minWidth'][$index];
-            $maxWidth = (int) $styles['maxWidth'][$index];
-            $margins = (int) $styles['ml'][$index] + (int) $styles['mr'][$index];
+            $minWidth = (int)$styles['minWidth'][$index];
+            $maxWidth = (int)$styles['maxWidth'][$index];
+            $margins = (int)$styles['ml'][$index] + (int)$styles['mr'][$index];
 
             $parentWidth = max($parentWidth, $minWidth);
 
@@ -1026,18 +1027,18 @@ final class Styles
                 $parentWidth += $margins;
             }
 
-            preg_match('/(\d+)\/(\d+)/', (string) $parentWidth, $matches);
+            preg_match('/(\d+)\/(\d+)/', (string)$parentWidth, $matches);
 
             $width = count($matches) !== 3
-                ? (int) $parentWidth
-                : (int) floor($width * $matches[1] / $matches[2]); //@phpstan-ignore-line
+                ? (int)$parentWidth
+                : (int)floor($width * $matches[1] / $matches[2]); //@phpstan-ignore-line
 
             if ($maxWidth > 0) {
                 $width = min($maxWidth, $width);
             }
 
             $width -= $margins;
-            $width -= (int) $styles['pl'][$index] + (int) $styles['pr'][$index];
+            $width -= (int)$styles['pl'][$index] + (int)$styles['pr'][$index];
         }
 
         return $width;
@@ -1053,7 +1054,7 @@ final class Styles
         $text = rtrim(mb_strimwidth(preg_replace(self::STYLING_REGEX, '', $text) ?? '', 0, $width, '', 'UTF-8'));
 
         foreach ($matches[0] ?? [] as [$part, $index]) {
-            $text = substr($text, 0, $index).$part.substr($text, $index, null);
+            $text = substr($text, 0, $index) . $part . substr($text, $index, null);
         }
 
         return $text;

@@ -131,7 +131,7 @@ class Store implements StoreInterface
         flock($h, \LOCK_UN); // release the lock we just acquired
         fclose($h);
 
-        return (bool) $wouldBlock;
+        return (bool)$wouldBlock;
     }
 
     /**
@@ -241,7 +241,7 @@ class Store implements StoreInterface
      */
     protected function generateContentDigest(Response $response): string
     {
-        return 'en'.hash('sha256', $response->getContent());
+        return 'en' . hash('sha256', $response->getContent());
     }
 
     /**
@@ -276,8 +276,8 @@ class Store implements StoreInterface
      * the vary response header value provided.
      *
      * @param string|null $vary A Response vary header
-     * @param array       $env1 A Request HTTP header array
-     * @param array       $env2 A Request HTTP header array
+     * @param array $env1 A Request HTTP header array
+     * @param array $env2 A Request HTTP header array
      */
     private function requestsMatch(?string $vary, array $env1, array $env2): bool
     {
@@ -415,7 +415,7 @@ class Store implements StoreInterface
 
     public function getPath(string $key)
     {
-        return $this->root.\DIRECTORY_SEPARATOR.substr($key, 0, 2).\DIRECTORY_SEPARATOR.substr($key, 2, 2).\DIRECTORY_SEPARATOR.substr($key, 4, 2).\DIRECTORY_SEPARATOR.substr($key, 6);
+        return $this->root . \DIRECTORY_SEPARATOR . substr($key, 0, 2) . \DIRECTORY_SEPARATOR . substr($key, 2, 2) . \DIRECTORY_SEPARATOR . substr($key, 4, 2) . \DIRECTORY_SEPARATOR . substr($key, 6);
     }
 
     /**
@@ -430,7 +430,7 @@ class Store implements StoreInterface
      */
     protected function generateCacheKey(Request $request): string
     {
-        return 'md'.hash('sha256', $request->getUri());
+        return 'md' . hash('sha256', $request->getUri());
     }
 
     /**

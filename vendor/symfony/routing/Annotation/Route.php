@@ -30,27 +30,28 @@ class Route
     private array $schemes;
 
     /**
-     * @param string[]        $requirements
+     * @param string[] $requirements
      * @param string[]|string $methods
      * @param string[]|string $schemes
      */
     public function __construct(
-        string|array $path = null,
+        string|array    $path = null,
         private ?string $name = null,
-        private array $requirements = [],
-        private array $options = [],
-        private array $defaults = [],
+        private array   $requirements = [],
+        private array   $options = [],
+        private array   $defaults = [],
         private ?string $host = null,
-        array|string $methods = [],
-        array|string $schemes = [],
+        array|string    $methods = [],
+        array|string    $schemes = [],
         private ?string $condition = null,
-        private ?int $priority = null,
-        string $locale = null,
-        string $format = null,
-        bool $utf8 = null,
-        bool $stateless = null,
+        private ?int    $priority = null,
+        string          $locale = null,
+        string          $format = null,
+        bool            $utf8 = null,
+        bool            $stateless = null,
         private ?string $env = null
-    ) {
+    )
+    {
         if (\is_array($path)) {
             $this->localizedPaths = $path;
         } else {
@@ -148,7 +149,7 @@ class Route
 
     public function setSchemes(array|string $schemes)
     {
-        $this->schemes = (array) $schemes;
+        $this->schemes = (array)$schemes;
     }
 
     public function getSchemes()
@@ -158,7 +159,7 @@ class Route
 
     public function setMethods(array|string $methods)
     {
-        $this->methods = (array) $methods;
+        $this->methods = (array)$methods;
     }
 
     public function getMethods()

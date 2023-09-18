@@ -17,19 +17,19 @@ class IncorrectValetDbCredentialsSolutionProvider implements HasSolutionsForThro
             return false;
         }
 
-        if (! $throwable instanceof QueryException) {
+        if (!$throwable instanceof QueryException) {
             return false;
         }
 
-        if (! $this->isAccessDeniedCode($throwable->getCode())) {
+        if (!$this->isAccessDeniedCode($throwable->getCode())) {
             return false;
         }
 
-        if (! $this->envFileExists()) {
+        if (!$this->envFileExists()) {
             return false;
         }
 
-        if (! $this->isValetInstalled()) {
+        if (!$this->isValetInstalled()) {
             return false;
         }
 

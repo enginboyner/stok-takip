@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function array_map;
@@ -50,8 +51,7 @@ final class LogicalNot extends UnaryOperator
 
         preg_match('/(\'[\w\W]*\')([\w\W]*)("[\w\W]*")/i', $string, $matches);
 
-        $positives = array_map(static function (string $s)
-        {
+        $positives = array_map(static function (string $s) {
             return '/\\b' . preg_quote($s, '/') . '/';
         }, $positives);
 

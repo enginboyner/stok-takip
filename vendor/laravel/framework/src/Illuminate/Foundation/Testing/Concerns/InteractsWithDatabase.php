@@ -19,9 +19,9 @@ trait InteractsWithDatabase
     /**
      * Assert that a given where condition exists in the database.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  array  $data
-     * @param  string|null  $connection
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param array $data
+     * @param string|null $connection
      * @return $this
      */
     protected function assertDatabaseHas($table, array $data, $connection = null)
@@ -36,9 +36,9 @@ trait InteractsWithDatabase
     /**
      * Assert that a given where condition does not exist in the database.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  array  $data
-     * @param  string|null  $connection
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param array $data
+     * @param string|null $connection
      * @return $this
      */
     protected function assertDatabaseMissing($table, array $data, $connection = null)
@@ -55,9 +55,9 @@ trait InteractsWithDatabase
     /**
      * Assert the count of table entries.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  int  $count
-     * @param  string|null  $connection
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param int $count
+     * @param string|null $connection
      * @return $this
      */
     protected function assertDatabaseCount($table, int $count, $connection = null)
@@ -72,8 +72,8 @@ trait InteractsWithDatabase
     /**
      * Assert that the given table has no entries.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  string|null  $connection
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param string|null $connection
      * @return $this
      */
     protected function assertDatabaseEmpty($table, $connection = null)
@@ -88,10 +88,10 @@ trait InteractsWithDatabase
     /**
      * Assert the given record has been "soft deleted".
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  array  $data
-     * @param  string|null  $connection
-     * @param  string|null  $deletedAtColumn
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param array $data
+     * @param string|null $connection
+     * @param string|null $deletedAtColumn
      * @return $this
      */
     protected function assertSoftDeleted($table, array $data = [], $connection = null, $deletedAtColumn = 'deleted_at')
@@ -115,10 +115,10 @@ trait InteractsWithDatabase
     /**
      * Assert the given record has not been "soft deleted".
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
-     * @param  array  $data
-     * @param  string|null  $connection
-     * @param  string|null  $deletedAtColumn
+     * @param \Illuminate\Database\Eloquent\Model|string $table
+     * @param array $data
+     * @param string|null $connection
+     * @param string|null $deletedAtColumn
      * @return $this
      */
     protected function assertNotSoftDeleted($table, array $data = [], $connection = null, $deletedAtColumn = 'deleted_at')
@@ -142,7 +142,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given model exists in the database.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @return $this
      */
     protected function assertModelExists($model)
@@ -157,7 +157,7 @@ trait InteractsWithDatabase
     /**
      * Assert the given model does not exist in the database.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @return $this
      */
     protected function assertModelMissing($model)
@@ -172,8 +172,8 @@ trait InteractsWithDatabase
     /**
      * Specify the number of database queries that should occur throughout the test.
      *
-     * @param  int  $expected
-     * @param  string|null  $connection
+     * @param int $expected
+     * @param string|null $connection
      * @return $this
      */
     public function expectsDatabaseQueryCount($expected, $connection = null)
@@ -202,7 +202,7 @@ trait InteractsWithDatabase
     /**
      * Determine if the argument is a soft deletable model.
      *
-     * @param  mixed  $model
+     * @param mixed $model
      * @return bool
      */
     protected function isSoftDeletableModel($model)
@@ -214,7 +214,7 @@ trait InteractsWithDatabase
     /**
      * Cast a JSON string to a database compatible type.
      *
-     * @param  array|object|string  $value
+     * @param array|object|string $value
      * @return \Illuminate\Database\Query\Expression
      */
     public function castAsJson($value)
@@ -235,8 +235,8 @@ trait InteractsWithDatabase
     /**
      * Get the database connection.
      *
-     * @param  string|null  $connection
-     * @param  string|null  $table
+     * @param string|null $connection
+     * @param string|null $table
      * @return \Illuminate\Database\Connection
      */
     protected function getConnection($connection = null, $table = null)
@@ -251,7 +251,7 @@ trait InteractsWithDatabase
     /**
      * Get the table name from the given model or string.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
+     * @param \Illuminate\Database\Eloquent\Model|string $table
      * @return string
      */
     protected function getTable($table)
@@ -262,7 +262,7 @@ trait InteractsWithDatabase
     /**
      * Get the table connection specified in the given model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
+     * @param \Illuminate\Database\Eloquent\Model|string $table
      * @return string|null
      */
     protected function getTableConnection($table)
@@ -273,7 +273,7 @@ trait InteractsWithDatabase
     /**
      * Get the model entity from the given model or string.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $table
+     * @param \Illuminate\Database\Eloquent\Model|string $table
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     protected function newModelFor($table)
@@ -284,7 +284,7 @@ trait InteractsWithDatabase
     /**
      * Seed a given database connection.
      *
-     * @param  array|string  $class
+     * @param array|string $class
      * @return $this
      */
     public function seed($class = 'Database\\Seeders\\DatabaseSeeder')

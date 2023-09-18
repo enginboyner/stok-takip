@@ -33,17 +33,17 @@ class FinalClassPass extends CodeCleanerPass
     }
 
     /**
-     * @throws FatalErrorException if the node is a class that extends a final class
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws FatalErrorException if the node is a class that extends a final class
+     *
      */
     public function enterNode(Node $node)
     {
         if ($node instanceof Class_) {
             if ($node->extends) {
-                $extends = (string) $node->extends;
+                $extends = (string)$node->extends;
                 if ($this->isFinalClass($extends)) {
                     $msg = \sprintf('Class %s may not inherit from final class (%s)', $node->name, $extends);
                     throw new FatalErrorException($msg, 0, \E_ERROR, null, $node->getLine());

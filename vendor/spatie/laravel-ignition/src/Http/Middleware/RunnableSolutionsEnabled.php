@@ -9,7 +9,7 @@ class RunnableSolutionsEnabled
 {
     public function handle($request, Closure $next)
     {
-        if (! RunnableSolutionsGuard::check()) {
+        if (!RunnableSolutionsGuard::check()) {
             abort(404);
         }
 

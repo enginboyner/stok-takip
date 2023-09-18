@@ -67,7 +67,7 @@ class Ustring
      */
     public static function getCharWidth(string $char): int
     {
-        $char = (string) $char;
+        $char = (string)$char;
         $c = static::toCode($char);
 
         // Test for 8-bit control characters.
@@ -89,17 +89,17 @@ class Ustring
         return 1 +
             (0x1100 <= $c &&
                 (0x115F >= $c ||                        // Hangul Jamo init. consonants
-                 0x2329 === $c || 0x232A === $c ||
-                     (0x2E80 <= $c && 0xA4CF >= $c &&
-                      0x303F !== $c) ||                // CJK…Yi
-                     (0xAC00 <= $c && 0xD7A3 >= $c) || // Hangul Syllables
-                     (0xF900 <= $c && 0xFAFF >= $c) || // CJK Compatibility Ideographs
-                     (0xFE10 <= $c && 0xFE19 >= $c) || // Vertical forms
-                     (0xFE30 <= $c && 0xFE6F >= $c) || // CJK Compatibility Forms
-                     (0xFF00 <= $c && 0xFF60 >= $c) || // Fullwidth Forms
-                     (0xFFE0 <= $c && 0xFFE6 >= $c) ||
-                     (0x20000 <= $c && 0x2FFFD >= $c) ||
-                     (0x30000 <= $c && 0x3FFFD >= $c)));
+                    0x2329 === $c || 0x232A === $c ||
+                    (0x2E80 <= $c && 0xA4CF >= $c &&
+                        0x303F !== $c) ||                // CJK…Yi
+                    (0xAC00 <= $c && 0xD7A3 >= $c) || // Hangul Syllables
+                    (0xF900 <= $c && 0xFAFF >= $c) || // CJK Compatibility Ideographs
+                    (0xFE10 <= $c && 0xFE19 >= $c) || // Vertical forms
+                    (0xFE30 <= $c && 0xFE6F >= $c) || // CJK Compatibility Forms
+                    (0xFF00 <= $c && 0xFF60 >= $c) || // Fullwidth Forms
+                    (0xFFE0 <= $c && 0xFFE6 >= $c) ||
+                    (0x20000 <= $c && 0x2FFFD >= $c) ||
+                    (0x30000 <= $c && 0x3FFFD >= $c)));
     }
 
     /**
@@ -115,7 +115,7 @@ class Ustring
      */
     public static function toCode(string $char): int
     {
-        $char = (string) $char;
+        $char = (string)$char;
         $code = \ord($char[0]);
         $bytes = 1;
 

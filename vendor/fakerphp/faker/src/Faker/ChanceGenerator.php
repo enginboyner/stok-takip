@@ -47,7 +47,7 @@ class ChanceGenerator
 
     /**
      * @param string $name
-     * @param array  $arguments
+     * @param array $arguments
      */
     public function __call($name, $arguments)
     {

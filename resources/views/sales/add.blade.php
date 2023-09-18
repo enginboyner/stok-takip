@@ -16,11 +16,13 @@
             font-size: 16px;
 
         }
+
         table {
             border-collapse: collapse;
             border: 1px solid #bbbbbb;
         }
-    select.form-control {
+
+        select.form-control {
             padding: 12px 20px;
             font-size: 14px;
             border-radius: 4px;
@@ -37,6 +39,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         input[type="number"] {
             padding: 8px;
             font-size: 14px;
@@ -45,6 +48,7 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         input[type="decimal"] {
             padding: 8px;
             font-size: 14px;
@@ -89,7 +93,8 @@
 
         th:not(:last-child),
         td:not(:last-child) {
-            border-right: 1px solid #ffffff;}
+            border-right: 1px solid #ffffff;
+        }
 
         .table th {
             background-color: #3579f6;
@@ -137,7 +142,6 @@
         }
     </style>
 
-
 @endsection
 
 
@@ -174,7 +178,8 @@
                                         <th style="width: 20%">Miktar</th>
                                         <th style="width: 20%">Fiyat</th>
                                         <th style="width: 15%">Sil
-                                            <button type="button" style="float: right" class="transparent-button" onclick="addRow()">
+                                            <button type="button" style="float: right" class="transparent-button"
+                                                    onclick="addRow()">
                                                 <i class="fa fa-plus fa-sm"></i>
                                             </button>
                                         </th>
@@ -203,12 +208,6 @@
 @endsection
 
 @section("script")
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-    <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
     <script>
         function addRow() {
             $("#myTable tbody").append('' +
@@ -219,7 +218,7 @@
                 '<td> <button name="delete" type="button" class="btn btn-danger btn-sm" title="Sil" onclick="deleteRow(this)"><i class="fas fa-trash"></i> </button></td>' +
                 '</tr>');
 
-            $(document).on('change', '.column1, .column2', function() {
+            $(document).on('change', '.column1, .column2', function () {
                 calculateTotal();
             });
 
@@ -239,6 +238,7 @@
             var tableRow = $("#myTable tbody tr:last");
             tableRow.find("td:first").html(selectElement);
         }
+
         function deleteRow(button) {
             $(button).closest('tr').remove();
             calculateTotal();
@@ -246,7 +246,7 @@
 
         function calculateTotal() {
             var total = 0;
-            $('.column1').each(function(index) {
+            $('.column1').each(function (index) {
                 var val1 = parseFloat($(this).val());
                 var val2 = parseFloat($('.column2:eq(' + index + ')').val());
                 if (!isNaN(val1) && !isNaN(val2)) {

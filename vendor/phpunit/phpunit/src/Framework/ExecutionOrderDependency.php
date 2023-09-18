@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function array_filter;
@@ -50,10 +51,10 @@ final class ExecutionOrderDependency
 
         if (count($parts) === 1) {
             $cloneOption = '';
-            $target      = $parts[0];
+            $target = $parts[0];
         } else {
             $cloneOption = $parts[0];
-            $target      = $parts[1];
+            $target = $parts[1];
         }
 
         // Prefix provided class for targets assumed to be in scope
@@ -74,8 +75,7 @@ final class ExecutionOrderDependency
         return array_values(
             array_filter(
                 $dependencies,
-                static function (self $d)
-                {
+                static function (self $d) {
                     return $d->isValid();
                 },
             ),
@@ -91,8 +91,7 @@ final class ExecutionOrderDependency
     public static function mergeUnique(array $existing, array $additional): array
     {
         $existingTargets = array_map(
-            static function ($dependency)
-            {
+            static function ($dependency) {
                 return $dependency->getTarget();
             },
             $existing,
@@ -104,7 +103,7 @@ final class ExecutionOrderDependency
             }
 
             $existingTargets[] = $dependency->getTarget();
-            $existing[]        = $dependency;
+            $existing[] = $dependency;
         }
 
         return $existing;
@@ -126,10 +125,9 @@ final class ExecutionOrderDependency
             return [];
         }
 
-        $diff         = [];
+        $diff = [];
         $rightTargets = array_map(
-            static function ($dependency)
-            {
+            static function ($dependency) {
                 return $dependency->getTarget();
             },
             $right,
@@ -155,7 +153,7 @@ final class ExecutionOrderDependency
         if (strpos($classOrCallableName, '::') !== false) {
             [$this->className, $this->methodName] = explode('::', $classOrCallableName);
         } else {
-            $this->className  = $classOrCallableName;
+            $this->className = $classOrCallableName;
             $this->methodName = !empty($methodName) ? $methodName : 'class';
         }
 

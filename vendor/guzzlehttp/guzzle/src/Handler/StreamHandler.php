@@ -31,7 +31,7 @@ class StreamHandler
      * Sends an HTTP request.
      *
      * @param RequestInterface $request Request to send.
-     * @param array            $options Request transfer options.
+     * @param array $options Request transfer options.
      */
     public function __invoke(RequestInterface $request, array $options): PromiseInterface
     {
@@ -80,12 +80,13 @@ class StreamHandler
     }
 
     private function invokeStats(
-        array $options,
-        RequestInterface $request,
-        ?float $startTime,
+        array             $options,
+        RequestInterface  $request,
+        ?float            $startTime,
         ResponseInterface $response = null,
-        \Throwable $error = null
-    ): void {
+        \Throwable        $error = null
+    ): void
+    {
         if (isset($options['on_stats'])) {
             $stats = new TransferStats($request, $response, Utils::currentTime() - $startTime, $error, []);
             ($options['on_stats'])($stats);
@@ -176,7 +177,7 @@ class StreamHandler
                     // Fix content-length header
                     if (isset($normalizedKeys['content-length'])) {
                         $headers['x-encoded-content-length'] = $headers[$normalizedKeys['content-length']];
-                        $length = (int) $stream->getSize();
+                        $length = (int)$stream->getSize();
                         if ($length === 0) {
                             unset($headers[$normalizedKeys['content-length']]);
                         } else {
@@ -207,7 +208,7 @@ class StreamHandler
         Psr7\Utils::copyToStream(
             $source,
             $sink,
-            (\strlen($contentLength) > 0 && (int) $contentLength > 0) ? (int) $contentLength : -1
+            (\strlen($contentLength) > 0 && (int)$contentLength > 0) ? (int)$contentLength : -1
         );
 
         $sink->seek(0);
@@ -248,7 +249,7 @@ class StreamHandler
             $message = 'Error creating resource: ';
             foreach ($errors as $err) {
                 foreach ($err as $key => $value) {
-                    $message .= "[$key] $value".\PHP_EOL;
+                    $message .= "[$key] $value" . \PHP_EOL;
                 }
             }
             throw new \RuntimeException(\trim($message));
@@ -322,7 +323,7 @@ class StreamHandler
 
         return $this->createResource(
             function () use ($uri, &$http_response_header, $contextResource, $context, $options, $request) {
-                $resource = @\fopen((string) $uri, 'r', false, $contextResource);
+                $resource = @\fopen((string)$uri, 'r', false, $contextResource);
                 $this->lastHeaders = $http_response_header ?? [];
 
                 if (false === $resource) {
@@ -331,7 +332,7 @@ class StreamHandler
 
                 if (isset($options['read_timeout'])) {
                     $readTimeout = $options['read_timeout'];
-                    $sec = (int) $readTimeout;
+                    $sec = (int)$readTimeout;
                     $usec = ($readTimeout - $sec) * 100000;
                     \stream_set_timeout($resource, $sec, $usec);
                 }
@@ -360,7 +361,7 @@ class StreamHandler
                     throw new ConnectException(\sprintf("Could not resolve IPv6 address for host '%s'", $uri->getHost()), $request);
                 }
 
-                return $uri->withHost('['.$records[0]['ipv6'].']');
+                return $uri->withHost('[' . $records[0]['ipv6'] . ']');
             }
         }
 
@@ -389,7 +390,7 @@ class StreamHandler
             ],
         ];
 
-        $body = (string) $request->getBody();
+        $body = (string)$request->getBody();
 
         if ('' !== $body) {
             $context['http']['content'] = $body;
@@ -578,13 +579,13 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code', 'bytes_transferred', 'bytes_max'];
 
         $value = Utils::debugResource($value);
-        $ident = $request->getMethod().' '.$request->getUri()->withFragment('');
+        $ident = $request->getMethod() . ' ' . $request->getUri()->withFragment('');
         self::addNotification(
             $params,
             static function (int $code, ...$passed) use ($ident, $value, $map, $args): void {
                 \fprintf($value, '<%s> [%s] ', $ident, $map[$code]);
                 foreach (\array_filter($passed) as $i => $v) {
-                    \fwrite($value, $args[$i].': "'.$v.'" ');
+                    \fwrite($value, $args[$i] . ': "' . $v . '" ');
                 }
                 \fwrite($value, "\n");
             }

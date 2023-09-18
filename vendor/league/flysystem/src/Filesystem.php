@@ -22,12 +22,13 @@ class Filesystem implements FilesystemOperator
     private PathNormalizer $pathNormalizer;
 
     public function __construct(
-        private FilesystemAdapter $adapter,
-        array $config = [],
-        PathNormalizer $pathNormalizer = null,
-        private ?PublicUrlGenerator $publicUrlGenerator = null,
+        private FilesystemAdapter      $adapter,
+        array                          $config = [],
+        PathNormalizer                 $pathNormalizer = null,
+        private ?PublicUrlGenerator    $publicUrlGenerator = null,
         private ?TemporaryUrlGenerator $temporaryUrlGenerator = null,
-    ) {
+    )
+    {
         $this->config = new Config($config);
         $this->pathNormalizer = $pathNormalizer ?: new WhitespacePathNormalizer();
     }
@@ -184,7 +185,7 @@ class Filesystem implements FilesystemOperator
     {
         $config = $this->config->extend($config);
 
-        if ( ! $this->adapter instanceof ChecksumProvider) {
+        if (!$this->adapter instanceof ChecksumProvider) {
             return $this->calculateChecksumFromStream($path, $config);
         }
 

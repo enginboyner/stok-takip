@@ -34,7 +34,8 @@ final class CachingStream implements StreamInterface
     public function __construct(
         StreamInterface $stream,
         StreamInterface $target = null
-    ) {
+    )
+    {
         $this->remoteStream = $stream;
         $this->stream = $target ?: new Stream(Utils::tryFopen('php://temp', 'r+'));
     }

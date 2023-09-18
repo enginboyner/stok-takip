@@ -6,12 +6,13 @@
             <div class="card-header">
                 <h3 class="card-title">Kategori Düzenleme Formu</h3>
             </div>
-            <form id="form" action="{{ route('category.update', $categoryEdit->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('category.update', $categoryEdit->id) }}" method="POST"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">İsim:</label>
-                        <input type="text" class="form-control" id="name" name="name"value="{{$categoryEdit->name}}">
+                        <input type="text" class="form-control" id="name" name="name" value="{{$categoryEdit->name}}">
                     </div>
                 </div>
                 <div class="card-footer">
@@ -23,11 +24,4 @@
     </div>
 @endsection
 
-@section("script")
-    <script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-    <script>
-        $(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
-@endsection
+

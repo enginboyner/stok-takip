@@ -31,11 +31,11 @@ class PassableByReferencePass extends CodeCleanerPass
     const EXCEPTION_MESSAGE = 'Only variables can be passed by reference';
 
     /**
-     * @throws FatalErrorException if non-variables are passed by reference
-     *
      * @param Node $node
      *
      * @return int|Node|null Replacement node (or special return value)
+     * @throws FatalErrorException if non-variables are passed by reference
+     *
      */
     public function enterNode(Node $node)
     {
@@ -46,7 +46,7 @@ class PassableByReferencePass extends CodeCleanerPass
                 return;
             }
 
-            $name = (string) $node->name;
+            $name = (string)$node->name;
 
             if ($name === 'array_multisort') {
                 return $this->validateArrayMultisort($node);
@@ -99,9 +99,9 @@ class PassableByReferencePass extends CodeCleanerPass
      * This is why you don't design languages where core code and extensions can
      * implement APIs that wouldn't be possible in userland code.
      *
+     * @param Node $node
      * @throws FatalErrorException for clearly invalid arguments
      *
-     * @param Node $node
      */
     private function validateArrayMultisort(Node $node)
     {

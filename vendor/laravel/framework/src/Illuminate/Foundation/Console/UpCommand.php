@@ -43,7 +43,7 @@ class UpCommand extends Command
     public function handle()
     {
         try {
-            if (! $this->laravel->maintenanceMode()->active()) {
+            if (!$this->laravel->maintenanceMode()->active()) {
                 $this->components->info('Application is already up.');
 
                 return 0;

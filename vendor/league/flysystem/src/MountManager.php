@@ -257,7 +257,7 @@ class MountManager implements FilesystemOperator
         /** @var FilesystemOperator $filesystem */
         [$filesystem, $path] = $this->determineFilesystemAndPath($path);
 
-        if ( ! method_exists($filesystem, 'publicUrl')) {
+        if (!method_exists($filesystem, 'publicUrl')) {
             throw new UnableToGeneratePublicUrl(sprintf('%s does not support generating public urls.', $filesystem::class), $path);
         }
 
@@ -269,7 +269,7 @@ class MountManager implements FilesystemOperator
         /** @var FilesystemOperator $filesystem */
         [$filesystem, $path] = $this->determineFilesystemAndPath($path);
 
-        if ( ! method_exists($filesystem, 'temporaryUrl')) {
+        if (!method_exists($filesystem, 'temporaryUrl')) {
             throw new UnableToGenerateTemporaryUrl(sprintf('%s does not support generating public urls.', $filesystem::class), $path);
         }
 
@@ -281,7 +281,7 @@ class MountManager implements FilesystemOperator
         /** @var FilesystemOperator $filesystem */
         [$filesystem, $path] = $this->determineFilesystemAndPath($path);
 
-        if ( ! method_exists($filesystem, 'checksum')) {
+        if (!method_exists($filesystem, 'checksum')) {
             throw new UnableToProvideChecksum(sprintf('%s does not support providing checksums.', $filesystem::class), $path);
         }
 
@@ -304,11 +304,11 @@ class MountManager implements FilesystemOperator
      */
     private function guardAgainstInvalidMount($key, $filesystem): void
     {
-        if ( ! is_string($key)) {
+        if (!is_string($key)) {
             throw UnableToMountFilesystem::becauseTheKeyIsNotValid($key);
         }
 
-        if ( ! $filesystem instanceof FilesystemOperator) {
+        if (!$filesystem instanceof FilesystemOperator) {
             throw UnableToMountFilesystem::becauseTheFilesystemWasNotValid($filesystem);
         }
     }
@@ -333,7 +333,7 @@ class MountManager implements FilesystemOperator
         /** @var string $mountPath */
         [$mountIdentifier, $mountPath] = explode('://', $path, 2);
 
-        if ( ! array_key_exists($mountIdentifier, $this->filesystems)) {
+        if (!array_key_exists($mountIdentifier, $this->filesystems)) {
             throw UnableToResolveFilesystemMount::becauseTheMountWasNotRegistered($mountIdentifier);
         }
 
@@ -342,11 +342,12 @@ class MountManager implements FilesystemOperator
 
     private function copyInSameFilesystem(
         FilesystemOperator $sourceFilesystem,
-        string $sourcePath,
-        string $destinationPath,
-        string $source,
-        string $destination
-    ): void {
+        string             $sourcePath,
+        string             $destinationPath,
+        string             $source,
+        string             $destination
+    ): void
+    {
         try {
             $sourceFilesystem->copy($sourcePath, $destinationPath);
         } catch (UnableToCopyFile $exception) {
@@ -355,30 +356,32 @@ class MountManager implements FilesystemOperator
     }
 
     private function copyAcrossFilesystem(
-        ?string $visibility,
+        ?string            $visibility,
         FilesystemOperator $sourceFilesystem,
-        string $sourcePath,
+        string             $sourcePath,
         FilesystemOperator $destinationFilesystem,
-        string $destinationPath,
-        string $source,
-        string $destination
-    ): void {
+        string             $destinationPath,
+        string             $source,
+        string             $destination
+    ): void
+    {
         try {
             $visibility = $visibility ?? $sourceFilesystem->visibility($sourcePath);
             $stream = $sourceFilesystem->readStream($sourcePath);
             $destinationFilesystem->writeStream($destinationPath, $stream, compact('visibility'));
-        } catch (UnableToRetrieveMetadata | UnableToReadFile | UnableToWriteFile $exception) {
+        } catch (UnableToRetrieveMetadata|UnableToReadFile|UnableToWriteFile $exception) {
             throw UnableToCopyFile::fromLocationTo($source, $destination, $exception);
         }
     }
 
     private function moveInTheSameFilesystem(
         FilesystemOperator $sourceFilesystem,
-        string $sourcePath,
-        string $destinationPath,
-        string $source,
-        string $destination
-    ): void {
+        string             $sourcePath,
+        string             $destinationPath,
+        string             $source,
+        string             $destination
+    ): void
+    {
         try {
             $sourceFilesystem->move($sourcePath, $destinationPath);
         } catch (UnableToMoveFile $exception) {
@@ -391,7 +394,7 @@ class MountManager implements FilesystemOperator
         try {
             $this->copy($source, $destination, $config);
             $this->delete($source);
-        } catch (UnableToCopyFile | UnableToDeleteFile $exception) {
+        } catch (UnableToCopyFile|UnableToDeleteFile $exception) {
             throw UnableToMoveFile::fromLocationTo($source, $destination, $exception);
         }
     }

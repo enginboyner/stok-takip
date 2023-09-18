@@ -47,12 +47,12 @@ class ClearCommand extends Command
      */
     public function handle()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return 1;
         }
 
         $connection = $this->argument('connection')
-                        ?: $this->laravel['config']['queue.default'];
+            ?: $this->laravel['config']['queue.default'];
 
         // We need to get the right queue for the connection which is set in the queue
         // configuration file for the application. We will pull it based on the set
@@ -64,9 +64,9 @@ class ClearCommand extends Command
         if ($queue instanceof ClearableQueue) {
             $count = $queue->clear($queueName);
 
-            $this->components->info('Cleared '.$count.' jobs from the ['.$queueName.'] queue');
+            $this->components->info('Cleared ' . $count . ' jobs from the [' . $queueName . '] queue');
         } else {
-            $this->components->error('Clearing queues is not supported on ['.(new ReflectionClass($queue))->getShortName().']');
+            $this->components->error('Clearing queues is not supported on [' . (new ReflectionClass($queue))->getShortName() . ']');
         }
 
         return 0;
@@ -75,7 +75,7 @@ class ClearCommand extends Command
     /**
      * Get the queue name to clear.
      *
-     * @param  string  $connection
+     * @param string $connection
      * @return string
      */
     protected function getQueue($connection)

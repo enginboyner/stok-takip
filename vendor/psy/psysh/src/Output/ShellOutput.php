@@ -33,10 +33,10 @@ class ShellOutput extends ConsoleOutput
     /**
      * Construct a ShellOutput instance.
      *
-     * @param mixed                         $verbosity (default: self::VERBOSITY_NORMAL)
-     * @param bool|null                     $decorated (default: null)
+     * @param mixed $verbosity (default: self::VERBOSITY_NORMAL)
+     * @param bool|null $decorated (default: null)
      * @param OutputFormatterInterface|null $formatter (default: null)
-     * @param string|OutputPager|null       $pager     (default: null)
+     * @param string|OutputPager|null $pager (default: null)
      */
     public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = null, OutputFormatterInterface $formatter = null, $pager = null, $theme = null)
     {
@@ -52,7 +52,7 @@ class ShellOutput extends ConsoleOutput
         } elseif ($pager instanceof OutputPager) {
             $this->pager = $pager;
         } else {
-            throw new \InvalidArgumentException('Unexpected pager parameter: '.$pager);
+            throw new \InvalidArgumentException('Unexpected pager parameter: ' . $pager);
         }
     }
 
@@ -67,12 +67,12 @@ class ShellOutput extends ConsoleOutput
      * Upon completion, the output pager is flushed.
      *
      * @param string|array|\Closure $messages A string, array of strings or a callback
-     * @param int                   $type     (default: 0)
+     * @param int $type (default: 0)
      */
     public function page($messages, int $type = 0)
     {
         if (\is_string($messages)) {
-            $messages = (array) $messages;
+            $messages = (array)$messages;
         }
 
         if (!\is_array($messages) && !\is_callable($messages)) {
@@ -113,11 +113,11 @@ class ShellOutput extends ConsoleOutput
      * Optionally, pass `$type | self::NUMBER_LINES` as the $type parameter to
      * number the lines of output.
      *
+     * @param string|array $messages The message as an array of lines or a single string
+     * @param bool $newline Whether to add a newline or not
+     * @param int $type The type of output
      * @throws \InvalidArgumentException When unknown output type is given
      *
-     * @param string|array $messages The message as an array of lines or a single string
-     * @param bool         $newline  Whether to add a newline or not
-     * @param int          $type     The type of output
      */
     public function write($messages, $newline = false, $type = 0)
     {
@@ -125,10 +125,10 @@ class ShellOutput extends ConsoleOutput
             return;
         }
 
-        $messages = (array) $messages;
+        $messages = (array)$messages;
 
         if ($type & self::NUMBER_LINES) {
-            $pad = \strlen((string) \count($messages));
+            $pad = \strlen((string)\count($messages));
             $template = $this->isDecorated() ? "<aside>%{$pad}s</aside>: %s" : "%{$pad}s: %s";
 
             if ($type & self::OUTPUT_RAW) {
@@ -152,7 +152,7 @@ class ShellOutput extends ConsoleOutput
      * Handles paged output, or writes directly to the output stream.
      *
      * @param string $message A message to write to the output
-     * @param bool   $newline Whether to add a newline or not
+     * @param bool $newline Whether to add a newline or not
      */
     public function doWrite($message, $newline)
     {

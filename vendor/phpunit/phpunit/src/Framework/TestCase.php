@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use const LC_ALL;
@@ -490,7 +491,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             $this->setName($name);
         }
 
-        $this->data     = $data;
+        $this->data = $data;
         $this->dataName = $dataName;
     }
 
@@ -853,10 +854,10 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             }
 
             if ($this->preserveGlobalState) {
-                $constants     = GlobalState::getConstantsAsString();
-                $globals       = GlobalState::getGlobalsAsString();
+                $constants = GlobalState::getConstantsAsString();
+                $globals = GlobalState::getGlobalsAsString();
                 $includedFiles = GlobalState::getIncludedFilesAsString();
-                $iniSettings   = GlobalState::getIniSettingsAsString();
+                $iniSettings = GlobalState::getIniSettingsAsString();
             } else {
                 $constants = '';
 
@@ -867,14 +868,14 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
                 }
 
                 $includedFiles = '';
-                $iniSettings   = '';
+                $iniSettings = '';
             }
 
-            $coverage                                   = $result->getCollectCodeCoverageInformation() ? 'true' : 'false';
-            $isStrictAboutTestsThatDoNotTestAnything    = $result->isStrictAboutTestsThatDoNotTestAnything() ? 'true' : 'false';
-            $isStrictAboutOutputDuringTests             = $result->isStrictAboutOutputDuringTests() ? 'true' : 'false';
-            $enforcesTimeLimit                          = $result->enforcesTimeLimit() ? 'true' : 'false';
-            $isStrictAboutTodoAnnotatedTests            = $result->isStrictAboutTodoAnnotatedTests() ? 'true' : 'false';
+            $coverage = $result->getCollectCodeCoverageInformation() ? 'true' : 'false';
+            $isStrictAboutTestsThatDoNotTestAnything = $result->isStrictAboutTestsThatDoNotTestAnything() ? 'true' : 'false';
+            $isStrictAboutOutputDuringTests = $result->isStrictAboutOutputDuringTests() ? 'true' : 'false';
+            $enforcesTimeLimit = $result->enforcesTimeLimit() ? 'true' : 'false';
+            $isStrictAboutTodoAnnotatedTests = $result->isStrictAboutTodoAnnotatedTests() ? 'true' : 'false';
             $isStrictAboutResourceUsageDuringSmallTests = $result->isStrictAboutResourceUsageDuringSmallTests() ? 'true' : 'false';
 
             if (defined('PHPUNIT_COMPOSER_INSTALL')) {
@@ -889,11 +890,11 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
                 $phar = '\'\'';
             }
 
-            $codeCoverage               = $result->getCodeCoverage();
-            $codeCoverageFilter         = null;
-            $cachesStaticAnalysis       = 'false';
+            $codeCoverage = $result->getCodeCoverage();
+            $codeCoverageFilter = null;
+            $cachesStaticAnalysis = 'false';
             $codeCoverageCacheDirectory = null;
-            $driverMethod               = 'forLineCoverage';
+            $driverMethod = 'forLineCoverage';
 
             if ($codeCoverage) {
                 $codeCoverageFilter = $codeCoverage->filter();
@@ -903,53 +904,53 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
                 }
 
                 if ($codeCoverage->cachesStaticAnalysis()) {
-                    $cachesStaticAnalysis       = 'true';
+                    $cachesStaticAnalysis = 'true';
                     $codeCoverageCacheDirectory = $codeCoverage->cacheDirectory();
                 }
             }
 
-            $data                       = var_export(serialize($this->data), true);
-            $dataName                   = var_export($this->dataName, true);
-            $dependencyInput            = var_export(serialize($this->dependencyInput), true);
-            $includePath                = var_export(get_include_path(), true);
-            $codeCoverageFilter         = var_export(serialize($codeCoverageFilter), true);
+            $data = var_export(serialize($this->data), true);
+            $dataName = var_export($this->dataName, true);
+            $dependencyInput = var_export(serialize($this->dependencyInput), true);
+            $includePath = var_export(get_include_path(), true);
+            $codeCoverageFilter = var_export(serialize($codeCoverageFilter), true);
             $codeCoverageCacheDirectory = var_export(serialize($codeCoverageCacheDirectory), true);
             // must do these fixes because TestCaseMethod.tpl has unserialize('{data}') in it, and we can't break BC
             // the lines above used to use addcslashes() rather than var_export(), which breaks null byte escape sequences
-            $data                       = "'." . $data . ".'";
-            $dataName                   = "'.(" . $dataName . ").'";
-            $dependencyInput            = "'." . $dependencyInput . ".'";
-            $includePath                = "'." . $includePath . ".'";
-            $codeCoverageFilter         = "'." . $codeCoverageFilter . ".'";
+            $data = "'." . $data . ".'";
+            $dataName = "'.(" . $dataName . ").'";
+            $dependencyInput = "'." . $dependencyInput . ".'";
+            $includePath = "'." . $includePath . ".'";
+            $codeCoverageFilter = "'." . $codeCoverageFilter . ".'";
             $codeCoverageCacheDirectory = "'." . $codeCoverageCacheDirectory . ".'";
 
             $configurationFilePath = $GLOBALS['__PHPUNIT_CONFIGURATION_FILE'] ?? '';
 
             $var = [
-                'composerAutoload'                           => $composerAutoload,
-                'phar'                                       => $phar,
-                'filename'                                   => $class->getFileName(),
-                'className'                                  => $class->getName(),
-                'collectCodeCoverageInformation'             => $coverage,
-                'cachesStaticAnalysis'                       => $cachesStaticAnalysis,
-                'codeCoverageCacheDirectory'                 => $codeCoverageCacheDirectory,
-                'driverMethod'                               => $driverMethod,
-                'data'                                       => $data,
-                'dataName'                                   => $dataName,
-                'dependencyInput'                            => $dependencyInput,
-                'constants'                                  => $constants,
-                'globals'                                    => $globals,
-                'include_path'                               => $includePath,
-                'included_files'                             => $includedFiles,
-                'iniSettings'                                => $iniSettings,
-                'isStrictAboutTestsThatDoNotTestAnything'    => $isStrictAboutTestsThatDoNotTestAnything,
-                'isStrictAboutOutputDuringTests'             => $isStrictAboutOutputDuringTests,
-                'enforcesTimeLimit'                          => $enforcesTimeLimit,
-                'isStrictAboutTodoAnnotatedTests'            => $isStrictAboutTodoAnnotatedTests,
+                'composerAutoload' => $composerAutoload,
+                'phar' => $phar,
+                'filename' => $class->getFileName(),
+                'className' => $class->getName(),
+                'collectCodeCoverageInformation' => $coverage,
+                'cachesStaticAnalysis' => $cachesStaticAnalysis,
+                'codeCoverageCacheDirectory' => $codeCoverageCacheDirectory,
+                'driverMethod' => $driverMethod,
+                'data' => $data,
+                'dataName' => $dataName,
+                'dependencyInput' => $dependencyInput,
+                'constants' => $constants,
+                'globals' => $globals,
+                'include_path' => $includePath,
+                'included_files' => $includedFiles,
+                'iniSettings' => $iniSettings,
+                'isStrictAboutTestsThatDoNotTestAnything' => $isStrictAboutTestsThatDoNotTestAnything,
+                'isStrictAboutOutputDuringTests' => $isStrictAboutOutputDuringTests,
+                'enforcesTimeLimit' => $enforcesTimeLimit,
+                'isStrictAboutTodoAnnotatedTests' => $isStrictAboutTodoAnnotatedTests,
                 'isStrictAboutResourceUsageDuringSmallTests' => $isStrictAboutResourceUsageDuringSmallTests,
-                'codeCoverageFilter'                         => $codeCoverageFilter,
-                'configurationFilePath'                      => $configurationFilePath,
-                'name'                                       => $this->getName(false),
+                'codeCoverageFilter' => $codeCoverageFilter,
+                'configurationFilePath' => $configurationFilePath,
+                'name' => $this->getName(false),
             ];
 
             if (!$runEntireClass) {
@@ -1096,7 +1097,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             return $this->output;
         }
 
-        return (string) ob_get_contents();
+        return (string)ob_get_contents();
     }
 
     /**
@@ -1229,28 +1230,28 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
             $this->status = BaseTestRunner::STATUS_PASSED;
         } catch (IncompleteTest $e) {
-            $this->status        = BaseTestRunner::STATUS_INCOMPLETE;
+            $this->status = BaseTestRunner::STATUS_INCOMPLETE;
             $this->statusMessage = $e->getMessage();
         } catch (SkippedTest $e) {
-            $this->status        = BaseTestRunner::STATUS_SKIPPED;
+            $this->status = BaseTestRunner::STATUS_SKIPPED;
             $this->statusMessage = $e->getMessage();
         } catch (Warning $e) {
-            $this->status        = BaseTestRunner::STATUS_WARNING;
+            $this->status = BaseTestRunner::STATUS_WARNING;
             $this->statusMessage = $e->getMessage();
         } catch (AssertionFailedError $e) {
-            $this->status        = BaseTestRunner::STATUS_FAILURE;
+            $this->status = BaseTestRunner::STATUS_FAILURE;
             $this->statusMessage = $e->getMessage();
         } catch (PredictionException $e) {
-            $this->status        = BaseTestRunner::STATUS_FAILURE;
+            $this->status = BaseTestRunner::STATUS_FAILURE;
             $this->statusMessage = $e->getMessage();
         } catch (Throwable $_e) {
-            $e                   = $_e;
-            $this->status        = BaseTestRunner::STATUS_ERROR;
+            $e = $_e;
+            $this->status = BaseTestRunner::STATUS_ERROR;
             $this->statusMessage = $_e->getMessage();
         }
 
         $this->mockObjects = [];
-        $this->prophet     = null;
+        $this->prophet = null;
 
         // Tear down the fixture. An exception raised in tearDown() will be
         // caught and passed on when no exception was raised before.
@@ -1277,7 +1278,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         }
 
         if (isset($_e)) {
-            $this->status        = BaseTestRunner::STATUS_ERROR;
+            $this->status = BaseTestRunner::STATUS_ERROR;
             $this->statusMessage = $_e->getMessage();
         }
 
@@ -1833,8 +1834,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
         $mockedMethodsThatDontExist = array_filter(
             $methods,
-            static function (string $method) use ($reflector)
-            {
+            static function (string $method) use ($reflector) {
                 return !$reflector->hasMethod($method);
             },
         );
@@ -1953,18 +1953,18 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         $this->recordDoubledType(SoapClient::class);
 
         if ($originalClassName === '') {
-            $fileName          = pathinfo(basename(parse_url($wsdlFile, PHP_URL_PATH)), PATHINFO_FILENAME);
+            $fileName = pathinfo(basename(parse_url($wsdlFile, PHP_URL_PATH)), PATHINFO_FILENAME);
             $originalClassName = preg_replace('/\W/', '', $fileName);
         }
 
         if (!class_exists($originalClassName)) {
             eval(
-                $this->getMockObjectGenerator()->generateClassFromWsdl(
-                    $wsdlFile,
-                    $originalClassName,
-                    $methods,
-                    $options,
-                )
+            $this->getMockObjectGenerator()->generateClassFromWsdl(
+                $wsdlFile,
+                $originalClassName,
+                $methods,
+                $options,
+            )
             );
         }
 
@@ -2135,9 +2135,9 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             return true;
         }
 
-        $passed     = $this->result->passed();
+        $passed = $this->result->passed();
         $passedKeys = array_keys($passed);
-        $numKeys    = count($passedKeys);
+        $numKeys = count($passedKeys);
 
         for ($i = 0; $i < $numKeys; $i++) {
             $pos = strpos($passedKeys[$i], ' with data set');
@@ -2287,7 +2287,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         ob_start();
 
         $this->outputBufferingActive = true;
-        $this->outputBufferingLevel  = ob_get_level();
+        $this->outputBufferingLevel = ob_get_level();
     }
 
     /**
@@ -2308,13 +2308,13 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         $this->output = ob_get_contents();
 
         if ($this->outputCallback !== false) {
-            $this->output = (string) call_user_func($this->outputCallback, $this->output);
+            $this->output = (string)call_user_func($this->outputCallback, $this->output);
         }
 
         ob_end_clean();
 
         $this->outputBufferingActive = false;
-        $this->outputBufferingLevel  = ob_get_level();
+        $this->outputBufferingLevel = ob_get_level();
     }
 
     private function snapshotGlobalState(): void
@@ -2412,7 +2412,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         return new Snapshot(
             $excludeList,
             $backupGlobals,
-            (bool) $this->backupStaticAttributes,
+            (bool)$this->backupStaticAttributes,
             false,
             false,
             false,
@@ -2460,7 +2460,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     private function compareGlobalStateSnapshotPart(array $before, array $after, string $header): void
     {
         if ($before != $after) {
-            $differ   = new Differ($header);
+            $differ = new Differ($header);
             $exporter = new Exporter;
 
             $diff = $differ->diff(

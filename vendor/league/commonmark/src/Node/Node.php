@@ -67,7 +67,7 @@ abstract class Node
     protected function setParent(?Node $node = null): void
     {
         $this->parent = $node;
-        $this->depth  = $node === null ? 0 : $node->depth + 1;
+        $this->depth = $node === null ? 0 : $node->depth + 1;
     }
 
     /**
@@ -83,10 +83,10 @@ abstract class Node
         }
 
         $sibling->previous = $this;
-        $this->next        = $sibling;
+        $this->next = $sibling;
         $sibling->setParent($this->parent);
 
-        if (! $sibling->next && $sibling->parent) {
+        if (!$sibling->next && $sibling->parent) {
             $sibling->parent->lastChild = $sibling;
         }
     }
@@ -103,11 +103,11 @@ abstract class Node
             $sibling->previous->next = $sibling;
         }
 
-        $sibling->next  = $this;
+        $sibling->next = $this;
         $this->previous = $sibling;
         $sibling->setParent($this->parent);
 
-        if (! $sibling->previous && $sibling->parent) {
+        if (!$sibling->previous && $sibling->parent) {
             $sibling->parent->firstChild = $sibling;
         }
     }
@@ -133,10 +133,10 @@ abstract class Node
             $this->parent->lastChild = $this->previous;
         }
 
-        $this->parent   = null;
-        $this->next     = null;
+        $this->parent = null;
+        $this->next = null;
         $this->previous = null;
-        $this->depth    = 0;
+        $this->depth = 0;
     }
 
     public function hasChildren(): bool
@@ -240,9 +240,9 @@ abstract class Node
     public function __clone()
     {
         // Cloned nodes are detached from their parents, siblings, and children
-        $this->parent   = null;
+        $this->parent = null;
         $this->previous = null;
-        $this->next     = null;
+        $this->next = null;
         // But save a copy of the children since we'll need that in a moment
         $children = $this->children();
         $this->detachChildren();
@@ -255,7 +255,7 @@ abstract class Node
 
     public static function assertInstanceOf(Node $node): void
     {
-        if (! $node instanceof static) {
+        if (!$node instanceof static) {
             throw new InvalidArgumentException(\sprintf('Incompatible node type: expected %s, got %s', static::class, \get_class($node)));
         }
     }

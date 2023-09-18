@@ -31,7 +31,7 @@ final class MarkdownToXmlConverter implements ConverterInterface
 
     public function __construct(EnvironmentInterface $environment)
     {
-        $this->parser   = new MarkdownParser($environment);
+        $this->parser = new MarkdownParser($environment);
         $this->renderer = new XmlRenderer($environment);
     }
 
@@ -48,9 +48,9 @@ final class MarkdownToXmlConverter implements ConverterInterface
     /**
      * Converts CommonMark to HTML.
      *
+     * @throws CommonMarkException
      * @see MarkdownToXmlConverter::convert()
      *
-     * @throws CommonMarkException
      */
     public function __invoke(string $input): RenderedContentInterface
     {
