@@ -11,6 +11,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/images" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/upload" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/uploads" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/string/Resources/bin" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
